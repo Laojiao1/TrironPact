@@ -1,0 +1,5 @@
+__pycache__/
+.pytest_cache/
+*.py[cod]
+results/poc_results_quick.md
+results/poc_results_quick.json
