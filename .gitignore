@@ -3,3 +3,4 @@ __pycache__/
 *.py[cod]
 results/poc_results_quick.md
 results/poc_results_quick.json
+.vscode
