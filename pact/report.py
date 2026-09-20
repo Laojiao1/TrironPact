@@ -34,10 +34,10 @@ def _predicate(item: dict) -> str:
 def render_markdown(data: dict) -> str:
     """先给结论，再给逐例证据，最后说明证明范围。"""
     lines = [
-        "# TritonPact PoC 验收报告",
+        "# TritonPact 受限契约与分派回归报告",
         "",
         f"> 生成时间：{datetime.now().astimezone().strftime('%Y-%m-%d %H:%M:%S %Z')}  ",
-        f"> 受限 PoC 最低验收：**{'通过' if data['go_core'] else '未通过'}**  ",
+        f"> 受限案例验收：**{'通过' if data['go_core'] else '未通过'}**  ",
         f"> A 模板内的动态候选修订：**{'已验证' if data['refinement_verified'] else '尚未验证'}**",
         "",
         "## 验收项",
@@ -121,4 +121,4 @@ def render_markdown(data: dict) -> str:
         "- 机器数据把 `guard_basis`、`fast_eligible` 与 `observation_level` 分开保存；即使 Fallback 的输出正确，若静态条件不足，Fast 仍不放行。",
         "",
     ])
-    return "\n".join(lines)
+    return "\n".join(line.rstrip() for line in lines)

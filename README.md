@@ -1,8 +1,17 @@
-# TritonPact 受限研究 PoC
+# TritonPact：Triton Kernel 访存契约分析
 
-TritonPact 研究 PyTorch Tensor 的物理布局与 Triton Kernel 访存之间的契约。本目录是两周 PoC：在**外部给定算子语义、Kernel 参数映射和 PyTorch 参考实现**的前提下，从受支持的 Triton Python AST 提取访存信息与候选布局条件，再用边界输入、隔离 Oracle 和 Guard 验证 Fast / PyTorch Fallback 分派。
+TritonPact 研究 PyTorch Tensor 的物理布局与 Triton Kernel 访存之间的契约。项目已完成**第一阶段 PoC**和**第二阶段契约 DSL 与统一 AST/Access IR**；第三阶段尚未启动。在外部给定算子语义、Kernel 参数映射和 PyTorch 参考实现的前提下，系统解析受支持的 Triton Python 源码，核对现有有限契约，再用边界输入、隔离 Oracle 和 Guard 验证 Fast / PyTorch Fallback 分派。
 
-PoC 的结论仅适用于已实现的规则 Tile、有限仿射地址模板、显式 mask 和限定输入域。算子原本应实现的语义不能只从 Kernel 当前实现推断；现阶段由 `pact/semantics.py` 明确提供。项目主线与后续阶段见[研究项目说明](../../docs/TritonPact%20研究项目说明.md)，PoC 验收条件见[两周 PoC 开发方案](../../docs/开发路线/TritonPact%20两周%20PoC%20开发方案.md)。
+当前结论仅适用于已实现的规则 Tile、有限仿射地址模板、显式 mask 和限定输入域。算子原本应实现的语义不能只从 Kernel 当前实现推断；现阶段由 `pact/semantics.py` 明确提供。项目主线见[研究项目说明](../../docs/TritonPact%20研究项目说明.md)，阶段范围与实施记录见[第一阶段 PoC 开发方案](../../docs/开发路线/TritonPact%20第一阶段%20PoC%20开发方案.md)和[第二阶段开发方案](../../docs/开发路线/TritonPact%20第二阶段%20契约DSL与Access%20IR开发方案.md)。
+
+## 当前进度
+
+| 阶段 | 已完成的工作 | 证据 |
+| --- | --- | --- |
+| 第一阶段：受限 PoC | 四个固定案例的有限候选、边界修订、隔离 Oracle 与 Guard/Fallback | [入库的 PoC 基线](results/poc_results.md)及同名 JSON |
+| 第二阶段：契约表示与访存解析 | 有类型的契约 DSL；四例共用的 AST → Access IR 入口；独立语义与参数绑定核对；未知语法和错误绑定拒绝 | [Access IR 验收报告](results/access_ir_report.md)及同名 JSON；[分派回归报告](results/dispatch_regression.md)及同名 JSON |
+
+第二阶段的 `Supported` 只表示受限访存语法可解释。DSL 已能表达条件和来源，但 Guard 当前仍执行经独立语义核对的 **PoC 兼容谓词**；系统性提取 alignment、shape/stride、offset/span 候选属于第三阶段。
 
 ## 案例与预期行为
 
@@ -20,31 +29,44 @@ A 的初始候选为 `stride(0)==size(1)` 与 `stride(1)==1`。单行、单列�
 | 位置 | 职责 |
 | --- | --- |
 | `pact/semantics.py` | 保存 A/A2/B/D 的逻辑索引、预期读取与写入、参数映射、支持域和参考入口；不预填目标 stride 谓词。 |
-| `pact/analysis.py` | 从受支持的 Triton AST 提取 Access IR、地址式、mask、源码位置及候选谓词。 |
+| `pact/access_ir.py` | 从受支持的 Triton AST 统一提取、规范化访存地址、mask、Tile、参数位置与源码来源；语法支持不代表 Fast 资格。 |
+| `pact/contract_dsl.py` | 用有类型条件树表示输入属性、三类用途、适用域、来源和三值判定。 |
+| `pact/analysis.py` | 将统一 Access IR 与独立语义绑定，保留 PoC 的有限候选规则，并编码为 DSL 条件。 |
 | `pact/refine.py` | 根据 A 的单谓词边界证据与有限索引推导修订候选。 |
 | `pact/runtime.py` | 检查 dtype、shape、storage span 与生成的谓词，执行 Fast 或 PyTorch Fallback。 |
 | `pact/oracle.py`、`scenarios/worker.py` | 在独立子进程中执行用例并分类数值错误、异常、超时与未知结果。 |
 | `scenarios/kernels.py`、`scenarios/external_add.py`、`scenarios/cases.py` | 保存 Kernel、输入布局构造和 PyTorch 参考计算。 |
-| `test/test_poc.py`、`test/run_tests.py` | 测试与一键隔离验收。 |
-| `results/poc_results.md`、同名 JSON | 人可读报告与逐例机器数据。 |
+| `pact/stage_report.py` | 生成第二阶段的 IR 与拒绝边界报告。 |
+| `test/` | DSL、Access IR、绑定拒绝、PoC 行为测试与一键隔离验收。 |
+| `results/poc_results.md`、同名 JSON | Git 中保存的第一阶段 PoC 基线报告。 |
+| `results/dispatch_regression.md`、同名 JSON | 当前代码上的完整隔离回归证据。 |
+| `results/access_ir_report.md`、同名 JSON | 契约表示、访存解析和拒绝边界的验收证据。 |
 
 每条谓词都记录对应的 load 源文件、行号、语义输入与逻辑读取。`storage_offset()` 以元素计；`data_ptr()` 已是视图首元素的有效地址，storage span 检查不会把 offset 再加到这个指针上。
 
+## 第二阶段的统一表示与解析
+
+`parse_access_ir` 对 A/A2/B/D 使用同一源码解析入口。地址和 mask 以结构化表达式保存，参数按签名位置规范化；变量改名和无歧义的加法换序得到等价 IR。每个访问点保留原始地址、展开地址、规范化地址、mask、源码位置及元素宽度。缺失 mask、间接或非仿射索引、重复赋值、动态控制流、未建模的 `tl.multiple_of` 和错误指针绑定返回 `Unsupported/Unknown`。
+
+`extract` 在 IR 可解释后，另行核对独立算子语义和标量绑定，再使用现有 PoC 的有限候选规则。DSL 能表示 stride、size、整除、对齐、storage span 与有限 AND/OR；未推导的条件只作为结构存在，不会授予 Fast 资格。
+
+下节给出查看统一 IR 和生成阶段报告的命令。阶段报告同时生成同名 JSON，并列出四个案例的访存结构、旧 PoC 条件的 DSL 来源和拒绝样例；它与 PoC 数值报告分开保存。
+
 ## 环境与运行
 
-已在 WSL2 Ubuntu 20.04 的现有 `triton` 环境运行。PoC 是 Python 源码项目，无需编译安装；首次执行 Triton Kernel 时由 Triton 即时编译。进入项目根目录并激活环境后运行：
+已在 WSL2 Ubuntu 20.04 的现有 `triton` 环境运行。项目是 Python 源码项目，无需编译安装；首次执行 Triton Kernel 时由 Triton 即时编译。进入项目根目录并激活环境后运行：
 
 ```bash
 cd /mnt/f/Project/Paper/Code/TritonPact
-python main.py ir --kernel A2
-python main.py demo --repeats 10 --output results/poc_results.md
+python main.py access-ir --kernel A2
+python main.py stage-ir --output results/access_ir_report.md
 python test/run_tests.py
 ```
 
-- `ir` 可用 `--kernel A|A2|B|D` 查看单个案例的结构化分析；
-- `demo` 运行隔离案例并写入 Markdown 与同名 JSON。
-- `--repeats` 范围为 1～20。
-- `python test/run_tests.py` 先运行 PoC 测试，再执行关键配置各 10 次的完整隔离验收。
+- `access-ir` 可用 `--kernel A|A2|B|D` 查看单个案例的统一访存 IR；`ir` 查看与独立语义绑定后的 PoC 分析。
+- `stage-ir` 生成阶段 Markdown 与同名 JSON。
+- `python test/run_tests.py` 先运行全部阶段测试，再执行关键配置各 10 次的完整隔离验收，写入 `results/dispatch_regression.md` 与同名 JSON，不覆盖 PoC 基线。
+- 单独运行隔离案例可用 `python main.py demo --repeats 10 --output results/manual_demo.md`；`--repeats` 范围为 1～20。
 
 日常快速检查可运行：
 
@@ -52,12 +74,12 @@ python test/run_tests.py
 python test/run_tests.py --quick
 ```
 
-快速模式只运行一轮关键配置，写入 `results/poc_results_quick.md` 与同名 JSON。也可单独运行 `python -m pytest -q test/test_poc.py`。验收失败时命令返回非零退出码。
+快速模式只运行一轮关键配置，写入 `results/dispatch_regression_quick.md` 与同名 JSON。也可单独运行 `python -m pytest -q test/test_poc.py`。验收失败时命令返回非零退出码。
 
 ## 验收结果与证据边界
 
-当前完整验收为 **8 项测试通过、11/11 项报告检查通过**；机器结果中 `go_core=true`、`refinement_verified=true`。报告记录 28 个逐例运行和 27 个附加重复运行，A 转置原始 Fast、A2 padding 直通、B 非整除直通三组关键配置各累计 10 次。数值错误对照只在独立子进程中执行；报告中的 A、D 错读是当前受限案例的观察结果。
+2026-09-20 的完整验收为 **18 项测试通过、11/11 项 PoC 报告检查通过**，Access IR 阶段报告 **4/4 项检查通过**；机器结果中 `go_core=true`、`refinement_verified=true`。完整回归报告记录 28 个逐例运行和 27 个附加重复运行，A 转置原始 Fast、A2 padding 直通、B 非整除直通三组关键配置各累计 10 次。数值错误对照只在独立子进程中执行；报告中的 A、D 错读是当前受限案例的观察结果。
 
 机器结果分别记录 `guard_basis`、`fast_eligible` 和 `observation_level`。`Statically-Proven` 只指声明语义、参数映射与受支持模板内的布局判断，且只有 Guard 放行才取得 Fast 资格；`Empirically-Validated` 只说明这一次运行已观察到正确或错误结果。普通异常、超时和进程故障不会直接被判作非法访存。未知 dtype、无法解释的输入或超出支持范围的情况不进入 Fast。
 
-PoC 尚未覆盖对齐提示案例 C、复杂间接索引、动态循环、任意 alias、已有 Generic Kernel、图级 Guard、自动成本分派或库级自动语义恢复。A2 证明了一个非连续输入可以避免复制并正确直通；当前报告没有端到端性能测量，也不据此宣称稳定加速。
+当前阶段尚未覆盖对齐提示案例 C、复杂间接索引、动态循环、任意 alias、已有 Generic Kernel、图级 Guard、自动成本分派或库级自动发现与语义恢复。A2 证明了一个非连续输入可以避免复制并正确直通；当前报告没有端到端性能测量，也不据此宣称稳定加速。

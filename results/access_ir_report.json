@@ -1,0 +1,1399 @@
+{
+  "cases": {
+    "A": {
+      "ir": {
+        "status": "Supported",
+        "reason": "访存语法已归一化；尚未核对独立算子语义",
+        "signature": [
+          "X",
+          "Y",
+          "M",
+          "N",
+          "B"
+        ],
+        "accesses": [
+          {
+            "kind": "load",
+            "pointer_param": "X",
+            "tensor": "X",
+            "raw_address": "X + idx",
+            "raw_offset": "idx",
+            "expanded_offset": "tl.program_id(0) * B + tl.arange(0, B)",
+            "offset": {
+              "op": "add",
+              "value": null,
+              "args": [
+                {
+                  "op": "lane",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 4,
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "op": "mul",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 4,
+                      "args": []
+                    },
+                    {
+                      "op": "pid",
+                      "value": 0,
+                      "args": []
+                    }
+                  ]
+                }
+              ]
+            },
+            "raw_mask": "mask",
+            "expanded_mask": "tl.program_id(0) * B + tl.arange(0, B) < M * N",
+            "mask": {
+              "op": "lt",
+              "value": null,
+              "args": [
+                {
+                  "op": "add",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "lane",
+                      "value": null,
+                      "args": [
+                        {
+                          "op": "param",
+                          "value": 4,
+                          "args": []
+                        }
+                      ]
+                    },
+                    {
+                      "op": "mul",
+                      "value": null,
+                      "args": [
+                        {
+                          "op": "param",
+                          "value": 4,
+                          "args": []
+                        },
+                        {
+                          "op": "pid",
+                          "value": 0,
+                          "args": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "op": "mul",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 2,
+                      "args": []
+                    },
+                    {
+                      "op": "param",
+                      "value": 3,
+                      "args": []
+                    }
+                  ]
+                }
+              ]
+            },
+            "source_file": "scenarios/kernels.py",
+            "line": 15,
+            "element_bytes": 4,
+            "index_calls": [
+              "program_id",
+              "arange"
+            ],
+            "constexpr": [
+              "M",
+              "N",
+              "B"
+            ],
+            "value": null
+          },
+          {
+            "kind": "store",
+            "pointer_param": "Y",
+            "tensor": "OUT",
+            "raw_address": "Y + idx",
+            "raw_offset": "idx",
+            "expanded_offset": "tl.program_id(0) * B + tl.arange(0, B)",
+            "offset": {
+              "op": "add",
+              "value": null,
+              "args": [
+                {
+                  "op": "lane",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 4,
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "op": "mul",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 4,
+                      "args": []
+                    },
+                    {
+                      "op": "pid",
+                      "value": 0,
+                      "args": []
+                    }
+                  ]
+                }
+              ]
+            },
+            "raw_mask": "mask",
+            "expanded_mask": "tl.program_id(0) * B + tl.arange(0, B) < M * N",
+            "mask": {
+              "op": "lt",
+              "value": null,
+              "args": [
+                {
+                  "op": "add",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "lane",
+                      "value": null,
+                      "args": [
+                        {
+                          "op": "param",
+                          "value": 4,
+                          "args": []
+                        }
+                      ]
+                    },
+                    {
+                      "op": "mul",
+                      "value": null,
+                      "args": [
+                        {
+                          "op": "param",
+                          "value": 4,
+                          "args": []
+                        },
+                        {
+                          "op": "pid",
+                          "value": 0,
+                          "args": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "op": "mul",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 2,
+                      "args": []
+                    },
+                    {
+                      "op": "param",
+                      "value": 3,
+                      "args": []
+                    }
+                  ]
+                }
+              ]
+            },
+            "source_file": "scenarios/kernels.py",
+            "line": 16,
+            "element_bytes": 4,
+            "index_calls": [
+              "program_id",
+              "arange"
+            ],
+            "constexpr": [
+              "M",
+              "N",
+              "B"
+            ],
+            "value": {
+              "op": "add",
+              "value": null,
+              "args": [
+                {
+                  "op": "const",
+                  "value": 1,
+                  "args": []
+                },
+                {
+                  "op": "read",
+                  "value": "X",
+                  "args": []
+                }
+              ]
+            }
+          }
+        ],
+        "store_value_supported": true
+      },
+      "contract_status": "Supported",
+      "contract_reason": "统一 Access IR 与独立语义、参数绑定及 PoC 候选规则匹配",
+      "clauses": [
+        {
+          "condition": {
+            "kind": "eq",
+            "left": {
+              "kind": "stride",
+              "tensor": "X",
+              "axis": 0,
+              "value": null,
+              "scalar": ""
+            },
+            "right": {
+              "kind": "size",
+              "tensor": "X",
+              "axis": 1,
+              "value": null,
+              "scalar": ""
+            },
+            "divisor": null,
+            "remainder": null,
+            "tensor": "",
+            "parts": []
+          },
+          "purpose": "Semantics",
+          "evidence": "Statically-Proven",
+          "domain": [
+            "CUDA float32",
+            "各维长度至少为 1",
+            "元素总数不超过 1000000",
+            "显式尾部 mask"
+          ],
+          "origin": {
+            "source_file": "scenarios/kernels.py",
+            "source_line": 15,
+            "access_kind": "load",
+            "pointer": "X",
+            "semantic_index": "x[row, col]",
+            "bindings": [
+              [
+                "M",
+                "x.size(0)"
+              ],
+              [
+                "N",
+                "x.size(1)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(M*N/B)"
+              ]
+            ],
+            "explanation": "线性地址与二维行优先逻辑索引对应"
+          }
+        },
+        {
+          "condition": {
+            "kind": "eq",
+            "left": {
+              "kind": "stride",
+              "tensor": "X",
+              "axis": 1,
+              "value": null,
+              "scalar": ""
+            },
+            "right": {
+              "kind": "constant",
+              "tensor": "",
+              "axis": null,
+              "value": 1,
+              "scalar": ""
+            },
+            "divisor": null,
+            "remainder": null,
+            "tensor": "",
+            "parts": []
+          },
+          "purpose": "Semantics",
+          "evidence": "Statically-Proven",
+          "domain": [
+            "CUDA float32",
+            "各维长度至少为 1",
+            "元素总数不超过 1000000",
+            "显式尾部 mask"
+          ],
+          "origin": {
+            "source_file": "scenarios/kernels.py",
+            "source_line": 15,
+            "access_kind": "load",
+            "pointer": "X",
+            "semantic_index": "x[row, col]",
+            "bindings": [
+              [
+                "M",
+                "x.size(0)"
+              ],
+              [
+                "N",
+                "x.size(1)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(M*N/B)"
+              ]
+            ],
+            "explanation": "相邻列的读取地址差为 1"
+          }
+        }
+      ]
+    },
+    "A2": {
+      "ir": {
+        "status": "Supported",
+        "reason": "访存语法已归一化；尚未核对独立算子语义",
+        "signature": [
+          "X",
+          "Y",
+          "M",
+          "N",
+          "S0",
+          "B"
+        ],
+        "accesses": [
+          {
+            "kind": "load",
+            "pointer_param": "X",
+            "tensor": "X",
+            "raw_address": "X + row * S0 + col",
+            "raw_offset": "row * S0 + col",
+            "expanded_offset": "tl.program_id(0) * S0 + tl.arange(0, B)",
+            "offset": {
+              "op": "add",
+              "value": null,
+              "args": [
+                {
+                  "op": "lane",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 5,
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "op": "mul",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 4,
+                      "args": []
+                    },
+                    {
+                      "op": "pid",
+                      "value": 0,
+                      "args": []
+                    }
+                  ]
+                }
+              ]
+            },
+            "raw_mask": "mask",
+            "expanded_mask": "tl.arange(0, B) < N",
+            "mask": {
+              "op": "lt",
+              "value": null,
+              "args": [
+                {
+                  "op": "lane",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 5,
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "op": "param",
+                  "value": 3,
+                  "args": []
+                }
+              ]
+            },
+            "source_file": "scenarios/kernels.py",
+            "line": 25,
+            "element_bytes": 4,
+            "index_calls": [
+              "program_id",
+              "arange"
+            ],
+            "constexpr": [
+              "M",
+              "N",
+              "S0",
+              "B"
+            ],
+            "value": null
+          },
+          {
+            "kind": "store",
+            "pointer_param": "Y",
+            "tensor": "OUT",
+            "raw_address": "Y + row * N + col",
+            "raw_offset": "row * N + col",
+            "expanded_offset": "tl.program_id(0) * N + tl.arange(0, B)",
+            "offset": {
+              "op": "add",
+              "value": null,
+              "args": [
+                {
+                  "op": "lane",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 5,
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "op": "mul",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 3,
+                      "args": []
+                    },
+                    {
+                      "op": "pid",
+                      "value": 0,
+                      "args": []
+                    }
+                  ]
+                }
+              ]
+            },
+            "raw_mask": "mask",
+            "expanded_mask": "tl.arange(0, B) < N",
+            "mask": {
+              "op": "lt",
+              "value": null,
+              "args": [
+                {
+                  "op": "lane",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 5,
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "op": "param",
+                  "value": 3,
+                  "args": []
+                }
+              ]
+            },
+            "source_file": "scenarios/kernels.py",
+            "line": 26,
+            "element_bytes": 4,
+            "index_calls": [
+              "program_id",
+              "arange"
+            ],
+            "constexpr": [
+              "M",
+              "N",
+              "S0",
+              "B"
+            ],
+            "value": {
+              "op": "add",
+              "value": null,
+              "args": [
+                {
+                  "op": "const",
+                  "value": 1,
+                  "args": []
+                },
+                {
+                  "op": "read",
+                  "value": "X",
+                  "args": []
+                }
+              ]
+            }
+          }
+        ],
+        "store_value_supported": true
+      },
+      "contract_status": "Supported",
+      "contract_reason": "统一 Access IR 与独立语义、参数绑定及 PoC 候选规则匹配",
+      "clauses": [
+        {
+          "condition": {
+            "kind": "eq",
+            "left": {
+              "kind": "stride",
+              "tensor": "X",
+              "axis": 1,
+              "value": null,
+              "scalar": ""
+            },
+            "right": {
+              "kind": "constant",
+              "tensor": "",
+              "axis": null,
+              "value": 1,
+              "scalar": ""
+            },
+            "divisor": null,
+            "remainder": null,
+            "tensor": "",
+            "parts": []
+          },
+          "purpose": "Semantics",
+          "evidence": "Statically-Proven",
+          "domain": [
+            "CUDA float32",
+            "M、N 至少为 2",
+            "N 不超过 1024",
+            "行跨度至少为 N",
+            "元素总数不超过 1000000",
+            "显式尾部 mask"
+          ],
+          "origin": {
+            "source_file": "scenarios/kernels.py",
+            "source_line": 25,
+            "access_kind": "load",
+            "pointer": "X",
+            "semantic_index": "x[row, col]",
+            "bindings": [
+              [
+                "M",
+                "x.size(0)"
+              ],
+              [
+                "N",
+                "x.size(1)"
+              ],
+              [
+                "S0",
+                "x.stride(0)"
+              ],
+              [
+                "B",
+                "next_power_of_2(N)"
+              ],
+              [
+                "grid",
+                "M"
+              ]
+            ],
+            "explanation": "行步长来自输入，列地址以单位步长递增"
+          }
+        }
+      ]
+    },
+    "B": {
+      "ir": {
+        "status": "Supported",
+        "reason": "访存语法已归一化；尚未核对独立算子语义",
+        "signature": [
+          "X",
+          "Y",
+          "N",
+          "B"
+        ],
+        "accesses": [
+          {
+            "kind": "load",
+            "pointer_param": "X",
+            "tensor": "X",
+            "raw_address": "X + idx",
+            "raw_offset": "idx",
+            "expanded_offset": "tl.program_id(0) * B + tl.arange(0, B)",
+            "offset": {
+              "op": "add",
+              "value": null,
+              "args": [
+                {
+                  "op": "lane",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 3,
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "op": "mul",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 3,
+                      "args": []
+                    },
+                    {
+                      "op": "pid",
+                      "value": 0,
+                      "args": []
+                    }
+                  ]
+                }
+              ]
+            },
+            "raw_mask": "mask",
+            "expanded_mask": "tl.program_id(0) * B + tl.arange(0, B) < N",
+            "mask": {
+              "op": "lt",
+              "value": null,
+              "args": [
+                {
+                  "op": "add",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "lane",
+                      "value": null,
+                      "args": [
+                        {
+                          "op": "param",
+                          "value": 3,
+                          "args": []
+                        }
+                      ]
+                    },
+                    {
+                      "op": "mul",
+                      "value": null,
+                      "args": [
+                        {
+                          "op": "param",
+                          "value": 3,
+                          "args": []
+                        },
+                        {
+                          "op": "pid",
+                          "value": 0,
+                          "args": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "op": "param",
+                  "value": 2,
+                  "args": []
+                }
+              ]
+            },
+            "source_file": "scenarios/kernels.py",
+            "line": 34,
+            "element_bytes": 4,
+            "index_calls": [
+              "program_id",
+              "arange"
+            ],
+            "constexpr": [
+              "N",
+              "B"
+            ],
+            "value": null
+          },
+          {
+            "kind": "store",
+            "pointer_param": "Y",
+            "tensor": "OUT",
+            "raw_address": "Y + idx",
+            "raw_offset": "idx",
+            "expanded_offset": "tl.program_id(0) * B + tl.arange(0, B)",
+            "offset": {
+              "op": "add",
+              "value": null,
+              "args": [
+                {
+                  "op": "lane",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 3,
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "op": "mul",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 3,
+                      "args": []
+                    },
+                    {
+                      "op": "pid",
+                      "value": 0,
+                      "args": []
+                    }
+                  ]
+                }
+              ]
+            },
+            "raw_mask": "mask",
+            "expanded_mask": "tl.program_id(0) * B + tl.arange(0, B) < N",
+            "mask": {
+              "op": "lt",
+              "value": null,
+              "args": [
+                {
+                  "op": "add",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "lane",
+                      "value": null,
+                      "args": [
+                        {
+                          "op": "param",
+                          "value": 3,
+                          "args": []
+                        }
+                      ]
+                    },
+                    {
+                      "op": "mul",
+                      "value": null,
+                      "args": [
+                        {
+                          "op": "param",
+                          "value": 3,
+                          "args": []
+                        },
+                        {
+                          "op": "pid",
+                          "value": 0,
+                          "args": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "op": "param",
+                  "value": 2,
+                  "args": []
+                }
+              ]
+            },
+            "source_file": "scenarios/kernels.py",
+            "line": 35,
+            "element_bytes": 4,
+            "index_calls": [
+              "program_id",
+              "arange"
+            ],
+            "constexpr": [
+              "N",
+              "B"
+            ],
+            "value": {
+              "op": "add",
+              "value": null,
+              "args": [
+                {
+                  "op": "const",
+                  "value": 1,
+                  "args": []
+                },
+                {
+                  "op": "read",
+                  "value": "X",
+                  "args": []
+                }
+              ]
+            }
+          }
+        ],
+        "store_value_supported": true
+      },
+      "contract_status": "Supported",
+      "contract_reason": "统一 Access IR 与独立语义、参数绑定及 PoC 候选规则匹配",
+      "clauses": [
+        {
+          "condition": {
+            "kind": "eq",
+            "left": {
+              "kind": "stride",
+              "tensor": "X",
+              "axis": 0,
+              "value": null,
+              "scalar": ""
+            },
+            "right": {
+              "kind": "constant",
+              "tensor": "",
+              "axis": null,
+              "value": 1,
+              "scalar": ""
+            },
+            "divisor": null,
+            "remainder": null,
+            "tensor": "",
+            "parts": []
+          },
+          "purpose": "Semantics",
+          "evidence": "Statically-Proven",
+          "domain": [
+            "CUDA float32",
+            "N 至少为 1",
+            "元素总数不超过 1000000",
+            "显式尾部 mask"
+          ],
+          "origin": {
+            "source_file": "scenarios/kernels.py",
+            "source_line": 34,
+            "access_kind": "load",
+            "pointer": "X",
+            "semantic_index": "x[i]",
+            "bindings": [
+              [
+                "N",
+                "x.size(0)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(N/B)"
+              ]
+            ],
+            "explanation": "线性地址与逐元素逻辑索引对应"
+          }
+        }
+      ]
+    },
+    "D": {
+      "ir": {
+        "status": "Supported",
+        "reason": "访存语法已归一化；尚未核对独立算子语义",
+        "signature": [
+          "x_ptr",
+          "y_ptr",
+          "output_ptr",
+          "n_elements",
+          "BLOCK_SIZE"
+        ],
+        "accesses": [
+          {
+            "kind": "load",
+            "pointer_param": "x_ptr",
+            "tensor": "X",
+            "raw_address": "x_ptr + offsets",
+            "raw_offset": "offsets",
+            "expanded_offset": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)",
+            "offset": {
+              "op": "add",
+              "value": null,
+              "args": [
+                {
+                  "op": "lane",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 4,
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "op": "mul",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 4,
+                      "args": []
+                    },
+                    {
+                      "op": "pid",
+                      "value": 0,
+                      "args": []
+                    }
+                  ]
+                }
+              ]
+            },
+            "raw_mask": "mask",
+            "expanded_mask": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE) < n_elements",
+            "mask": {
+              "op": "lt",
+              "value": null,
+              "args": [
+                {
+                  "op": "add",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "lane",
+                      "value": null,
+                      "args": [
+                        {
+                          "op": "param",
+                          "value": 4,
+                          "args": []
+                        }
+                      ]
+                    },
+                    {
+                      "op": "mul",
+                      "value": null,
+                      "args": [
+                        {
+                          "op": "param",
+                          "value": 4,
+                          "args": []
+                        },
+                        {
+                          "op": "pid",
+                          "value": 0,
+                          "args": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "op": "param",
+                  "value": 3,
+                  "args": []
+                }
+              ]
+            },
+            "source_file": "scenarios/external_add.py",
+            "line": 19,
+            "element_bytes": 4,
+            "index_calls": [
+              "program_id",
+              "arange"
+            ],
+            "constexpr": [
+              "BLOCK_SIZE"
+            ],
+            "value": null
+          },
+          {
+            "kind": "load",
+            "pointer_param": "y_ptr",
+            "tensor": "Y",
+            "raw_address": "y_ptr + offsets",
+            "raw_offset": "offsets",
+            "expanded_offset": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)",
+            "offset": {
+              "op": "add",
+              "value": null,
+              "args": [
+                {
+                  "op": "lane",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 4,
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "op": "mul",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 4,
+                      "args": []
+                    },
+                    {
+                      "op": "pid",
+                      "value": 0,
+                      "args": []
+                    }
+                  ]
+                }
+              ]
+            },
+            "raw_mask": "mask",
+            "expanded_mask": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE) < n_elements",
+            "mask": {
+              "op": "lt",
+              "value": null,
+              "args": [
+                {
+                  "op": "add",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "lane",
+                      "value": null,
+                      "args": [
+                        {
+                          "op": "param",
+                          "value": 4,
+                          "args": []
+                        }
+                      ]
+                    },
+                    {
+                      "op": "mul",
+                      "value": null,
+                      "args": [
+                        {
+                          "op": "param",
+                          "value": 4,
+                          "args": []
+                        },
+                        {
+                          "op": "pid",
+                          "value": 0,
+                          "args": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "op": "param",
+                  "value": 3,
+                  "args": []
+                }
+              ]
+            },
+            "source_file": "scenarios/external_add.py",
+            "line": 20,
+            "element_bytes": 4,
+            "index_calls": [
+              "program_id",
+              "arange"
+            ],
+            "constexpr": [
+              "BLOCK_SIZE"
+            ],
+            "value": null
+          },
+          {
+            "kind": "store",
+            "pointer_param": "output_ptr",
+            "tensor": "OUT",
+            "raw_address": "output_ptr + offsets",
+            "raw_offset": "offsets",
+            "expanded_offset": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)",
+            "offset": {
+              "op": "add",
+              "value": null,
+              "args": [
+                {
+                  "op": "lane",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 4,
+                      "args": []
+                    }
+                  ]
+                },
+                {
+                  "op": "mul",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "param",
+                      "value": 4,
+                      "args": []
+                    },
+                    {
+                      "op": "pid",
+                      "value": 0,
+                      "args": []
+                    }
+                  ]
+                }
+              ]
+            },
+            "raw_mask": "mask",
+            "expanded_mask": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE) < n_elements",
+            "mask": {
+              "op": "lt",
+              "value": null,
+              "args": [
+                {
+                  "op": "add",
+                  "value": null,
+                  "args": [
+                    {
+                      "op": "lane",
+                      "value": null,
+                      "args": [
+                        {
+                          "op": "param",
+                          "value": 4,
+                          "args": []
+                        }
+                      ]
+                    },
+                    {
+                      "op": "mul",
+                      "value": null,
+                      "args": [
+                        {
+                          "op": "param",
+                          "value": 4,
+                          "args": []
+                        },
+                        {
+                          "op": "pid",
+                          "value": 0,
+                          "args": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "op": "param",
+                  "value": 3,
+                  "args": []
+                }
+              ]
+            },
+            "source_file": "scenarios/external_add.py",
+            "line": 22,
+            "element_bytes": 4,
+            "index_calls": [
+              "program_id",
+              "arange"
+            ],
+            "constexpr": [
+              "BLOCK_SIZE"
+            ],
+            "value": {
+              "op": "add",
+              "value": null,
+              "args": [
+                {
+                  "op": "read",
+                  "value": "X",
+                  "args": []
+                },
+                {
+                  "op": "read",
+                  "value": "Y",
+                  "args": []
+                }
+              ]
+            }
+          }
+        ],
+        "store_value_supported": true
+      },
+      "contract_status": "Supported",
+      "contract_reason": "统一 Access IR 与独立语义、参数绑定及 PoC 候选规则匹配",
+      "clauses": [
+        {
+          "condition": {
+            "kind": "eq",
+            "left": {
+              "kind": "stride",
+              "tensor": "X",
+              "axis": 0,
+              "value": null,
+              "scalar": ""
+            },
+            "right": {
+              "kind": "constant",
+              "tensor": "",
+              "axis": null,
+              "value": 1,
+              "scalar": ""
+            },
+            "divisor": null,
+            "remainder": null,
+            "tensor": "",
+            "parts": []
+          },
+          "purpose": "Semantics",
+          "evidence": "Statically-Proven",
+          "domain": [
+            "两个输入均为同设备 CUDA float32",
+            "形状一致",
+            "长度至少为 1",
+            "长度不超过 1000000",
+            "显式尾部 mask"
+          ],
+          "origin": {
+            "source_file": "scenarios/external_add.py",
+            "source_line": 19,
+            "access_kind": "load",
+            "pointer": "x_ptr",
+            "semantic_index": "x[i]",
+            "bindings": [
+              [
+                "n_elements",
+                "x.numel() = y.numel()"
+              ],
+              [
+                "BLOCK_SIZE",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(n_elements/BLOCK_SIZE)"
+              ]
+            ],
+            "explanation": "线性地址与逐元素逻辑索引对应"
+          }
+        },
+        {
+          "condition": {
+            "kind": "eq",
+            "left": {
+              "kind": "stride",
+              "tensor": "Y",
+              "axis": 0,
+              "value": null,
+              "scalar": ""
+            },
+            "right": {
+              "kind": "constant",
+              "tensor": "",
+              "axis": null,
+              "value": 1,
+              "scalar": ""
+            },
+            "divisor": null,
+            "remainder": null,
+            "tensor": "",
+            "parts": []
+          },
+          "purpose": "Semantics",
+          "evidence": "Statically-Proven",
+          "domain": [
+            "两个输入均为同设备 CUDA float32",
+            "形状一致",
+            "长度至少为 1",
+            "长度不超过 1000000",
+            "显式尾部 mask"
+          ],
+          "origin": {
+            "source_file": "scenarios/external_add.py",
+            "source_line": 20,
+            "access_kind": "load",
+            "pointer": "y_ptr",
+            "semantic_index": "y[i]",
+            "bindings": [
+              [
+                "n_elements",
+                "x.numel() = y.numel()"
+              ],
+              [
+                "BLOCK_SIZE",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(n_elements/BLOCK_SIZE)"
+              ]
+            ],
+            "explanation": "线性地址与逐元素逻辑索引对应"
+          }
+        }
+      ]
+    }
+  },
+  "rejected": {
+    "缺少 load mask": {
+      "status": "Unsupported",
+      "reason": "tl.load/store 缺少显式 mask",
+      "signature": [
+        "x",
+        "out",
+        "n",
+        "block"
+      ],
+      "accesses": [],
+      "store_value_supported": false
+    },
+    "索引量相乘": {
+      "status": "Unsupported",
+      "reason": "两个索引量相乘不在仿射支持域",
+      "signature": [
+        "x",
+        "out",
+        "n",
+        "block"
+      ],
+      "accesses": [],
+      "store_value_supported": false
+    },
+    "错误指针绑定": {
+      "status": "Unknown",
+      "reason": "指针绑定缺失、重复或不在函数签名中",
+      "signature": [
+        "x",
+        "out",
+        "n",
+        "block"
+      ],
+      "accesses": [],
+      "store_value_supported": false
+    }
+  },
+  "checks": {
+    "四例由同一源码解析入口形成 Access IR": true,
+    "四例仍取得 PoC 有限契约": true,
+    "每条 DSL 条件有来源和适用域": true,
+    "拒绝样例没有获得受支持状态": true
+  },
+  "go_ir": true
+}

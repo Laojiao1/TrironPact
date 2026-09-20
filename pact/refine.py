@@ -2,7 +2,7 @@
 
 from dataclasses import asdict, replace
 
-from pact.analysis import Analysis
+from pact.analysis import Analysis, clauses_for
 
 
 def refine_singleton_strides(contract: Analysis, witnesses: list[dict]) -> tuple[Analysis, dict]:
@@ -28,7 +28,7 @@ def refine_singleton_strides(contract: Analysis, witnesses: list[dict]) -> tuple
 
     # 反例只说明原条件过强；条件式还要由行列索引的取值范围证明。
     revised = tuple(replace(predicate, unless_size_one=predicate.dimension) for predicate in contract.predicates)
-    result = replace(contract, predicates=revised, refinement_state="两个单谓词补集输入触发修订；条件式由有限索引范围推导")
+    result = replace(contract, predicates=revised, clauses=clauses_for(revised, contract.semantics), refinement_state="两个单谓词补集输入触发修订；条件式由有限索引范围推导")
     evidence = {
         "changed": True,
         "before": [asdict(item) for item in contract.predicates],
@@ -44,4 +44,5 @@ def apply_proven_singleton_rule(contract: Analysis) -> Analysis:
     """运行时使用已审定的条件式；只对 A 的固定模板生效。"""
     if contract.name != "A" or contract.status != "Supported":
         return contract
-    return replace(contract, predicates=tuple(replace(item, unless_size_one=item.dimension) for item in contract.predicates), refinement_state="单维尺寸为 1 时跳过无作用的 stride")
+    revised = tuple(replace(item, unless_size_one=item.dimension) for item in contract.predicates)
+    return replace(contract, predicates=revised, clauses=clauses_for(revised, contract.semantics), refinement_state="单维尺寸为 1 时跳过无作用的 stride")

@@ -3,4 +3,6 @@ __pycache__/
 *.py[cod]
 results/poc_results_quick.md
 results/poc_results_quick.json
+results/dispatch_regression_quick.md
+results/dispatch_regression_quick.json
 .vscode/

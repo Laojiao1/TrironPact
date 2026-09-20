@@ -1,0 +1,4216 @@
+{
+  "analysis": {
+    "A": {
+      "name": "A",
+      "status": "Supported",
+      "reason": "统一 Access IR 与独立语义、参数绑定及 PoC 候选规则匹配",
+      "semantics": {
+        "name": "A",
+        "axes": [
+          "row",
+          "col"
+        ],
+        "index_domain": "0 <= row < M，0 <= col < N",
+        "inputs": [
+          {
+            "tensor": "X",
+            "pointer": "X",
+            "shape_params": [
+              "M",
+              "N"
+            ],
+            "logical_read": "x[row, col]"
+          }
+        ],
+        "output_pointer": "Y",
+        "logical_write": "out[row, col] = x[row, col] + 1",
+        "launch_bindings": [
+          [
+            "M",
+            "x.size(0)"
+          ],
+          [
+            "N",
+            "x.size(1)"
+          ],
+          [
+            "B",
+            "128"
+          ],
+          [
+            "grid",
+            "ceil(M*N/B)"
+          ]
+        ],
+        "reference_symbol": "scenarios.cases.reference",
+        "reference_rule": "reference(x) = x + 1",
+        "assumptions": [
+          "CUDA float32",
+          "各维长度至少为 1",
+          "元素总数不超过 1000000",
+          "显式尾部 mask"
+        ]
+      },
+      "accesses": [
+        {
+          "kind": "load",
+          "tensor": "X",
+          "offset": "idx",
+          "expanded_offset": "tl.program_id(0) * B + tl.arange(0, B)",
+          "mask": "tl.program_id(0) * B + tl.arange(0, B) < M * N",
+          "element_bytes": 4,
+          "line": 15,
+          "source_file": "scenarios/kernels.py",
+          "symbols": [
+            "B"
+          ],
+          "index_calls": [
+            "program_id",
+            "arange"
+          ],
+          "constexpr": [
+            "M",
+            "N",
+            "B"
+          ]
+        },
+        {
+          "kind": "store",
+          "tensor": "Y",
+          "offset": "idx",
+          "expanded_offset": "tl.program_id(0) * B + tl.arange(0, B)",
+          "mask": "tl.program_id(0) * B + tl.arange(0, B) < M * N",
+          "element_bytes": 4,
+          "line": 16,
+          "source_file": "scenarios/kernels.py",
+          "symbols": [
+            "B"
+          ],
+          "index_calls": [
+            "program_id",
+            "arange"
+          ],
+          "constexpr": [
+            "M",
+            "N",
+            "B"
+          ]
+        }
+      ],
+      "predicates": [
+        {
+          "dimension": 0,
+          "expected": "size(1)",
+          "category": "语义",
+          "source": "线性地址与二维行优先逻辑索引对应",
+          "source_access_line": 15,
+          "source_access_file": "scenarios/kernels.py",
+          "semantic_input": "X",
+          "semantic_index": "x[row, col]",
+          "unless_size_one": 0,
+          "tensor": "X"
+        },
+        {
+          "dimension": 1,
+          "expected": "1",
+          "category": "语义",
+          "source": "相邻列的读取地址差为 1",
+          "source_access_line": 15,
+          "source_access_file": "scenarios/kernels.py",
+          "semantic_input": "X",
+          "semantic_index": "x[row, col]",
+          "unless_size_one": 1,
+          "tensor": "X"
+        }
+      ],
+      "mask_excludes_tail": true,
+      "refinement_state": "两个单谓词补集输入触发修订；条件式由有限索引范围推导",
+      "clauses": [
+        {
+          "condition": {
+            "kind": "or",
+            "left": null,
+            "right": null,
+            "divisor": null,
+            "remainder": null,
+            "tensor": "",
+            "parts": [
+              {
+                "kind": "eq",
+                "left": {
+                  "kind": "size",
+                  "tensor": "X",
+                  "axis": 0,
+                  "value": null,
+                  "scalar": ""
+                },
+                "right": {
+                  "kind": "constant",
+                  "tensor": "",
+                  "axis": null,
+                  "value": 1,
+                  "scalar": ""
+                },
+                "divisor": null,
+                "remainder": null,
+                "tensor": "",
+                "parts": []
+              },
+              {
+                "kind": "eq",
+                "left": {
+                  "kind": "stride",
+                  "tensor": "X",
+                  "axis": 0,
+                  "value": null,
+                  "scalar": ""
+                },
+                "right": {
+                  "kind": "size",
+                  "tensor": "X",
+                  "axis": 1,
+                  "value": null,
+                  "scalar": ""
+                },
+                "divisor": null,
+                "remainder": null,
+                "tensor": "",
+                "parts": []
+              }
+            ]
+          },
+          "purpose": "Semantics",
+          "evidence": "Statically-Proven",
+          "domain": [
+            "CUDA float32",
+            "各维长度至少为 1",
+            "元素总数不超过 1000000",
+            "显式尾部 mask"
+          ],
+          "origin": {
+            "source_file": "scenarios/kernels.py",
+            "source_line": 15,
+            "access_kind": "load",
+            "pointer": "X",
+            "semantic_index": "x[row, col]",
+            "bindings": [
+              [
+                "M",
+                "x.size(0)"
+              ],
+              [
+                "N",
+                "x.size(1)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(M*N/B)"
+              ]
+            ],
+            "explanation": "线性地址与二维行优先逻辑索引对应"
+          }
+        },
+        {
+          "condition": {
+            "kind": "or",
+            "left": null,
+            "right": null,
+            "divisor": null,
+            "remainder": null,
+            "tensor": "",
+            "parts": [
+              {
+                "kind": "eq",
+                "left": {
+                  "kind": "size",
+                  "tensor": "X",
+                  "axis": 1,
+                  "value": null,
+                  "scalar": ""
+                },
+                "right": {
+                  "kind": "constant",
+                  "tensor": "",
+                  "axis": null,
+                  "value": 1,
+                  "scalar": ""
+                },
+                "divisor": null,
+                "remainder": null,
+                "tensor": "",
+                "parts": []
+              },
+              {
+                "kind": "eq",
+                "left": {
+                  "kind": "stride",
+                  "tensor": "X",
+                  "axis": 1,
+                  "value": null,
+                  "scalar": ""
+                },
+                "right": {
+                  "kind": "constant",
+                  "tensor": "",
+                  "axis": null,
+                  "value": 1,
+                  "scalar": ""
+                },
+                "divisor": null,
+                "remainder": null,
+                "tensor": "",
+                "parts": []
+              }
+            ]
+          },
+          "purpose": "Semantics",
+          "evidence": "Statically-Proven",
+          "domain": [
+            "CUDA float32",
+            "各维长度至少为 1",
+            "元素总数不超过 1000000",
+            "显式尾部 mask"
+          ],
+          "origin": {
+            "source_file": "scenarios/kernels.py",
+            "source_line": 15,
+            "access_kind": "load",
+            "pointer": "X",
+            "semantic_index": "x[row, col]",
+            "bindings": [
+              [
+                "M",
+                "x.size(0)"
+              ],
+              [
+                "N",
+                "x.size(1)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(M*N/B)"
+              ]
+            ],
+            "explanation": "相邻列的读取地址差为 1"
+          }
+        }
+      ]
+    },
+    "A2": {
+      "name": "A2",
+      "status": "Supported",
+      "reason": "统一 Access IR 与独立语义、参数绑定及 PoC 候选规则匹配",
+      "semantics": {
+        "name": "A2",
+        "axes": [
+          "row",
+          "col"
+        ],
+        "index_domain": "0 <= row < M，0 <= col < N",
+        "inputs": [
+          {
+            "tensor": "X",
+            "pointer": "X",
+            "shape_params": [
+              "M",
+              "N"
+            ],
+            "logical_read": "x[row, col]"
+          }
+        ],
+        "output_pointer": "Y",
+        "logical_write": "out[row, col] = x[row, col] + 1",
+        "launch_bindings": [
+          [
+            "M",
+            "x.size(0)"
+          ],
+          [
+            "N",
+            "x.size(1)"
+          ],
+          [
+            "S0",
+            "x.stride(0)"
+          ],
+          [
+            "B",
+            "next_power_of_2(N)"
+          ],
+          [
+            "grid",
+            "M"
+          ]
+        ],
+        "reference_symbol": "scenarios.cases.reference",
+        "reference_rule": "reference(x) = x + 1",
+        "assumptions": [
+          "CUDA float32",
+          "M、N 至少为 2",
+          "N 不超过 1024",
+          "行跨度至少为 N",
+          "元素总数不超过 1000000",
+          "显式尾部 mask"
+        ]
+      },
+      "accesses": [
+        {
+          "kind": "load",
+          "tensor": "X",
+          "offset": "row * S0 + col",
+          "expanded_offset": "tl.program_id(0) * S0 + tl.arange(0, B)",
+          "mask": "tl.arange(0, B) < N",
+          "element_bytes": 4,
+          "line": 25,
+          "source_file": "scenarios/kernels.py",
+          "symbols": [
+            "B",
+            "S0"
+          ],
+          "index_calls": [
+            "program_id",
+            "arange"
+          ],
+          "constexpr": [
+            "M",
+            "N",
+            "S0",
+            "B"
+          ]
+        },
+        {
+          "kind": "store",
+          "tensor": "Y",
+          "offset": "row * N + col",
+          "expanded_offset": "tl.program_id(0) * N + tl.arange(0, B)",
+          "mask": "tl.arange(0, B) < N",
+          "element_bytes": 4,
+          "line": 26,
+          "source_file": "scenarios/kernels.py",
+          "symbols": [
+            "B",
+            "N"
+          ],
+          "index_calls": [
+            "program_id",
+            "arange"
+          ],
+          "constexpr": [
+            "M",
+            "N",
+            "S0",
+            "B"
+          ]
+        }
+      ],
+      "predicates": [
+        {
+          "dimension": 1,
+          "expected": "1",
+          "category": "语义",
+          "source": "行步长来自输入，列地址以单位步长递增",
+          "source_access_line": 25,
+          "source_access_file": "scenarios/kernels.py",
+          "semantic_input": "X",
+          "semantic_index": "x[row, col]",
+          "unless_size_one": null,
+          "tensor": "X"
+        }
+      ],
+      "mask_excludes_tail": true,
+      "refinement_state": "尚未发生动态候选修改",
+      "clauses": [
+        {
+          "condition": {
+            "kind": "eq",
+            "left": {
+              "kind": "stride",
+              "tensor": "X",
+              "axis": 1,
+              "value": null,
+              "scalar": ""
+            },
+            "right": {
+              "kind": "constant",
+              "tensor": "",
+              "axis": null,
+              "value": 1,
+              "scalar": ""
+            },
+            "divisor": null,
+            "remainder": null,
+            "tensor": "",
+            "parts": []
+          },
+          "purpose": "Semantics",
+          "evidence": "Statically-Proven",
+          "domain": [
+            "CUDA float32",
+            "M、N 至少为 2",
+            "N 不超过 1024",
+            "行跨度至少为 N",
+            "元素总数不超过 1000000",
+            "显式尾部 mask"
+          ],
+          "origin": {
+            "source_file": "scenarios/kernels.py",
+            "source_line": 25,
+            "access_kind": "load",
+            "pointer": "X",
+            "semantic_index": "x[row, col]",
+            "bindings": [
+              [
+                "M",
+                "x.size(0)"
+              ],
+              [
+                "N",
+                "x.size(1)"
+              ],
+              [
+                "S0",
+                "x.stride(0)"
+              ],
+              [
+                "B",
+                "next_power_of_2(N)"
+              ],
+              [
+                "grid",
+                "M"
+              ]
+            ],
+            "explanation": "行步长来自输入，列地址以单位步长递增"
+          }
+        }
+      ]
+    },
+    "B": {
+      "name": "B",
+      "status": "Supported",
+      "reason": "统一 Access IR 与独立语义、参数绑定及 PoC 候选规则匹配",
+      "semantics": {
+        "name": "B",
+        "axes": [
+          "i"
+        ],
+        "index_domain": "0 <= i < N",
+        "inputs": [
+          {
+            "tensor": "X",
+            "pointer": "X",
+            "shape_params": [
+              "N"
+            ],
+            "logical_read": "x[i]"
+          }
+        ],
+        "output_pointer": "Y",
+        "logical_write": "out[i] = x[i] + 1",
+        "launch_bindings": [
+          [
+            "N",
+            "x.size(0)"
+          ],
+          [
+            "B",
+            "128"
+          ],
+          [
+            "grid",
+            "ceil(N/B)"
+          ]
+        ],
+        "reference_symbol": "scenarios.cases.reference",
+        "reference_rule": "reference(x) = x + 1",
+        "assumptions": [
+          "CUDA float32",
+          "N 至少为 1",
+          "元素总数不超过 1000000",
+          "显式尾部 mask"
+        ]
+      },
+      "accesses": [
+        {
+          "kind": "load",
+          "tensor": "X",
+          "offset": "idx",
+          "expanded_offset": "tl.program_id(0) * B + tl.arange(0, B)",
+          "mask": "tl.program_id(0) * B + tl.arange(0, B) < N",
+          "element_bytes": 4,
+          "line": 34,
+          "source_file": "scenarios/kernels.py",
+          "symbols": [
+            "B"
+          ],
+          "index_calls": [
+            "program_id",
+            "arange"
+          ],
+          "constexpr": [
+            "N",
+            "B"
+          ]
+        },
+        {
+          "kind": "store",
+          "tensor": "Y",
+          "offset": "idx",
+          "expanded_offset": "tl.program_id(0) * B + tl.arange(0, B)",
+          "mask": "tl.program_id(0) * B + tl.arange(0, B) < N",
+          "element_bytes": 4,
+          "line": 35,
+          "source_file": "scenarios/kernels.py",
+          "symbols": [
+            "B"
+          ],
+          "index_calls": [
+            "program_id",
+            "arange"
+          ],
+          "constexpr": [
+            "N",
+            "B"
+          ]
+        }
+      ],
+      "predicates": [
+        {
+          "dimension": 0,
+          "expected": "1",
+          "category": "语义",
+          "source": "线性地址与逐元素逻辑索引对应",
+          "source_access_line": 34,
+          "source_access_file": "scenarios/kernels.py",
+          "semantic_input": "X",
+          "semantic_index": "x[i]",
+          "unless_size_one": null,
+          "tensor": "X"
+        }
+      ],
+      "mask_excludes_tail": true,
+      "refinement_state": "尚未发生动态候选修改",
+      "clauses": [
+        {
+          "condition": {
+            "kind": "eq",
+            "left": {
+              "kind": "stride",
+              "tensor": "X",
+              "axis": 0,
+              "value": null,
+              "scalar": ""
+            },
+            "right": {
+              "kind": "constant",
+              "tensor": "",
+              "axis": null,
+              "value": 1,
+              "scalar": ""
+            },
+            "divisor": null,
+            "remainder": null,
+            "tensor": "",
+            "parts": []
+          },
+          "purpose": "Semantics",
+          "evidence": "Statically-Proven",
+          "domain": [
+            "CUDA float32",
+            "N 至少为 1",
+            "元素总数不超过 1000000",
+            "显式尾部 mask"
+          ],
+          "origin": {
+            "source_file": "scenarios/kernels.py",
+            "source_line": 34,
+            "access_kind": "load",
+            "pointer": "X",
+            "semantic_index": "x[i]",
+            "bindings": [
+              [
+                "N",
+                "x.size(0)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(N/B)"
+              ]
+            ],
+            "explanation": "线性地址与逐元素逻辑索引对应"
+          }
+        }
+      ]
+    },
+    "D": {
+      "name": "D",
+      "status": "Supported",
+      "reason": "统一 Access IR 与独立语义、参数绑定及 PoC 候选规则匹配",
+      "semantics": {
+        "name": "D",
+        "axes": [
+          "i"
+        ],
+        "index_domain": "0 <= i < n_elements",
+        "inputs": [
+          {
+            "tensor": "X",
+            "pointer": "x_ptr",
+            "shape_params": [
+              "n_elements"
+            ],
+            "logical_read": "x[i]"
+          },
+          {
+            "tensor": "Y",
+            "pointer": "y_ptr",
+            "shape_params": [
+              "n_elements"
+            ],
+            "logical_read": "y[i]"
+          }
+        ],
+        "output_pointer": "output_ptr",
+        "logical_write": "out[i] = x[i] + y[i]",
+        "launch_bindings": [
+          [
+            "n_elements",
+            "x.numel() = y.numel()"
+          ],
+          [
+            "BLOCK_SIZE",
+            "128"
+          ],
+          [
+            "grid",
+            "ceil(n_elements/BLOCK_SIZE)"
+          ]
+        ],
+        "reference_symbol": "scenarios.cases.reference",
+        "reference_rule": "reference(x, y) = x + y",
+        "assumptions": [
+          "两个输入均为同设备 CUDA float32",
+          "形状一致",
+          "长度至少为 1",
+          "长度不超过 1000000",
+          "显式尾部 mask"
+        ]
+      },
+      "accesses": [
+        {
+          "kind": "load",
+          "tensor": "x_ptr",
+          "offset": "offsets",
+          "expanded_offset": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)",
+          "mask": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE) < n_elements",
+          "element_bytes": 4,
+          "line": 19,
+          "source_file": "scenarios/external_add.py",
+          "symbols": [
+            "BLOCK_SIZE",
+            "axis"
+          ],
+          "index_calls": [
+            "program_id",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ]
+        },
+        {
+          "kind": "load",
+          "tensor": "y_ptr",
+          "offset": "offsets",
+          "expanded_offset": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)",
+          "mask": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE) < n_elements",
+          "element_bytes": 4,
+          "line": 20,
+          "source_file": "scenarios/external_add.py",
+          "symbols": [
+            "BLOCK_SIZE",
+            "axis"
+          ],
+          "index_calls": [
+            "program_id",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ]
+        },
+        {
+          "kind": "store",
+          "tensor": "output_ptr",
+          "offset": "offsets",
+          "expanded_offset": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)",
+          "mask": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE) < n_elements",
+          "element_bytes": 4,
+          "line": 22,
+          "source_file": "scenarios/external_add.py",
+          "symbols": [
+            "BLOCK_SIZE",
+            "axis"
+          ],
+          "index_calls": [
+            "program_id",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ]
+        }
+      ],
+      "predicates": [
+        {
+          "dimension": 0,
+          "expected": "1",
+          "category": "语义",
+          "source": "线性地址与逐元素逻辑索引对应",
+          "source_access_line": 19,
+          "source_access_file": "scenarios/external_add.py",
+          "semantic_input": "x_ptr",
+          "semantic_index": "x[i]",
+          "unless_size_one": null,
+          "tensor": "X"
+        },
+        {
+          "dimension": 0,
+          "expected": "1",
+          "category": "语义",
+          "source": "线性地址与逐元素逻辑索引对应",
+          "source_access_line": 20,
+          "source_access_file": "scenarios/external_add.py",
+          "semantic_input": "y_ptr",
+          "semantic_index": "y[i]",
+          "unless_size_one": null,
+          "tensor": "Y"
+        }
+      ],
+      "mask_excludes_tail": true,
+      "refinement_state": "尚未发生动态候选修改",
+      "clauses": [
+        {
+          "condition": {
+            "kind": "eq",
+            "left": {
+              "kind": "stride",
+              "tensor": "X",
+              "axis": 0,
+              "value": null,
+              "scalar": ""
+            },
+            "right": {
+              "kind": "constant",
+              "tensor": "",
+              "axis": null,
+              "value": 1,
+              "scalar": ""
+            },
+            "divisor": null,
+            "remainder": null,
+            "tensor": "",
+            "parts": []
+          },
+          "purpose": "Semantics",
+          "evidence": "Statically-Proven",
+          "domain": [
+            "两个输入均为同设备 CUDA float32",
+            "形状一致",
+            "长度至少为 1",
+            "长度不超过 1000000",
+            "显式尾部 mask"
+          ],
+          "origin": {
+            "source_file": "scenarios/external_add.py",
+            "source_line": 19,
+            "access_kind": "load",
+            "pointer": "x_ptr",
+            "semantic_index": "x[i]",
+            "bindings": [
+              [
+                "n_elements",
+                "x.numel() = y.numel()"
+              ],
+              [
+                "BLOCK_SIZE",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(n_elements/BLOCK_SIZE)"
+              ]
+            ],
+            "explanation": "线性地址与逐元素逻辑索引对应"
+          }
+        },
+        {
+          "condition": {
+            "kind": "eq",
+            "left": {
+              "kind": "stride",
+              "tensor": "Y",
+              "axis": 0,
+              "value": null,
+              "scalar": ""
+            },
+            "right": {
+              "kind": "constant",
+              "tensor": "",
+              "axis": null,
+              "value": 1,
+              "scalar": ""
+            },
+            "divisor": null,
+            "remainder": null,
+            "tensor": "",
+            "parts": []
+          },
+          "purpose": "Semantics",
+          "evidence": "Statically-Proven",
+          "domain": [
+            "两个输入均为同设备 CUDA float32",
+            "形状一致",
+            "长度至少为 1",
+            "长度不超过 1000000",
+            "显式尾部 mask"
+          ],
+          "origin": {
+            "source_file": "scenarios/external_add.py",
+            "source_line": 20,
+            "access_kind": "load",
+            "pointer": "y_ptr",
+            "semantic_index": "y[i]",
+            "bindings": [
+              [
+                "n_elements",
+                "x.numel() = y.numel()"
+              ],
+              [
+                "BLOCK_SIZE",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(n_elements/BLOCK_SIZE)"
+              ]
+            ],
+            "explanation": "线性地址与逐元素逻辑索引对应"
+          }
+        }
+      ]
+    }
+  },
+  "runs": [
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A",
+        "layout": "contiguous",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          11,
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == size(1): True",
+            "X.stride(1) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "numeric_mismatch",
+      "detail": {
+        "case": "A",
+        "layout": "transpose",
+        "mode": "raw",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          1,
+          7
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Raw Fast",
+        "guard": null,
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 60.0,
+        "correct": false,
+        "first_mismatch": [
+          0,
+          1
+        ],
+        "expected_value": 8.0,
+        "actual_value": 2.0,
+        "mismatch_count": 74,
+        "kind": "numeric_mismatch"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Unknown",
+        "guard_scope": "未经过 Guard 静态判断",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入观察到数值不一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "numeric_mismatch",
+      "detail": {
+        "case": "A",
+        "layout": "transpose",
+        "mode": "raw",
+        "refined_contract": false,
+        "shape": [
+          5,
+          13
+        ],
+        "stride": [
+          1,
+          5
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Raw Fast",
+        "guard": null,
+        "expected_shape": [
+          5,
+          13
+        ],
+        "actual_shape": [
+          5,
+          13
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 48.0,
+        "correct": false,
+        "first_mismatch": [
+          0,
+          1
+        ],
+        "expected_value": 6.0,
+        "actual_value": 2.0,
+        "mismatch_count": 60,
+        "kind": "numeric_mismatch"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Unknown",
+        "guard_scope": "未经过 Guard 静态判断",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入观察到数值不一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A",
+        "layout": "transpose",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          1,
+          7
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "PyTorch Fallback",
+        "guard": {
+          "allowed": false,
+          "reason": "输入布局不满足提取条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == size(1): False"
+          ]
+        },
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A",
+        "layout": "padded",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          14,
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "PyTorch Fallback",
+        "guard": {
+          "allowed": false,
+          "reason": "输入布局不满足提取条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == size(1): False"
+          ]
+        },
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A2",
+        "layout": "padded",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          14,
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(1) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A2",
+        "layout": "padded",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          5,
+          13
+        ],
+        "stride": [
+          16,
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(1) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          5,
+          13
+        ],
+        "actual_shape": [
+          5,
+          13
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A2",
+        "layout": "transpose",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          1,
+          7
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "PyTorch Fallback",
+        "guard": {
+          "allowed": false,
+          "reason": "行跨度不在已分析的非重叠子域",
+          "evidence": "Unknown",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": []
+        },
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Unknown",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "B",
+        "layout": "contiguous",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          127
+        ],
+        "stride": [
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          127
+        ],
+        "actual_shape": [
+          127
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "B",
+        "layout": "contiguous",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          128
+        ],
+        "stride": [
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          128
+        ],
+        "actual_shape": [
+          128
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "B",
+        "layout": "contiguous",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          129
+        ],
+        "actual_shape": [
+          129
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "B",
+        "layout": "offset",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 1,
+        "effective_ptr_mod_16": 4,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          129
+        ],
+        "actual_shape": [
+          129
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "B",
+        "layout": "strided",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          129
+        ],
+        "stride": [
+          2
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "PyTorch Fallback",
+        "guard": {
+          "allowed": false,
+          "reason": "输入布局不满足提取条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == 1: False"
+          ]
+        },
+        "expected_shape": [
+          129
+        ],
+        "actual_shape": [
+          129
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A",
+        "layout": "unknown_dtype",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          11,
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "PyTorch Fallback",
+        "guard": {
+          "allowed": false,
+          "reason": "设备、类型或维度不在支持域",
+          "evidence": "Unknown",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": []
+        },
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float16",
+        "actual_dtype": "torch.float16",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Unknown",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "D",
+        "layout": "contiguous",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          127
+        ],
+        "stride": [
+          1
+        ],
+        "second_stride": [
+          1
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == 1: True",
+            "Y.stride(0) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          127
+        ],
+        "actual_shape": [
+          127
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "D",
+        "layout": "contiguous",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "second_stride": [
+          1
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == 1: True",
+            "Y.stride(0) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          129
+        ],
+        "actual_shape": [
+          129
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "numeric_mismatch",
+      "detail": {
+        "case": "D",
+        "layout": "x_strided",
+        "mode": "raw",
+        "refined_contract": false,
+        "shape": [
+          129
+        ],
+        "stride": [
+          2
+        ],
+        "second_stride": [
+          1
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Raw Fast",
+        "guard": null,
+        "expected_shape": [
+          129
+        ],
+        "actual_shape": [
+          129
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 128.0,
+        "correct": false,
+        "first_mismatch": [
+          1
+        ],
+        "expected_value": 12.0,
+        "actual_value": 11.0,
+        "mismatch_count": 128,
+        "kind": "numeric_mismatch"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Unknown",
+        "guard_scope": "未经过 Guard 静态判断",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入观察到数值不一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "D",
+        "layout": "x_strided",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          129
+        ],
+        "stride": [
+          2
+        ],
+        "second_stride": [
+          1
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "PyTorch Fallback",
+        "guard": {
+          "allowed": false,
+          "reason": "输入布局不满足提取条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == 1: False"
+          ]
+        },
+        "expected_shape": [
+          129
+        ],
+        "actual_shape": [
+          129
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "numeric_mismatch",
+      "detail": {
+        "case": "D",
+        "layout": "y_strided",
+        "mode": "raw",
+        "refined_contract": false,
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "second_stride": [
+          2
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Raw Fast",
+        "guard": null,
+        "expected_shape": [
+          129
+        ],
+        "actual_shape": [
+          129
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 128.0,
+        "correct": false,
+        "first_mismatch": [
+          1
+        ],
+        "expected_value": 3.0,
+        "actual_value": 2.0,
+        "mismatch_count": 128,
+        "kind": "numeric_mismatch"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Unknown",
+        "guard_scope": "未经过 Guard 静态判断",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入观察到数值不一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "D",
+        "layout": "y_strided",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "second_stride": [
+          2
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "PyTorch Fallback",
+        "guard": {
+          "allowed": false,
+          "reason": "输入布局不满足提取条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == 1: True",
+            "Y.stride(0) == 1: False"
+          ]
+        },
+        "expected_shape": [
+          129
+        ],
+        "actual_shape": [
+          129
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "D",
+        "layout": "x_offset",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "second_stride": [
+          1
+        ],
+        "storage_offset": 1,
+        "effective_ptr_mod_16": 4,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == 1: True",
+            "Y.stride(0) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          129
+        ],
+        "actual_shape": [
+          129
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "D",
+        "layout": "unknown_dtype",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "second_stride": [
+          1
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "PyTorch Fallback",
+        "guard": {
+          "allowed": false,
+          "reason": "设备、类型或维度不在支持域",
+          "evidence": "Unknown",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": []
+        },
+        "expected_shape": [
+          129
+        ],
+        "actual_shape": [
+          129
+        ],
+        "expected_dtype": "torch.float16",
+        "actual_dtype": "torch.float16",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Unknown",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A",
+        "layout": "single_row",
+        "mode": "raw",
+        "refined_contract": false,
+        "shape": [
+          1,
+          11
+        ],
+        "stride": [
+          14,
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Raw Fast",
+        "guard": null,
+        "expected_shape": [
+          1,
+          11
+        ],
+        "actual_shape": [
+          1,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Unknown",
+        "guard_scope": "未经过 Guard 静态判断",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A",
+        "layout": "single_col",
+        "mode": "raw",
+        "refined_contract": false,
+        "shape": [
+          7,
+          1
+        ],
+        "stride": [
+          1,
+          3
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Raw Fast",
+        "guard": null,
+        "expected_shape": [
+          7,
+          1
+        ],
+        "actual_shape": [
+          7,
+          1
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Unknown",
+        "guard_scope": "未经过 Guard 静态判断",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A",
+        "layout": "single_row",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          1,
+          11
+        ],
+        "stride": [
+          14,
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "PyTorch Fallback",
+        "guard": {
+          "allowed": false,
+          "reason": "输入布局不满足提取条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == size(1): False"
+          ]
+        },
+        "expected_shape": [
+          1,
+          11
+        ],
+        "actual_shape": [
+          1,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A",
+        "layout": "single_col",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          7,
+          1
+        ],
+        "stride": [
+          1,
+          3
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "PyTorch Fallback",
+        "guard": {
+          "allowed": false,
+          "reason": "输入布局不满足提取条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == size(1): True",
+            "X.stride(1) == 1: False"
+          ]
+        },
+        "expected_shape": [
+          7,
+          1
+        ],
+        "actual_shape": [
+          7,
+          1
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A",
+        "layout": "single_row",
+        "mode": "dispatch",
+        "refined_contract": true,
+        "shape": [
+          1,
+          11
+        ],
+        "stride": [
+          14,
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == size(1) 或 size(0) == 1: True",
+            "X.stride(1) == 1 或 size(1) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          1,
+          11
+        ],
+        "actual_shape": [
+          1,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A",
+        "layout": "single_col",
+        "mode": "dispatch",
+        "refined_contract": true,
+        "shape": [
+          7,
+          1
+        ],
+        "stride": [
+          1,
+          3
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == size(1) 或 size(0) == 1: True",
+            "X.stride(1) == 1 或 size(1) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          7,
+          1
+        ],
+        "actual_shape": [
+          7,
+          1
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    }
+  ],
+  "repeat_runs": [
+    {
+      "category": "numeric_mismatch",
+      "detail": {
+        "case": "A",
+        "layout": "transpose",
+        "mode": "raw",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          1,
+          7
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Raw Fast",
+        "guard": null,
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 60.0,
+        "correct": false,
+        "first_mismatch": [
+          0,
+          1
+        ],
+        "expected_value": 8.0,
+        "actual_value": 2.0,
+        "mismatch_count": 74,
+        "kind": "numeric_mismatch"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Unknown",
+        "guard_scope": "未经过 Guard 静态判断",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入观察到数值不一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A2",
+        "layout": "padded",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          14,
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(1) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "B",
+        "layout": "contiguous",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          129
+        ],
+        "actual_shape": [
+          129
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "numeric_mismatch",
+      "detail": {
+        "case": "A",
+        "layout": "transpose",
+        "mode": "raw",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          1,
+          7
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Raw Fast",
+        "guard": null,
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 60.0,
+        "correct": false,
+        "first_mismatch": [
+          0,
+          1
+        ],
+        "expected_value": 8.0,
+        "actual_value": 2.0,
+        "mismatch_count": 74,
+        "kind": "numeric_mismatch"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Unknown",
+        "guard_scope": "未经过 Guard 静态判断",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入观察到数值不一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A2",
+        "layout": "padded",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          14,
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(1) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "B",
+        "layout": "contiguous",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          129
+        ],
+        "actual_shape": [
+          129
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "numeric_mismatch",
+      "detail": {
+        "case": "A",
+        "layout": "transpose",
+        "mode": "raw",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          1,
+          7
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Raw Fast",
+        "guard": null,
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 60.0,
+        "correct": false,
+        "first_mismatch": [
+          0,
+          1
+        ],
+        "expected_value": 8.0,
+        "actual_value": 2.0,
+        "mismatch_count": 74,
+        "kind": "numeric_mismatch"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Unknown",
+        "guard_scope": "未经过 Guard 静态判断",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入观察到数值不一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A2",
+        "layout": "padded",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          14,
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(1) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "B",
+        "layout": "contiguous",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          129
+        ],
+        "actual_shape": [
+          129
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "numeric_mismatch",
+      "detail": {
+        "case": "A",
+        "layout": "transpose",
+        "mode": "raw",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          1,
+          7
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Raw Fast",
+        "guard": null,
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 60.0,
+        "correct": false,
+        "first_mismatch": [
+          0,
+          1
+        ],
+        "expected_value": 8.0,
+        "actual_value": 2.0,
+        "mismatch_count": 74,
+        "kind": "numeric_mismatch"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Unknown",
+        "guard_scope": "未经过 Guard 静态判断",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入观察到数值不一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A2",
+        "layout": "padded",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          14,
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(1) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "B",
+        "layout": "contiguous",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          129
+        ],
+        "actual_shape": [
+          129
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "numeric_mismatch",
+      "detail": {
+        "case": "A",
+        "layout": "transpose",
+        "mode": "raw",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          1,
+          7
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Raw Fast",
+        "guard": null,
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 60.0,
+        "correct": false,
+        "first_mismatch": [
+          0,
+          1
+        ],
+        "expected_value": 8.0,
+        "actual_value": 2.0,
+        "mismatch_count": 74,
+        "kind": "numeric_mismatch"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Unknown",
+        "guard_scope": "未经过 Guard 静态判断",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入观察到数值不一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A2",
+        "layout": "padded",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          14,
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(1) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "B",
+        "layout": "contiguous",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          129
+        ],
+        "actual_shape": [
+          129
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "numeric_mismatch",
+      "detail": {
+        "case": "A",
+        "layout": "transpose",
+        "mode": "raw",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          1,
+          7
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Raw Fast",
+        "guard": null,
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 60.0,
+        "correct": false,
+        "first_mismatch": [
+          0,
+          1
+        ],
+        "expected_value": 8.0,
+        "actual_value": 2.0,
+        "mismatch_count": 74,
+        "kind": "numeric_mismatch"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Unknown",
+        "guard_scope": "未经过 Guard 静态判断",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入观察到数值不一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A2",
+        "layout": "padded",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          14,
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(1) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "B",
+        "layout": "contiguous",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          129
+        ],
+        "actual_shape": [
+          129
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "numeric_mismatch",
+      "detail": {
+        "case": "A",
+        "layout": "transpose",
+        "mode": "raw",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          1,
+          7
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Raw Fast",
+        "guard": null,
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 60.0,
+        "correct": false,
+        "first_mismatch": [
+          0,
+          1
+        ],
+        "expected_value": 8.0,
+        "actual_value": 2.0,
+        "mismatch_count": 74,
+        "kind": "numeric_mismatch"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Unknown",
+        "guard_scope": "未经过 Guard 静态判断",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入观察到数值不一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A2",
+        "layout": "padded",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          14,
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(1) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "B",
+        "layout": "contiguous",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          129
+        ],
+        "actual_shape": [
+          129
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "numeric_mismatch",
+      "detail": {
+        "case": "A",
+        "layout": "transpose",
+        "mode": "raw",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          1,
+          7
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Raw Fast",
+        "guard": null,
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 60.0,
+        "correct": false,
+        "first_mismatch": [
+          0,
+          1
+        ],
+        "expected_value": 8.0,
+        "actual_value": 2.0,
+        "mismatch_count": 74,
+        "kind": "numeric_mismatch"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Unknown",
+        "guard_scope": "未经过 Guard 静态判断",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入观察到数值不一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A2",
+        "layout": "padded",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          14,
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(1) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "B",
+        "layout": "contiguous",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          129
+        ],
+        "actual_shape": [
+          129
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "numeric_mismatch",
+      "detail": {
+        "case": "A",
+        "layout": "transpose",
+        "mode": "raw",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          1,
+          7
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Raw Fast",
+        "guard": null,
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 60.0,
+        "correct": false,
+        "first_mismatch": [
+          0,
+          1
+        ],
+        "expected_value": 8.0,
+        "actual_value": 2.0,
+        "mismatch_count": 74,
+        "kind": "numeric_mismatch"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Unknown",
+        "guard_scope": "未经过 Guard 静态判断",
+        "fast_eligible": false,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入观察到数值不一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "A2",
+        "layout": "padded",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          14,
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(1) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    {
+      "category": "correct",
+      "detail": {
+        "case": "B",
+        "layout": "contiguous",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": true,
+        "contiguous_copied": false,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(0) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          129
+        ],
+        "actual_shape": [
+          129
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    }
+  ],
+  "checks": {
+    "四个变体进入 Access IR": true,
+    "语义规格与逐谓词来源可追溯": true,
+    "A 两组转置尺寸均出现数值错误": true,
+    "A Guard 拦截并正确回退": true,
+    "A2 非连续输入正确直通且连续化会复制": true,
+    "B 非整除边界正确直通": true,
+    "未知类型安全回退": true,
+    "官方教程双输入契约阻止错读": true,
+    "关键输入重复稳定": true,
+    "经验观察与静态放行分开记录": true,
+    "单谓词补集触发候选修订并放行": true
+  },
+  "go_core": true,
+  "refinement_verified": true,
+  "refinement": {
+    "changed": true,
+    "before": [
+      {
+        "dimension": 0,
+        "expected": "size(1)",
+        "category": "语义",
+        "source": "线性地址与二维行优先逻辑索引对应",
+        "source_access_line": 15,
+        "source_access_file": "scenarios/kernels.py",
+        "semantic_input": "X",
+        "semantic_index": "x[row, col]",
+        "unless_size_one": null,
+        "tensor": "X"
+      },
+      {
+        "dimension": 1,
+        "expected": "1",
+        "category": "语义",
+        "source": "相邻列的读取地址差为 1",
+        "source_access_line": 15,
+        "source_access_file": "scenarios/kernels.py",
+        "semantic_input": "X",
+        "semantic_index": "x[row, col]",
+        "unless_size_one": null,
+        "tensor": "X"
+      }
+    ],
+    "after": [
+      {
+        "dimension": 0,
+        "expected": "size(1)",
+        "category": "语义",
+        "source": "线性地址与二维行优先逻辑索引对应",
+        "source_access_line": 15,
+        "source_access_file": "scenarios/kernels.py",
+        "semantic_input": "X",
+        "semantic_index": "x[row, col]",
+        "unless_size_one": 0,
+        "tensor": "X"
+      },
+      {
+        "dimension": 1,
+        "expected": "1",
+        "category": "语义",
+        "source": "相邻列的读取地址差为 1",
+        "source_access_line": 15,
+        "source_access_file": "scenarios/kernels.py",
+        "semantic_input": "X",
+        "semantic_index": "x[row, col]",
+        "unless_size_one": 1,
+        "tensor": "X"
+      }
+    ],
+    "witnesses": [
+      {
+        "shape": [
+          1,
+          11
+        ],
+        "stride": [
+          14,
+          1
+        ],
+        "violated_predicate_dimension": 0
+      },
+      {
+        "shape": [
+          7,
+          1
+        ],
+        "stride": [
+          1,
+          3
+        ],
+        "violated_predicate_dimension": 1
+      }
+    ],
+    "static_reason": "二维线性 idx=row*N+col；M=1 时 row 恒为 0，N=1 时 col 恒为 0，因此对应 stride 不影响任何读取地址。",
+    "scope": "仅适用于 A 的二维线性读取模板和声明的逐元素语义"
+  },
+  "refinement_note": "单行和单列的补集输入触发过强候选修订；条件式还经过有限索引范围推导。"
+}
