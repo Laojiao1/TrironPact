@@ -185,6 +185,8 @@ def extract(name: str) -> Analysis:
     ir = parse_access_ir(kernel, pointers, width)
     if ir.status != "Supported":
         return _reject(name, meaning, ir.status, ir.reason, ir.accesses)
+    if ir.hints:
+        return _reject(name, meaning, "Unsupported", "PoC Guard 尚未核对 tl.multiple_of 的优化前提", ir.accesses)
     reason = _binding_check(ir, meaning) or _shape_binding(ir, meaning)
     if reason:
         return _reject(name, meaning, "Unknown", reason, ir.accesses)

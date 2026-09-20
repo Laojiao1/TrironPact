@@ -59,12 +59,28 @@ class AccessPoint:
 
 
 @dataclass(frozen=True)
+class AlignmentHint:
+    raw_input: str
+    input: Expr
+    multiple: int
+    assigned_name: str
+    source_file: str
+    line: int
+    pointer_param: str | None
+    used_access_lines: tuple[int, ...]
+
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+
+@dataclass(frozen=True)
 class ParseResult:
     status: str
     reason: str
     signature: tuple[str, ...]
     accesses: tuple[AccessPoint, ...]
     store_value_supported: bool = False
+    hints: tuple[AlignmentHint, ...] = ()
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -95,6 +111,8 @@ class _Normalizer:
         self.constexpr = set(constexpr)
 
     def expr(self, node: ast.AST, seen: frozenset[str] = frozenset()) -> Expr:
+        if _tl_call(node, "multiple_of") and len(node.args) == 2 and not node.keywords:
+            return self.expr(node.args[0], seen)
         if isinstance(node, ast.Constant) and type(node.value) is int:
             return Expr("const", node.value)
         if isinstance(node, ast.Name):
@@ -172,6 +190,25 @@ def _expanded(node: ast.AST, assignments: dict[str, ast.AST], seen: frozenset[st
     return result
 
 
+def _pointer_base(node: ast.AST, assignments: dict[str, ast.AST], pointers: dict[str, str]) -> str | None:
+    if not isinstance(node, ast.Name):
+        return None
+    if node.id in pointers:
+        return node.id
+    assigned = assignments.get(node.id)
+    if _tl_call(assigned, "multiple_of") and len(assigned.args) == 2 and isinstance(assigned.args[0], ast.Name) and assigned.args[0].id in pointers:
+        return assigned.args[0].id
+    return None
+
+
+def _used_names(node: ast.AST, assignments: dict[str, ast.AST], seen: frozenset[str] = frozenset()) -> set[str]:
+    names = {item.id for item in ast.walk(node) if isinstance(item, ast.Name)}
+    result = set(names)
+    for name in names & assignments.keys() - seen:
+        result.update(_used_names(assignments[name], assignments, seen | {name}))
+    return result
+
+
 def parse_access_ir(fn_or_source, pointer_bindings: dict[str, str], element_bytes: dict[str, int] | None = None) -> ParseResult:
     """只确认受支持的访存语法；语义绑定和 Fast 资格由上层另行核对。"""
     try:
@@ -186,22 +223,26 @@ def parse_access_ir(fn_or_source, pointer_bindings: dict[str, str], element_byte
     signature = tuple(arg.arg for arg in function.args.args)
     if not pointer_bindings or any(name not in signature for name in pointer_bindings) or len(set(pointer_bindings.values())) != len(pointer_bindings):
         return ParseResult("Unknown", "指针绑定缺失、重复或不在函数签名中", signature, ())
-    if any(_tl_call(node, "multiple_of") for node in ast.walk(function)):
-        return ParseResult("Unsupported", "尚未建模 tl.multiple_of 的作用表达式", signature, ())
     assignments: dict[str, ast.AST] = {}
     calls: list[tuple[str, ast.Call]] = []
-    for statement in function.body:
+    hint_nodes: list[tuple[str, ast.Call]] = []
+    body = function.body[1:] if function.body and isinstance(function.body[0], ast.Expr) and isinstance(function.body[0].value, ast.Constant) and isinstance(function.body[0].value.value, str) else function.body
+    for statement in body:
         if isinstance(statement, ast.Assign) and len(statement.targets) == 1 and isinstance(statement.targets[0], ast.Name):
             target = statement.targets[0].id
             if target in assignments or target in signature:
                 return ParseResult("Unsupported", f"第 {first + statement.lineno - 1} 行重复定义变量或覆盖参数", signature, ())
             assignments[target] = statement.value
+            if _tl_call(statement.value, "multiple_of"):
+                hint_nodes.append((target, statement.value))
             if _tl_call(statement.value, "load"):
                 calls.append(("load", statement.value))
         elif isinstance(statement, ast.Expr) and _tl_call(statement.value, "store"):
             calls.append(("store", statement.value))
         else:
             return ParseResult("Unsupported", f"不支持第 {first + statement.lineno - 1} 行的控制流或语句", signature, ())
+    if sum(_tl_call(node, "multiple_of") for node in ast.walk(function)) != len(hint_nodes):
+        return ParseResult("Unsupported", "tl.multiple_of 必须作为独立赋值，不能嵌套使用", signature, ())
     if not calls or not any(kind == "load" for kind, _ in calls) or not any(kind == "store" for kind, _ in calls):
         return ParseResult("Unsupported", "缺少显式 load/store 访问", signature, ())
     for op in ("load", "store"):
@@ -212,16 +253,24 @@ def parse_access_ir(fn_or_source, pointer_bindings: dict[str, str], element_byte
     accesses: list[AccessPoint] = []
     load_names: dict[str, str] = {}
     try:
+        hints: list[AlignmentHint] = []
+        for name, hint in hint_nodes:
+            if len(hint.args) != 2 or hint.keywords or not isinstance(hint.args[1], ast.Constant) or type(hint.args[1].value) is not int or hint.args[1].value < 1 or hint.args[1].value & (hint.args[1].value - 1):
+                raise ParseFailure("Unsupported", "tl.multiple_of 只支持字面量正二次幂倍数")
+            target = normalizer.expr(hint.args[0])
+            pointer = hint.args[0].id if isinstance(hint.args[0], ast.Name) and hint.args[0].id in pointer_bindings else None
+            hints.append(AlignmentHint(ast.unparse(hint.args[0]), target, hint.args[1].value, name, file, first + hint.lineno - 1, pointer, ()))
         for kind, call in calls:
             if not call.args:
                 raise ParseFailure("Unsupported", "访存调用缺少指针")
             pointer_parts = _add_parts(call.args[0])
-            bases = [item.id for item in pointer_parts if isinstance(item, ast.Name) and item.id in signature and item.id in pointer_bindings]
+            bases = [(_pointer_base(item, assignments, pointer_bindings), item) for item in pointer_parts]
+            bases = [(base, item) for base, item in bases if base is not None]
             if len(bases) != 1:
                 raise ParseFailure("Unknown", "访存基址缺少唯一指针绑定")
-            base = bases[0]
+            base, base_node = bases[0]
             remaining = list(pointer_parts)
-            remaining.remove(next(item for item in remaining if isinstance(item, ast.Name) and item.id == base))
+            remaining.remove(base_node)
             if not remaining:
                 raise ParseFailure("Unsupported", "访存地址缺少索引")
             offset = _commutative("add", tuple(normalizer.expr(item) for item in remaining)) if len(remaining) > 1 else normalizer.expr(remaining[0])
@@ -250,6 +299,10 @@ def parse_access_ir(fn_or_source, pointer_bindings: dict[str, str], element_byte
         index = accesses.index(stores[0])
         point = accesses[index]
         accesses[index] = AccessPoint(point.kind, point.pointer_param, point.tensor, point.raw_address, point.raw_offset, point.expanded_offset, point.offset, point.raw_mask, point.expanded_mask, point.mask, point.source_file, point.line, point.element_bytes, point.index_calls, point.constexpr, value)
-        return ParseResult("Supported", "访存语法已归一化；尚未核对独立算子语义", signature, tuple(accesses), value is not None)
+        associated = []
+        for hint in hints:
+            lines = tuple(first + call.lineno - 1 for _, call in calls if hint.assigned_name in _used_names(call.args[0], assignments) or any(hint.assigned_name in _used_names(keyword.value, assignments) for keyword in call.keywords if keyword.arg == "mask"))
+            associated.append(AlignmentHint(hint.raw_input, hint.input, hint.multiple, hint.assigned_name, hint.source_file, hint.line, hint.pointer_param, lines))
+        return ParseResult("Supported", "访存语法已归一化；尚未核对独立算子语义", signature, tuple(accesses), value is not None, tuple(associated))
     except ParseFailure as error:
         return ParseResult(error.status, error.reason, signature, tuple(accesses))

@@ -1,10 +1,11 @@
 """核对契约 DSL 的结构校验、三值判定和来源序列化。"""
 
 import json
+from dataclasses import asdict
 
 import pytest
 
-from pact.contract_dsl import Condition, ContractClause, Origin, TensorMetadata, ValueRef
+from pact.contract_dsl import AccessSpan, BoundExpr, Condition, ContractClause, Origin, TensorMetadata, ValueRef
 
 
 def _ref(kind: str, tensor: str = "X", axis: int | None = None, value: int | None = None) -> ValueRef:
@@ -45,3 +46,17 @@ def test_invalid_fields_are_rejected():
         Condition("and", parts=(Condition("span_in_storage", tensor="X"),))
     with pytest.raises(ValueError):
         ContractClause(Condition("span_in_storage", tensor="X"), "Semantics", "Unproven", (), Origin("a.py", 1, "load", "X", "x[i]", (), "检查来源"))
+
+
+def test_access_point_span_uses_storage_element_coordinates():
+    span = AccessSpan("X", BoundExpr("constant", value=0), BoundExpr("sub", parts=(BoundExpr("scalar", scalar="N"), BoundExpr("constant", value=1))), 4)
+    condition = Condition("access_span", span=span)
+    restored = Condition.from_dict(json.loads(json.dumps(asdict(condition))))
+    assert restored == condition
+    metadata = TensorMetadata((4,), (1,), 1, 0x1004, 4, 20)
+    assert condition.evaluate({"X": metadata}, {"N": 4}) is True
+    assert condition.evaluate({"X": TensorMetadata((4,), (1,), 1, 0x1010, 4, 20)}, {"N": 4}) is True
+    assert condition.evaluate({"X": metadata}, {"N": 5}) is False
+    assert condition.evaluate({"X": metadata}, {}) is None
+    with pytest.raises(ValueError):
+        AccessSpan.from_dict({**asdict(span), "unknown": 1})

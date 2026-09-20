@@ -9,6 +9,7 @@ from pact.oracle import run_isolated
 from pact.refine import refine_singleton_strides
 from pact.report import render_markdown
 from pact.stage_report import build_stage_report, render_stage_report
+from pact.candidate_report import build_candidate_report, render_candidate_report
 from pact.access_ir import parse_access_ir
 from pact.semantics import SEMANTICS
 from scenarios.external_add import add_kernel
@@ -110,7 +111,7 @@ def demo(repeats: int = 1) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="TritonPact 访存契约分析与隔离验收")
-    parser.add_argument("command", choices=("ir", "access-ir", "stage-ir", "demo"))
+    parser.add_argument("command", choices=("ir", "access-ir", "stage-ir", "stage-candidates", "demo"))
     parser.add_argument("--kernel", choices=("A", "A2", "B", "D"), default="A")
     parser.add_argument("--output", help="可选：写入 .md 报告或 .json 原始数据")
     parser.add_argument("--repeats", type=int, default=1, help="关键用例总重复次数，范围 1～20")
@@ -127,13 +128,19 @@ def main() -> int:
         payload = parse_access_ir(kernel, pointers).to_dict()
     elif args.command == "stage-ir":
         payload = build_stage_report()
+    elif args.command == "stage-candidates":
+        regression_path = Path("results/candidate_regression.json")
+        if not regression_path.exists():
+            parser.error("请先运行完整第三阶段隔离回归，生成 results/candidate_regression.json")
+        payload = build_candidate_report(json.loads(regression_path.read_text(encoding="utf-8")))
     else:
         payload = demo(args.repeats)
     rendered_json = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
     if args.output:
         output = Path(args.output)
-        if output.suffix == ".md" and args.command in ("demo", "stage-ir"):
-            output.write_text((render_stage_report if args.command == "stage-ir" else render_markdown)(payload), encoding="utf-8")
+        if output.suffix == ".md" and args.command in ("demo", "stage-ir", "stage-candidates"):
+            renderer = {"demo": render_markdown, "stage-ir": render_stage_report, "stage-candidates": render_candidate_report}[args.command]
+            output.write_text(renderer(payload), encoding="utf-8")
             # JSON 留作机器复核；日常阅读只需打开 Markdown。
             output.with_suffix(".json").write_text(rendered_json, encoding="utf-8")
         elif output.suffix == ".json":
@@ -141,11 +148,13 @@ def main() -> int:
         else:
             parser.error("demo 报告请使用 .md；原始数据请使用 .json")
     else:
-        print(render_markdown(payload) if args.command == "demo" else (render_stage_report(payload) if args.command == "stage-ir" else rendered_json))
+        print(render_markdown(payload) if args.command == "demo" else (render_stage_report(payload) if args.command == "stage-ir" else (render_candidate_report(payload) if args.command == "stage-candidates" else rendered_json)))
     if args.command == "demo":
         return 0 if payload["go_core"] else 1
     if args.command == "stage-ir":
         return 0 if payload["go_ir"] else 1
+    if args.command == "stage-candidates":
+        return 0 if payload["go_candidates"] else 1
     return 0 if payload["status"] == "Supported" else 1
 
 

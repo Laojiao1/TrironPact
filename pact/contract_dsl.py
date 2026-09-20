@@ -67,24 +67,100 @@ class ValueRef:
 
 
 @dataclass(frozen=True)
+class BoundExpr:
+    """访问范围端点的受限整数表达式；单位始终是元素。"""
+
+    kind: Literal["constant", "scalar", "add", "sub", "mul"]
+    value: int | None = None
+    scalar: str = ""
+    parts: tuple[BoundExpr, ...] = ()
+
+    def __post_init__(self) -> None:
+        if self.kind == "constant":
+            valid = type(self.value) is int and not self.scalar and not self.parts
+        elif self.kind == "scalar":
+            valid = bool(self.scalar) and self.value is None and not self.parts
+        elif self.kind in ("add", "sub", "mul"):
+            valid = len(self.parts) == 2 and all(isinstance(item, BoundExpr) for item in self.parts) and self.value is None and not self.scalar
+        else:
+            valid = False
+        if not valid:
+            raise ValueError(f"访问范围端点字段不匹配：{self.kind}")
+
+    @classmethod
+    def from_dict(cls, data: dict) -> BoundExpr:
+        if set(data) != {"kind", "value", "scalar", "parts"}:
+            raise ValueError("访问范围端点字段缺失或未知")
+        return cls(data["kind"], data["value"], data["scalar"], tuple(cls.from_dict(item) for item in data["parts"]))
+
+    def read(self, scalars: dict[str, int]) -> int | None:
+        if self.kind == "constant":
+            return self.value
+        if self.kind == "scalar":
+            value = scalars.get(self.scalar)
+            return value if type(value) is int else None
+        values = [item.read(scalars) for item in self.parts]
+        if None in values:
+            return None
+        if self.kind == "add":
+            return values[0] + values[1]
+        if self.kind == "sub":
+            return values[0] - values[1]
+        return values[0] * values[1]
+
+
+@dataclass(frozen=True)
+class AccessSpan:
+    tensor: str
+    lower: BoundExpr
+    upper: BoundExpr
+    element_bytes: int
+
+    def __post_init__(self) -> None:
+        if not self.tensor or not isinstance(self.lower, BoundExpr) or not isinstance(self.upper, BoundExpr) or type(self.element_bytes) is not int or self.element_bytes < 1:
+            raise ValueError("访问范围缺少 Tensor、端点或有效元素宽度")
+
+    @classmethod
+    def from_dict(cls, data: dict) -> AccessSpan:
+        if set(data) != {"tensor", "lower", "upper", "element_bytes"}:
+            raise ValueError("访问范围字段缺失或未知")
+        return cls(data["tensor"], BoundExpr.from_dict(data["lower"]), BoundExpr.from_dict(data["upper"]), data["element_bytes"])
+
+    def evaluate(self, tensors: dict[str, TensorMetadata], scalars: dict[str, int]) -> Truth:
+        meta = tensors.get(self.tensor)
+        if meta is None or meta.element_bytes != self.element_bytes or meta.element_bytes < 1 or len(meta.shape) != len(meta.stride) or any(size < 1 for size in meta.shape) or any(step < 0 for step in meta.stride) or any(type(value) is not int or value < 0 for value in scalars.values()):
+            return None
+        lower, upper = self.lower.read(scalars), self.upper.read(scalars)
+        if lower is None or upper is None or upper < lower:
+            return None
+        # storage_offset 是 storage 坐标中的元素数；data_ptr 已指向视图首元素，不能再参与相加。
+        first_byte = (meta.storage_offset + lower) * self.element_bytes
+        end_byte = (meta.storage_offset + upper + 1) * self.element_bytes
+        return 0 <= first_byte and end_byte <= meta.storage_nbytes
+
+
+@dataclass(frozen=True)
 class Condition:
-    kind: Literal["eq", "mod_eq", "span_in_storage", "and", "or"]
+    kind: Literal["eq", "mod_eq", "span_in_storage", "access_span", "and", "or"]
     left: ValueRef | None = None
     right: ValueRef | None = None
     divisor: int | None = None
     remainder: int | None = None
     tensor: str = ""
     parts: tuple[Condition, ...] = ()
+    span: AccessSpan | None = None
 
     def __post_init__(self) -> None:
         if self.kind == "eq":
-            valid = self.left is not None and self.right is not None and self.divisor is None and self.remainder is None and not self.tensor and not self.parts
+            valid = self.left is not None and self.right is not None and self.divisor is None and self.remainder is None and not self.tensor and not self.parts and self.span is None
         elif self.kind == "mod_eq":
-            valid = self.left is not None and self.right is None and type(self.divisor) is int and self.divisor > 0 and type(self.remainder) is int and 0 <= self.remainder < self.divisor and not self.tensor and not self.parts
+            valid = self.left is not None and self.right is None and type(self.divisor) is int and self.divisor > 0 and type(self.remainder) is int and 0 <= self.remainder < self.divisor and not self.tensor and not self.parts and self.span is None
         elif self.kind == "span_in_storage":
-            valid = bool(self.tensor) and self.left is None and self.right is None and self.divisor is None and self.remainder is None and not self.parts
+            valid = bool(self.tensor) and self.left is None and self.right is None and self.divisor is None and self.remainder is None and not self.parts and self.span is None
+        elif self.kind == "access_span":
+            valid = isinstance(self.span, AccessSpan) and self.left is None and self.right is None and self.divisor is None and self.remainder is None and not self.tensor and not self.parts
         elif self.kind in ("and", "or"):
-            valid = len(self.parts) >= 2 and all(isinstance(item, Condition) for item in self.parts) and self.left is None and self.right is None and self.divisor is None and self.remainder is None and not self.tensor
+            valid = len(self.parts) >= 2 and all(isinstance(item, Condition) for item in self.parts) and self.left is None and self.right is None and self.divisor is None and self.remainder is None and not self.tensor and self.span is None
         else:
             valid = False
         if not valid:
@@ -98,6 +174,8 @@ class Condition:
                 values[key] = ValueRef.from_dict(values[key])
         if "parts" in values:
             values["parts"] = tuple(cls.from_dict(item) for item in values["parts"])
+        if values.get("span") is not None:
+            values["span"] = AccessSpan.from_dict(values["span"])
         return cls(**values)
 
     def evaluate(self, tensors: dict[str, TensorMetadata], scalars: dict[str, int] | None = None) -> Truth:
@@ -116,6 +194,8 @@ class Condition:
                 return None
             last = meta.storage_offset + sum((size - 1) * step for size, step in zip(meta.shape, meta.stride))
             return meta.storage_offset >= 0 and (last + 1) * meta.element_bytes <= meta.storage_nbytes
+        if self.kind == "access_span":
+            return self.span.evaluate(tensors, scalars)
         results = [part.evaluate(tensors, scalars) for part in self.parts]
         if self.kind == "and":
             return False if False in results else (None if None in results else True)

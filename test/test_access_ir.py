@@ -63,4 +63,6 @@ def kernel(x, out, n, block: tl.constexpr):
     assert parse_access_ir(base, {"wrong": "X", "out": "OUT"}).status == "Unknown"
     assert parse_access_ir(base, {"x": "X"}).status == "Unknown"
     assert parse_access_ir(None, bindings).status == "Unknown"
-    assert parse_access_ir(base.replace("    valid =", "    hint = tl.multiple_of(lane, 16)\n    valid ="), bindings).status == "Unsupported"
+    hinted = parse_access_ir(base.replace("    valid =", "    hint = tl.multiple_of(lane, 16)\n    valid ="), bindings)
+    assert hinted.status == "Supported" and len(hinted.hints) == 1
+    assert hinted.hints[0].raw_input == "lane" and hinted.hints[0].used_access_lines == ()
