@@ -1,6 +1,6 @@
 # TritonPact：Triton Kernel 访存契约分析
 
-TritonPact 研究 PyTorch Tensor 的物理布局与 Triton Kernel 访存之间的契约。项目已完成**第一阶段 PoC**、**第二阶段契约 DSL 与统一 AST/Access IR**和**第三阶段候选契约提取**。在外部给定算子语义、Kernel 参数映射和 PyTorch 参考实现的前提下，系统解析受支持的 Triton Python 源码，核对物理布局候选，再用边界输入、隔离 Oracle 和现有 Guard 验证 Fast / PyTorch Fallback 分派。
+TritonPact 研究 PyTorch Tensor 的物理布局与 Triton Kernel 访存之间的契约。项目已完成**第一阶段 PoC**、**第二阶段契约 DSL 与统一 AST/Access IR**、**第三阶段候选契约提取**和**第四阶段边界证据与精化**。在外部给定算子语义、Kernel 参数映射和 PyTorch 参考实现的前提下，系统解析受支持的 Triton Python 源码，核对物理布局候选，再用边界输入、隔离 Oracle 和现有 Guard 验证 Fast / PyTorch Fallback 分派。
 
 当前结论仅适用于已实现的规则 Tile、有限仿射地址模板、显式 mask 和限定输入域。算子原本应实现的语义不能只从 Kernel 当前实现推断；现阶段由 `pact/semantics.py` 明确提供。项目主线见[研究项目说明](../../docs/TritonPact%20研究项目说明.md)，阶段范围与实施记录见[第一阶段 PoC 开发方案](../../docs/开发路线/TritonPact%20第一阶段%20PoC%20开发方案.md)和[第二阶段开发方案](../../docs/开发路线/TritonPact%20第二阶段%20契约DSL与Access%20IR开发方案.md)。
 
@@ -11,6 +11,7 @@ TritonPact 研究 PyTorch Tensor 的物理布局与 Triton Kernel 访存之间�
 | 第一阶段：受限 PoC | 四个固定案例的有限候选、边界修订、隔离 Oracle 与 Guard/Fallback | [入库的 PoC 基线](results/poc_results.md)及同名 JSON |
 | 第二阶段：契约表示与访存解析 | 有类型的契约 DSL；四例共用的 AST → Access IR 入口；独立语义与参数绑定核对；未知语法和错误绑定拒绝 | [Access IR 验收报告](results/access_ir_report.md)及同名 JSON；[分派回归报告](results/dispatch_regression.md)及同名 JSON |
 | 第三阶段：候选提取 | 受限 wrapper 绑定核对；A/A2/B/D 与两个留出 Kernel 的 shape/stride、逐访问点 span 候选；成对 `tl.multiple_of` alignment 义务；离线机器报告与完整隔离回归 | [候选提取报告](results/candidate_extraction_report.md)、[第三阶段分派回归](results/candidate_regression.md)及同名 JSON；[开发记录](../../docs/开发路线/TritonPact%20第三阶段%20候选契约提取开发方案.md) |
+| 第四阶段：边界证据与精化 | 受限 JSON 变异配方、独立 GPU worker、原始 Kernel 与参考语义比较、逐候选影子值、保守精化建议和受限 SMT 冗余检查 | [边界证据报告](results/boundary_refinement_report.md)、[第四阶段分派回归](results/refinement_regression.md)及同名 JSON；[开发记录](../../docs/开发路线/TritonPact%20第四阶段%20边界证据与精化开发方案.md) |
 
 第二阶段的 `Supported` 只表示受限访存语法可解释。DSL 已能表达条件和来源，但 Guard 当前仍执行经独立语义核对的 **PoC 兼容谓词**；系统性提取 alignment、shape/stride、offset/span 候选属于第三阶段。
 
@@ -37,6 +38,8 @@ A 的初始候选为 `stride(0)==size(1)` 与 `stride(1)==1`。单行、单列�
 | `pact/candidates.py`、`pact/call_site.py` | 记录离线候选与义务，并核对受限 wrapper 的标量、grid、指针和新建输出绑定。 |
 | `pact/shape_stride.py`、`pact/alignment.py`、`pact/span.py` | 从 Access IR 与独立语义提取三类受限候选；逐访存 span 与整视图 span 分开记录。 |
 | `pact/candidate_report.py` | 汇总候选、影子求值、拒绝原因及旧 Guard 路径，不参与分派。 |
+| `pact/mutation.py`、`pact/mutation_oracle.py`、`scenarios/mutation_worker.py` | 生成有界物理变异，逐例启动独立子进程并返回带实际地址与参考数值的结构化诊断；PoC worker 保持原入口。 |
+| `pact/smt_refine.py`、`pact/boundary_report.py` | 在明确整数域内检查条件冗余，汇总执行证据与影子精化建议；不改运行时 Guard。 |
 | `pact/analysis.py` | 将统一 Access IR 与独立语义绑定，保留 PoC 的有限候选规则，并编码为 DSL 条件。 |
 | `pact/refine.py` | 根据 A 的单谓词边界证据与有限索引推导修订候选。 |
 | `pact/runtime.py` | 检查 dtype、shape、storage span 与生成的谓词，执行 Fast 或 PyTorch Fallback。 |
@@ -62,7 +65,7 @@ A 的初始候选为 `stride(0)==size(1)` 与 `stride(1)==1`。单行、单列�
 
 ## 环境与运行
 
-已在 WSL2 Ubuntu 20.04 的现有 `triton` 环境运行。项目是 Python 源码项目，无需编译安装；首次执行 Triton Kernel 时由 Triton 即时编译。进入项目根目录并激活环境后运行：
+已在 WSL2 Ubuntu 20.04 的现有 `triton` 环境运行。项目是 Python 源码项目，无需编译安装；首次执行 Triton Kernel 时由 Triton 即时编译。第四阶段的 `stage-boundary` 和 SMT 测试使用环境中已有的 Z3 Python 包（本次版本 `5.1.0`）；旧阶段 CLI 不依赖它。进入项目根目录并激活环境后运行：
 
 ```bash
 cd /mnt/f/Project/Paper/Code/TritonPact
@@ -70,10 +73,13 @@ python main.py access-ir --kernel A2
 python main.py stage-ir --output results/access_ir_report.md
 python test/run_tests.py --output results/candidate_regression.md
 python main.py stage-candidates --output results/candidate_extraction_report.md
+python test/run_tests.py --output results/refinement_regression.md
+python main.py stage-boundary --output results/boundary_refinement_report.md
 ```
 
 - `access-ir` 可用 `--kernel A|A2|B|D` 查看单个案例的统一访存 IR；`ir` 查看与独立语义绑定后的 PoC 分析。
 - `stage-ir` 查看第二阶段历史验收；`stage-candidates` 读取第三阶段完整隔离回归，生成候选 Markdown 与同名 JSON。
+- `stage-boundary` 使用第三阶段候选生成第四阶段边界证据与 SMT 审计；`--quick` 每例只运行一个代表样例。变异 worker 从标准输入接收受限 JSON，每个子进程只处理一个样例。
 - `python test/run_tests.py --output results/candidate_regression.md` 先运行全部阶段测试，再执行关键配置各 10 次的完整隔离验收，报告与前两阶段分开。省略 `--output` 时沿用第二阶段默认路径。
 - 单独运行隔离案例可用 `python main.py demo --repeats 10 --output results/manual_demo.md`；`--repeats` 范围为 1～20。
 
@@ -81,6 +87,7 @@ python main.py stage-candidates --output results/candidate_extraction_report.md
 
 ```bash
 python test/run_tests.py --quick --output results/candidate_regression_quick.md
+python main.py stage-boundary --quick --output results/boundary_refinement_quick.md
 ```
 
 快速模式只运行一轮关键配置；`--output` 将 Markdown 和同名 JSON 另存。也可单独运行 `python -m pytest -q test/test_poc.py`。验收失败时命令返回非零退出码。
@@ -90,6 +97,8 @@ python test/run_tests.py --quick --output results/candidate_regression_quick.md
 第二阶段基线为 **18 项测试、11/11 项 PoC 检查及 4/4 项 IR 检查通过**。第三阶段完整验收为 **50 项测试、11/11 项隔离检查及 6/6 项候选报告检查通过**；机器结果中 `go_core=true`、`refinement_verified=true`、`go_candidates=true`。完整回归保留 28 个逐例运行和 27 个附加重复运行，A 转置原始 Fast、A2 padding 直通、B 非整除直通三组关键配置各累计 10 次。两个留出 Kernel 的非连续输入和成对提示样例另经隔离进程数值核对；有限运行结果不替代静态推导。
 
 第三阶段报告统计 **43 条记录**（含拒绝义务）：23 条为受支持规则下的静态充分条件、1 条动态指针对齐义务为 `Unproven`、19 条为 `Unknown`。该计数表示条件或义务的生成与证据状态；代表性元数据影子求值和旧 Guard 实际路径分别列示，不以候选数量或样例通过授予 Fast 资格。
+
+第四阶段完整边界报告运行 36 个变异：29 个正确、6 个数值错读、1 个因实际有效指针不满足提示而在执行前跳过。已知 A singleton 过强见证及其静态修订理由沿用历史回归，并明确标注来源。SMT 在合成蕴含样例上证明 `ptr % 16 == 0` 蕴含 `ptr % 4 == 0`；真实第三阶段候选没有满足同目的、同域、可完整形式化且冗余的条件对，因此没有删除真实条件。第四阶段仍不接入新 Guard 或扩大 Fast。
 
 机器结果分别记录 `guard_basis`、`fast_eligible` 和 `observation_level`。`Statically-Proven` 只指声明语义、参数映射与受支持模板内的布局判断，且只有 Guard 放行才取得 Fast 资格；`Empirically-Validated` 只说明这一次运行已观察到正确或错误结果。普通异常、超时和进程故障不会直接被判作非法访存。未知 dtype、无法解释的输入或超出支持范围的情况不进入 Fast。
 

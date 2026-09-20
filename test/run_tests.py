@@ -17,7 +17,7 @@ def main() -> int:
     args = parser.parse_args()
 
     print("[1/2] 运行测试", flush=True)
-    tests = subprocess.run([sys.executable, "-m", "pytest", "-q", "test/test_contract_dsl.py", "test/test_access_ir.py", "test/test_stage_integration.py", "test/test_poc.py", "test/test_candidates.py", "test/test_shape_stride.py", "test/test_alignment.py", "test/test_span.py", "test/test_holdouts.py", "test/test_candidate_report.py"], cwd=ROOT, check=False)
+    tests = subprocess.run([sys.executable, "-m", "pytest", "-q", "test/test_contract_dsl.py", "test/test_access_ir.py", "test/test_stage_integration.py", "test/test_poc.py", "test/test_candidates.py", "test/test_shape_stride.py", "test/test_alignment.py", "test/test_span.py", "test/test_holdouts.py", "test/test_candidate_report.py", "test/test_mutation.py", "test/test_smt_refine.py"], cwd=ROOT, check=False)
     if tests.returncode:
         return tests.returncode
 
