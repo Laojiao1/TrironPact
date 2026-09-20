@@ -1,0 +1,6601 @@
+{
+  "generated_at": "2026-09-20T22:19:32.591878+08:00",
+  "phase": "第五阶段独立新分派",
+  "plans": {
+    "A": {
+      "version": "guard-plan-1",
+      "name": "A",
+      "fingerprint": "d334ef3416995ba61bca64c2c1f35b428b9e14ab0afbeb8ff64c5f5dbcf7eb40",
+      "status": "Supported",
+      "reason": "当前源码、语义和全部访存义务已核对",
+      "binding": {
+        "pointers": [
+          [
+            "X",
+            "X"
+          ],
+          [
+            "Y",
+            "OUT"
+          ]
+        ],
+        "scalars": [
+          [
+            "M",
+            "x.size(0)"
+          ],
+          [
+            "N",
+            "x.size(1)"
+          ],
+          [
+            "B",
+            "128"
+          ]
+        ],
+        "grid": "ceil(M*N/B)",
+        "output_shape": [
+          "M",
+          "N"
+        ],
+        "output_element_bytes": 4,
+        "source": "当前已核对 wrapper"
+      },
+      "signature": [
+        "X",
+        "Y",
+        "M",
+        "N",
+        "B"
+      ],
+      "checks": [
+        {
+          "stage": "metadata",
+          "candidate": {
+            "condition": {
+              "kind": "or",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [
+                {
+                  "kind": "eq",
+                  "left": {
+                    "kind": "size",
+                    "tensor": "X",
+                    "axis": 0,
+                    "value": null,
+                    "scalar": ""
+                  },
+                  "right": {
+                    "kind": "constant",
+                    "tensor": "",
+                    "axis": null,
+                    "value": 1,
+                    "scalar": ""
+                  },
+                  "divisor": null,
+                  "remainder": null,
+                  "tensor": "",
+                  "parts": [],
+                  "span": null
+                },
+                {
+                  "kind": "eq",
+                  "left": {
+                    "kind": "stride",
+                    "tensor": "X",
+                    "axis": 0,
+                    "value": null,
+                    "scalar": ""
+                  },
+                  "right": {
+                    "kind": "size",
+                    "tensor": "X",
+                    "axis": 1,
+                    "value": null,
+                    "scalar": ""
+                  },
+                  "divisor": null,
+                  "remainder": null,
+                  "tensor": "",
+                  "parts": [],
+                  "span": null
+                }
+              ],
+              "span": null
+            },
+            "obligation": null,
+            "purpose": "Semantics",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/kernels.py",
+              "source_line": 15,
+              "access_kind": "load",
+              "pointer": "X",
+              "semantic_index": "x[row, col]",
+              "bindings": [
+                [
+                  "M",
+                  "x.size(0)"
+                ],
+                [
+                  "N",
+                  "x.size(1)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(M*N/B)"
+                ]
+              ],
+              "explanation": "扁平地址按列数 N 换行；单行时行步长无作用"
+            },
+            "rule": "compare_logical_address",
+            "domain": [
+              "CUDA float32",
+              "各维长度至少为 1",
+              "元素总数不超过 1000000",
+              "显式尾部 mask"
+            ],
+            "binding": [
+              [
+                "M",
+                "x.size(0)"
+              ],
+              [
+                "N",
+                "x.size(1)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(M*N/B)"
+              ]
+            ],
+            "reason": "扁平地址按列数 N 换行；单行时行步长无作用"
+          }
+        },
+        {
+          "stage": "metadata",
+          "candidate": {
+            "condition": {
+              "kind": "or",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [
+                {
+                  "kind": "eq",
+                  "left": {
+                    "kind": "size",
+                    "tensor": "X",
+                    "axis": 1,
+                    "value": null,
+                    "scalar": ""
+                  },
+                  "right": {
+                    "kind": "constant",
+                    "tensor": "",
+                    "axis": null,
+                    "value": 1,
+                    "scalar": ""
+                  },
+                  "divisor": null,
+                  "remainder": null,
+                  "tensor": "",
+                  "parts": [],
+                  "span": null
+                },
+                {
+                  "kind": "eq",
+                  "left": {
+                    "kind": "stride",
+                    "tensor": "X",
+                    "axis": 1,
+                    "value": null,
+                    "scalar": ""
+                  },
+                  "right": {
+                    "kind": "constant",
+                    "tensor": "",
+                    "axis": null,
+                    "value": 1,
+                    "scalar": ""
+                  },
+                  "divisor": null,
+                  "remainder": null,
+                  "tensor": "",
+                  "parts": [],
+                  "span": null
+                }
+              ],
+              "span": null
+            },
+            "obligation": null,
+            "purpose": "Semantics",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/kernels.py",
+              "source_line": 15,
+              "access_kind": "load",
+              "pointer": "X",
+              "semantic_index": "x[row, col]",
+              "bindings": [
+                [
+                  "M",
+                  "x.size(0)"
+                ],
+                [
+                  "N",
+                  "x.size(1)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(M*N/B)"
+                ]
+              ],
+              "explanation": "同一行相邻列地址差为 1；单列时列步长无作用"
+            },
+            "rule": "compare_logical_address",
+            "domain": [
+              "CUDA float32",
+              "各维长度至少为 1",
+              "元素总数不超过 1000000",
+              "显式尾部 mask"
+            ],
+            "binding": [
+              [
+                "M",
+                "x.size(0)"
+              ],
+              [
+                "N",
+                "x.size(1)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(M*N/B)"
+              ]
+            ],
+            "reason": "同一行相邻列地址差为 1；单列时列步长无作用"
+          }
+        },
+        {
+          "stage": "span",
+          "candidate": {
+            "condition": {
+              "kind": "access_span",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [],
+              "span": {
+                "tensor": "X",
+                "lower": {
+                  "kind": "constant",
+                  "value": 0,
+                  "scalar": "",
+                  "parts": []
+                },
+                "upper": {
+                  "kind": "add",
+                  "value": null,
+                  "scalar": "",
+                  "parts": [
+                    {
+                      "kind": "sub",
+                      "value": null,
+                      "scalar": "",
+                      "parts": [
+                        {
+                          "kind": "mul",
+                          "value": null,
+                          "scalar": "",
+                          "parts": [
+                            {
+                              "kind": "scalar",
+                              "value": null,
+                              "scalar": "M",
+                              "parts": []
+                            },
+                            {
+                              "kind": "scalar",
+                              "value": null,
+                              "scalar": "N",
+                              "parts": []
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "constant",
+                          "value": 1,
+                          "scalar": "",
+                          "parts": []
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 0,
+                      "scalar": "",
+                      "parts": []
+                    }
+                  ]
+                },
+                "element_bytes": 4
+              }
+            },
+            "obligation": null,
+            "purpose": "Safety",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/kernels.py",
+              "source_line": 15,
+              "access_kind": "load",
+              "pointer": "X",
+              "semantic_index": "x[row, col]",
+              "bindings": [
+                [
+                  "M",
+                  "x.size(0)"
+                ],
+                [
+                  "N",
+                  "x.size(1)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(M*N/B)"
+                ]
+              ],
+              "explanation": "mask 限定 0<=idx<M*N；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+            },
+            "rule": "enabled_access_range",
+            "domain": [
+              "CUDA float32",
+              "各维长度至少为 1",
+              "元素总数不超过 1000000",
+              "显式尾部 mask",
+              "形状正长度",
+              "行系数非负"
+            ],
+            "binding": [
+              [
+                "M",
+                "x.size(0)"
+              ],
+              [
+                "N",
+                "x.size(1)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(M*N/B)"
+              ]
+            ],
+            "reason": "mask 限定 0<=idx<M*N；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+          }
+        },
+        {
+          "stage": "span",
+          "candidate": {
+            "condition": {
+              "kind": "access_span",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [],
+              "span": {
+                "tensor": "OUT",
+                "lower": {
+                  "kind": "constant",
+                  "value": 0,
+                  "scalar": "",
+                  "parts": []
+                },
+                "upper": {
+                  "kind": "add",
+                  "value": null,
+                  "scalar": "",
+                  "parts": [
+                    {
+                      "kind": "sub",
+                      "value": null,
+                      "scalar": "",
+                      "parts": [
+                        {
+                          "kind": "mul",
+                          "value": null,
+                          "scalar": "",
+                          "parts": [
+                            {
+                              "kind": "scalar",
+                              "value": null,
+                              "scalar": "M",
+                              "parts": []
+                            },
+                            {
+                              "kind": "scalar",
+                              "value": null,
+                              "scalar": "N",
+                              "parts": []
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "constant",
+                          "value": 1,
+                          "scalar": "",
+                          "parts": []
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 0,
+                      "scalar": "",
+                      "parts": []
+                    }
+                  ]
+                },
+                "element_bytes": 4
+              }
+            },
+            "obligation": null,
+            "purpose": "Safety",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/kernels.py",
+              "source_line": 16,
+              "access_kind": "store",
+              "pointer": "Y",
+              "semantic_index": "out[row, col] = x[row, col] + 1",
+              "bindings": [
+                [
+                  "M",
+                  "x.size(0)"
+                ],
+                [
+                  "N",
+                  "x.size(1)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(M*N/B)"
+                ]
+              ],
+              "explanation": "mask 限定 0<=idx<M*N；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+            },
+            "rule": "enabled_access_range",
+            "domain": [
+              "CUDA float32",
+              "各维长度至少为 1",
+              "元素总数不超过 1000000",
+              "显式尾部 mask",
+              "形状正长度",
+              "行系数非负"
+            ],
+            "binding": [
+              [
+                "M",
+                "x.size(0)"
+              ],
+              [
+                "N",
+                "x.size(1)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(M*N/B)"
+              ]
+            ],
+            "reason": "mask 限定 0<=idx<M*N；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+          }
+        }
+      ]
+    },
+    "A2": {
+      "version": "guard-plan-1",
+      "name": "A2",
+      "fingerprint": "4d03152df33ccd1de9db37e8b955f4b2ebf48bc11212062c740d6deb9e2242ab",
+      "status": "Supported",
+      "reason": "当前源码、语义和全部访存义务已核对",
+      "binding": {
+        "pointers": [
+          [
+            "X",
+            "X"
+          ],
+          [
+            "Y",
+            "OUT"
+          ]
+        ],
+        "scalars": [
+          [
+            "M",
+            "x.size(0)"
+          ],
+          [
+            "N",
+            "x.size(1)"
+          ],
+          [
+            "S0",
+            "x.stride(0)"
+          ],
+          [
+            "B",
+            "next_power_of_2(N)"
+          ]
+        ],
+        "grid": "M",
+        "output_shape": [
+          "M",
+          "N"
+        ],
+        "output_element_bytes": 4,
+        "source": "当前已核对 wrapper"
+      },
+      "signature": [
+        "X",
+        "Y",
+        "M",
+        "N",
+        "S0",
+        "B"
+      ],
+      "checks": [
+        {
+          "stage": "metadata",
+          "candidate": {
+            "condition": {
+              "kind": "or",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [
+                {
+                  "kind": "eq",
+                  "left": {
+                    "kind": "size",
+                    "tensor": "X",
+                    "axis": 1,
+                    "value": null,
+                    "scalar": ""
+                  },
+                  "right": {
+                    "kind": "constant",
+                    "tensor": "",
+                    "axis": null,
+                    "value": 1,
+                    "scalar": ""
+                  },
+                  "divisor": null,
+                  "remainder": null,
+                  "tensor": "",
+                  "parts": [],
+                  "span": null
+                },
+                {
+                  "kind": "eq",
+                  "left": {
+                    "kind": "stride",
+                    "tensor": "X",
+                    "axis": 1,
+                    "value": null,
+                    "scalar": ""
+                  },
+                  "right": {
+                    "kind": "constant",
+                    "tensor": "",
+                    "axis": null,
+                    "value": 1,
+                    "scalar": ""
+                  },
+                  "divisor": null,
+                  "remainder": null,
+                  "tensor": "",
+                  "parts": [],
+                  "span": null
+                }
+              ],
+              "span": null
+            },
+            "obligation": null,
+            "purpose": "Semantics",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/kernels.py",
+              "source_line": 25,
+              "access_kind": "load",
+              "pointer": "X",
+              "semantic_index": "x[row, col]",
+              "bindings": [
+                [
+                  "M",
+                  "x.size(0)"
+                ],
+                [
+                  "N",
+                  "x.size(1)"
+                ],
+                [
+                  "S0",
+                  "x.stride(0)"
+                ],
+                [
+                  "B",
+                  "next_power_of_2(N)"
+                ],
+                [
+                  "grid",
+                  "M"
+                ]
+              ],
+              "explanation": "行系数由已核对的 stride(0) 提供；列地址差为 1，单列时列步长无作用"
+            },
+            "rule": "compare_logical_address",
+            "domain": [
+              "CUDA float32",
+              "M、N 至少为 2",
+              "N 不超过 1024",
+              "行跨度至少为 N",
+              "元素总数不超过 1000000",
+              "显式尾部 mask"
+            ],
+            "binding": [
+              [
+                "M",
+                "x.size(0)"
+              ],
+              [
+                "N",
+                "x.size(1)"
+              ],
+              [
+                "S0",
+                "x.stride(0)"
+              ],
+              [
+                "B",
+                "next_power_of_2(N)"
+              ],
+              [
+                "grid",
+                "M"
+              ]
+            ],
+            "reason": "行系数由已核对的 stride(0) 提供；列地址差为 1，单列时列步长无作用"
+          }
+        },
+        {
+          "stage": "span",
+          "candidate": {
+            "condition": {
+              "kind": "access_span",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [],
+              "span": {
+                "tensor": "X",
+                "lower": {
+                  "kind": "constant",
+                  "value": 0,
+                  "scalar": "",
+                  "parts": []
+                },
+                "upper": {
+                  "kind": "add",
+                  "value": null,
+                  "scalar": "",
+                  "parts": [
+                    {
+                      "kind": "add",
+                      "value": null,
+                      "scalar": "",
+                      "parts": [
+                        {
+                          "kind": "mul",
+                          "value": null,
+                          "scalar": "",
+                          "parts": [
+                            {
+                              "kind": "sub",
+                              "value": null,
+                              "scalar": "",
+                              "parts": [
+                                {
+                                  "kind": "scalar",
+                                  "value": null,
+                                  "scalar": "M",
+                                  "parts": []
+                                },
+                                {
+                                  "kind": "constant",
+                                  "value": 1,
+                                  "scalar": "",
+                                  "parts": []
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "scalar",
+                              "value": null,
+                              "scalar": "S0",
+                              "parts": []
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "sub",
+                          "value": null,
+                          "scalar": "",
+                          "parts": [
+                            {
+                              "kind": "scalar",
+                              "value": null,
+                              "scalar": "N",
+                              "parts": []
+                            },
+                            {
+                              "kind": "constant",
+                              "value": 1,
+                              "scalar": "",
+                              "parts": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 0,
+                      "scalar": "",
+                      "parts": []
+                    }
+                  ]
+                },
+                "element_bytes": 4
+              }
+            },
+            "obligation": null,
+            "purpose": "Safety",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/kernels.py",
+              "source_line": 25,
+              "access_kind": "load",
+              "pointer": "X",
+              "semantic_index": "x[row, col]",
+              "bindings": [
+                [
+                  "M",
+                  "x.size(0)"
+                ],
+                [
+                  "N",
+                  "x.size(1)"
+                ],
+                [
+                  "S0",
+                  "x.stride(0)"
+                ],
+                [
+                  "B",
+                  "next_power_of_2(N)"
+                ],
+                [
+                  "grid",
+                  "M"
+                ]
+              ],
+              "explanation": "grid 覆盖 0<=pid<M，mask 限定 0<=lane<N；行列系数需非负，实际启用范围为 [0, (M-1)*S0+N-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+            },
+            "rule": "enabled_access_range",
+            "domain": [
+              "CUDA float32",
+              "M、N 至少为 2",
+              "N 不超过 1024",
+              "行跨度至少为 N",
+              "元素总数不超过 1000000",
+              "显式尾部 mask",
+              "形状正长度",
+              "行系数非负"
+            ],
+            "binding": [
+              [
+                "M",
+                "x.size(0)"
+              ],
+              [
+                "N",
+                "x.size(1)"
+              ],
+              [
+                "S0",
+                "x.stride(0)"
+              ],
+              [
+                "B",
+                "next_power_of_2(N)"
+              ],
+              [
+                "grid",
+                "M"
+              ]
+            ],
+            "reason": "grid 覆盖 0<=pid<M，mask 限定 0<=lane<N；行列系数需非负，实际启用范围为 [0, (M-1)*S0+N-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+          }
+        },
+        {
+          "stage": "span",
+          "candidate": {
+            "condition": {
+              "kind": "access_span",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [],
+              "span": {
+                "tensor": "OUT",
+                "lower": {
+                  "kind": "constant",
+                  "value": 0,
+                  "scalar": "",
+                  "parts": []
+                },
+                "upper": {
+                  "kind": "add",
+                  "value": null,
+                  "scalar": "",
+                  "parts": [
+                    {
+                      "kind": "add",
+                      "value": null,
+                      "scalar": "",
+                      "parts": [
+                        {
+                          "kind": "mul",
+                          "value": null,
+                          "scalar": "",
+                          "parts": [
+                            {
+                              "kind": "sub",
+                              "value": null,
+                              "scalar": "",
+                              "parts": [
+                                {
+                                  "kind": "scalar",
+                                  "value": null,
+                                  "scalar": "M",
+                                  "parts": []
+                                },
+                                {
+                                  "kind": "constant",
+                                  "value": 1,
+                                  "scalar": "",
+                                  "parts": []
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "scalar",
+                              "value": null,
+                              "scalar": "N",
+                              "parts": []
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "sub",
+                          "value": null,
+                          "scalar": "",
+                          "parts": [
+                            {
+                              "kind": "scalar",
+                              "value": null,
+                              "scalar": "N",
+                              "parts": []
+                            },
+                            {
+                              "kind": "constant",
+                              "value": 1,
+                              "scalar": "",
+                              "parts": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 0,
+                      "scalar": "",
+                      "parts": []
+                    }
+                  ]
+                },
+                "element_bytes": 4
+              }
+            },
+            "obligation": null,
+            "purpose": "Safety",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/kernels.py",
+              "source_line": 26,
+              "access_kind": "store",
+              "pointer": "Y",
+              "semantic_index": "out[row, col] = x[row, col] + 1",
+              "bindings": [
+                [
+                  "M",
+                  "x.size(0)"
+                ],
+                [
+                  "N",
+                  "x.size(1)"
+                ],
+                [
+                  "S0",
+                  "x.stride(0)"
+                ],
+                [
+                  "B",
+                  "next_power_of_2(N)"
+                ],
+                [
+                  "grid",
+                  "M"
+                ]
+              ],
+              "explanation": "grid 覆盖 0<=pid<M，mask 限定 0<=lane<N；行列系数需非负，实际启用范围为 [0, (M-1)*N+N-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+            },
+            "rule": "enabled_access_range",
+            "domain": [
+              "CUDA float32",
+              "M、N 至少为 2",
+              "N 不超过 1024",
+              "行跨度至少为 N",
+              "元素总数不超过 1000000",
+              "显式尾部 mask",
+              "形状正长度",
+              "行系数非负"
+            ],
+            "binding": [
+              [
+                "M",
+                "x.size(0)"
+              ],
+              [
+                "N",
+                "x.size(1)"
+              ],
+              [
+                "S0",
+                "x.stride(0)"
+              ],
+              [
+                "B",
+                "next_power_of_2(N)"
+              ],
+              [
+                "grid",
+                "M"
+              ]
+            ],
+            "reason": "grid 覆盖 0<=pid<M，mask 限定 0<=lane<N；行列系数需非负，实际启用范围为 [0, (M-1)*N+N-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+          }
+        }
+      ]
+    },
+    "B": {
+      "version": "guard-plan-1",
+      "name": "B",
+      "fingerprint": "c0c809cfd95a6f689ae2d767054e9474a70dc9a988bef8dbb38345d4b7893c7d",
+      "status": "Supported",
+      "reason": "当前源码、语义和全部访存义务已核对",
+      "binding": {
+        "pointers": [
+          [
+            "X",
+            "X"
+          ],
+          [
+            "Y",
+            "OUT"
+          ]
+        ],
+        "scalars": [
+          [
+            "N",
+            "x.size(0)"
+          ],
+          [
+            "B",
+            "128"
+          ]
+        ],
+        "grid": "ceil(N/B)",
+        "output_shape": [
+          "N"
+        ],
+        "output_element_bytes": 4,
+        "source": "当前已核对 wrapper"
+      },
+      "signature": [
+        "X",
+        "Y",
+        "N",
+        "B"
+      ],
+      "checks": [
+        {
+          "stage": "metadata",
+          "candidate": {
+            "condition": {
+              "kind": "or",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [
+                {
+                  "kind": "eq",
+                  "left": {
+                    "kind": "size",
+                    "tensor": "X",
+                    "axis": 0,
+                    "value": null,
+                    "scalar": ""
+                  },
+                  "right": {
+                    "kind": "constant",
+                    "tensor": "",
+                    "axis": null,
+                    "value": 1,
+                    "scalar": ""
+                  },
+                  "divisor": null,
+                  "remainder": null,
+                  "tensor": "",
+                  "parts": [],
+                  "span": null
+                },
+                {
+                  "kind": "eq",
+                  "left": {
+                    "kind": "stride",
+                    "tensor": "X",
+                    "axis": 0,
+                    "value": null,
+                    "scalar": ""
+                  },
+                  "right": {
+                    "kind": "constant",
+                    "tensor": "",
+                    "axis": null,
+                    "value": 1,
+                    "scalar": ""
+                  },
+                  "divisor": null,
+                  "remainder": null,
+                  "tensor": "",
+                  "parts": [],
+                  "span": null
+                }
+              ],
+              "span": null
+            },
+            "obligation": null,
+            "purpose": "Semantics",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/kernels.py",
+              "source_line": 34,
+              "access_kind": "load",
+              "pointer": "X",
+              "semantic_index": "x[i]",
+              "bindings": [
+                [
+                  "N",
+                  "x.size(0)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(N/B)"
+                ]
+              ],
+              "explanation": "mask 限定 0<=i<N；相邻逻辑元素地址差为 1，单元素时步长无作用"
+            },
+            "rule": "compare_logical_address",
+            "domain": [
+              "CUDA float32",
+              "N 至少为 1",
+              "元素总数不超过 1000000",
+              "显式尾部 mask"
+            ],
+            "binding": [
+              [
+                "N",
+                "x.size(0)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(N/B)"
+              ]
+            ],
+            "reason": "mask 限定 0<=i<N；相邻逻辑元素地址差为 1，单元素时步长无作用"
+          }
+        },
+        {
+          "stage": "span",
+          "candidate": {
+            "condition": {
+              "kind": "access_span",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [],
+              "span": {
+                "tensor": "X",
+                "lower": {
+                  "kind": "constant",
+                  "value": 0,
+                  "scalar": "",
+                  "parts": []
+                },
+                "upper": {
+                  "kind": "add",
+                  "value": null,
+                  "scalar": "",
+                  "parts": [
+                    {
+                      "kind": "sub",
+                      "value": null,
+                      "scalar": "",
+                      "parts": [
+                        {
+                          "kind": "scalar",
+                          "value": null,
+                          "scalar": "N",
+                          "parts": []
+                        },
+                        {
+                          "kind": "constant",
+                          "value": 1,
+                          "scalar": "",
+                          "parts": []
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 0,
+                      "scalar": "",
+                      "parts": []
+                    }
+                  ]
+                },
+                "element_bytes": 4
+              }
+            },
+            "obligation": null,
+            "purpose": "Safety",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/kernels.py",
+              "source_line": 34,
+              "access_kind": "load",
+              "pointer": "X",
+              "semantic_index": "x[i]",
+              "bindings": [
+                [
+                  "N",
+                  "x.size(0)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(N/B)"
+                ]
+              ],
+              "explanation": "mask 限定 0<=idx<N；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+            },
+            "rule": "enabled_access_range",
+            "domain": [
+              "CUDA float32",
+              "N 至少为 1",
+              "元素总数不超过 1000000",
+              "显式尾部 mask",
+              "形状正长度",
+              "行系数非负"
+            ],
+            "binding": [
+              [
+                "N",
+                "x.size(0)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(N/B)"
+              ]
+            ],
+            "reason": "mask 限定 0<=idx<N；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+          }
+        },
+        {
+          "stage": "span",
+          "candidate": {
+            "condition": {
+              "kind": "access_span",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [],
+              "span": {
+                "tensor": "OUT",
+                "lower": {
+                  "kind": "constant",
+                  "value": 0,
+                  "scalar": "",
+                  "parts": []
+                },
+                "upper": {
+                  "kind": "add",
+                  "value": null,
+                  "scalar": "",
+                  "parts": [
+                    {
+                      "kind": "sub",
+                      "value": null,
+                      "scalar": "",
+                      "parts": [
+                        {
+                          "kind": "scalar",
+                          "value": null,
+                          "scalar": "N",
+                          "parts": []
+                        },
+                        {
+                          "kind": "constant",
+                          "value": 1,
+                          "scalar": "",
+                          "parts": []
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 0,
+                      "scalar": "",
+                      "parts": []
+                    }
+                  ]
+                },
+                "element_bytes": 4
+              }
+            },
+            "obligation": null,
+            "purpose": "Safety",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/kernels.py",
+              "source_line": 35,
+              "access_kind": "store",
+              "pointer": "Y",
+              "semantic_index": "out[i] = x[i] + 1",
+              "bindings": [
+                [
+                  "N",
+                  "x.size(0)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(N/B)"
+                ]
+              ],
+              "explanation": "mask 限定 0<=idx<N；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+            },
+            "rule": "enabled_access_range",
+            "domain": [
+              "CUDA float32",
+              "N 至少为 1",
+              "元素总数不超过 1000000",
+              "显式尾部 mask",
+              "形状正长度",
+              "行系数非负"
+            ],
+            "binding": [
+              [
+                "N",
+                "x.size(0)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(N/B)"
+              ]
+            ],
+            "reason": "mask 限定 0<=idx<N；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+          }
+        }
+      ]
+    },
+    "D": {
+      "version": "guard-plan-1",
+      "name": "D",
+      "fingerprint": "68475f1fd0f22427deda7595f51ccd1907ad0c2dbbc1503e0a96e3950ba27a1e",
+      "status": "Supported",
+      "reason": "当前源码、语义和全部访存义务已核对",
+      "binding": {
+        "pointers": [
+          [
+            "x_ptr",
+            "X"
+          ],
+          [
+            "y_ptr",
+            "Y"
+          ],
+          [
+            "output_ptr",
+            "OUT"
+          ]
+        ],
+        "scalars": [
+          [
+            "n_elements",
+            "x.numel() = y.numel()"
+          ],
+          [
+            "BLOCK_SIZE",
+            "128"
+          ]
+        ],
+        "grid": "ceil(n_elements/BLOCK_SIZE)",
+        "output_shape": [
+          "n_elements"
+        ],
+        "output_element_bytes": 4,
+        "source": "当前已核对 wrapper"
+      },
+      "signature": [
+        "x_ptr",
+        "y_ptr",
+        "output_ptr",
+        "n_elements",
+        "BLOCK_SIZE"
+      ],
+      "checks": [
+        {
+          "stage": "metadata",
+          "candidate": {
+            "condition": {
+              "kind": "or",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [
+                {
+                  "kind": "eq",
+                  "left": {
+                    "kind": "size",
+                    "tensor": "X",
+                    "axis": 0,
+                    "value": null,
+                    "scalar": ""
+                  },
+                  "right": {
+                    "kind": "constant",
+                    "tensor": "",
+                    "axis": null,
+                    "value": 1,
+                    "scalar": ""
+                  },
+                  "divisor": null,
+                  "remainder": null,
+                  "tensor": "",
+                  "parts": [],
+                  "span": null
+                },
+                {
+                  "kind": "eq",
+                  "left": {
+                    "kind": "stride",
+                    "tensor": "X",
+                    "axis": 0,
+                    "value": null,
+                    "scalar": ""
+                  },
+                  "right": {
+                    "kind": "constant",
+                    "tensor": "",
+                    "axis": null,
+                    "value": 1,
+                    "scalar": ""
+                  },
+                  "divisor": null,
+                  "remainder": null,
+                  "tensor": "",
+                  "parts": [],
+                  "span": null
+                }
+              ],
+              "span": null
+            },
+            "obligation": null,
+            "purpose": "Semantics",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/external_add.py",
+              "source_line": 19,
+              "access_kind": "load",
+              "pointer": "x_ptr",
+              "semantic_index": "x[i]",
+              "bindings": [
+                [
+                  "n_elements",
+                  "x.numel() = y.numel()"
+                ],
+                [
+                  "BLOCK_SIZE",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(n_elements/BLOCK_SIZE)"
+                ]
+              ],
+              "explanation": "mask 限定 0<=i<N；相邻逻辑元素地址差为 1，单元素时步长无作用"
+            },
+            "rule": "compare_logical_address",
+            "domain": [
+              "两个输入均为同设备 CUDA float32",
+              "形状一致",
+              "长度至少为 1",
+              "长度不超过 1000000",
+              "显式尾部 mask"
+            ],
+            "binding": [
+              [
+                "n_elements",
+                "x.numel() = y.numel()"
+              ],
+              [
+                "BLOCK_SIZE",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(n_elements/BLOCK_SIZE)"
+              ]
+            ],
+            "reason": "mask 限定 0<=i<N；相邻逻辑元素地址差为 1，单元素时步长无作用"
+          }
+        },
+        {
+          "stage": "metadata",
+          "candidate": {
+            "condition": {
+              "kind": "or",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [
+                {
+                  "kind": "eq",
+                  "left": {
+                    "kind": "size",
+                    "tensor": "Y",
+                    "axis": 0,
+                    "value": null,
+                    "scalar": ""
+                  },
+                  "right": {
+                    "kind": "constant",
+                    "tensor": "",
+                    "axis": null,
+                    "value": 1,
+                    "scalar": ""
+                  },
+                  "divisor": null,
+                  "remainder": null,
+                  "tensor": "",
+                  "parts": [],
+                  "span": null
+                },
+                {
+                  "kind": "eq",
+                  "left": {
+                    "kind": "stride",
+                    "tensor": "Y",
+                    "axis": 0,
+                    "value": null,
+                    "scalar": ""
+                  },
+                  "right": {
+                    "kind": "constant",
+                    "tensor": "",
+                    "axis": null,
+                    "value": 1,
+                    "scalar": ""
+                  },
+                  "divisor": null,
+                  "remainder": null,
+                  "tensor": "",
+                  "parts": [],
+                  "span": null
+                }
+              ],
+              "span": null
+            },
+            "obligation": null,
+            "purpose": "Semantics",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/external_add.py",
+              "source_line": 20,
+              "access_kind": "load",
+              "pointer": "y_ptr",
+              "semantic_index": "y[i]",
+              "bindings": [
+                [
+                  "n_elements",
+                  "x.numel() = y.numel()"
+                ],
+                [
+                  "BLOCK_SIZE",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(n_elements/BLOCK_SIZE)"
+                ]
+              ],
+              "explanation": "mask 限定 0<=i<N；相邻逻辑元素地址差为 1，单元素时步长无作用"
+            },
+            "rule": "compare_logical_address",
+            "domain": [
+              "两个输入均为同设备 CUDA float32",
+              "形状一致",
+              "长度至少为 1",
+              "长度不超过 1000000",
+              "显式尾部 mask"
+            ],
+            "binding": [
+              [
+                "n_elements",
+                "x.numel() = y.numel()"
+              ],
+              [
+                "BLOCK_SIZE",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(n_elements/BLOCK_SIZE)"
+              ]
+            ],
+            "reason": "mask 限定 0<=i<N；相邻逻辑元素地址差为 1，单元素时步长无作用"
+          }
+        },
+        {
+          "stage": "span",
+          "candidate": {
+            "condition": {
+              "kind": "access_span",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [],
+              "span": {
+                "tensor": "X",
+                "lower": {
+                  "kind": "constant",
+                  "value": 0,
+                  "scalar": "",
+                  "parts": []
+                },
+                "upper": {
+                  "kind": "add",
+                  "value": null,
+                  "scalar": "",
+                  "parts": [
+                    {
+                      "kind": "sub",
+                      "value": null,
+                      "scalar": "",
+                      "parts": [
+                        {
+                          "kind": "scalar",
+                          "value": null,
+                          "scalar": "n_elements",
+                          "parts": []
+                        },
+                        {
+                          "kind": "constant",
+                          "value": 1,
+                          "scalar": "",
+                          "parts": []
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 0,
+                      "scalar": "",
+                      "parts": []
+                    }
+                  ]
+                },
+                "element_bytes": 4
+              }
+            },
+            "obligation": null,
+            "purpose": "Safety",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/external_add.py",
+              "source_line": 19,
+              "access_kind": "load",
+              "pointer": "x_ptr",
+              "semantic_index": "x[i]",
+              "bindings": [
+                [
+                  "n_elements",
+                  "x.numel() = y.numel()"
+                ],
+                [
+                  "BLOCK_SIZE",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(n_elements/BLOCK_SIZE)"
+                ]
+              ],
+              "explanation": "mask 限定 0<=idx<n_elements；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+            },
+            "rule": "enabled_access_range",
+            "domain": [
+              "两个输入均为同设备 CUDA float32",
+              "形状一致",
+              "长度至少为 1",
+              "长度不超过 1000000",
+              "显式尾部 mask",
+              "形状正长度",
+              "行系数非负"
+            ],
+            "binding": [
+              [
+                "n_elements",
+                "x.numel() = y.numel()"
+              ],
+              [
+                "BLOCK_SIZE",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(n_elements/BLOCK_SIZE)"
+              ]
+            ],
+            "reason": "mask 限定 0<=idx<n_elements；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+          }
+        },
+        {
+          "stage": "span",
+          "candidate": {
+            "condition": {
+              "kind": "access_span",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [],
+              "span": {
+                "tensor": "Y",
+                "lower": {
+                  "kind": "constant",
+                  "value": 0,
+                  "scalar": "",
+                  "parts": []
+                },
+                "upper": {
+                  "kind": "add",
+                  "value": null,
+                  "scalar": "",
+                  "parts": [
+                    {
+                      "kind": "sub",
+                      "value": null,
+                      "scalar": "",
+                      "parts": [
+                        {
+                          "kind": "scalar",
+                          "value": null,
+                          "scalar": "n_elements",
+                          "parts": []
+                        },
+                        {
+                          "kind": "constant",
+                          "value": 1,
+                          "scalar": "",
+                          "parts": []
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 0,
+                      "scalar": "",
+                      "parts": []
+                    }
+                  ]
+                },
+                "element_bytes": 4
+              }
+            },
+            "obligation": null,
+            "purpose": "Safety",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/external_add.py",
+              "source_line": 20,
+              "access_kind": "load",
+              "pointer": "y_ptr",
+              "semantic_index": "y[i]",
+              "bindings": [
+                [
+                  "n_elements",
+                  "x.numel() = y.numel()"
+                ],
+                [
+                  "BLOCK_SIZE",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(n_elements/BLOCK_SIZE)"
+                ]
+              ],
+              "explanation": "mask 限定 0<=idx<n_elements；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+            },
+            "rule": "enabled_access_range",
+            "domain": [
+              "两个输入均为同设备 CUDA float32",
+              "形状一致",
+              "长度至少为 1",
+              "长度不超过 1000000",
+              "显式尾部 mask",
+              "形状正长度",
+              "行系数非负"
+            ],
+            "binding": [
+              [
+                "n_elements",
+                "x.numel() = y.numel()"
+              ],
+              [
+                "BLOCK_SIZE",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(n_elements/BLOCK_SIZE)"
+              ]
+            ],
+            "reason": "mask 限定 0<=idx<n_elements；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+          }
+        },
+        {
+          "stage": "span",
+          "candidate": {
+            "condition": {
+              "kind": "access_span",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [],
+              "span": {
+                "tensor": "OUT",
+                "lower": {
+                  "kind": "constant",
+                  "value": 0,
+                  "scalar": "",
+                  "parts": []
+                },
+                "upper": {
+                  "kind": "add",
+                  "value": null,
+                  "scalar": "",
+                  "parts": [
+                    {
+                      "kind": "sub",
+                      "value": null,
+                      "scalar": "",
+                      "parts": [
+                        {
+                          "kind": "scalar",
+                          "value": null,
+                          "scalar": "n_elements",
+                          "parts": []
+                        },
+                        {
+                          "kind": "constant",
+                          "value": 1,
+                          "scalar": "",
+                          "parts": []
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 0,
+                      "scalar": "",
+                      "parts": []
+                    }
+                  ]
+                },
+                "element_bytes": 4
+              }
+            },
+            "obligation": null,
+            "purpose": "Safety",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/external_add.py",
+              "source_line": 22,
+              "access_kind": "store",
+              "pointer": "output_ptr",
+              "semantic_index": "out[i] = x[i] + y[i]",
+              "bindings": [
+                [
+                  "n_elements",
+                  "x.numel() = y.numel()"
+                ],
+                [
+                  "BLOCK_SIZE",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(n_elements/BLOCK_SIZE)"
+                ]
+              ],
+              "explanation": "mask 限定 0<=idx<n_elements；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+            },
+            "rule": "enabled_access_range",
+            "domain": [
+              "两个输入均为同设备 CUDA float32",
+              "形状一致",
+              "长度至少为 1",
+              "长度不超过 1000000",
+              "显式尾部 mask",
+              "形状正长度",
+              "行系数非负"
+            ],
+            "binding": [
+              [
+                "n_elements",
+                "x.numel() = y.numel()"
+              ],
+              [
+                "BLOCK_SIZE",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(n_elements/BLOCK_SIZE)"
+              ]
+            ],
+            "reason": "mask 限定 0<=idx<n_elements；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+          }
+        }
+      ]
+    },
+    "holdout_vector": {
+      "version": "guard-plan-1",
+      "name": "holdout_vector",
+      "fingerprint": "92bb187d1134b18b32f4fe77e6b0c607c6792429b608e4c2772c687b4a24711e",
+      "status": "Supported",
+      "reason": "当前源码、语义和全部访存义务已核对",
+      "binding": {
+        "pointers": [
+          [
+            "X",
+            "X"
+          ],
+          [
+            "Y",
+            "OUT"
+          ]
+        ],
+        "scalars": [
+          [
+            "N",
+            "x.size(0)"
+          ],
+          [
+            "S",
+            "x.stride(0)"
+          ],
+          [
+            "B",
+            "128"
+          ]
+        ],
+        "grid": "ceil(N/B)",
+        "output_shape": [
+          "N"
+        ],
+        "output_element_bytes": 4,
+        "source": "当前已核对 wrapper"
+      },
+      "signature": [
+        "X",
+        "Y",
+        "N",
+        "S",
+        "B"
+      ],
+      "checks": [
+        {
+          "stage": "metadata",
+          "candidate": {
+            "condition": {
+              "kind": "eq",
+              "left": {
+                "kind": "stride",
+                "tensor": "X",
+                "axis": 0,
+                "value": null,
+                "scalar": ""
+              },
+              "right": {
+                "kind": "scalar",
+                "tensor": "",
+                "axis": null,
+                "value": null,
+                "scalar": "S"
+              },
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [],
+              "span": null
+            },
+            "obligation": null,
+            "purpose": "Semantics",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/holdouts.py",
+              "source_line": 14,
+              "access_kind": "load",
+              "pointer": "X",
+              "semantic_index": "x[i]",
+              "bindings": [
+                [
+                  "N",
+                  "x.size(0)"
+                ],
+                [
+                  "S",
+                  "x.stride(0)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(N/B)"
+                ]
+              ],
+              "explanation": "一维读取地址为 i*已核对的输入 stride(0)，按逻辑索引逐元素读取"
+            },
+            "rule": "compare_logical_address",
+            "domain": [
+              "CUDA float32",
+              "N 至少为 1",
+              "非负输入步长",
+              "显式尾部 mask"
+            ],
+            "binding": [
+              [
+                "N",
+                "x.size(0)"
+              ],
+              [
+                "S",
+                "x.stride(0)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(N/B)"
+              ]
+            ],
+            "reason": "一维读取地址为 i*已核对的输入 stride(0)，按逻辑索引逐元素读取"
+          }
+        },
+        {
+          "stage": "span",
+          "candidate": {
+            "condition": {
+              "kind": "access_span",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [],
+              "span": {
+                "tensor": "X",
+                "lower": {
+                  "kind": "constant",
+                  "value": 0,
+                  "scalar": "",
+                  "parts": []
+                },
+                "upper": {
+                  "kind": "mul",
+                  "value": null,
+                  "scalar": "",
+                  "parts": [
+                    {
+                      "kind": "sub",
+                      "value": null,
+                      "scalar": "",
+                      "parts": [
+                        {
+                          "kind": "scalar",
+                          "value": null,
+                          "scalar": "N",
+                          "parts": []
+                        },
+                        {
+                          "kind": "constant",
+                          "value": 1,
+                          "scalar": "",
+                          "parts": []
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "scalar",
+                      "value": null,
+                      "scalar": "S",
+                      "parts": []
+                    }
+                  ]
+                },
+                "element_bytes": 4
+              }
+            },
+            "obligation": null,
+            "purpose": "Safety",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/holdouts.py",
+              "source_line": 14,
+              "access_kind": "load",
+              "pointer": "X",
+              "semantic_index": "x[i]",
+              "bindings": [
+                [
+                  "N",
+                  "x.size(0)"
+                ],
+                [
+                  "S",
+                  "x.stride(0)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(N/B)"
+                ]
+              ],
+              "explanation": "mask 限定 0<=idx<N；读取偏移为 idx*S，非负步长时实际启用范围为 [0, (N-1)*S] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+            },
+            "rule": "enabled_access_range",
+            "domain": [
+              "CUDA float32",
+              "N 至少为 1",
+              "非负输入步长",
+              "显式尾部 mask",
+              "形状正长度",
+              "行系数非负"
+            ],
+            "binding": [
+              [
+                "N",
+                "x.size(0)"
+              ],
+              [
+                "S",
+                "x.stride(0)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(N/B)"
+              ]
+            ],
+            "reason": "mask 限定 0<=idx<N；读取偏移为 idx*S，非负步长时实际启用范围为 [0, (N-1)*S] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+          }
+        },
+        {
+          "stage": "span",
+          "candidate": {
+            "condition": {
+              "kind": "access_span",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [],
+              "span": {
+                "tensor": "OUT",
+                "lower": {
+                  "kind": "constant",
+                  "value": 0,
+                  "scalar": "",
+                  "parts": []
+                },
+                "upper": {
+                  "kind": "add",
+                  "value": null,
+                  "scalar": "",
+                  "parts": [
+                    {
+                      "kind": "sub",
+                      "value": null,
+                      "scalar": "",
+                      "parts": [
+                        {
+                          "kind": "scalar",
+                          "value": null,
+                          "scalar": "N",
+                          "parts": []
+                        },
+                        {
+                          "kind": "constant",
+                          "value": 1,
+                          "scalar": "",
+                          "parts": []
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 0,
+                      "scalar": "",
+                      "parts": []
+                    }
+                  ]
+                },
+                "element_bytes": 4
+              }
+            },
+            "obligation": null,
+            "purpose": "Safety",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/holdouts.py",
+              "source_line": 15,
+              "access_kind": "store",
+              "pointer": "Y",
+              "semantic_index": "out[i] = x[i] + 1",
+              "bindings": [
+                [
+                  "N",
+                  "x.size(0)"
+                ],
+                [
+                  "S",
+                  "x.stride(0)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(N/B)"
+                ]
+              ],
+              "explanation": "mask 限定 0<=idx<N；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+            },
+            "rule": "enabled_access_range",
+            "domain": [
+              "CUDA float32",
+              "N 至少为 1",
+              "非负输入步长",
+              "显式尾部 mask",
+              "形状正长度",
+              "行系数非负"
+            ],
+            "binding": [
+              [
+                "N",
+                "x.size(0)"
+              ],
+              [
+                "S",
+                "x.stride(0)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(N/B)"
+              ]
+            ],
+            "reason": "mask 限定 0<=idx<N；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+          }
+        }
+      ]
+    },
+    "holdout_matrix": {
+      "version": "guard-plan-1",
+      "name": "holdout_matrix",
+      "fingerprint": "e7ac361a49a703863dc5ba1f9ee56c8f10c67bff5bb997df667e35ceb654f86a",
+      "status": "Supported",
+      "reason": "当前源码、语义和全部访存义务已核对",
+      "binding": {
+        "pointers": [
+          [
+            "X",
+            "X"
+          ],
+          [
+            "Y",
+            "OUT"
+          ]
+        ],
+        "scalars": [
+          [
+            "M",
+            "x.size(0)"
+          ],
+          [
+            "N",
+            "x.size(1)"
+          ],
+          [
+            "S0",
+            "x.stride(0)"
+          ],
+          [
+            "S1",
+            "x.stride(1)"
+          ],
+          [
+            "B",
+            "next_power_of_2(N)"
+          ]
+        ],
+        "grid": "M",
+        "output_shape": [
+          "M",
+          "N"
+        ],
+        "output_element_bytes": 4,
+        "source": "当前已核对 wrapper"
+      },
+      "signature": [
+        "X",
+        "Y",
+        "M",
+        "N",
+        "S0",
+        "S1",
+        "B"
+      ],
+      "checks": [
+        {
+          "stage": "metadata",
+          "candidate": {
+            "condition": {
+              "kind": "eq",
+              "left": {
+                "kind": "stride",
+                "tensor": "X",
+                "axis": 0,
+                "value": null,
+                "scalar": ""
+              },
+              "right": {
+                "kind": "scalar",
+                "tensor": "",
+                "axis": null,
+                "value": null,
+                "scalar": "S0"
+              },
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [],
+              "span": null
+            },
+            "obligation": null,
+            "purpose": "Semantics",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/holdouts.py",
+              "source_line": 23,
+              "access_kind": "load",
+              "pointer": "X",
+              "semantic_index": "x[row, col]",
+              "bindings": [
+                [
+                  "M",
+                  "x.size(0)"
+                ],
+                [
+                  "N",
+                  "x.size(1)"
+                ],
+                [
+                  "S0",
+                  "x.stride(0)"
+                ],
+                [
+                  "S1",
+                  "x.stride(1)"
+                ],
+                [
+                  "B",
+                  "next_power_of_2(N)"
+                ],
+                [
+                  "grid",
+                  "M"
+                ]
+              ],
+              "explanation": "逐行读取地址的行系数来自已核对的输入 stride(0)"
+            },
+            "rule": "compare_logical_address",
+            "domain": [
+              "CUDA float32",
+              "M、N 至少为 1",
+              "非负输入步长",
+              "显式尾部 mask"
+            ],
+            "binding": [
+              [
+                "M",
+                "x.size(0)"
+              ],
+              [
+                "N",
+                "x.size(1)"
+              ],
+              [
+                "S0",
+                "x.stride(0)"
+              ],
+              [
+                "S1",
+                "x.stride(1)"
+              ],
+              [
+                "B",
+                "next_power_of_2(N)"
+              ],
+              [
+                "grid",
+                "M"
+              ]
+            ],
+            "reason": "逐行读取地址的行系数来自已核对的输入 stride(0)"
+          }
+        },
+        {
+          "stage": "metadata",
+          "candidate": {
+            "condition": {
+              "kind": "eq",
+              "left": {
+                "kind": "stride",
+                "tensor": "X",
+                "axis": 1,
+                "value": null,
+                "scalar": ""
+              },
+              "right": {
+                "kind": "scalar",
+                "tensor": "",
+                "axis": null,
+                "value": null,
+                "scalar": "S1"
+              },
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [],
+              "span": null
+            },
+            "obligation": null,
+            "purpose": "Semantics",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/holdouts.py",
+              "source_line": 23,
+              "access_kind": "load",
+              "pointer": "X",
+              "semantic_index": "x[row, col]",
+              "bindings": [
+                [
+                  "M",
+                  "x.size(0)"
+                ],
+                [
+                  "N",
+                  "x.size(1)"
+                ],
+                [
+                  "S0",
+                  "x.stride(0)"
+                ],
+                [
+                  "S1",
+                  "x.stride(1)"
+                ],
+                [
+                  "B",
+                  "next_power_of_2(N)"
+                ],
+                [
+                  "grid",
+                  "M"
+                ]
+              ],
+              "explanation": "逐列读取地址的列系数来自已核对的输入 stride(1)"
+            },
+            "rule": "compare_logical_address",
+            "domain": [
+              "CUDA float32",
+              "M、N 至少为 1",
+              "非负输入步长",
+              "显式尾部 mask"
+            ],
+            "binding": [
+              [
+                "M",
+                "x.size(0)"
+              ],
+              [
+                "N",
+                "x.size(1)"
+              ],
+              [
+                "S0",
+                "x.stride(0)"
+              ],
+              [
+                "S1",
+                "x.stride(1)"
+              ],
+              [
+                "B",
+                "next_power_of_2(N)"
+              ],
+              [
+                "grid",
+                "M"
+              ]
+            ],
+            "reason": "逐列读取地址的列系数来自已核对的输入 stride(1)"
+          }
+        },
+        {
+          "stage": "span",
+          "candidate": {
+            "condition": {
+              "kind": "access_span",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [],
+              "span": {
+                "tensor": "X",
+                "lower": {
+                  "kind": "constant",
+                  "value": 0,
+                  "scalar": "",
+                  "parts": []
+                },
+                "upper": {
+                  "kind": "add",
+                  "value": null,
+                  "scalar": "",
+                  "parts": [
+                    {
+                      "kind": "add",
+                      "value": null,
+                      "scalar": "",
+                      "parts": [
+                        {
+                          "kind": "mul",
+                          "value": null,
+                          "scalar": "",
+                          "parts": [
+                            {
+                              "kind": "sub",
+                              "value": null,
+                              "scalar": "",
+                              "parts": [
+                                {
+                                  "kind": "scalar",
+                                  "value": null,
+                                  "scalar": "M",
+                                  "parts": []
+                                },
+                                {
+                                  "kind": "constant",
+                                  "value": 1,
+                                  "scalar": "",
+                                  "parts": []
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "scalar",
+                              "value": null,
+                              "scalar": "S0",
+                              "parts": []
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "mul",
+                          "value": null,
+                          "scalar": "",
+                          "parts": [
+                            {
+                              "kind": "sub",
+                              "value": null,
+                              "scalar": "",
+                              "parts": [
+                                {
+                                  "kind": "scalar",
+                                  "value": null,
+                                  "scalar": "N",
+                                  "parts": []
+                                },
+                                {
+                                  "kind": "constant",
+                                  "value": 1,
+                                  "scalar": "",
+                                  "parts": []
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "scalar",
+                              "value": null,
+                              "scalar": "S1",
+                              "parts": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 0,
+                      "scalar": "",
+                      "parts": []
+                    }
+                  ]
+                },
+                "element_bytes": 4
+              }
+            },
+            "obligation": null,
+            "purpose": "Safety",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/holdouts.py",
+              "source_line": 23,
+              "access_kind": "load",
+              "pointer": "X",
+              "semantic_index": "x[row, col]",
+              "bindings": [
+                [
+                  "M",
+                  "x.size(0)"
+                ],
+                [
+                  "N",
+                  "x.size(1)"
+                ],
+                [
+                  "S0",
+                  "x.stride(0)"
+                ],
+                [
+                  "S1",
+                  "x.stride(1)"
+                ],
+                [
+                  "B",
+                  "next_power_of_2(N)"
+                ],
+                [
+                  "grid",
+                  "M"
+                ]
+              ],
+              "explanation": "grid 覆盖 0<=pid<M，mask 限定 0<=lane<N；行列系数需非负，实际启用范围为 [0, (M-1)*S0+(N-1)*S1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+            },
+            "rule": "enabled_access_range",
+            "domain": [
+              "CUDA float32",
+              "M、N 至少为 1",
+              "非负输入步长",
+              "显式尾部 mask",
+              "形状正长度",
+              "行系数非负"
+            ],
+            "binding": [
+              [
+                "M",
+                "x.size(0)"
+              ],
+              [
+                "N",
+                "x.size(1)"
+              ],
+              [
+                "S0",
+                "x.stride(0)"
+              ],
+              [
+                "S1",
+                "x.stride(1)"
+              ],
+              [
+                "B",
+                "next_power_of_2(N)"
+              ],
+              [
+                "grid",
+                "M"
+              ]
+            ],
+            "reason": "grid 覆盖 0<=pid<M，mask 限定 0<=lane<N；行列系数需非负，实际启用范围为 [0, (M-1)*S0+(N-1)*S1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+          }
+        },
+        {
+          "stage": "span",
+          "candidate": {
+            "condition": {
+              "kind": "access_span",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [],
+              "span": {
+                "tensor": "OUT",
+                "lower": {
+                  "kind": "constant",
+                  "value": 0,
+                  "scalar": "",
+                  "parts": []
+                },
+                "upper": {
+                  "kind": "add",
+                  "value": null,
+                  "scalar": "",
+                  "parts": [
+                    {
+                      "kind": "add",
+                      "value": null,
+                      "scalar": "",
+                      "parts": [
+                        {
+                          "kind": "mul",
+                          "value": null,
+                          "scalar": "",
+                          "parts": [
+                            {
+                              "kind": "sub",
+                              "value": null,
+                              "scalar": "",
+                              "parts": [
+                                {
+                                  "kind": "scalar",
+                                  "value": null,
+                                  "scalar": "M",
+                                  "parts": []
+                                },
+                                {
+                                  "kind": "constant",
+                                  "value": 1,
+                                  "scalar": "",
+                                  "parts": []
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "scalar",
+                              "value": null,
+                              "scalar": "N",
+                              "parts": []
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "sub",
+                          "value": null,
+                          "scalar": "",
+                          "parts": [
+                            {
+                              "kind": "scalar",
+                              "value": null,
+                              "scalar": "N",
+                              "parts": []
+                            },
+                            {
+                              "kind": "constant",
+                              "value": 1,
+                              "scalar": "",
+                              "parts": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 0,
+                      "scalar": "",
+                      "parts": []
+                    }
+                  ]
+                },
+                "element_bytes": 4
+              }
+            },
+            "obligation": null,
+            "purpose": "Safety",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/holdouts.py",
+              "source_line": 24,
+              "access_kind": "store",
+              "pointer": "Y",
+              "semantic_index": "out[row, col] = x[row, col] + 1",
+              "bindings": [
+                [
+                  "M",
+                  "x.size(0)"
+                ],
+                [
+                  "N",
+                  "x.size(1)"
+                ],
+                [
+                  "S0",
+                  "x.stride(0)"
+                ],
+                [
+                  "S1",
+                  "x.stride(1)"
+                ],
+                [
+                  "B",
+                  "next_power_of_2(N)"
+                ],
+                [
+                  "grid",
+                  "M"
+                ]
+              ],
+              "explanation": "grid 覆盖 0<=pid<M，mask 限定 0<=lane<N；行列系数需非负，实际启用范围为 [0, (M-1)*N+N-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+            },
+            "rule": "enabled_access_range",
+            "domain": [
+              "CUDA float32",
+              "M、N 至少为 1",
+              "非负输入步长",
+              "显式尾部 mask",
+              "形状正长度",
+              "行系数非负"
+            ],
+            "binding": [
+              [
+                "M",
+                "x.size(0)"
+              ],
+              [
+                "N",
+                "x.size(1)"
+              ],
+              [
+                "S0",
+                "x.stride(0)"
+              ],
+              [
+                "S1",
+                "x.stride(1)"
+              ],
+              [
+                "B",
+                "next_power_of_2(N)"
+              ],
+              [
+                "grid",
+                "M"
+              ]
+            ],
+            "reason": "grid 覆盖 0<=pid<M，mask 限定 0<=lane<N；行列系数需非负，实际启用范围为 [0, (M-1)*N+N-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+          }
+        }
+      ]
+    },
+    "pointer_hint": {
+      "version": "guard-plan-1",
+      "name": "pointer_hint",
+      "fingerprint": "febd57e686dc0917e5bc7746e0bf5c6978339f72aec65629b524c862260a5531",
+      "status": "Supported",
+      "reason": "当前源码、语义和全部访存义务已核对",
+      "binding": {
+        "pointers": [
+          [
+            "X",
+            "X"
+          ],
+          [
+            "Y",
+            "OUT"
+          ]
+        ],
+        "scalars": [
+          [
+            "N",
+            "x.size(0)"
+          ],
+          [
+            "B",
+            "128"
+          ]
+        ],
+        "grid": "ceil(N/B)",
+        "output_shape": [
+          "N"
+        ],
+        "output_element_bytes": 4,
+        "source": "当前已核对 wrapper"
+      },
+      "signature": [
+        "X",
+        "Y",
+        "N",
+        "B"
+      ],
+      "checks": [
+        {
+          "stage": "metadata",
+          "candidate": {
+            "condition": {
+              "kind": "or",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [
+                {
+                  "kind": "eq",
+                  "left": {
+                    "kind": "size",
+                    "tensor": "X",
+                    "axis": 0,
+                    "value": null,
+                    "scalar": ""
+                  },
+                  "right": {
+                    "kind": "constant",
+                    "tensor": "",
+                    "axis": null,
+                    "value": 1,
+                    "scalar": ""
+                  },
+                  "divisor": null,
+                  "remainder": null,
+                  "tensor": "",
+                  "parts": [],
+                  "span": null
+                },
+                {
+                  "kind": "eq",
+                  "left": {
+                    "kind": "stride",
+                    "tensor": "X",
+                    "axis": 0,
+                    "value": null,
+                    "scalar": ""
+                  },
+                  "right": {
+                    "kind": "constant",
+                    "tensor": "",
+                    "axis": null,
+                    "value": 1,
+                    "scalar": ""
+                  },
+                  "divisor": null,
+                  "remainder": null,
+                  "tensor": "",
+                  "parts": [],
+                  "span": null
+                }
+              ],
+              "span": null
+            },
+            "obligation": null,
+            "purpose": "Semantics",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/alignment_fixtures.py",
+              "source_line": 13,
+              "access_kind": "load",
+              "pointer": "X",
+              "semantic_index": "x[i]",
+              "bindings": [
+                [
+                  "N",
+                  "x.size(0)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(N/B)"
+                ]
+              ],
+              "explanation": "mask 限定 0<=i<N；相邻逻辑元素地址差为 1，单元素时步长无作用"
+            },
+            "rule": "compare_logical_address",
+            "domain": [
+              "CUDA float32",
+              "N 至少为 1",
+              "元素总数不超过 1000000",
+              "显式尾部 mask"
+            ],
+            "binding": [
+              [
+                "N",
+                "x.size(0)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(N/B)"
+              ]
+            ],
+            "reason": "mask 限定 0<=i<N；相邻逻辑元素地址差为 1，单元素时步长无作用"
+          }
+        },
+        {
+          "stage": "pointer",
+          "candidate": {
+            "condition": {
+              "kind": "mod_eq",
+              "left": {
+                "kind": "effective_ptr",
+                "tensor": "X",
+                "axis": null,
+                "value": null,
+                "scalar": ""
+              },
+              "right": null,
+              "divisor": 16,
+              "remainder": 0,
+              "tensor": "",
+              "parts": [],
+              "span": null
+            },
+            "obligation": null,
+            "purpose": "Optimization",
+            "evidence": "Unproven",
+            "origin": {
+              "source_file": "scenarios/alignment_fixtures.py",
+              "source_line": 13,
+              "access_kind": "load",
+              "pointer": "X",
+              "semantic_index": "x[i]",
+              "bindings": [
+                [
+                  "N",
+                  "x.size(0)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(N/B)"
+                ]
+              ],
+              "explanation": "scenarios/alignment_fixtures.py:10 的 tl.multiple_of(X, 16) 作用于有效基址；指针模数按字节计，data_ptr 已含视图偏移，不再叠加 storage_offset；动态地址尚未静态保证"
+            },
+            "rule": "multiple_of_pointer_base",
+            "domain": [
+              "CUDA float32",
+              "N 至少为 1",
+              "元素总数不超过 1000000",
+              "显式尾部 mask"
+            ],
+            "binding": [
+              [
+                "N",
+                "x.size(0)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(N/B)"
+              ]
+            ],
+            "reason": "scenarios/alignment_fixtures.py:10 的 tl.multiple_of(X, 16) 作用于有效基址；指针模数按字节计，data_ptr 已含视图偏移，不再叠加 storage_offset；动态地址尚未静态保证"
+          }
+        },
+        {
+          "stage": "span",
+          "candidate": {
+            "condition": {
+              "kind": "access_span",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [],
+              "span": {
+                "tensor": "X",
+                "lower": {
+                  "kind": "constant",
+                  "value": 0,
+                  "scalar": "",
+                  "parts": []
+                },
+                "upper": {
+                  "kind": "add",
+                  "value": null,
+                  "scalar": "",
+                  "parts": [
+                    {
+                      "kind": "sub",
+                      "value": null,
+                      "scalar": "",
+                      "parts": [
+                        {
+                          "kind": "scalar",
+                          "value": null,
+                          "scalar": "N",
+                          "parts": []
+                        },
+                        {
+                          "kind": "constant",
+                          "value": 1,
+                          "scalar": "",
+                          "parts": []
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 0,
+                      "scalar": "",
+                      "parts": []
+                    }
+                  ]
+                },
+                "element_bytes": 4
+              }
+            },
+            "obligation": null,
+            "purpose": "Safety",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/alignment_fixtures.py",
+              "source_line": 13,
+              "access_kind": "load",
+              "pointer": "X",
+              "semantic_index": "x[i]",
+              "bindings": [
+                [
+                  "N",
+                  "x.size(0)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(N/B)"
+                ]
+              ],
+              "explanation": "mask 限定 0<=idx<N；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+            },
+            "rule": "enabled_access_range",
+            "domain": [
+              "CUDA float32",
+              "N 至少为 1",
+              "元素总数不超过 1000000",
+              "显式尾部 mask",
+              "形状正长度",
+              "行系数非负"
+            ],
+            "binding": [
+              [
+                "N",
+                "x.size(0)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(N/B)"
+              ]
+            ],
+            "reason": "mask 限定 0<=idx<N；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+          }
+        },
+        {
+          "stage": "span",
+          "candidate": {
+            "condition": {
+              "kind": "access_span",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [],
+              "span": {
+                "tensor": "OUT",
+                "lower": {
+                  "kind": "constant",
+                  "value": 0,
+                  "scalar": "",
+                  "parts": []
+                },
+                "upper": {
+                  "kind": "add",
+                  "value": null,
+                  "scalar": "",
+                  "parts": [
+                    {
+                      "kind": "sub",
+                      "value": null,
+                      "scalar": "",
+                      "parts": [
+                        {
+                          "kind": "scalar",
+                          "value": null,
+                          "scalar": "N",
+                          "parts": []
+                        },
+                        {
+                          "kind": "constant",
+                          "value": 1,
+                          "scalar": "",
+                          "parts": []
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 0,
+                      "scalar": "",
+                      "parts": []
+                    }
+                  ]
+                },
+                "element_bytes": 4
+              }
+            },
+            "obligation": null,
+            "purpose": "Safety",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/alignment_fixtures.py",
+              "source_line": 14,
+              "access_kind": "store",
+              "pointer": "Y",
+              "semantic_index": "out[i] = x[i] + 1",
+              "bindings": [
+                [
+                  "N",
+                  "x.size(0)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(N/B)"
+                ]
+              ],
+              "explanation": "mask 限定 0<=idx<N；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+            },
+            "rule": "enabled_access_range",
+            "domain": [
+              "CUDA float32",
+              "N 至少为 1",
+              "元素总数不超过 1000000",
+              "显式尾部 mask",
+              "形状正长度",
+              "行系数非负"
+            ],
+            "binding": [
+              [
+                "N",
+                "x.size(0)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(N/B)"
+              ]
+            ],
+            "reason": "mask 限定 0<=idx<N；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+          }
+        }
+      ]
+    },
+    "index_hint": {
+      "version": "guard-plan-1",
+      "name": "index_hint",
+      "fingerprint": "483b5e97ed8dd05c55b2af70a64976593ca30d23cedf647b12512f3778f963ee",
+      "status": "Supported",
+      "reason": "当前源码、语义和全部访存义务已核对",
+      "binding": {
+        "pointers": [
+          [
+            "X",
+            "X"
+          ],
+          [
+            "Y",
+            "OUT"
+          ]
+        ],
+        "scalars": [
+          [
+            "N",
+            "x.size(0)"
+          ],
+          [
+            "B",
+            "128"
+          ]
+        ],
+        "grid": "ceil(N/B)",
+        "output_shape": [
+          "N"
+        ],
+        "output_element_bytes": 4,
+        "source": "当前已核对 wrapper"
+      },
+      "signature": [
+        "X",
+        "Y",
+        "N",
+        "B"
+      ],
+      "checks": [
+        {
+          "stage": "metadata",
+          "candidate": {
+            "condition": {
+              "kind": "or",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [
+                {
+                  "kind": "eq",
+                  "left": {
+                    "kind": "size",
+                    "tensor": "X",
+                    "axis": 0,
+                    "value": null,
+                    "scalar": ""
+                  },
+                  "right": {
+                    "kind": "constant",
+                    "tensor": "",
+                    "axis": null,
+                    "value": 1,
+                    "scalar": ""
+                  },
+                  "divisor": null,
+                  "remainder": null,
+                  "tensor": "",
+                  "parts": [],
+                  "span": null
+                },
+                {
+                  "kind": "eq",
+                  "left": {
+                    "kind": "stride",
+                    "tensor": "X",
+                    "axis": 0,
+                    "value": null,
+                    "scalar": ""
+                  },
+                  "right": {
+                    "kind": "constant",
+                    "tensor": "",
+                    "axis": null,
+                    "value": 1,
+                    "scalar": ""
+                  },
+                  "divisor": null,
+                  "remainder": null,
+                  "tensor": "",
+                  "parts": [],
+                  "span": null
+                }
+              ],
+              "span": null
+            },
+            "obligation": null,
+            "purpose": "Semantics",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/alignment_fixtures.py",
+              "source_line": 22,
+              "access_kind": "load",
+              "pointer": "X",
+              "semantic_index": "x[i]",
+              "bindings": [
+                [
+                  "N",
+                  "x.size(0)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(N/B)"
+                ]
+              ],
+              "explanation": "mask 限定 0<=i<N；相邻逻辑元素地址差为 1，单元素时步长无作用"
+            },
+            "rule": "compare_logical_address",
+            "domain": [
+              "CUDA float32",
+              "N 至少为 1",
+              "元素总数不超过 1000000",
+              "显式尾部 mask"
+            ],
+            "binding": [
+              [
+                "N",
+                "x.size(0)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(N/B)"
+              ]
+            ],
+            "reason": "mask 限定 0<=i<N；相邻逻辑元素地址差为 1，单元素时步长无作用"
+          }
+        },
+        {
+          "stage": "metadata",
+          "candidate": {
+            "condition": {
+              "kind": "mod_eq",
+              "left": {
+                "kind": "scalar",
+                "tensor": "",
+                "axis": null,
+                "value": null,
+                "scalar": "B"
+              },
+              "right": null,
+              "divisor": 16,
+              "remainder": 0,
+              "tensor": "",
+              "parts": [],
+              "span": null
+            },
+            "obligation": null,
+            "purpose": "Optimization",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/alignment_fixtures.py",
+              "source_line": 22,
+              "access_kind": "load",
+              "pointer": "X",
+              "semantic_index": "x[i]",
+              "bindings": [
+                [
+                  "N",
+                  "x.size(0)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(N/B)"
+                ]
+              ],
+              "explanation": "scenarios/alignment_fixtures.py:19 的 tl.multiple_of(tl.program_id(0) * B, 16) 仅约束索引组首 pid(0)*B 的元素偏移；不推出任何 Tensor 的有效指针对齐"
+            },
+            "rule": "multiple_of_index_start",
+            "domain": [
+              "CUDA float32",
+              "N 至少为 1",
+              "元素总数不超过 1000000",
+              "显式尾部 mask"
+            ],
+            "binding": [
+              [
+                "N",
+                "x.size(0)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(N/B)"
+              ]
+            ],
+            "reason": "scenarios/alignment_fixtures.py:19 的 tl.multiple_of(tl.program_id(0) * B, 16) 仅约束索引组首 pid(0)*B 的元素偏移；不推出任何 Tensor 的有效指针对齐"
+          }
+        },
+        {
+          "stage": "span",
+          "candidate": {
+            "condition": {
+              "kind": "access_span",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [],
+              "span": {
+                "tensor": "X",
+                "lower": {
+                  "kind": "constant",
+                  "value": 0,
+                  "scalar": "",
+                  "parts": []
+                },
+                "upper": {
+                  "kind": "add",
+                  "value": null,
+                  "scalar": "",
+                  "parts": [
+                    {
+                      "kind": "sub",
+                      "value": null,
+                      "scalar": "",
+                      "parts": [
+                        {
+                          "kind": "scalar",
+                          "value": null,
+                          "scalar": "N",
+                          "parts": []
+                        },
+                        {
+                          "kind": "constant",
+                          "value": 1,
+                          "scalar": "",
+                          "parts": []
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 0,
+                      "scalar": "",
+                      "parts": []
+                    }
+                  ]
+                },
+                "element_bytes": 4
+              }
+            },
+            "obligation": null,
+            "purpose": "Safety",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/alignment_fixtures.py",
+              "source_line": 22,
+              "access_kind": "load",
+              "pointer": "X",
+              "semantic_index": "x[i]",
+              "bindings": [
+                [
+                  "N",
+                  "x.size(0)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(N/B)"
+                ]
+              ],
+              "explanation": "mask 限定 0<=idx<N；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+            },
+            "rule": "enabled_access_range",
+            "domain": [
+              "CUDA float32",
+              "N 至少为 1",
+              "元素总数不超过 1000000",
+              "显式尾部 mask",
+              "形状正长度",
+              "行系数非负"
+            ],
+            "binding": [
+              [
+                "N",
+                "x.size(0)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(N/B)"
+              ]
+            ],
+            "reason": "mask 限定 0<=idx<N；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+          }
+        },
+        {
+          "stage": "span",
+          "candidate": {
+            "condition": {
+              "kind": "access_span",
+              "left": null,
+              "right": null,
+              "divisor": null,
+              "remainder": null,
+              "tensor": "",
+              "parts": [],
+              "span": {
+                "tensor": "OUT",
+                "lower": {
+                  "kind": "constant",
+                  "value": 0,
+                  "scalar": "",
+                  "parts": []
+                },
+                "upper": {
+                  "kind": "add",
+                  "value": null,
+                  "scalar": "",
+                  "parts": [
+                    {
+                      "kind": "sub",
+                      "value": null,
+                      "scalar": "",
+                      "parts": [
+                        {
+                          "kind": "scalar",
+                          "value": null,
+                          "scalar": "N",
+                          "parts": []
+                        },
+                        {
+                          "kind": "constant",
+                          "value": 1,
+                          "scalar": "",
+                          "parts": []
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 0,
+                      "scalar": "",
+                      "parts": []
+                    }
+                  ]
+                },
+                "element_bytes": 4
+              }
+            },
+            "obligation": null,
+            "purpose": "Safety",
+            "evidence": "Statically-Proven",
+            "origin": {
+              "source_file": "scenarios/alignment_fixtures.py",
+              "source_line": 23,
+              "access_kind": "store",
+              "pointer": "Y",
+              "semantic_index": "out[i] = x[i] + 1",
+              "bindings": [
+                [
+                  "N",
+                  "x.size(0)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(N/B)"
+                ]
+              ],
+              "explanation": "mask 限定 0<=idx<N；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+            },
+            "rule": "enabled_access_range",
+            "domain": [
+              "CUDA float32",
+              "N 至少为 1",
+              "元素总数不超过 1000000",
+              "显式尾部 mask",
+              "形状正长度",
+              "行系数非负"
+            ],
+            "binding": [
+              [
+                "N",
+                "x.size(0)"
+              ],
+              [
+                "B",
+                "128"
+              ],
+              [
+                "grid",
+                "ceil(N/B)"
+              ]
+            ],
+            "reason": "mask 限定 0<=idx<N；该访存偏移为 idx+0，实际启用范围为 [0, total-1+0] 元素；storage_offset 按元素计，端点乘元素宽度后与 storage_nbytes 比较；data_ptr 不重复叠加 offset"
+          }
+        }
+      ]
+    }
+  },
+  "runs": [
+    {
+      "recipe": {
+        "name": "A",
+        "layout": "contiguous"
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "Fast",
+          "direct_guard": {
+            "status": "True",
+            "reason": "全部必要义务本次为真",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  7,
+                  11
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "X",
+                "purpose": "Safety"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "Y",
+                "purpose": "Safety"
+              }
+            ],
+            "failed": null,
+            "output": [
+              7,
+              11
+            ],
+            "scalars": {
+              "M": 7,
+              "N": 11,
+              "B": 128
+            }
+          },
+          "repair": null,
+          "feasible": [
+            "Fast",
+            "PyTorch Fallback"
+          ],
+          "selection_reason": "无唯一且完整匹配的离线成本条目",
+          "fingerprint": "d334ef3416995ba61bca64c2c1f35b428b9e14ab0afbeb8ff64c5f5dbcf7eb40"
+        },
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          11,
+          1
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod16": 0,
+        "equal": true
+      }
+    },
+    {
+      "recipe": {
+        "name": "A",
+        "layout": "transpose"
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "PyTorch Fallback",
+          "direct_guard": {
+            "status": "False",
+            "reason": "shape/stride 或索引条件未满足",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  7,
+                  11
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": false,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              }
+            ],
+            "failed": {
+              "condition": {
+                "kind": "or",
+                "left": null,
+                "right": null,
+                "divisor": null,
+                "remainder": null,
+                "tensor": "",
+                "parts": [
+                  {
+                    "kind": "eq",
+                    "left": {
+                      "kind": "size",
+                      "tensor": "X",
+                      "axis": 0,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "right": {
+                      "kind": "constant",
+                      "tensor": "",
+                      "axis": null,
+                      "value": 1,
+                      "scalar": ""
+                    },
+                    "divisor": null,
+                    "remainder": null,
+                    "tensor": "",
+                    "parts": [],
+                    "span": null
+                  },
+                  {
+                    "kind": "eq",
+                    "left": {
+                      "kind": "stride",
+                      "tensor": "X",
+                      "axis": 0,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "right": {
+                      "kind": "size",
+                      "tensor": "X",
+                      "axis": 1,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "divisor": null,
+                    "remainder": null,
+                    "tensor": "",
+                    "parts": [],
+                    "span": null
+                  }
+                ],
+                "span": null
+              },
+              "obligation": null,
+              "purpose": "Semantics",
+              "evidence": "Statically-Proven",
+              "origin": {
+                "source_file": "scenarios/kernels.py",
+                "source_line": 15,
+                "access_kind": "load",
+                "pointer": "X",
+                "semantic_index": "x[row, col]",
+                "bindings": [
+                  [
+                    "M",
+                    "x.size(0)"
+                  ],
+                  [
+                    "N",
+                    "x.size(1)"
+                  ],
+                  [
+                    "B",
+                    "128"
+                  ],
+                  [
+                    "grid",
+                    "ceil(M*N/B)"
+                  ]
+                ],
+                "explanation": "扁平地址按列数 N 换行；单行时行步长无作用"
+              },
+              "rule": "compare_logical_address",
+              "domain": [
+                "CUDA float32",
+                "各维长度至少为 1",
+                "元素总数不超过 1000000",
+                "显式尾部 mask"
+              ],
+              "binding": [
+                [
+                  "M",
+                  "x.size(0)"
+                ],
+                [
+                  "N",
+                  "x.size(1)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(M*N/B)"
+                ]
+              ],
+              "reason": "扁平地址按列数 N 换行；单行时行步长无作用"
+            },
+            "output": null,
+            "scalars": null
+          },
+          "repair": null,
+          "feasible": [
+            "PyTorch Fallback"
+          ],
+          "selection_reason": "无唯一且完整匹配的离线成本条目",
+          "fingerprint": "d334ef3416995ba61bca64c2c1f35b428b9e14ab0afbeb8ff64c5f5dbcf7eb40"
+        },
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          1,
+          7
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod16": 0,
+        "equal": true
+      }
+    },
+    {
+      "recipe": {
+        "name": "A",
+        "layout": "transpose",
+        "policy": "prefer_repair"
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "Relayout+Fast",
+          "direct_guard": {
+            "status": "False",
+            "reason": "shape/stride 或索引条件未满足",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  7,
+                  11
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": false,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              }
+            ],
+            "failed": {
+              "condition": {
+                "kind": "or",
+                "left": null,
+                "right": null,
+                "divisor": null,
+                "remainder": null,
+                "tensor": "",
+                "parts": [
+                  {
+                    "kind": "eq",
+                    "left": {
+                      "kind": "size",
+                      "tensor": "X",
+                      "axis": 0,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "right": {
+                      "kind": "constant",
+                      "tensor": "",
+                      "axis": null,
+                      "value": 1,
+                      "scalar": ""
+                    },
+                    "divisor": null,
+                    "remainder": null,
+                    "tensor": "",
+                    "parts": [],
+                    "span": null
+                  },
+                  {
+                    "kind": "eq",
+                    "left": {
+                      "kind": "stride",
+                      "tensor": "X",
+                      "axis": 0,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "right": {
+                      "kind": "size",
+                      "tensor": "X",
+                      "axis": 1,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "divisor": null,
+                    "remainder": null,
+                    "tensor": "",
+                    "parts": [],
+                    "span": null
+                  }
+                ],
+                "span": null
+              },
+              "obligation": null,
+              "purpose": "Semantics",
+              "evidence": "Statically-Proven",
+              "origin": {
+                "source_file": "scenarios/kernels.py",
+                "source_line": 15,
+                "access_kind": "load",
+                "pointer": "X",
+                "semantic_index": "x[row, col]",
+                "bindings": [
+                  [
+                    "M",
+                    "x.size(0)"
+                  ],
+                  [
+                    "N",
+                    "x.size(1)"
+                  ],
+                  [
+                    "B",
+                    "128"
+                  ],
+                  [
+                    "grid",
+                    "ceil(M*N/B)"
+                  ]
+                ],
+                "explanation": "扁平地址按列数 N 换行；单行时行步长无作用"
+              },
+              "rule": "compare_logical_address",
+              "domain": [
+                "CUDA float32",
+                "各维长度至少为 1",
+                "元素总数不超过 1000000",
+                "显式尾部 mask"
+              ],
+              "binding": [
+                [
+                  "M",
+                  "x.size(0)"
+                ],
+                [
+                  "N",
+                  "x.size(1)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(M*N/B)"
+                ]
+              ],
+              "reason": "扁平地址按列数 N 换行；单行时行步长无作用"
+            },
+            "output": null,
+            "scalars": null
+          },
+          "repair": {
+            "status": "True",
+            "copied": [
+              "X"
+            ],
+            "reason": "复制后全部义务复验通过",
+            "guard": {
+              "status": "True",
+              "reason": "全部必要义务本次为真",
+              "checks": [
+                {
+                  "stage": "device_dtype",
+                  "value": true
+                },
+                {
+                  "stage": "rank_shape",
+                  "value": true,
+                  "shape": [
+                    7,
+                    11
+                  ]
+                },
+                {
+                  "stage": "stride",
+                  "value": true,
+                  "rule": "compare_logical_address",
+                  "pointer": "X",
+                  "purpose": "Semantics"
+                },
+                {
+                  "stage": "stride",
+                  "value": true,
+                  "rule": "compare_logical_address",
+                  "pointer": "X",
+                  "purpose": "Semantics"
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "enabled_access_range",
+                  "pointer": "X",
+                  "purpose": "Safety"
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "enabled_access_range",
+                  "pointer": "Y",
+                  "purpose": "Safety"
+                }
+              ],
+              "failed": null,
+              "output": [
+                7,
+                11
+              ],
+              "scalars": {
+                "M": 7,
+                "N": 11,
+                "B": 128
+              }
+            }
+          },
+          "feasible": [
+            "PyTorch Fallback",
+            "Relayout+Fast"
+          ],
+          "selection_reason": "隔离验收显式选择已复验的修复路径",
+          "fingerprint": "d334ef3416995ba61bca64c2c1f35b428b9e14ab0afbeb8ff64c5f5dbcf7eb40"
+        },
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          1,
+          7
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod16": 0,
+        "equal": true
+      }
+    },
+    {
+      "recipe": {
+        "name": "A",
+        "layout": "single_row",
+        "m": 1
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "Fast",
+          "direct_guard": {
+            "status": "True",
+            "reason": "全部必要义务本次为真",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  1,
+                  11
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "X",
+                "purpose": "Safety"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "Y",
+                "purpose": "Safety"
+              }
+            ],
+            "failed": null,
+            "output": [
+              1,
+              11
+            ],
+            "scalars": {
+              "M": 1,
+              "N": 11,
+              "B": 128
+            }
+          },
+          "repair": null,
+          "feasible": [
+            "Fast",
+            "PyTorch Fallback"
+          ],
+          "selection_reason": "无唯一且完整匹配的离线成本条目",
+          "fingerprint": "d334ef3416995ba61bca64c2c1f35b428b9e14ab0afbeb8ff64c5f5dbcf7eb40"
+        },
+        "shape": [
+          1,
+          11
+        ],
+        "stride": [
+          14,
+          1
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod16": 0,
+        "equal": true
+      }
+    },
+    {
+      "recipe": {
+        "name": "A",
+        "layout": "single_col",
+        "n": 1
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "Fast",
+          "direct_guard": {
+            "status": "True",
+            "reason": "全部必要义务本次为真",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  7,
+                  1
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "X",
+                "purpose": "Safety"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "Y",
+                "purpose": "Safety"
+              }
+            ],
+            "failed": null,
+            "output": [
+              7,
+              1
+            ],
+            "scalars": {
+              "M": 7,
+              "N": 1,
+              "B": 128
+            }
+          },
+          "repair": null,
+          "feasible": [
+            "Fast",
+            "PyTorch Fallback"
+          ],
+          "selection_reason": "无唯一且完整匹配的离线成本条目",
+          "fingerprint": "d334ef3416995ba61bca64c2c1f35b428b9e14ab0afbeb8ff64c5f5dbcf7eb40"
+        },
+        "shape": [
+          7,
+          1
+        ],
+        "stride": [
+          1,
+          3
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod16": 0,
+        "equal": true
+      }
+    },
+    {
+      "recipe": {
+        "name": "A2",
+        "layout": "padded"
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "Fast",
+          "direct_guard": {
+            "status": "True",
+            "reason": "全部必要义务本次为真",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  7,
+                  11
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "X",
+                "purpose": "Safety"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "Y",
+                "purpose": "Safety"
+              }
+            ],
+            "failed": null,
+            "output": [
+              7,
+              11
+            ],
+            "scalars": {
+              "M": 7,
+              "N": 11,
+              "S0": 14,
+              "B": 16
+            }
+          },
+          "repair": null,
+          "feasible": [
+            "Fast",
+            "PyTorch Fallback"
+          ],
+          "selection_reason": "无唯一且完整匹配的离线成本条目",
+          "fingerprint": "4d03152df33ccd1de9db37e8b955f4b2ebf48bc11212062c740d6deb9e2242ab"
+        },
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          14,
+          1
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod16": 0,
+        "equal": true
+      }
+    },
+    {
+      "recipe": {
+        "name": "A2",
+        "layout": "transpose",
+        "policy": "prefer_repair"
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "Relayout+Fast",
+          "direct_guard": {
+            "status": "False",
+            "reason": "shape/stride 或索引条件未满足",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  7,
+                  11
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": false,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              }
+            ],
+            "failed": {
+              "condition": {
+                "kind": "or",
+                "left": null,
+                "right": null,
+                "divisor": null,
+                "remainder": null,
+                "tensor": "",
+                "parts": [
+                  {
+                    "kind": "eq",
+                    "left": {
+                      "kind": "size",
+                      "tensor": "X",
+                      "axis": 1,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "right": {
+                      "kind": "constant",
+                      "tensor": "",
+                      "axis": null,
+                      "value": 1,
+                      "scalar": ""
+                    },
+                    "divisor": null,
+                    "remainder": null,
+                    "tensor": "",
+                    "parts": [],
+                    "span": null
+                  },
+                  {
+                    "kind": "eq",
+                    "left": {
+                      "kind": "stride",
+                      "tensor": "X",
+                      "axis": 1,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "right": {
+                      "kind": "constant",
+                      "tensor": "",
+                      "axis": null,
+                      "value": 1,
+                      "scalar": ""
+                    },
+                    "divisor": null,
+                    "remainder": null,
+                    "tensor": "",
+                    "parts": [],
+                    "span": null
+                  }
+                ],
+                "span": null
+              },
+              "obligation": null,
+              "purpose": "Semantics",
+              "evidence": "Statically-Proven",
+              "origin": {
+                "source_file": "scenarios/kernels.py",
+                "source_line": 25,
+                "access_kind": "load",
+                "pointer": "X",
+                "semantic_index": "x[row, col]",
+                "bindings": [
+                  [
+                    "M",
+                    "x.size(0)"
+                  ],
+                  [
+                    "N",
+                    "x.size(1)"
+                  ],
+                  [
+                    "S0",
+                    "x.stride(0)"
+                  ],
+                  [
+                    "B",
+                    "next_power_of_2(N)"
+                  ],
+                  [
+                    "grid",
+                    "M"
+                  ]
+                ],
+                "explanation": "行系数由已核对的 stride(0) 提供；列地址差为 1，单列时列步长无作用"
+              },
+              "rule": "compare_logical_address",
+              "domain": [
+                "CUDA float32",
+                "M、N 至少为 2",
+                "N 不超过 1024",
+                "行跨度至少为 N",
+                "元素总数不超过 1000000",
+                "显式尾部 mask"
+              ],
+              "binding": [
+                [
+                  "M",
+                  "x.size(0)"
+                ],
+                [
+                  "N",
+                  "x.size(1)"
+                ],
+                [
+                  "S0",
+                  "x.stride(0)"
+                ],
+                [
+                  "B",
+                  "next_power_of_2(N)"
+                ],
+                [
+                  "grid",
+                  "M"
+                ]
+              ],
+              "reason": "行系数由已核对的 stride(0) 提供；列地址差为 1，单列时列步长无作用"
+            },
+            "output": null,
+            "scalars": null
+          },
+          "repair": {
+            "status": "True",
+            "copied": [
+              "X"
+            ],
+            "reason": "复制后全部义务复验通过",
+            "guard": {
+              "status": "True",
+              "reason": "全部必要义务本次为真",
+              "checks": [
+                {
+                  "stage": "device_dtype",
+                  "value": true
+                },
+                {
+                  "stage": "rank_shape",
+                  "value": true,
+                  "shape": [
+                    7,
+                    11
+                  ]
+                },
+                {
+                  "stage": "stride",
+                  "value": true,
+                  "rule": "compare_logical_address",
+                  "pointer": "X",
+                  "purpose": "Semantics"
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "enabled_access_range",
+                  "pointer": "X",
+                  "purpose": "Safety"
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "enabled_access_range",
+                  "pointer": "Y",
+                  "purpose": "Safety"
+                }
+              ],
+              "failed": null,
+              "output": [
+                7,
+                11
+              ],
+              "scalars": {
+                "M": 7,
+                "N": 11,
+                "S0": 11,
+                "B": 16
+              }
+            }
+          },
+          "feasible": [
+            "PyTorch Fallback",
+            "Relayout+Fast"
+          ],
+          "selection_reason": "隔离验收显式选择已复验的修复路径",
+          "fingerprint": "4d03152df33ccd1de9db37e8b955f4b2ebf48bc11212062c740d6deb9e2242ab"
+        },
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          1,
+          7
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod16": 0,
+        "equal": true
+      }
+    },
+    {
+      "recipe": {
+        "name": "B",
+        "layout": "contiguous",
+        "n": 127
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "Fast",
+          "direct_guard": {
+            "status": "True",
+            "reason": "全部必要义务本次为真",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  127
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "X",
+                "purpose": "Safety"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "Y",
+                "purpose": "Safety"
+              }
+            ],
+            "failed": null,
+            "output": [
+              127
+            ],
+            "scalars": {
+              "N": 127,
+              "B": 128
+            }
+          },
+          "repair": null,
+          "feasible": [
+            "Fast",
+            "PyTorch Fallback"
+          ],
+          "selection_reason": "无唯一且完整匹配的离线成本条目",
+          "fingerprint": "c0c809cfd95a6f689ae2d767054e9474a70dc9a988bef8dbb38345d4b7893c7d"
+        },
+        "shape": [
+          127
+        ],
+        "stride": [
+          1
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod16": 0,
+        "equal": true
+      }
+    },
+    {
+      "recipe": {
+        "name": "B",
+        "layout": "contiguous",
+        "n": 128
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "Fast",
+          "direct_guard": {
+            "status": "True",
+            "reason": "全部必要义务本次为真",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  128
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "X",
+                "purpose": "Safety"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "Y",
+                "purpose": "Safety"
+              }
+            ],
+            "failed": null,
+            "output": [
+              128
+            ],
+            "scalars": {
+              "N": 128,
+              "B": 128
+            }
+          },
+          "repair": null,
+          "feasible": [
+            "Fast",
+            "PyTorch Fallback"
+          ],
+          "selection_reason": "无唯一且完整匹配的离线成本条目",
+          "fingerprint": "c0c809cfd95a6f689ae2d767054e9474a70dc9a988bef8dbb38345d4b7893c7d"
+        },
+        "shape": [
+          128
+        ],
+        "stride": [
+          1
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod16": 0,
+        "equal": true
+      }
+    },
+    {
+      "recipe": {
+        "name": "B",
+        "layout": "contiguous",
+        "n": 129
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "Fast",
+          "direct_guard": {
+            "status": "True",
+            "reason": "全部必要义务本次为真",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  129
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "X",
+                "purpose": "Safety"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "Y",
+                "purpose": "Safety"
+              }
+            ],
+            "failed": null,
+            "output": [
+              129
+            ],
+            "scalars": {
+              "N": 129,
+              "B": 128
+            }
+          },
+          "repair": null,
+          "feasible": [
+            "Fast",
+            "PyTorch Fallback"
+          ],
+          "selection_reason": "无唯一且完整匹配的离线成本条目",
+          "fingerprint": "c0c809cfd95a6f689ae2d767054e9474a70dc9a988bef8dbb38345d4b7893c7d"
+        },
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod16": 0,
+        "equal": true
+      }
+    },
+    {
+      "recipe": {
+        "name": "B",
+        "layout": "offset",
+        "n": 129
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "Fast",
+          "direct_guard": {
+            "status": "True",
+            "reason": "全部必要义务本次为真",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  129
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "X",
+                "purpose": "Safety"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "Y",
+                "purpose": "Safety"
+              }
+            ],
+            "failed": null,
+            "output": [
+              129
+            ],
+            "scalars": {
+              "N": 129,
+              "B": 128
+            }
+          },
+          "repair": null,
+          "feasible": [
+            "Fast",
+            "PyTorch Fallback"
+          ],
+          "selection_reason": "无唯一且完整匹配的离线成本条目",
+          "fingerprint": "c0c809cfd95a6f689ae2d767054e9474a70dc9a988bef8dbb38345d4b7893c7d"
+        },
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "storage_offset": 1,
+        "effective_ptr_mod16": 4,
+        "equal": true
+      }
+    },
+    {
+      "recipe": {
+        "name": "B",
+        "layout": "strided",
+        "n": 129,
+        "policy": "prefer_repair"
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "Relayout+Fast",
+          "direct_guard": {
+            "status": "False",
+            "reason": "shape/stride 或索引条件未满足",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  129
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": false,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              }
+            ],
+            "failed": {
+              "condition": {
+                "kind": "or",
+                "left": null,
+                "right": null,
+                "divisor": null,
+                "remainder": null,
+                "tensor": "",
+                "parts": [
+                  {
+                    "kind": "eq",
+                    "left": {
+                      "kind": "size",
+                      "tensor": "X",
+                      "axis": 0,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "right": {
+                      "kind": "constant",
+                      "tensor": "",
+                      "axis": null,
+                      "value": 1,
+                      "scalar": ""
+                    },
+                    "divisor": null,
+                    "remainder": null,
+                    "tensor": "",
+                    "parts": [],
+                    "span": null
+                  },
+                  {
+                    "kind": "eq",
+                    "left": {
+                      "kind": "stride",
+                      "tensor": "X",
+                      "axis": 0,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "right": {
+                      "kind": "constant",
+                      "tensor": "",
+                      "axis": null,
+                      "value": 1,
+                      "scalar": ""
+                    },
+                    "divisor": null,
+                    "remainder": null,
+                    "tensor": "",
+                    "parts": [],
+                    "span": null
+                  }
+                ],
+                "span": null
+              },
+              "obligation": null,
+              "purpose": "Semantics",
+              "evidence": "Statically-Proven",
+              "origin": {
+                "source_file": "scenarios/kernels.py",
+                "source_line": 34,
+                "access_kind": "load",
+                "pointer": "X",
+                "semantic_index": "x[i]",
+                "bindings": [
+                  [
+                    "N",
+                    "x.size(0)"
+                  ],
+                  [
+                    "B",
+                    "128"
+                  ],
+                  [
+                    "grid",
+                    "ceil(N/B)"
+                  ]
+                ],
+                "explanation": "mask 限定 0<=i<N；相邻逻辑元素地址差为 1，单元素时步长无作用"
+              },
+              "rule": "compare_logical_address",
+              "domain": [
+                "CUDA float32",
+                "N 至少为 1",
+                "元素总数不超过 1000000",
+                "显式尾部 mask"
+              ],
+              "binding": [
+                [
+                  "N",
+                  "x.size(0)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(N/B)"
+                ]
+              ],
+              "reason": "mask 限定 0<=i<N；相邻逻辑元素地址差为 1，单元素时步长无作用"
+            },
+            "output": null,
+            "scalars": null
+          },
+          "repair": {
+            "status": "True",
+            "copied": [
+              "X"
+            ],
+            "reason": "复制后全部义务复验通过",
+            "guard": {
+              "status": "True",
+              "reason": "全部必要义务本次为真",
+              "checks": [
+                {
+                  "stage": "device_dtype",
+                  "value": true
+                },
+                {
+                  "stage": "rank_shape",
+                  "value": true,
+                  "shape": [
+                    129
+                  ]
+                },
+                {
+                  "stage": "stride",
+                  "value": true,
+                  "rule": "compare_logical_address",
+                  "pointer": "X",
+                  "purpose": "Semantics"
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "enabled_access_range",
+                  "pointer": "X",
+                  "purpose": "Safety"
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "enabled_access_range",
+                  "pointer": "Y",
+                  "purpose": "Safety"
+                }
+              ],
+              "failed": null,
+              "output": [
+                129
+              ],
+              "scalars": {
+                "N": 129,
+                "B": 128
+              }
+            }
+          },
+          "feasible": [
+            "PyTorch Fallback",
+            "Relayout+Fast"
+          ],
+          "selection_reason": "隔离验收显式选择已复验的修复路径",
+          "fingerprint": "c0c809cfd95a6f689ae2d767054e9474a70dc9a988bef8dbb38345d4b7893c7d"
+        },
+        "shape": [
+          129
+        ],
+        "stride": [
+          2
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod16": 0,
+        "equal": true
+      }
+    },
+    {
+      "recipe": {
+        "name": "D",
+        "layout": "contiguous",
+        "n": 129
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "Fast",
+          "direct_guard": {
+            "status": "True",
+            "reason": "全部必要义务本次为真",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  129
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "x_ptr",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "y_ptr",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "x_ptr",
+                "purpose": "Safety"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "y_ptr",
+                "purpose": "Safety"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "output_ptr",
+                "purpose": "Safety"
+              }
+            ],
+            "failed": null,
+            "output": [
+              129
+            ],
+            "scalars": {
+              "n_elements": 129,
+              "BLOCK_SIZE": 128
+            }
+          },
+          "repair": null,
+          "feasible": [
+            "Fast",
+            "PyTorch Fallback"
+          ],
+          "selection_reason": "无唯一且完整匹配的离线成本条目",
+          "fingerprint": "68475f1fd0f22427deda7595f51ccd1907ad0c2dbbc1503e0a96e3950ba27a1e"
+        },
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod16": 0,
+        "equal": true
+      }
+    },
+    {
+      "recipe": {
+        "name": "D",
+        "layout": "x_offset",
+        "n": 129
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "Fast",
+          "direct_guard": {
+            "status": "True",
+            "reason": "全部必要义务本次为真",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  129
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "x_ptr",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "y_ptr",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "x_ptr",
+                "purpose": "Safety"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "y_ptr",
+                "purpose": "Safety"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "output_ptr",
+                "purpose": "Safety"
+              }
+            ],
+            "failed": null,
+            "output": [
+              129
+            ],
+            "scalars": {
+              "n_elements": 129,
+              "BLOCK_SIZE": 128
+            }
+          },
+          "repair": null,
+          "feasible": [
+            "Fast",
+            "PyTorch Fallback"
+          ],
+          "selection_reason": "无唯一且完整匹配的离线成本条目",
+          "fingerprint": "68475f1fd0f22427deda7595f51ccd1907ad0c2dbbc1503e0a96e3950ba27a1e"
+        },
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "storage_offset": 1,
+        "effective_ptr_mod16": 4,
+        "equal": true
+      }
+    },
+    {
+      "recipe": {
+        "name": "D",
+        "layout": "x_strided",
+        "n": 129,
+        "policy": "prefer_repair"
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "Relayout+Fast",
+          "direct_guard": {
+            "status": "False",
+            "reason": "shape/stride 或索引条件未满足",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  129
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": false,
+                "rule": "compare_logical_address",
+                "pointer": "x_ptr",
+                "purpose": "Semantics"
+              }
+            ],
+            "failed": {
+              "condition": {
+                "kind": "or",
+                "left": null,
+                "right": null,
+                "divisor": null,
+                "remainder": null,
+                "tensor": "",
+                "parts": [
+                  {
+                    "kind": "eq",
+                    "left": {
+                      "kind": "size",
+                      "tensor": "X",
+                      "axis": 0,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "right": {
+                      "kind": "constant",
+                      "tensor": "",
+                      "axis": null,
+                      "value": 1,
+                      "scalar": ""
+                    },
+                    "divisor": null,
+                    "remainder": null,
+                    "tensor": "",
+                    "parts": [],
+                    "span": null
+                  },
+                  {
+                    "kind": "eq",
+                    "left": {
+                      "kind": "stride",
+                      "tensor": "X",
+                      "axis": 0,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "right": {
+                      "kind": "constant",
+                      "tensor": "",
+                      "axis": null,
+                      "value": 1,
+                      "scalar": ""
+                    },
+                    "divisor": null,
+                    "remainder": null,
+                    "tensor": "",
+                    "parts": [],
+                    "span": null
+                  }
+                ],
+                "span": null
+              },
+              "obligation": null,
+              "purpose": "Semantics",
+              "evidence": "Statically-Proven",
+              "origin": {
+                "source_file": "scenarios/external_add.py",
+                "source_line": 19,
+                "access_kind": "load",
+                "pointer": "x_ptr",
+                "semantic_index": "x[i]",
+                "bindings": [
+                  [
+                    "n_elements",
+                    "x.numel() = y.numel()"
+                  ],
+                  [
+                    "BLOCK_SIZE",
+                    "128"
+                  ],
+                  [
+                    "grid",
+                    "ceil(n_elements/BLOCK_SIZE)"
+                  ]
+                ],
+                "explanation": "mask 限定 0<=i<N；相邻逻辑元素地址差为 1，单元素时步长无作用"
+              },
+              "rule": "compare_logical_address",
+              "domain": [
+                "两个输入均为同设备 CUDA float32",
+                "形状一致",
+                "长度至少为 1",
+                "长度不超过 1000000",
+                "显式尾部 mask"
+              ],
+              "binding": [
+                [
+                  "n_elements",
+                  "x.numel() = y.numel()"
+                ],
+                [
+                  "BLOCK_SIZE",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(n_elements/BLOCK_SIZE)"
+                ]
+              ],
+              "reason": "mask 限定 0<=i<N；相邻逻辑元素地址差为 1，单元素时步长无作用"
+            },
+            "output": null,
+            "scalars": null
+          },
+          "repair": {
+            "status": "True",
+            "copied": [
+              "X"
+            ],
+            "reason": "复制后全部义务复验通过",
+            "guard": {
+              "status": "True",
+              "reason": "全部必要义务本次为真",
+              "checks": [
+                {
+                  "stage": "device_dtype",
+                  "value": true
+                },
+                {
+                  "stage": "rank_shape",
+                  "value": true,
+                  "shape": [
+                    129
+                  ]
+                },
+                {
+                  "stage": "stride",
+                  "value": true,
+                  "rule": "compare_logical_address",
+                  "pointer": "x_ptr",
+                  "purpose": "Semantics"
+                },
+                {
+                  "stage": "stride",
+                  "value": true,
+                  "rule": "compare_logical_address",
+                  "pointer": "y_ptr",
+                  "purpose": "Semantics"
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "enabled_access_range",
+                  "pointer": "x_ptr",
+                  "purpose": "Safety"
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "enabled_access_range",
+                  "pointer": "y_ptr",
+                  "purpose": "Safety"
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "enabled_access_range",
+                  "pointer": "output_ptr",
+                  "purpose": "Safety"
+                }
+              ],
+              "failed": null,
+              "output": [
+                129
+              ],
+              "scalars": {
+                "n_elements": 129,
+                "BLOCK_SIZE": 128
+              }
+            }
+          },
+          "feasible": [
+            "PyTorch Fallback",
+            "Relayout+Fast"
+          ],
+          "selection_reason": "隔离验收显式选择已复验的修复路径",
+          "fingerprint": "68475f1fd0f22427deda7595f51ccd1907ad0c2dbbc1503e0a96e3950ba27a1e"
+        },
+        "shape": [
+          129
+        ],
+        "stride": [
+          2
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod16": 0,
+        "equal": true
+      }
+    },
+    {
+      "recipe": {
+        "name": "D",
+        "layout": "y_strided",
+        "n": 129,
+        "policy": "prefer_repair"
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "Relayout+Fast",
+          "direct_guard": {
+            "status": "False",
+            "reason": "shape/stride 或索引条件未满足",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  129
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "x_ptr",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "stride",
+                "value": false,
+                "rule": "compare_logical_address",
+                "pointer": "y_ptr",
+                "purpose": "Semantics"
+              }
+            ],
+            "failed": {
+              "condition": {
+                "kind": "or",
+                "left": null,
+                "right": null,
+                "divisor": null,
+                "remainder": null,
+                "tensor": "",
+                "parts": [
+                  {
+                    "kind": "eq",
+                    "left": {
+                      "kind": "size",
+                      "tensor": "Y",
+                      "axis": 0,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "right": {
+                      "kind": "constant",
+                      "tensor": "",
+                      "axis": null,
+                      "value": 1,
+                      "scalar": ""
+                    },
+                    "divisor": null,
+                    "remainder": null,
+                    "tensor": "",
+                    "parts": [],
+                    "span": null
+                  },
+                  {
+                    "kind": "eq",
+                    "left": {
+                      "kind": "stride",
+                      "tensor": "Y",
+                      "axis": 0,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "right": {
+                      "kind": "constant",
+                      "tensor": "",
+                      "axis": null,
+                      "value": 1,
+                      "scalar": ""
+                    },
+                    "divisor": null,
+                    "remainder": null,
+                    "tensor": "",
+                    "parts": [],
+                    "span": null
+                  }
+                ],
+                "span": null
+              },
+              "obligation": null,
+              "purpose": "Semantics",
+              "evidence": "Statically-Proven",
+              "origin": {
+                "source_file": "scenarios/external_add.py",
+                "source_line": 20,
+                "access_kind": "load",
+                "pointer": "y_ptr",
+                "semantic_index": "y[i]",
+                "bindings": [
+                  [
+                    "n_elements",
+                    "x.numel() = y.numel()"
+                  ],
+                  [
+                    "BLOCK_SIZE",
+                    "128"
+                  ],
+                  [
+                    "grid",
+                    "ceil(n_elements/BLOCK_SIZE)"
+                  ]
+                ],
+                "explanation": "mask 限定 0<=i<N；相邻逻辑元素地址差为 1，单元素时步长无作用"
+              },
+              "rule": "compare_logical_address",
+              "domain": [
+                "两个输入均为同设备 CUDA float32",
+                "形状一致",
+                "长度至少为 1",
+                "长度不超过 1000000",
+                "显式尾部 mask"
+              ],
+              "binding": [
+                [
+                  "n_elements",
+                  "x.numel() = y.numel()"
+                ],
+                [
+                  "BLOCK_SIZE",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(n_elements/BLOCK_SIZE)"
+                ]
+              ],
+              "reason": "mask 限定 0<=i<N；相邻逻辑元素地址差为 1，单元素时步长无作用"
+            },
+            "output": null,
+            "scalars": null
+          },
+          "repair": {
+            "status": "True",
+            "copied": [
+              "Y"
+            ],
+            "reason": "复制后全部义务复验通过",
+            "guard": {
+              "status": "True",
+              "reason": "全部必要义务本次为真",
+              "checks": [
+                {
+                  "stage": "device_dtype",
+                  "value": true
+                },
+                {
+                  "stage": "rank_shape",
+                  "value": true,
+                  "shape": [
+                    129
+                  ]
+                },
+                {
+                  "stage": "stride",
+                  "value": true,
+                  "rule": "compare_logical_address",
+                  "pointer": "x_ptr",
+                  "purpose": "Semantics"
+                },
+                {
+                  "stage": "stride",
+                  "value": true,
+                  "rule": "compare_logical_address",
+                  "pointer": "y_ptr",
+                  "purpose": "Semantics"
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "enabled_access_range",
+                  "pointer": "x_ptr",
+                  "purpose": "Safety"
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "enabled_access_range",
+                  "pointer": "y_ptr",
+                  "purpose": "Safety"
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "enabled_access_range",
+                  "pointer": "output_ptr",
+                  "purpose": "Safety"
+                }
+              ],
+              "failed": null,
+              "output": [
+                129
+              ],
+              "scalars": {
+                "n_elements": 129,
+                "BLOCK_SIZE": 128
+              }
+            }
+          },
+          "feasible": [
+            "PyTorch Fallback",
+            "Relayout+Fast"
+          ],
+          "selection_reason": "隔离验收显式选择已复验的修复路径",
+          "fingerprint": "68475f1fd0f22427deda7595f51ccd1907ad0c2dbbc1503e0a96e3950ba27a1e"
+        },
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod16": 0,
+        "equal": true
+      }
+    },
+    {
+      "recipe": {
+        "name": "holdout_vector",
+        "layout": "strided",
+        "n": 129
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "Fast",
+          "direct_guard": {
+            "status": "True",
+            "reason": "全部必要义务本次为真",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  129
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "X",
+                "purpose": "Safety"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "Y",
+                "purpose": "Safety"
+              }
+            ],
+            "failed": null,
+            "output": [
+              129
+            ],
+            "scalars": {
+              "N": 129,
+              "S": 2,
+              "B": 128
+            }
+          },
+          "repair": null,
+          "feasible": [
+            "Fast",
+            "PyTorch Fallback"
+          ],
+          "selection_reason": "无唯一且完整匹配的离线成本条目",
+          "fingerprint": "92bb187d1134b18b32f4fe77e6b0c607c6792429b608e4c2772c687b4a24711e"
+        },
+        "shape": [
+          129
+        ],
+        "stride": [
+          2
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod16": 0,
+        "equal": true
+      }
+    },
+    {
+      "recipe": {
+        "name": "holdout_matrix",
+        "layout": "strided",
+        "m": 7,
+        "n": 11
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "Fast",
+          "direct_guard": {
+            "status": "True",
+            "reason": "全部必要义务本次为真",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  7,
+                  11
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "X",
+                "purpose": "Safety"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "Y",
+                "purpose": "Safety"
+              }
+            ],
+            "failed": null,
+            "output": [
+              7,
+              11
+            ],
+            "scalars": {
+              "M": 7,
+              "N": 11,
+              "S0": 25,
+              "S1": 2,
+              "B": 16
+            }
+          },
+          "repair": null,
+          "feasible": [
+            "Fast",
+            "PyTorch Fallback"
+          ],
+          "selection_reason": "无唯一且完整匹配的离线成本条目",
+          "fingerprint": "e7ac361a49a703863dc5ba1f9ee56c8f10c67bff5bb997df667e35ceb654f86a"
+        },
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          25,
+          2
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod16": 0,
+        "equal": true
+      }
+    },
+    {
+      "recipe": {
+        "name": "pointer_hint",
+        "layout": "contiguous",
+        "n": 128
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "Fast",
+          "direct_guard": {
+            "status": "True",
+            "reason": "全部必要义务本次为真",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  128
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "pointer",
+                "value": true,
+                "rule": "multiple_of_pointer_base",
+                "pointer": "X",
+                "purpose": "Optimization"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "X",
+                "purpose": "Safety"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "Y",
+                "purpose": "Safety"
+              }
+            ],
+            "failed": null,
+            "output": [
+              128
+            ],
+            "scalars": {
+              "N": 128,
+              "B": 128
+            }
+          },
+          "repair": null,
+          "feasible": [
+            "Fast",
+            "PyTorch Fallback"
+          ],
+          "selection_reason": "无唯一且完整匹配的离线成本条目",
+          "fingerprint": "febd57e686dc0917e5bc7746e0bf5c6978339f72aec65629b524c862260a5531"
+        },
+        "shape": [
+          128
+        ],
+        "stride": [
+          1
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod16": 0,
+        "equal": true
+      }
+    },
+    {
+      "recipe": {
+        "name": "pointer_hint",
+        "layout": "offset",
+        "n": 128
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "PyTorch Fallback",
+          "direct_guard": {
+            "status": "False",
+            "reason": "实际有效地址对齐义务未满足",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  128
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "pointer",
+                "value": false,
+                "rule": "multiple_of_pointer_base",
+                "pointer": "X",
+                "purpose": "Optimization"
+              }
+            ],
+            "failed": {
+              "condition": {
+                "kind": "mod_eq",
+                "left": {
+                  "kind": "effective_ptr",
+                  "tensor": "X",
+                  "axis": null,
+                  "value": null,
+                  "scalar": ""
+                },
+                "right": null,
+                "divisor": 16,
+                "remainder": 0,
+                "tensor": "",
+                "parts": [],
+                "span": null
+              },
+              "obligation": null,
+              "purpose": "Optimization",
+              "evidence": "Unproven",
+              "origin": {
+                "source_file": "scenarios/alignment_fixtures.py",
+                "source_line": 13,
+                "access_kind": "load",
+                "pointer": "X",
+                "semantic_index": "x[i]",
+                "bindings": [
+                  [
+                    "N",
+                    "x.size(0)"
+                  ],
+                  [
+                    "B",
+                    "128"
+                  ],
+                  [
+                    "grid",
+                    "ceil(N/B)"
+                  ]
+                ],
+                "explanation": "scenarios/alignment_fixtures.py:10 的 tl.multiple_of(X, 16) 作用于有效基址；指针模数按字节计，data_ptr 已含视图偏移，不再叠加 storage_offset；动态地址尚未静态保证"
+              },
+              "rule": "multiple_of_pointer_base",
+              "domain": [
+                "CUDA float32",
+                "N 至少为 1",
+                "元素总数不超过 1000000",
+                "显式尾部 mask"
+              ],
+              "binding": [
+                [
+                  "N",
+                  "x.size(0)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(N/B)"
+                ]
+              ],
+              "reason": "scenarios/alignment_fixtures.py:10 的 tl.multiple_of(X, 16) 作用于有效基址；指针模数按字节计，data_ptr 已含视图偏移，不再叠加 storage_offset；动态地址尚未静态保证"
+            },
+            "output": null,
+            "scalars": null
+          },
+          "repair": null,
+          "feasible": [
+            "PyTorch Fallback"
+          ],
+          "selection_reason": "无唯一且完整匹配的离线成本条目",
+          "fingerprint": "febd57e686dc0917e5bc7746e0bf5c6978339f72aec65629b524c862260a5531"
+        },
+        "shape": [
+          128
+        ],
+        "stride": [
+          1
+        ],
+        "storage_offset": 1,
+        "effective_ptr_mod16": 4,
+        "equal": true
+      }
+    },
+    {
+      "recipe": {
+        "name": "pointer_hint",
+        "layout": "offset",
+        "n": 128,
+        "policy": "prefer_repair"
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "Relayout+Fast",
+          "direct_guard": {
+            "status": "False",
+            "reason": "实际有效地址对齐义务未满足",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  128
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "pointer",
+                "value": false,
+                "rule": "multiple_of_pointer_base",
+                "pointer": "X",
+                "purpose": "Optimization"
+              }
+            ],
+            "failed": {
+              "condition": {
+                "kind": "mod_eq",
+                "left": {
+                  "kind": "effective_ptr",
+                  "tensor": "X",
+                  "axis": null,
+                  "value": null,
+                  "scalar": ""
+                },
+                "right": null,
+                "divisor": 16,
+                "remainder": 0,
+                "tensor": "",
+                "parts": [],
+                "span": null
+              },
+              "obligation": null,
+              "purpose": "Optimization",
+              "evidence": "Unproven",
+              "origin": {
+                "source_file": "scenarios/alignment_fixtures.py",
+                "source_line": 13,
+                "access_kind": "load",
+                "pointer": "X",
+                "semantic_index": "x[i]",
+                "bindings": [
+                  [
+                    "N",
+                    "x.size(0)"
+                  ],
+                  [
+                    "B",
+                    "128"
+                  ],
+                  [
+                    "grid",
+                    "ceil(N/B)"
+                  ]
+                ],
+                "explanation": "scenarios/alignment_fixtures.py:10 的 tl.multiple_of(X, 16) 作用于有效基址；指针模数按字节计，data_ptr 已含视图偏移，不再叠加 storage_offset；动态地址尚未静态保证"
+              },
+              "rule": "multiple_of_pointer_base",
+              "domain": [
+                "CUDA float32",
+                "N 至少为 1",
+                "元素总数不超过 1000000",
+                "显式尾部 mask"
+              ],
+              "binding": [
+                [
+                  "N",
+                  "x.size(0)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(N/B)"
+                ]
+              ],
+              "reason": "scenarios/alignment_fixtures.py:10 的 tl.multiple_of(X, 16) 作用于有效基址；指针模数按字节计，data_ptr 已含视图偏移，不再叠加 storage_offset；动态地址尚未静态保证"
+            },
+            "output": null,
+            "scalars": null
+          },
+          "repair": {
+            "status": "True",
+            "copied": [
+              "X"
+            ],
+            "reason": "复制后全部义务复验通过",
+            "guard": {
+              "status": "True",
+              "reason": "全部必要义务本次为真",
+              "checks": [
+                {
+                  "stage": "device_dtype",
+                  "value": true
+                },
+                {
+                  "stage": "rank_shape",
+                  "value": true,
+                  "shape": [
+                    128
+                  ]
+                },
+                {
+                  "stage": "stride",
+                  "value": true,
+                  "rule": "compare_logical_address",
+                  "pointer": "X",
+                  "purpose": "Semantics"
+                },
+                {
+                  "stage": "pointer",
+                  "value": true,
+                  "rule": "multiple_of_pointer_base",
+                  "pointer": "X",
+                  "purpose": "Optimization"
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "enabled_access_range",
+                  "pointer": "X",
+                  "purpose": "Safety"
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "enabled_access_range",
+                  "pointer": "Y",
+                  "purpose": "Safety"
+                }
+              ],
+              "failed": null,
+              "output": [
+                128
+              ],
+              "scalars": {
+                "N": 128,
+                "B": 128
+              }
+            }
+          },
+          "feasible": [
+            "PyTorch Fallback",
+            "Relayout+Fast"
+          ],
+          "selection_reason": "隔离验收显式选择已复验的修复路径",
+          "fingerprint": "febd57e686dc0917e5bc7746e0bf5c6978339f72aec65629b524c862260a5531"
+        },
+        "shape": [
+          128
+        ],
+        "stride": [
+          1
+        ],
+        "storage_offset": 1,
+        "effective_ptr_mod16": 4,
+        "equal": true
+      }
+    },
+    {
+      "recipe": {
+        "name": "index_hint",
+        "layout": "offset",
+        "n": 128
+      },
+      "exit_code": 0,
+      "result": {
+        "classification": "correct",
+        "detail": {
+          "path": "Fast",
+          "direct_guard": {
+            "status": "True",
+            "reason": "全部必要义务本次为真",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  128
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "multiple_of_index_start",
+                "pointer": "X",
+                "purpose": "Optimization"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "X",
+                "purpose": "Safety"
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "enabled_access_range",
+                "pointer": "Y",
+                "purpose": "Safety"
+              }
+            ],
+            "failed": null,
+            "output": [
+              128
+            ],
+            "scalars": {
+              "N": 128,
+              "B": 128
+            }
+          },
+          "repair": null,
+          "feasible": [
+            "Fast",
+            "PyTorch Fallback"
+          ],
+          "selection_reason": "无唯一且完整匹配的离线成本条目",
+          "fingerprint": "483b5e97ed8dd05c55b2af70a64976593ca30d23cedf647b12512f3778f963ee"
+        },
+        "shape": [
+          128
+        ],
+        "stride": [
+          1
+        ],
+        "storage_offset": 1,
+        "effective_ptr_mod16": 4,
+        "equal": true
+      }
+    }
+  ],
+  "checks": {
+    "八个入口均有当前源码的受支持计划": true,
+    "全部隔离样例数值正确": true,
+    "两个留出案例直接 Fast": true,
+    "Fast、修复及 Fallback 均有实际路径": true,
+    "A2 padding 未复制": true,
+    "指针提示错位拒绝且索引提示不要求指针对齐": true
+  },
+  "go_guard": true
+}

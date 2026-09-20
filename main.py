@@ -119,6 +119,7 @@ def main() -> int:
     args = parser.parse_args()
     if not 1 <= args.repeats <= 20:
         parser.error("--repeats 必须在 1～20 之间")
+    render_boundary_report = None
     if args.command == "ir":
         payload = extract(args.kernel).to_dict()
     elif args.command == "access-ir":

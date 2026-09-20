@@ -1,6 +1,6 @@
 # TritonPact：Triton Kernel 访存契约分析
 
-TritonPact 研究 PyTorch Tensor 的物理布局与 Triton Kernel 访存之间的契约。项目已完成**第一阶段 PoC**、**第二阶段契约 DSL 与统一 AST/Access IR**、**第三阶段候选契约提取**和**第四阶段边界证据与精化**。在外部给定算子语义、Kernel 参数映射和 PyTorch 参考实现的前提下，系统解析受支持的 Triton Python 源码，核对物理布局候选，再用边界输入、隔离 Oracle 和现有 Guard 验证 Fast / PyTorch Fallback 分派。
+TritonPact 研究 PyTorch Tensor 的物理布局与 Triton Kernel 访存之间的契约。项目已完成**第一阶段 PoC**、**第二阶段契约 DSL 与统一 AST/Access IR**、**第三阶段候选契约提取**、**第四阶段边界证据与精化**和**第五阶段 Guard 与分派**。在外部给定算子语义、Kernel 参数映射和 PyTorch 参考实现的前提下，系统解析受支持的 Triton Python 源码，核对物理布局候选，并在独立新入口执行 Fast、显式 Relayout+Fast 或 PyTorch Fallback。
 
 当前结论仅适用于已实现的规则 Tile、有限仿射地址模板、显式 mask 和限定输入域。算子原本应实现的语义不能只从 Kernel 当前实现推断；现阶段由 `pact/semantics.py` 明确提供。项目主线见[研究项目说明](../../docs/TritonPact%20研究项目说明.md)，阶段范围与实施记录见[第一阶段 PoC 开发方案](../../docs/开发路线/TritonPact%20第一阶段%20PoC%20开发方案.md)和[第二阶段开发方案](../../docs/开发路线/TritonPact%20第二阶段%20契约DSL与Access%20IR开发方案.md)。
 
@@ -12,10 +12,11 @@ TritonPact 研究 PyTorch Tensor 的物理布局与 Triton Kernel 访存之间�
 | 第二阶段：契约表示与访存解析 | 有类型的契约 DSL；四例共用的 AST → Access IR 入口；独立语义与参数绑定核对；未知语法和错误绑定拒绝 | [Access IR 验收报告](results/access_ir_report.md)及同名 JSON；[分派回归报告](results/dispatch_regression.md)及同名 JSON |
 | 第三阶段：候选提取 | 受限 wrapper 绑定核对；A/A2/B/D 与两个留出 Kernel 的 shape/stride、逐访问点 span 候选；成对 `tl.multiple_of` alignment 义务；离线机器报告与完整隔离回归 | [候选提取报告](results/candidate_extraction_report.md)、[第三阶段分派回归](results/candidate_regression.md)及同名 JSON；[开发记录](../../docs/开发路线/TritonPact%20第三阶段%20候选契约提取开发方案.md) |
 | 第四阶段：边界证据与精化 | 受限 JSON 变异配方、独立 GPU worker、原始 Kernel 与参考语义比较、逐候选影子值、保守精化建议和受限 SMT 冗余检查 | [边界证据报告](results/boundary_refinement_report.md)、[第四阶段分派回归](results/refinement_regression.md)及同名 JSON；[开发记录](../../docs/开发路线/TritonPact%20第四阶段%20边界证据与精化开发方案.md) |
+| 第五阶段：Guard 与分派 | 当前源码重新生成有类型 Guard；真实输入与输出复验；显式复制修复；隔离路径报告与离线同步成本表；旧 `runtime.py` 保留 | [Guard 隔离报告](results/guard_dispatch_report.md)、[成本标定](results/cost_calibration.md)、[第五阶段回归](results/guard_regression.md)及同名 JSON；[开发记录](../../docs/开发路线/TritonPact%20第五阶段%20Guard%20与分派开发方案.md) |
 
-第二阶段的 `Supported` 只表示受限访存语法可解释。DSL 已能表达条件和来源，但 Guard 当前仍执行经独立语义核对的 **PoC 兼容谓词**；系统性提取 alignment、shape/stride、offset/span 候选属于第三阶段。
+第二阶段的 `Supported` 只表示受限访存语法可解释。旧 `pact/runtime.py` 的 Guard 仍执行经独立语义核对的 **PoC 兼容谓词**；第五阶段的 `pact/dispatch.py` 独立构造新 Guard。
 
-第三阶段新增的候选记录来源、推导规则、支持域和证据状态，只用于离线与影子核对。它们尚未接入 Guard，也不扩大 Fast 范围。shape/stride 与逐访问点 span 规则覆盖已核对调用绑定的一维/二维扁平 Tile、二维逐行 Tile，以及一维显式输入步长和二维显式行/列步长；alignment 只解释独立赋值的正二次幂 `tl.multiple_of` 指针基址或 `pid(0)*Tile` 标量提示。其他形式保留 `Unknown/Unsupported`。
+第三阶段新增的候选记录来源、推导规则、支持域和证据状态，其历史报告只用于离线与影子核对。第五阶段新入口重新解析当前源码与绑定后使用这些有类型规则，不改写第三阶段报告。shape/stride 与逐访问点 span 规则覆盖已核对调用绑定的一维/二维扁平 Tile、二维逐行 Tile，以及一维显式输入步长和二维显式行/列步长；alignment 只解释独立赋值的正二次幂 `tl.multiple_of` 指针基址或 `pid(0)*Tile` 标量提示。其他形式保留 `Unknown/Unsupported`。
 
 ## 案例与预期行为
 
@@ -40,6 +41,8 @@ A 的初始候选为 `stride(0)==size(1)` 与 `stride(1)==1`。单行、单列�
 | `pact/candidate_report.py` | 汇总候选、影子求值、拒绝原因及旧 Guard 路径，不参与分派。 |
 | `pact/mutation.py`、`pact/mutation_oracle.py`、`scenarios/mutation_worker.py` | 生成有界物理变异，逐例启动独立子进程并返回带实际地址与参考数值的结构化诊断；PoC worker 保持原入口。 |
 | `pact/smt_refine.py`、`pact/boundary_report.py` | 在明确整数域内检查条件冗余，汇总执行证据与影子精化建议；不改运行时 Guard。 |
+| `pact/guard_plan.py`、`pact/relayout.py`、`pact/cost_model.py`、`pact/dispatch.py` | 第五阶段独立候选 Guard、显式复制复验、离线成本查表与新分派入口。 |
+| `pact/guard_report.py`、`pact/cost_report.py`、`scenarios/guard_worker.py` | 第五阶段独立进程数值路径与同步成本报告；在线分派不运行标定。 |
 | `pact/analysis.py` | 将统一 Access IR 与独立语义绑定，保留 PoC 的有限候选规则，并编码为 DSL 条件。 |
 | `pact/refine.py` | 根据 A 的单谓词边界证据与有限索引推导修订候选。 |
 | `pact/runtime.py` | 检查 dtype、shape、storage span 与生成的谓词，执行 Fast 或 PyTorch Fallback。 |
@@ -64,6 +67,16 @@ A 的初始候选为 `stride(0)==size(1)` 与 `stride(1)==1`。单行、单列�
 下节给出查看统一 IR 和生成阶段报告的命令。阶段报告同时生成同名 JSON，并列出四个案例的访存结构、旧 PoC 条件的 DSL 来源和拒绝样例；它与 PoC 数值报告分开保存。
 
 ## 环境与运行
+
+第五阶段新入口与旧 PoC 入口并存。最终验收为 93 项测试、旧隔离回归 11/11 检查（28 个逐例运行、27 个附加重复）、新 Guard 22 个隔离样例与 6/6 检查通过；离线成本表覆盖 10 个样例，每路径预热 3 次、测量 15 次，其中只有 2 个表项通过保守稳定排序检查。在 WSL2 的 `triton` 环境中可运行：
+
+```bash
+python -m pact.guard_report --output results/guard_dispatch_report.md
+python -m pact.cost_report --output results/cost_calibration.md --warmup 3 --repeats 15
+python test/run_tests.py --output results/guard_regression.md
+```
+
+Python 调用形式为 `pact.dispatch.dispatch(name, x, y=None, cost_table=None)`。缺表时，完整 Guard 通过的输入直接 Fast；其余在参考实现定义域内 Fallback。离线表可通过 `CostTable.from_report("results/cost_calibration.json")` 加载；仅在版本、环境、Guard/Kernel/语义与修复实现指纹、形状桶、精确尺寸、布局、dtype、设备、修复输入集合及地址余数均匹配时参与安全可行路径的选择。`repair_policy="prefer_repair"` 是隔离验收入口，仍须新分配、逻辑复制和完整二次复验。输出使用同一个实际分配对象完成 store span 核对和 Kernel 启动；未知义务与不适用成本条目均不能放行 Fast。成本标定是当前 GPU 上的小样例局部数据，不代表广泛性能结论。
 
 已在 WSL2 Ubuntu 20.04 的现有 `triton` 环境运行。项目是 Python 源码项目，无需编译安装；首次执行 Triton Kernel 时由 Triton 即时编译。第四阶段的 `stage-boundary` 和 SMT 测试使用环境中已有的 Z3 Python 包（本次版本 `5.1.0`）；旧阶段 CLI 不依赖它。进入项目根目录并激活环境后运行：
 
