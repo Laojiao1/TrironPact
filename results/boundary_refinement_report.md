@@ -1,7 +1,7 @@
 # TritonPact 第四阶段边界证据与精化报告
 
-> 生成时间：2026-09-20T20:36:38.546300+08:00  
-> 验收：通过；完整运行  
+> 生成时间：2026-09-20T21:08:25.473972+08:00
+> 验收：通过；完整运行
 > 新证据与精化建议只作离线/影子分析，旧 Guard 未接入。
 
 ## 检查
@@ -11,6 +11,7 @@
 | 变异覆盖八个案例且每例独立隔离 | 通过 |
 | 执行分类完整且无未解释故障 | 通过 |
 | 已知错读与正确边界分开 | 通过 |
+| 双输入旧路径同时核对 X 与 Y | 通过 |
 | 指针提示不满足时不强制运行 | 通过 |
 | 末端与越界一格只作元数据影子 | 通过 |
 | SMT 冗余 fixture 不升级真实义务 | 通过 |
@@ -57,7 +58,7 @@
 | `index:offset:6f4077f23470` | alignment | [] | 否 | correct | NotObserved | keep_observation_only |
 | `D:contiguous:86b24b16b992` | shape_stride | [] | 否 | correct | Fast | keep_observation_only |
 | `D:x_stride:b26f771ef23e` | shape_stride | [0] | 否 | numeric_mismatch | PyTorch Fallback | review_understrong_or_expected_rejection |
-| `D:y_stride:c820dcbcfdde` | shape_stride | [1] | 否 | numeric_mismatch | Fast | review_understrong_or_expected_rejection |
+| `D:y_stride:c820dcbcfdde` | shape_stride | [1] | 否 | numeric_mismatch | PyTorch Fallback | review_understrong_or_expected_rejection |
 
 ## 计数与逻辑边界
 

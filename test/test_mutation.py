@@ -61,3 +61,15 @@ def test_oracle_timeout_remains_unknown(monkeypatch):
 
     monkeypatch.setattr(mutation_oracle.subprocess, "run", timeout)
     assert mutation_oracle.run_mutation(standard_recipes()[0], timeout=1)["category"] == "timeout_unknown"
+
+
+def test_legacy_path_requires_both_d_inputs():
+    from pact.boundary_report import _legacy_path
+
+    recipes = {item.label: item for item in standard_recipes() if item.case == "D"}
+    regression = {"runs": [
+        {"detail": {"case": "D", "mode": "dispatch", "shape": [129], "stride": [1], "second_stride": [1], "storage_offset": 0, "path": "Fast"}},
+        {"detail": {"case": "D", "mode": "dispatch", "shape": [129], "stride": [1], "second_stride": [2], "storage_offset": 0, "path": "PyTorch Fallback"}},
+    ]}
+    assert _legacy_path(recipes["contiguous"], regression) == "Fast"
+    assert _legacy_path(recipes["y_stride"], regression) == "PyTorch Fallback"

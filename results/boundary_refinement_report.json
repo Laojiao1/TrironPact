@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T20:36:38.546300+08:00",
+  "generated_at": "2026-09-20T21:08:25.473972+08:00",
   "quick": false,
   "phase": "第四阶段离线证据与影子精化；未接入 Guard",
   "rows": [
@@ -10561,7 +10561,7 @@
       },
       "suggestion": "review_understrong_or_expected_rejection",
       "static_revision": false,
-      "legacy_guard_path": "Fast"
+      "legacy_guard_path": "PyTorch Fallback"
     }
   ],
   "counts": {
@@ -10656,6 +10656,7 @@
     "变异覆盖八个案例且每例独立隔离": true,
     "执行分类完整且无未解释故障": true,
     "已知错读与正确边界分开": true,
+    "双输入旧路径同时核对 X 与 Y": true,
     "指针提示不满足时不强制运行": true,
     "末端与越界一格只作元数据影子": true,
     "SMT 冗余 fixture 不升级真实义务": true,

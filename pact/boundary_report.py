@@ -98,11 +98,16 @@ def _legacy_singleton(regression: dict) -> dict:
 def _legacy_path(recipe: MutationRecipe, regression: dict) -> str:
     if recipe.case in ("holdout_vector", "holdout_matrix"):
         return "Unsupported"
-    spec = dict(recipe.inputs)["X"]
+    specs = dict(recipe.inputs)
+    spec = specs["X"]
     for run in regression.get("runs", ()):
         detail = run.get("detail", {})
-        if detail.get("case") == recipe.case and detail.get("mode") == "dispatch" and tuple(detail.get("shape", ())) == spec.shape and tuple(detail.get("stride", ())) == spec.stride and detail.get("storage_offset") == spec.offset:
-            return detail.get("path", "Unknown")
+        if detail.get("case") != recipe.case or detail.get("mode") != "dispatch" or tuple(detail.get("shape", ())) != spec.shape or tuple(detail.get("stride", ())) != spec.stride or detail.get("storage_offset") != spec.offset:
+            continue
+        if "Y" in specs and (tuple(detail.get("second_stride") or ()) != specs["Y"].stride or specs["Y"].offset != 0):
+            # 旧报告未保存第二输入的 offset；不能在未知时声称路径相同。
+            continue
+        return detail.get("path", "Unknown")
     return "NotObserved"
 
 
@@ -125,6 +130,7 @@ def build_boundary_report(*, quick: bool = False) -> dict:
         "变异覆盖八个案例且每例独立隔离": {row["recipe"]["case"] for row in rows} == {"A", "A2", "B", "D", "holdout_vector", "holdout_matrix", "pointer", "index"} and all(row["oracle"] is None or row["oracle"]["detail"].get("fingerprint") == row["fingerprint"] for row in rows),
         "执行分类完整且无未解释故障": all(row["category"] in {"correct", "numeric_mismatch", "metadata_mismatch", "preflight_skip"} for row in rows),
         "已知错读与正确边界分开": any(row["category"] == "numeric_mismatch" and row["recipe"]["case"] == "A" for row in rows) and any(row["category"] == "correct" and row["recipe"]["case"] == "A2" for row in rows),
+        "双输入旧路径同时核对 X 与 Y": all(row["legacy_guard_path"] == "PyTorch Fallback" for row in rows if row["recipe"]["case"] == "D" and row["recipe"]["label"] in {"x_stride", "y_stride"}),
         "指针提示不满足时不强制运行": quick or any(row["recipe"]["case"] == "pointer" and row["category"] == "preflight_skip" for row in rows),
         "末端与越界一格只作元数据影子": span["exact_last_element"] is True and span["one_past_storage"] is False and not span["gpu_execution"],
         "SMT 冗余 fixture 不升级真实义务": smt["fixture"]["removed"] == [1] and smt["actual_unproven_kept"] and not smt["actual_candidate_deletions"],
@@ -136,7 +142,7 @@ def build_boundary_report(*, quick: bool = False) -> dict:
 
 
 def render_boundary_report(report: dict) -> str:
-    lines = ["# TritonPact 第四阶段边界证据与精化报告", "", f"> 生成时间：{report['generated_at']}  ", f"> 验收：{'通过' if report['go_boundary'] else '未通过'}；{'快速' if report['quick'] else '完整'}运行  ", "> 新证据与精化建议只作离线/影子分析，旧 Guard 未接入。", "", "## 检查", "", "| 检查项 | 结果 |", "| --- | --- |"]
+    lines = ["# TritonPact 第四阶段边界证据与精化报告", "", f"> 生成时间：{report['generated_at']}", f"> 验收：{'通过' if report['go_boundary'] else '未通过'}；{'快速' if report['quick'] else '完整'}运行", "> 新证据与精化建议只作离线/影子分析，旧 Guard 未接入。", "", "## 检查", "", "| 检查项 | 结果 |", "| --- | --- |"]
     lines.extend(f"| {name} | {'通过' if passed else '失败'} |" for name, passed in report["checks"].items())
     lines.extend(["", "## 逐例变异", "", "| ID | 目标 | 候选变化 | 混合 | Oracle | 旧 Guard 对照 | 建议 |", "| --- | --- | --- | --- | --- | --- | --- |"])
     for row in report["rows"]:
