@@ -1,0 +1,1026 @@
+{
+  "generated_at": "2026-09-25T18:07:23.196144+08:00",
+  "catalog_version": 1,
+  "entries": [
+    {
+      "id": "A",
+      "file": "scenarios/kernels.py",
+      "function": "flat_2d",
+      "origin": "project",
+      "source_url": "",
+      "source_revision": "9d93c34",
+      "semantic_family": "layout_2d",
+      "access_family": "flat_2d",
+      "pointers": {
+        "X": "X",
+        "Y": "OUT"
+      },
+      "meaning": "pact.semantics.SEMANTICS[A]",
+      "license_review": "project",
+      "status": "baseline",
+      "benchmark_role": "positive",
+      "expected_parse": "Supported",
+      "audit": {
+        "wrapper": "scenarios.kernels.run_fast[A]",
+        "reference": "scenarios.cases.reference",
+        "parameter_bindings": [
+          [
+            "M",
+            "x.size(0)"
+          ],
+          [
+            "N",
+            "x.size(1)"
+          ],
+          [
+            "B",
+            "128"
+          ],
+          [
+            "grid",
+            "ceil(M*N/B)"
+          ]
+        ],
+        "dtype_domain": [
+          "torch.float32"
+        ],
+        "input_domain": [
+          "二维非空",
+          "元素数不超过 1000000"
+        ],
+        "core_contract": [
+          "stride(0)==size(1) or size(0)==1",
+          "stride(1)==1 or size(1)==1",
+          "span within storage"
+        ],
+        "allowed_paths": [
+          "Fast",
+          "Relayout+Fast",
+          "PyTorch Fallback"
+        ],
+        "exclusion_reason": "",
+        "semantic_audit": "pact.semantics.SEMANTICS[A] and phase3 candidate audit",
+        "candidate_status": "complete",
+        "guard_status": "available",
+        "fast_status": "feasible"
+      },
+      "line": 10,
+      "sha256": "79cc4fbaa837228e747aacf2c2f17732c453e2cea475bc33c54ae209b753c4cc",
+      "parse_status": "Supported",
+      "parse_reason": "访存语法已归一化；尚未核对独立算子语义",
+      "accesses": 2,
+      "hints": 0
+    },
+    {
+      "id": "A2",
+      "file": "scenarios/kernels.py",
+      "function": "row_stride_2d",
+      "origin": "project",
+      "source_url": "",
+      "source_revision": "9d93c34",
+      "semantic_family": "layout_2d",
+      "access_family": "row_stride_2d",
+      "pointers": {
+        "X": "X",
+        "Y": "OUT"
+      },
+      "meaning": "pact.semantics.SEMANTICS[A2]",
+      "license_review": "project",
+      "status": "baseline",
+      "benchmark_role": "positive",
+      "expected_parse": "Supported",
+      "audit": {
+        "wrapper": "scenarios.kernels.run_fast[A2]",
+        "reference": "scenarios.cases.reference",
+        "parameter_bindings": [
+          [
+            "M",
+            "x.size(0)"
+          ],
+          [
+            "N",
+            "x.size(1)"
+          ],
+          [
+            "S0",
+            "x.stride(0)"
+          ],
+          [
+            "B",
+            "next_power_of_2(N)"
+          ],
+          [
+            "grid",
+            "M"
+          ]
+        ],
+        "dtype_domain": [
+          "torch.float32"
+        ],
+        "input_domain": [
+          "二维非空",
+          "N<=1024"
+        ],
+        "core_contract": [
+          "stride(1)==1 or size(1)==1",
+          "span within storage"
+        ],
+        "allowed_paths": [
+          "Fast",
+          "Relayout+Fast",
+          "PyTorch Fallback"
+        ],
+        "exclusion_reason": "",
+        "semantic_audit": "pact.semantics.SEMANTICS[A2] and phase3 candidate audit",
+        "candidate_status": "complete",
+        "guard_status": "available",
+        "fast_status": "feasible"
+      },
+      "line": 19,
+      "sha256": "87174bf35c34423135f428335d0ce83be873d0a0750810b76b3c6e29bda7eb71",
+      "parse_status": "Supported",
+      "parse_reason": "访存语法已归一化；尚未核对独立算子语义",
+      "accesses": 2,
+      "hints": 0
+    },
+    {
+      "id": "B",
+      "file": "scenarios/kernels.py",
+      "function": "masked_1d",
+      "origin": "project",
+      "source_url": "",
+      "source_revision": "9d93c34",
+      "semantic_family": "elementwise_mapping",
+      "access_family": "masked_1d",
+      "pointers": {
+        "X": "X",
+        "Y": "OUT"
+      },
+      "meaning": "pact.semantics.SEMANTICS[B]",
+      "license_review": "project",
+      "status": "baseline",
+      "benchmark_role": "positive",
+      "expected_parse": "Supported",
+      "audit": {
+        "wrapper": "scenarios.kernels.run_fast[B]",
+        "reference": "scenarios.cases.reference",
+        "parameter_bindings": [
+          [
+            "N",
+            "x.size(0)"
+          ],
+          [
+            "B",
+            "128"
+          ],
+          [
+            "grid",
+            "ceil(N/B)"
+          ]
+        ],
+        "dtype_domain": [
+          "torch.float32"
+        ],
+        "input_domain": [
+          "一维非空",
+          "N<=1000000"
+        ],
+        "core_contract": [
+          "stride(0)==1 or size(0)==1",
+          "span within storage"
+        ],
+        "allowed_paths": [
+          "Fast",
+          "Relayout+Fast",
+          "PyTorch Fallback"
+        ],
+        "exclusion_reason": "",
+        "semantic_audit": "pact.semantics.SEMANTICS[B] and phase3 candidate audit",
+        "candidate_status": "complete",
+        "guard_status": "available",
+        "fast_status": "feasible"
+      },
+      "line": 29,
+      "sha256": "5edee5f010051d817f803c17813f50cff081dc09097534f81e3b58d66accfe9c",
+      "parse_status": "Supported",
+      "parse_reason": "访存语法已归一化；尚未核对独立算子语义",
+      "accesses": 2,
+      "hints": 0
+    },
+    {
+      "id": "D",
+      "file": "scenarios/external_add.py",
+      "function": "add_kernel",
+      "origin": "triton-lang/triton",
+      "source_url": "https://github.com/triton-lang/triton/blob/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/tutorials/01-vector-add.py",
+      "source_revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "semantic_family": "elementwise_mapping",
+      "access_family": "masked_1d",
+      "pointers": {
+        "x_ptr": "X",
+        "y_ptr": "Y",
+        "output_ptr": "OUT"
+      },
+      "meaning": "pact.semantics.SEMANTICS[D]",
+      "license_review": "approved",
+      "status": "baseline_adapter",
+      "benchmark_role": "positive",
+      "expected_parse": "Supported",
+      "audit": {
+        "wrapper": "scenarios.external_add.run_add",
+        "reference": "scenarios.cases.reference",
+        "parameter_bindings": [
+          [
+            "n_elements",
+            "x.numel()=y.numel()"
+          ],
+          [
+            "BLOCK_SIZE",
+            "128"
+          ],
+          [
+            "grid",
+            "ceil(n_elements/BLOCK_SIZE)"
+          ]
+        ],
+        "dtype_domain": [
+          "torch.float32"
+        ],
+        "input_domain": [
+          "两个等长一维 CUDA 输入"
+        ],
+        "core_contract": [
+          "X/Y stride(0)==1 or size(0)==1",
+          "span within storage"
+        ],
+        "allowed_paths": [
+          "Fast",
+          "Relayout+Fast",
+          "PyTorch Fallback"
+        ],
+        "exclusion_reason": "",
+        "semantic_audit": "pact.semantics.SEMANTICS[D] and pinned Triton source",
+        "candidate_status": "complete",
+        "guard_status": "available",
+        "fast_status": "feasible"
+      },
+      "line": 13,
+      "sha256": "8dd4e8415b45d9583b1060ef70a290abfe4ef4b013d491336d9e1085676a4efa",
+      "parse_status": "Supported",
+      "parse_reason": "访存语法已归一化；尚未核对独立算子语义",
+      "accesses": 3,
+      "hints": 0
+    },
+    {
+      "id": "holdout_vector",
+      "file": "scenarios/holdouts.py",
+      "function": "strided_vector",
+      "origin": "project",
+      "source_url": "",
+      "source_revision": "9d93c34",
+      "semantic_family": "elementwise_mapping",
+      "access_family": "strided_1d",
+      "pointers": {
+        "X": "X",
+        "Y": "OUT"
+      },
+      "meaning": "scenarios.holdouts.VECTOR_MEANING",
+      "license_review": "project",
+      "status": "baseline",
+      "benchmark_role": "positive",
+      "expected_parse": "Supported",
+      "audit": {
+        "wrapper": "scenarios.holdouts.run_strided_vector",
+        "reference": "scenarios.cases.reference",
+        "parameter_bindings": [
+          [
+            "N",
+            "x.size(0)"
+          ],
+          [
+            "S",
+            "x.stride(0)"
+          ],
+          [
+            "B",
+            "128"
+          ],
+          [
+            "grid",
+            "ceil(N/B)"
+          ]
+        ],
+        "dtype_domain": [
+          "torch.float32"
+        ],
+        "input_domain": [
+          "一维非空",
+          "非负步长"
+        ],
+        "core_contract": [
+          "stride(0)==S",
+          "span within storage"
+        ],
+        "allowed_paths": [
+          "Fast",
+          "PyTorch Fallback"
+        ],
+        "exclusion_reason": "",
+        "semantic_audit": "scenarios.holdouts.VECTOR_MEANING and phase3 holdout audit",
+        "candidate_status": "complete",
+        "guard_status": "available",
+        "fast_status": "feasible"
+      },
+      "line": 10,
+      "sha256": "e3491fef90737a175d81f83ed95e33d7c37f817be5e92bf077ffecd31a006154",
+      "parse_status": "Supported",
+      "parse_reason": "访存语法已归一化；尚未核对独立算子语义",
+      "accesses": 2,
+      "hints": 0
+    },
+    {
+      "id": "holdout_matrix",
+      "file": "scenarios/holdouts.py",
+      "function": "two_stride_matrix",
+      "origin": "project",
+      "source_url": "",
+      "source_revision": "9d93c34",
+      "semantic_family": "layout_2d",
+      "access_family": "two_stride_2d",
+      "pointers": {
+        "X": "X",
+        "Y": "OUT"
+      },
+      "meaning": "scenarios.holdouts.MATRIX_MEANING",
+      "license_review": "project",
+      "status": "baseline",
+      "benchmark_role": "positive",
+      "expected_parse": "Supported",
+      "audit": {
+        "wrapper": "scenarios.holdouts.run_two_stride_matrix",
+        "reference": "scenarios.cases.reference",
+        "parameter_bindings": [
+          [
+            "M",
+            "x.size(0)"
+          ],
+          [
+            "N",
+            "x.size(1)"
+          ],
+          [
+            "S0",
+            "x.stride(0)"
+          ],
+          [
+            "S1",
+            "x.stride(1)"
+          ],
+          [
+            "B",
+            "next_power_of_2(N)"
+          ],
+          [
+            "grid",
+            "M"
+          ]
+        ],
+        "dtype_domain": [
+          "torch.float32"
+        ],
+        "input_domain": [
+          "二维非空",
+          "非负步长"
+        ],
+        "core_contract": [
+          "stride(0)==S0",
+          "stride(1)==S1",
+          "span within storage"
+        ],
+        "allowed_paths": [
+          "Fast",
+          "PyTorch Fallback"
+        ],
+        "exclusion_reason": "",
+        "semantic_audit": "scenarios.holdouts.MATRIX_MEANING and phase3 holdout audit",
+        "candidate_status": "complete",
+        "guard_status": "available",
+        "fast_status": "feasible"
+      },
+      "line": 18,
+      "sha256": "d348d41e378b882d0aab0c29016db443290af4fcea3c5170f85af443ace3f205",
+      "parse_status": "Supported",
+      "parse_reason": "访存语法已归一化；尚未核对独立算子语义",
+      "accesses": 2,
+      "hints": 0
+    },
+    {
+      "id": "pointer_hint",
+      "file": "scenarios/alignment_fixtures.py",
+      "function": "pointer_hint",
+      "origin": "project",
+      "source_url": "",
+      "source_revision": "9d93c34",
+      "semantic_family": "elementwise_mapping",
+      "access_family": "pointer_alignment",
+      "pointers": {
+        "X": "X",
+        "Y": "OUT"
+      },
+      "meaning": "pact.semantics.SEMANTICS[B]",
+      "license_review": "project",
+      "status": "baseline",
+      "benchmark_role": "positive",
+      "expected_parse": "Supported",
+      "audit": {
+        "wrapper": "scenarios.alignment_fixtures.run_pointer_hint",
+        "reference": "scenarios.cases.reference",
+        "parameter_bindings": [
+          [
+            "N",
+            "x.size(0)"
+          ],
+          [
+            "B",
+            "128"
+          ],
+          [
+            "grid",
+            "ceil(N/B)"
+          ]
+        ],
+        "dtype_domain": [
+          "torch.float32"
+        ],
+        "input_domain": [
+          "一维非空"
+        ],
+        "core_contract": [
+          "effective_ptr%16==0",
+          "stride(0)==1 or size(0)==1",
+          "span within storage"
+        ],
+        "allowed_paths": [
+          "Fast",
+          "PyTorch Fallback"
+        ],
+        "exclusion_reason": "",
+        "semantic_audit": "phase3 alignment fixture audit",
+        "candidate_status": "complete",
+        "guard_status": "available",
+        "fast_status": "feasible"
+      },
+      "line": 8,
+      "sha256": "90d70e99fa0473f6add1086ddce9cfc8770e9f57be24cd0511d07a8cedae2a13",
+      "parse_status": "Supported",
+      "parse_reason": "访存语法已归一化；尚未核对独立算子语义",
+      "accesses": 2,
+      "hints": 1
+    },
+    {
+      "id": "index_hint",
+      "file": "scenarios/alignment_fixtures.py",
+      "function": "index_hint",
+      "origin": "project",
+      "source_url": "",
+      "source_revision": "9d93c34",
+      "semantic_family": "elementwise_mapping",
+      "access_family": "index_alignment",
+      "pointers": {
+        "X": "X",
+        "Y": "OUT"
+      },
+      "meaning": "pact.semantics.SEMANTICS[B]",
+      "license_review": "project",
+      "status": "baseline",
+      "benchmark_role": "positive",
+      "expected_parse": "Supported",
+      "audit": {
+        "wrapper": "scenarios.alignment_fixtures.run_index_hint",
+        "reference": "scenarios.cases.reference",
+        "parameter_bindings": [
+          [
+            "N",
+            "x.size(0)"
+          ],
+          [
+            "B",
+            "128"
+          ],
+          [
+            "grid",
+            "ceil(N/B)"
+          ]
+        ],
+        "dtype_domain": [
+          "torch.float32"
+        ],
+        "input_domain": [
+          "一维非空"
+        ],
+        "core_contract": [
+          "index multiple_of(16)",
+          "stride(0)==1 or size(0)==1",
+          "span within storage"
+        ],
+        "allowed_paths": [
+          "Fast",
+          "PyTorch Fallback"
+        ],
+        "exclusion_reason": "",
+        "semantic_audit": "phase3 alignment fixture audit",
+        "candidate_status": "complete",
+        "guard_status": "available",
+        "fast_status": "feasible"
+      },
+      "line": 17,
+      "sha256": "891e540123d567a58bbd58e081ee509b88fab852cc020b3e103027dbe1d2e66c",
+      "parse_status": "Supported",
+      "parse_reason": "访存语法已归一化；尚未核对独立算子语义",
+      "accesses": 2,
+      "hints": 1
+    },
+    {
+      "id": "bench_relu",
+      "file": "scenarios/bench_kernels.py",
+      "function": "relu_1d",
+      "origin": "project",
+      "source_url": "",
+      "source_revision": "phase6",
+      "semantic_family": "elementwise_mapping",
+      "access_family": "masked_1d",
+      "pointers": {
+        "X": "X",
+        "Y": "OUT"
+      },
+      "meaning": "out[i] = max(x[i], 0)",
+      "license_review": "project",
+      "status": "offline_benchmark",
+      "benchmark_role": "positive",
+      "expected_parse": "Supported",
+      "audit": {
+        "wrapper": "scenarios.bench_kernels.run_relu",
+        "reference": "bench.specs.reference_relu",
+        "parameter_bindings": [
+          [
+            "N",
+            "x.size(0)"
+          ],
+          [
+            "B",
+            "128"
+          ]
+        ],
+        "dtype_domain": [
+          "torch.float32"
+        ],
+        "input_domain": [
+          "CUDA float32",
+          "非空张量",
+          "显式 mask",
+          "受限单轴 grid",
+          "输入为等长一维张量"
+        ],
+        "core_contract": [
+          "所有输入 stride(0)==1 或 size(0)==1"
+        ],
+        "allowed_paths": [
+          "Offline Shadow"
+        ],
+        "exclusion_reason": "未注册 GuardPlan，不允许在线 Fast",
+        "semantic_audit": "independent_spec_and_wrapper_reviewed",
+        "candidate_status": "shadow_complete",
+        "guard_status": "not_registered",
+        "fast_status": "not_eligible"
+      },
+      "line": 8,
+      "sha256": "af37f3817a1ea6b91d2c2554cccfb7104450b3545512565f7a54feaa47f13433",
+      "parse_status": "Supported",
+      "parse_reason": "访存语法已归一化；尚未核对独立算子语义",
+      "accesses": 2,
+      "hints": 0
+    },
+    {
+      "id": "bench_square",
+      "file": "scenarios/bench_kernels.py",
+      "function": "square_1d",
+      "origin": "project",
+      "source_url": "",
+      "source_revision": "phase6",
+      "semantic_family": "elementwise_mapping",
+      "access_family": "masked_1d",
+      "pointers": {
+        "X": "X",
+        "Y": "OUT"
+      },
+      "meaning": "out[i] = x[i] * x[i]",
+      "license_review": "project",
+      "status": "offline_benchmark",
+      "benchmark_role": "positive",
+      "expected_parse": "Supported",
+      "audit": {
+        "wrapper": "scenarios.bench_kernels.run_square",
+        "reference": "bench.specs.reference_square",
+        "parameter_bindings": [
+          [
+            "N",
+            "x.size(0)"
+          ],
+          [
+            "B",
+            "128"
+          ]
+        ],
+        "dtype_domain": [
+          "torch.float32"
+        ],
+        "input_domain": [
+          "CUDA float32",
+          "非空张量",
+          "显式 mask",
+          "受限单轴 grid",
+          "输入为等长一维张量"
+        ],
+        "core_contract": [
+          "所有输入 stride(0)==1 或 size(0)==1"
+        ],
+        "allowed_paths": [
+          "Offline Shadow"
+        ],
+        "exclusion_reason": "未注册 GuardPlan，不允许在线 Fast",
+        "semantic_audit": "independent_spec_and_wrapper_reviewed",
+        "candidate_status": "shadow_complete",
+        "guard_status": "not_registered",
+        "fast_status": "not_eligible"
+      },
+      "line": 17,
+      "sha256": "d54de18c89686983e37b963a48d51190556f5f2218b3b4529fd618da98a50be8",
+      "parse_status": "Supported",
+      "parse_reason": "访存语法已归一化；尚未核对独立算子语义",
+      "accesses": 2,
+      "hints": 0
+    },
+    {
+      "id": "bench_multiply",
+      "file": "scenarios/bench_kernels.py",
+      "function": "multiply_1d",
+      "origin": "project",
+      "source_url": "",
+      "source_revision": "phase6",
+      "semantic_family": "elementwise_mapping",
+      "access_family": "masked_1d",
+      "pointers": {
+        "X": "X",
+        "Z": "Z",
+        "Y": "OUT"
+      },
+      "meaning": "out[i] = x[i] * z[i]",
+      "license_review": "project",
+      "status": "offline_benchmark",
+      "benchmark_role": "positive",
+      "expected_parse": "Supported",
+      "audit": {
+        "wrapper": "scenarios.bench_kernels.run_multiply",
+        "reference": "bench.specs.reference_multiply",
+        "parameter_bindings": [
+          [
+            "N",
+            "x.size(0)"
+          ],
+          [
+            "B",
+            "128"
+          ]
+        ],
+        "dtype_domain": [
+          "torch.float32"
+        ],
+        "input_domain": [
+          "CUDA float32",
+          "非空张量",
+          "显式 mask",
+          "受限单轴 grid",
+          "输入为等长一维张量"
+        ],
+        "core_contract": [
+          "所有输入 stride(0)==1 或 size(0)==1"
+        ],
+        "allowed_paths": [
+          "Offline Shadow"
+        ],
+        "exclusion_reason": "未注册 GuardPlan，不允许在线 Fast",
+        "semantic_audit": "independent_spec_and_wrapper_reviewed",
+        "candidate_status": "shadow_complete",
+        "guard_status": "not_registered",
+        "fast_status": "not_eligible"
+      },
+      "line": 26,
+      "sha256": "6f0df8781de9e96269ef85afee4dd2e788e7d57353807dd2ddbd18752f798c70",
+      "parse_status": "Supported",
+      "parse_reason": "访存语法已归一化；尚未核对独立算子语义",
+      "accesses": 3,
+      "hints": 0
+    },
+    {
+      "id": "bench_axpy",
+      "file": "scenarios/bench_kernels.py",
+      "function": "axpy_1d",
+      "origin": "project",
+      "source_url": "",
+      "source_revision": "phase6",
+      "semantic_family": "elementwise_mapping",
+      "access_family": "masked_1d",
+      "pointers": {
+        "X": "X",
+        "Z": "Z",
+        "Y": "OUT"
+      },
+      "meaning": "out[i] = alpha * x[i] + z[i]",
+      "license_review": "project",
+      "status": "offline_benchmark",
+      "benchmark_role": "positive",
+      "expected_parse": "Supported",
+      "audit": {
+        "wrapper": "scenarios.bench_kernels.run_axpy",
+        "reference": "bench.specs.reference_axpy",
+        "parameter_bindings": [
+          [
+            "ALPHA",
+            "2"
+          ],
+          [
+            "N",
+            "x.size(0)"
+          ],
+          [
+            "B",
+            "128"
+          ]
+        ],
+        "dtype_domain": [
+          "torch.float32"
+        ],
+        "input_domain": [
+          "CUDA float32",
+          "非空张量",
+          "显式 mask",
+          "受限单轴 grid",
+          "输入为等长一维张量"
+        ],
+        "core_contract": [
+          "所有输入 stride(0)==1 或 size(0)==1"
+        ],
+        "allowed_paths": [
+          "Offline Shadow"
+        ],
+        "exclusion_reason": "未注册 GuardPlan，不允许在线 Fast",
+        "semantic_audit": "independent_spec_and_wrapper_reviewed",
+        "candidate_status": "shadow_complete",
+        "guard_status": "not_registered",
+        "fast_status": "not_eligible"
+      },
+      "line": 36,
+      "sha256": "437503da78a1f1c760828d65bf9fedea173bd01c7b2236f6af2c8d8be6d810f9",
+      "parse_status": "Supported",
+      "parse_reason": "访存语法已归一化；尚未核对独立算子语义",
+      "accesses": 3,
+      "hints": 0
+    },
+    {
+      "id": "bench_feature_scale",
+      "file": "scenarios/bench_kernels.py",
+      "function": "feature_scale_2d",
+      "origin": "project",
+      "source_url": "",
+      "source_revision": "phase6",
+      "semantic_family": "feature_broadcast",
+      "access_family": "row_feature_broadcast",
+      "pointers": {
+        "X": "X",
+        "F": "F",
+        "Y": "OUT"
+      },
+      "meaning": "bench.specs.new_meaning[bench_feature_scale]",
+      "license_review": "project",
+      "status": "offline_benchmark",
+      "benchmark_role": "positive",
+      "expected_parse": "Supported",
+      "audit": {
+        "wrapper": "scenarios.bench_kernels.run_feature_scale",
+        "reference": "bench.specs.reference_feature_scale",
+        "parameter_bindings": [
+          [
+            "M",
+            "x.size(0)"
+          ],
+          [
+            "N",
+            "x.size(1)"
+          ],
+          [
+            "S0",
+            "x.stride(0)"
+          ],
+          [
+            "B",
+            "next_power_of_2(N)"
+          ]
+        ],
+        "dtype_domain": [
+          "torch.float32"
+        ],
+        "input_domain": [
+          "CUDA float32",
+          "非空张量",
+          "显式 mask",
+          "受限单轴 grid",
+          "X 为二维且 F 长度等于 X.size(1)"
+        ],
+        "core_contract": [
+          "X.stride(1)==1 or X.size(1)==1",
+          "F.stride(0)==1 or F.size(0)==1"
+        ],
+        "allowed_paths": [
+          "Offline Shadow"
+        ],
+        "exclusion_reason": "未注册 GuardPlan，不允许在线 Fast",
+        "semantic_audit": "independent_spec_and_wrapper_reviewed",
+        "candidate_status": "shadow_complete",
+        "guard_status": "not_registered",
+        "fast_status": "not_eligible"
+      },
+      "line": 46,
+      "sha256": "075158fb5dbc23c2825efa3d74553be049f3b121fe655391f594d0c1c84e8908",
+      "parse_status": "Supported",
+      "parse_reason": "访存语法已归一化；尚未核对独立算子语义",
+      "accesses": 3,
+      "hints": 0
+    },
+    {
+      "id": "bench_feature_bias",
+      "file": "scenarios/bench_kernels.py",
+      "function": "feature_bias_2d",
+      "origin": "project",
+      "source_url": "",
+      "source_revision": "phase6",
+      "semantic_family": "feature_broadcast",
+      "access_family": "row_feature_broadcast",
+      "pointers": {
+        "X": "X",
+        "F": "F",
+        "Y": "OUT"
+      },
+      "meaning": "bench.specs.new_meaning[bench_feature_bias]",
+      "license_review": "project",
+      "status": "offline_benchmark",
+      "benchmark_role": "positive",
+      "expected_parse": "Supported",
+      "audit": {
+        "wrapper": "scenarios.bench_kernels.run_feature_bias",
+        "reference": "bench.specs.reference_feature_bias",
+        "parameter_bindings": [
+          [
+            "M",
+            "x.size(0)"
+          ],
+          [
+            "N",
+            "x.size(1)"
+          ],
+          [
+            "S0",
+            "x.stride(0)"
+          ],
+          [
+            "B",
+            "next_power_of_2(N)"
+          ]
+        ],
+        "dtype_domain": [
+          "torch.float32"
+        ],
+        "input_domain": [
+          "CUDA float32",
+          "非空张量",
+          "显式 mask",
+          "受限单轴 grid",
+          "X 为二维且 F 长度等于 X.size(1)"
+        ],
+        "core_contract": [
+          "X.stride(1)==1 or X.size(1)==1",
+          "F.stride(0)==1 or F.size(0)==1"
+        ],
+        "allowed_paths": [
+          "Offline Shadow"
+        ],
+        "exclusion_reason": "未注册 GuardPlan，不允许在线 Fast",
+        "semantic_audit": "independent_spec_and_wrapper_reviewed",
+        "candidate_status": "shadow_complete",
+        "guard_status": "not_registered",
+        "fast_status": "not_eligible"
+      },
+      "line": 57,
+      "sha256": "e200a487ef0f77bf0fbd4dcad5d55d604a6e04333df578a63a17d16e062ec67e",
+      "parse_status": "Supported",
+      "parse_reason": "访存语法已归一化；尚未核对独立算子语义",
+      "accesses": 3,
+      "hints": 0
+    },
+    {
+      "id": "vllm_expand_idx",
+      "file": "scenarios/external_vllm.py",
+      "function": "_expand_idx_mapping_kernel",
+      "origin": "vllm-project/vllm",
+      "source_url": "https://github.com/vllm-project/vllm/blob/e6c07ea5763bada5da789ed437851ee1526fd5a8/vllm/v1/worker/gpu/input_batch.py#L677-L694",
+      "source_revision": "e6c07ea5763bada5da789ed437851ee1526fd5a8",
+      "semantic_family": "index_expansion",
+      "access_family": "indirect_multi_store",
+      "pointers": {
+        "idx_mapping_ptr": "INDEX",
+        "expanded_idx_mapping_ptr": "OUT_INDEX",
+        "expanded_local_pos_ptr": "OUT_POS",
+        "cu_num_logits_ptr": "CU_LOGITS"
+      },
+      "meaning": "按请求区间展开状态索引与局部位置",
+      "license_review": "approved",
+      "status": "unaltered_challenge",
+      "benchmark_role": "challenge",
+      "expected_parse": "Unsupported",
+      "audit": {
+        "wrapper": "not_applicable_challenge",
+        "reference": "vLLM expand_idx_mapping semantics",
+        "parameter_bindings": [],
+        "dtype_domain": [
+          "upstream declared dtype domain"
+        ],
+        "input_domain": [
+          "固定上游源码；未执行"
+        ],
+        "core_contract": [],
+        "allowed_paths": [
+          "Unsupported"
+        ],
+        "exclusion_reason": "无显式 mask 的标量 load、多个 store 和间接区间，不在当前支持域",
+        "semantic_audit": "pinned upstream source review",
+        "candidate_status": "unsupported",
+        "guard_status": "unsupported",
+        "fast_status": "unsupported"
+      },
+      "line": 13,
+      "sha256": "d86019216156350d60676236bd46dbe57dbe671ddf0aa10646a4f692fe610a47",
+      "parse_status": "Unsupported",
+      "parse_reason": "tl.load/store 缺少显式 mask",
+      "accesses": 0,
+      "hints": 0
+    }
+  ],
+  "selection_leads": [
+    {
+      "source": "pytorch/pytorch",
+      "url": "https://github.com/pytorch/pytorch/issues/134372",
+      "reason": "含生成的点式 Triton 样例；待固定原始提交、审计语义和解析，不计入基准"
+    },
+    {
+      "source": "linkedin/Liger-Kernel",
+      "url": "https://github.com/linkedin/Liger-Kernel/blob/40a9d8a61bdc546f4e70220619d4db9760fa80b1/src/liger_kernel/ops/swiglu.py",
+      "reason": "固定源码的 SwiGLU forward 使用指针就地加法与 cast；现有单轴仿射解析器不支持，不计入基准"
+    },
+    {
+      "source": "triton-lang/triton",
+      "url": "https://github.com/triton-lang/triton/blob/main/python/tutorials/02-fused-softmax.py",
+      "reason": "规约与循环挑战样例；当前解析器不支持，不计入基准"
+    }
+  ],
+  "counts": {
+    "registered": 15,
+    "syntax_supported": 14,
+    "syntax_unknown": 0,
+    "syntax_unsupported": 1,
+    "candidate_complete": 14,
+    "guard_available": 8,
+    "fast_feasible": 8,
+    "pinned_external_sources": 2,
+    "semantic_families": [
+      "elementwise_mapping",
+      "feature_broadcast",
+      "layout_2d"
+    ],
+    "supported_positive_by_family": {
+      "elementwise_mapping": 9,
+      "feature_broadcast": 2,
+      "layout_2d": 3
+    },
+    "access_families": [
+      "flat_2d",
+      "index_alignment",
+      "indirect_multi_store",
+      "masked_1d",
+      "pointer_alignment",
+      "row_feature_broadcast",
+      "row_stride_2d",
+      "strided_1d",
+      "two_stride_2d"
+    ]
+  },
+  "scope": "仅核对清单、源码指纹和 AST 可解析性；positive/challenge 分列。未执行语义/绑定/Guard/GPU 核验，外部未固定版本不计入合格来源。"
+}

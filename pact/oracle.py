@@ -1,4 +1,4 @@
-"""启动独立子进程执行用例，防止非法显存访问污染主进程 CUDA Context"""
+"""启动独立子进程执行用例，防止非法显存访问污染主进程 CUDA Context，以安全地执行这些可能触发 GPU 崩溃的算子并自动判定结果"""
 
 import json
 import subprocess

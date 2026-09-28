@@ -1,0 +1,1149 @@
+{
+  "generated_at": "2026-09-25T10:53:13.274477+08:00",
+  "rows": [
+    {
+      "recipe": {
+        "name": "A",
+        "layout": "transpose",
+        "m": 7,
+        "n": 11
+      },
+      "raw": {
+        "category": "numeric_mismatch",
+        "detail": {
+          "case": "A",
+          "layout": "transpose",
+          "mode": "raw",
+          "refined_contract": false,
+          "shape": [
+            7,
+            11
+          ],
+          "stride": [
+            1,
+            7
+          ],
+          "second_stride": null,
+          "storage_offset": 0,
+          "effective_ptr_mod_16": 0,
+          "input_ptr_unchanged": true,
+          "is_contiguous": false,
+          "contiguous_copied": true,
+          "path": "Raw Fast",
+          "guard": null,
+          "expected_shape": [
+            7,
+            11
+          ],
+          "actual_shape": [
+            7,
+            11
+          ],
+          "expected_dtype": "torch.float32",
+          "actual_dtype": "torch.float32",
+          "tolerance": {
+            "rtol": 0.0,
+            "atol": 0.0
+          },
+          "max_abs_error": 60.0,
+          "correct": false,
+          "first_mismatch": [
+            0,
+            1
+          ],
+          "expected_value": 8.0,
+          "actual_value": 2.0,
+          "mismatch_count": 74,
+          "kind": "numeric_mismatch"
+        },
+        "exit_code": 0,
+        "stderr": "",
+        "evidence": {
+          "guard_basis": "Unknown",
+          "guard_scope": "未经过 Guard 静态判断",
+          "fast_eligible": false,
+          "observation_level": "Empirically-Validated",
+          "observation_claim": "此输入观察到数值不一致",
+          "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+        }
+      },
+      "old": {
+        "category": "correct",
+        "detail": {
+          "case": "A",
+          "layout": "transpose",
+          "mode": "dispatch",
+          "refined_contract": false,
+          "shape": [
+            7,
+            11
+          ],
+          "stride": [
+            1,
+            7
+          ],
+          "second_stride": null,
+          "storage_offset": 0,
+          "effective_ptr_mod_16": 0,
+          "input_ptr_unchanged": true,
+          "is_contiguous": false,
+          "contiguous_copied": true,
+          "path": "PyTorch Fallback",
+          "guard": {
+            "allowed": false,
+            "reason": "输入布局不满足提取条件",
+            "evidence": "Statically-Proven",
+            "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+            "checks": [
+              "X.stride(0) == size(1): False"
+            ]
+          },
+          "expected_shape": [
+            7,
+            11
+          ],
+          "actual_shape": [
+            7,
+            11
+          ],
+          "expected_dtype": "torch.float32",
+          "actual_dtype": "torch.float32",
+          "tolerance": {
+            "rtol": 0.0,
+            "atol": 0.0
+          },
+          "max_abs_error": 0.0,
+          "correct": true,
+          "kind": "correct"
+        },
+        "exit_code": 0,
+        "stderr": "",
+        "evidence": {
+          "guard_basis": "Statically-Proven",
+          "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "fast_eligible": false,
+          "observation_level": "Empirically-Validated",
+          "observation_claim": "此输入的输出与参考实现一致",
+          "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+        }
+      },
+      "new": {
+        "classification": "correct",
+        "detail": {
+          "path": "PyTorch Fallback",
+          "direct_guard": {
+            "status": "False",
+            "reason": "shape/stride 或索引条件未满足",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  7,
+                  11
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": false,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              }
+            ],
+            "failed": {
+              "condition": {
+                "kind": "or",
+                "left": null,
+                "right": null,
+                "divisor": null,
+                "remainder": null,
+                "tensor": "",
+                "parts": [
+                  {
+                    "kind": "eq",
+                    "left": {
+                      "kind": "size",
+                      "tensor": "X",
+                      "axis": 0,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "right": {
+                      "kind": "constant",
+                      "tensor": "",
+                      "axis": null,
+                      "value": 1,
+                      "scalar": ""
+                    },
+                    "divisor": null,
+                    "remainder": null,
+                    "tensor": "",
+                    "parts": [],
+                    "span": null
+                  },
+                  {
+                    "kind": "eq",
+                    "left": {
+                      "kind": "stride",
+                      "tensor": "X",
+                      "axis": 0,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "right": {
+                      "kind": "size",
+                      "tensor": "X",
+                      "axis": 1,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "divisor": null,
+                    "remainder": null,
+                    "tensor": "",
+                    "parts": [],
+                    "span": null
+                  }
+                ],
+                "span": null
+              },
+              "obligation": null,
+              "purpose": "Semantics",
+              "evidence": "Statically-Proven",
+              "origin": {
+                "source_file": "scenarios/kernels.py",
+                "source_line": 15,
+                "access_kind": "load",
+                "pointer": "X",
+                "semantic_index": "x[row, col]",
+                "bindings": [
+                  [
+                    "M",
+                    "x.size(0)"
+                  ],
+                  [
+                    "N",
+                    "x.size(1)"
+                  ],
+                  [
+                    "B",
+                    "128"
+                  ],
+                  [
+                    "grid",
+                    "ceil(M*N/B)"
+                  ]
+                ],
+                "explanation": "扁平地址按列数 N 换行；单行时行步长无作用"
+              },
+              "rule": "compare_logical_address",
+              "domain": [
+                "CUDA float32",
+                "各维长度至少为 1",
+                "元素总数不超过 1000000",
+                "显式尾部 mask"
+              ],
+              "binding": [
+                [
+                  "M",
+                  "x.size(0)"
+                ],
+                [
+                  "N",
+                  "x.size(1)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(M*N/B)"
+                ]
+              ],
+              "reason": "扁平地址按列数 N 换行；单行时行步长无作用"
+            },
+            "output": null,
+            "scalars": null
+          },
+          "repair": null,
+          "feasible": [
+            "PyTorch Fallback"
+          ],
+          "selection_reason": "成本表缺失或版本不符，使用确定性默认",
+          "fingerprint": "d334ef3416995ba61bca64c2c1f35b428b9e14ab0afbeb8ff64c5f5dbcf7eb40"
+        },
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          1,
+          7
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod16": 0,
+        "equal": true,
+        "exit_code": 0
+      },
+      "prevented": true
+    },
+    {
+      "recipe": {
+        "name": "A",
+        "layout": "transpose",
+        "m": 5,
+        "n": 13
+      },
+      "raw": {
+        "category": "numeric_mismatch",
+        "detail": {
+          "case": "A",
+          "layout": "transpose",
+          "mode": "raw",
+          "refined_contract": false,
+          "shape": [
+            5,
+            13
+          ],
+          "stride": [
+            1,
+            5
+          ],
+          "second_stride": null,
+          "storage_offset": 0,
+          "effective_ptr_mod_16": 0,
+          "input_ptr_unchanged": true,
+          "is_contiguous": false,
+          "contiguous_copied": true,
+          "path": "Raw Fast",
+          "guard": null,
+          "expected_shape": [
+            5,
+            13
+          ],
+          "actual_shape": [
+            5,
+            13
+          ],
+          "expected_dtype": "torch.float32",
+          "actual_dtype": "torch.float32",
+          "tolerance": {
+            "rtol": 0.0,
+            "atol": 0.0
+          },
+          "max_abs_error": 48.0,
+          "correct": false,
+          "first_mismatch": [
+            0,
+            1
+          ],
+          "expected_value": 6.0,
+          "actual_value": 2.0,
+          "mismatch_count": 60,
+          "kind": "numeric_mismatch"
+        },
+        "exit_code": 0,
+        "stderr": "",
+        "evidence": {
+          "guard_basis": "Unknown",
+          "guard_scope": "未经过 Guard 静态判断",
+          "fast_eligible": false,
+          "observation_level": "Empirically-Validated",
+          "observation_claim": "此输入观察到数值不一致",
+          "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+        }
+      },
+      "old": {
+        "category": "correct",
+        "detail": {
+          "case": "A",
+          "layout": "transpose",
+          "mode": "dispatch",
+          "refined_contract": false,
+          "shape": [
+            5,
+            13
+          ],
+          "stride": [
+            1,
+            5
+          ],
+          "second_stride": null,
+          "storage_offset": 0,
+          "effective_ptr_mod_16": 0,
+          "input_ptr_unchanged": true,
+          "is_contiguous": false,
+          "contiguous_copied": true,
+          "path": "PyTorch Fallback",
+          "guard": {
+            "allowed": false,
+            "reason": "输入布局不满足提取条件",
+            "evidence": "Statically-Proven",
+            "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+            "checks": [
+              "X.stride(0) == size(1): False"
+            ]
+          },
+          "expected_shape": [
+            5,
+            13
+          ],
+          "actual_shape": [
+            5,
+            13
+          ],
+          "expected_dtype": "torch.float32",
+          "actual_dtype": "torch.float32",
+          "tolerance": {
+            "rtol": 0.0,
+            "atol": 0.0
+          },
+          "max_abs_error": 0.0,
+          "correct": true,
+          "kind": "correct"
+        },
+        "exit_code": 0,
+        "stderr": "",
+        "evidence": {
+          "guard_basis": "Statically-Proven",
+          "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "fast_eligible": false,
+          "observation_level": "Empirically-Validated",
+          "observation_claim": "此输入的输出与参考实现一致",
+          "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+        }
+      },
+      "new": {
+        "classification": "correct",
+        "detail": {
+          "path": "PyTorch Fallback",
+          "direct_guard": {
+            "status": "False",
+            "reason": "shape/stride 或索引条件未满足",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  5,
+                  13
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": false,
+                "rule": "compare_logical_address",
+                "pointer": "X",
+                "purpose": "Semantics"
+              }
+            ],
+            "failed": {
+              "condition": {
+                "kind": "or",
+                "left": null,
+                "right": null,
+                "divisor": null,
+                "remainder": null,
+                "tensor": "",
+                "parts": [
+                  {
+                    "kind": "eq",
+                    "left": {
+                      "kind": "size",
+                      "tensor": "X",
+                      "axis": 0,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "right": {
+                      "kind": "constant",
+                      "tensor": "",
+                      "axis": null,
+                      "value": 1,
+                      "scalar": ""
+                    },
+                    "divisor": null,
+                    "remainder": null,
+                    "tensor": "",
+                    "parts": [],
+                    "span": null
+                  },
+                  {
+                    "kind": "eq",
+                    "left": {
+                      "kind": "stride",
+                      "tensor": "X",
+                      "axis": 0,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "right": {
+                      "kind": "size",
+                      "tensor": "X",
+                      "axis": 1,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "divisor": null,
+                    "remainder": null,
+                    "tensor": "",
+                    "parts": [],
+                    "span": null
+                  }
+                ],
+                "span": null
+              },
+              "obligation": null,
+              "purpose": "Semantics",
+              "evidence": "Statically-Proven",
+              "origin": {
+                "source_file": "scenarios/kernels.py",
+                "source_line": 15,
+                "access_kind": "load",
+                "pointer": "X",
+                "semantic_index": "x[row, col]",
+                "bindings": [
+                  [
+                    "M",
+                    "x.size(0)"
+                  ],
+                  [
+                    "N",
+                    "x.size(1)"
+                  ],
+                  [
+                    "B",
+                    "128"
+                  ],
+                  [
+                    "grid",
+                    "ceil(M*N/B)"
+                  ]
+                ],
+                "explanation": "扁平地址按列数 N 换行；单行时行步长无作用"
+              },
+              "rule": "compare_logical_address",
+              "domain": [
+                "CUDA float32",
+                "各维长度至少为 1",
+                "元素总数不超过 1000000",
+                "显式尾部 mask"
+              ],
+              "binding": [
+                [
+                  "M",
+                  "x.size(0)"
+                ],
+                [
+                  "N",
+                  "x.size(1)"
+                ],
+                [
+                  "B",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(M*N/B)"
+                ]
+              ],
+              "reason": "扁平地址按列数 N 换行；单行时行步长无作用"
+            },
+            "output": null,
+            "scalars": null
+          },
+          "repair": null,
+          "feasible": [
+            "PyTorch Fallback"
+          ],
+          "selection_reason": "成本表缺失或版本不符，使用确定性默认",
+          "fingerprint": "d334ef3416995ba61bca64c2c1f35b428b9e14ab0afbeb8ff64c5f5dbcf7eb40"
+        },
+        "shape": [
+          5,
+          13
+        ],
+        "stride": [
+          1,
+          5
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod16": 0,
+        "equal": true,
+        "exit_code": 0
+      },
+      "prevented": true
+    },
+    {
+      "recipe": {
+        "name": "D",
+        "layout": "x_strided",
+        "n": 129
+      },
+      "raw": {
+        "category": "numeric_mismatch",
+        "detail": {
+          "case": "D",
+          "layout": "x_strided",
+          "mode": "raw",
+          "refined_contract": false,
+          "shape": [
+            129
+          ],
+          "stride": [
+            2
+          ],
+          "second_stride": [
+            1
+          ],
+          "storage_offset": 0,
+          "effective_ptr_mod_16": 0,
+          "input_ptr_unchanged": true,
+          "is_contiguous": false,
+          "contiguous_copied": true,
+          "path": "Raw Fast",
+          "guard": null,
+          "expected_shape": [
+            129
+          ],
+          "actual_shape": [
+            129
+          ],
+          "expected_dtype": "torch.float32",
+          "actual_dtype": "torch.float32",
+          "tolerance": {
+            "rtol": 0.0,
+            "atol": 0.0
+          },
+          "max_abs_error": 128.0,
+          "correct": false,
+          "first_mismatch": [
+            1
+          ],
+          "expected_value": 12.0,
+          "actual_value": 11.0,
+          "mismatch_count": 128,
+          "kind": "numeric_mismatch"
+        },
+        "exit_code": 0,
+        "stderr": "",
+        "evidence": {
+          "guard_basis": "Unknown",
+          "guard_scope": "未经过 Guard 静态判断",
+          "fast_eligible": false,
+          "observation_level": "Empirically-Validated",
+          "observation_claim": "此输入观察到数值不一致",
+          "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+        }
+      },
+      "old": {
+        "category": "correct",
+        "detail": {
+          "case": "D",
+          "layout": "x_strided",
+          "mode": "dispatch",
+          "refined_contract": false,
+          "shape": [
+            129
+          ],
+          "stride": [
+            2
+          ],
+          "second_stride": [
+            1
+          ],
+          "storage_offset": 0,
+          "effective_ptr_mod_16": 0,
+          "input_ptr_unchanged": true,
+          "is_contiguous": false,
+          "contiguous_copied": true,
+          "path": "PyTorch Fallback",
+          "guard": {
+            "allowed": false,
+            "reason": "输入布局不满足提取条件",
+            "evidence": "Statically-Proven",
+            "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+            "checks": [
+              "X.stride(0) == 1: False"
+            ]
+          },
+          "expected_shape": [
+            129
+          ],
+          "actual_shape": [
+            129
+          ],
+          "expected_dtype": "torch.float32",
+          "actual_dtype": "torch.float32",
+          "tolerance": {
+            "rtol": 0.0,
+            "atol": 0.0
+          },
+          "max_abs_error": 0.0,
+          "correct": true,
+          "kind": "correct"
+        },
+        "exit_code": 0,
+        "stderr": "",
+        "evidence": {
+          "guard_basis": "Statically-Proven",
+          "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "fast_eligible": false,
+          "observation_level": "Empirically-Validated",
+          "observation_claim": "此输入的输出与参考实现一致",
+          "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+        }
+      },
+      "new": {
+        "classification": "correct",
+        "detail": {
+          "path": "PyTorch Fallback",
+          "direct_guard": {
+            "status": "False",
+            "reason": "shape/stride 或索引条件未满足",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  129
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": false,
+                "rule": "compare_logical_address",
+                "pointer": "x_ptr",
+                "purpose": "Semantics"
+              }
+            ],
+            "failed": {
+              "condition": {
+                "kind": "or",
+                "left": null,
+                "right": null,
+                "divisor": null,
+                "remainder": null,
+                "tensor": "",
+                "parts": [
+                  {
+                    "kind": "eq",
+                    "left": {
+                      "kind": "size",
+                      "tensor": "X",
+                      "axis": 0,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "right": {
+                      "kind": "constant",
+                      "tensor": "",
+                      "axis": null,
+                      "value": 1,
+                      "scalar": ""
+                    },
+                    "divisor": null,
+                    "remainder": null,
+                    "tensor": "",
+                    "parts": [],
+                    "span": null
+                  },
+                  {
+                    "kind": "eq",
+                    "left": {
+                      "kind": "stride",
+                      "tensor": "X",
+                      "axis": 0,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "right": {
+                      "kind": "constant",
+                      "tensor": "",
+                      "axis": null,
+                      "value": 1,
+                      "scalar": ""
+                    },
+                    "divisor": null,
+                    "remainder": null,
+                    "tensor": "",
+                    "parts": [],
+                    "span": null
+                  }
+                ],
+                "span": null
+              },
+              "obligation": null,
+              "purpose": "Semantics",
+              "evidence": "Statically-Proven",
+              "origin": {
+                "source_file": "scenarios/external_add.py",
+                "source_line": 19,
+                "access_kind": "load",
+                "pointer": "x_ptr",
+                "semantic_index": "x[i]",
+                "bindings": [
+                  [
+                    "n_elements",
+                    "x.numel() = y.numel()"
+                  ],
+                  [
+                    "BLOCK_SIZE",
+                    "128"
+                  ],
+                  [
+                    "grid",
+                    "ceil(n_elements/BLOCK_SIZE)"
+                  ]
+                ],
+                "explanation": "mask 限定 0<=i<N；相邻逻辑元素地址差为 1，单元素时步长无作用"
+              },
+              "rule": "compare_logical_address",
+              "domain": [
+                "两个输入均为同设备 CUDA float32",
+                "形状一致",
+                "长度至少为 1",
+                "长度不超过 1000000",
+                "显式尾部 mask"
+              ],
+              "binding": [
+                [
+                  "n_elements",
+                  "x.numel() = y.numel()"
+                ],
+                [
+                  "BLOCK_SIZE",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(n_elements/BLOCK_SIZE)"
+                ]
+              ],
+              "reason": "mask 限定 0<=i<N；相邻逻辑元素地址差为 1，单元素时步长无作用"
+            },
+            "output": null,
+            "scalars": null
+          },
+          "repair": null,
+          "feasible": [
+            "PyTorch Fallback"
+          ],
+          "selection_reason": "成本表缺失或版本不符，使用确定性默认",
+          "fingerprint": "68475f1fd0f22427deda7595f51ccd1907ad0c2dbbc1503e0a96e3950ba27a1e"
+        },
+        "shape": [
+          129
+        ],
+        "stride": [
+          2
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod16": 0,
+        "equal": true,
+        "exit_code": 0
+      },
+      "prevented": true
+    },
+    {
+      "recipe": {
+        "name": "D",
+        "layout": "y_strided",
+        "n": 129
+      },
+      "raw": {
+        "category": "numeric_mismatch",
+        "detail": {
+          "case": "D",
+          "layout": "y_strided",
+          "mode": "raw",
+          "refined_contract": false,
+          "shape": [
+            129
+          ],
+          "stride": [
+            1
+          ],
+          "second_stride": [
+            2
+          ],
+          "storage_offset": 0,
+          "effective_ptr_mod_16": 0,
+          "input_ptr_unchanged": true,
+          "is_contiguous": true,
+          "contiguous_copied": false,
+          "path": "Raw Fast",
+          "guard": null,
+          "expected_shape": [
+            129
+          ],
+          "actual_shape": [
+            129
+          ],
+          "expected_dtype": "torch.float32",
+          "actual_dtype": "torch.float32",
+          "tolerance": {
+            "rtol": 0.0,
+            "atol": 0.0
+          },
+          "max_abs_error": 128.0,
+          "correct": false,
+          "first_mismatch": [
+            1
+          ],
+          "expected_value": 3.0,
+          "actual_value": 2.0,
+          "mismatch_count": 128,
+          "kind": "numeric_mismatch"
+        },
+        "exit_code": 0,
+        "stderr": "",
+        "evidence": {
+          "guard_basis": "Unknown",
+          "guard_scope": "未经过 Guard 静态判断",
+          "fast_eligible": false,
+          "observation_level": "Empirically-Validated",
+          "observation_claim": "此输入观察到数值不一致",
+          "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+        }
+      },
+      "old": {
+        "category": "correct",
+        "detail": {
+          "case": "D",
+          "layout": "y_strided",
+          "mode": "dispatch",
+          "refined_contract": false,
+          "shape": [
+            129
+          ],
+          "stride": [
+            1
+          ],
+          "second_stride": [
+            2
+          ],
+          "storage_offset": 0,
+          "effective_ptr_mod_16": 0,
+          "input_ptr_unchanged": true,
+          "is_contiguous": true,
+          "contiguous_copied": false,
+          "path": "PyTorch Fallback",
+          "guard": {
+            "allowed": false,
+            "reason": "输入布局不满足提取条件",
+            "evidence": "Statically-Proven",
+            "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+            "checks": [
+              "X.stride(0) == 1: True",
+              "Y.stride(0) == 1: False"
+            ]
+          },
+          "expected_shape": [
+            129
+          ],
+          "actual_shape": [
+            129
+          ],
+          "expected_dtype": "torch.float32",
+          "actual_dtype": "torch.float32",
+          "tolerance": {
+            "rtol": 0.0,
+            "atol": 0.0
+          },
+          "max_abs_error": 0.0,
+          "correct": true,
+          "kind": "correct"
+        },
+        "exit_code": 0,
+        "stderr": "",
+        "evidence": {
+          "guard_basis": "Statically-Proven",
+          "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "fast_eligible": false,
+          "observation_level": "Empirically-Validated",
+          "observation_claim": "此输入的输出与参考实现一致",
+          "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+        }
+      },
+      "new": {
+        "classification": "correct",
+        "detail": {
+          "path": "PyTorch Fallback",
+          "direct_guard": {
+            "status": "False",
+            "reason": "shape/stride 或索引条件未满足",
+            "checks": [
+              {
+                "stage": "device_dtype",
+                "value": true
+              },
+              {
+                "stage": "rank_shape",
+                "value": true,
+                "shape": [
+                  129
+                ]
+              },
+              {
+                "stage": "stride",
+                "value": true,
+                "rule": "compare_logical_address",
+                "pointer": "x_ptr",
+                "purpose": "Semantics"
+              },
+              {
+                "stage": "stride",
+                "value": false,
+                "rule": "compare_logical_address",
+                "pointer": "y_ptr",
+                "purpose": "Semantics"
+              }
+            ],
+            "failed": {
+              "condition": {
+                "kind": "or",
+                "left": null,
+                "right": null,
+                "divisor": null,
+                "remainder": null,
+                "tensor": "",
+                "parts": [
+                  {
+                    "kind": "eq",
+                    "left": {
+                      "kind": "size",
+                      "tensor": "Y",
+                      "axis": 0,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "right": {
+                      "kind": "constant",
+                      "tensor": "",
+                      "axis": null,
+                      "value": 1,
+                      "scalar": ""
+                    },
+                    "divisor": null,
+                    "remainder": null,
+                    "tensor": "",
+                    "parts": [],
+                    "span": null
+                  },
+                  {
+                    "kind": "eq",
+                    "left": {
+                      "kind": "stride",
+                      "tensor": "Y",
+                      "axis": 0,
+                      "value": null,
+                      "scalar": ""
+                    },
+                    "right": {
+                      "kind": "constant",
+                      "tensor": "",
+                      "axis": null,
+                      "value": 1,
+                      "scalar": ""
+                    },
+                    "divisor": null,
+                    "remainder": null,
+                    "tensor": "",
+                    "parts": [],
+                    "span": null
+                  }
+                ],
+                "span": null
+              },
+              "obligation": null,
+              "purpose": "Semantics",
+              "evidence": "Statically-Proven",
+              "origin": {
+                "source_file": "scenarios/external_add.py",
+                "source_line": 20,
+                "access_kind": "load",
+                "pointer": "y_ptr",
+                "semantic_index": "y[i]",
+                "bindings": [
+                  [
+                    "n_elements",
+                    "x.numel() = y.numel()"
+                  ],
+                  [
+                    "BLOCK_SIZE",
+                    "128"
+                  ],
+                  [
+                    "grid",
+                    "ceil(n_elements/BLOCK_SIZE)"
+                  ]
+                ],
+                "explanation": "mask 限定 0<=i<N；相邻逻辑元素地址差为 1，单元素时步长无作用"
+              },
+              "rule": "compare_logical_address",
+              "domain": [
+                "两个输入均为同设备 CUDA float32",
+                "形状一致",
+                "长度至少为 1",
+                "长度不超过 1000000",
+                "显式尾部 mask"
+              ],
+              "binding": [
+                [
+                  "n_elements",
+                  "x.numel() = y.numel()"
+                ],
+                [
+                  "BLOCK_SIZE",
+                  "128"
+                ],
+                [
+                  "grid",
+                  "ceil(n_elements/BLOCK_SIZE)"
+                ]
+              ],
+              "reason": "mask 限定 0<=i<N；相邻逻辑元素地址差为 1，单元素时步长无作用"
+            },
+            "output": null,
+            "scalars": null
+          },
+          "repair": null,
+          "feasible": [
+            "PyTorch Fallback"
+          ],
+          "selection_reason": "成本表缺失或版本不符，使用确定性默认",
+          "fingerprint": "68475f1fd0f22427deda7595f51ccd1907ad0c2dbbc1503e0a96e3950ba27a1e"
+        },
+        "shape": [
+          129
+        ],
+        "stride": [
+          1
+        ],
+        "storage_offset": 0,
+        "effective_ptr_mod16": 0,
+        "equal": true,
+        "exit_code": 0
+      },
+      "prevented": true
+    }
+  ],
+  "prevented": 4,
+  "total": 4,
+  "source_scope": "D 来自 Triton 官方向量加法教程的本地适配；违约风险是输入布局改变后的可复现模式，不声称上游教程原始 wrapper 存在历史 bug。",
+  "limits": "只覆盖 A 和 D 的四个已知错读输入；异常、超时和未证实内存错误不能合并为已阻止错误。"
+}

@@ -1,0 +1,4327 @@
+{
+  "generated_at": "2026-09-25T11:17:47.984252+08:00",
+  "phase": "six_limited_holdout",
+  "environment": {
+    "python": "3.10.20",
+    "torch": "2.11.0+cu128",
+    "triton": "3.6.0",
+    "cuda": "12.8",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "cost_version": "cost-table-2",
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31",
+    "device_state_before": {
+      "available": true,
+      "fields": [
+        "temperature_c",
+        "graphics_mhz",
+        "memory_mhz",
+        "power_w",
+        "limit_w"
+      ],
+      "values": [
+        "84, 262, 9001, 115.97, [N/A]"
+      ],
+      "reason": ""
+    },
+    "device_state_after": {
+      "available": true,
+      "fields": [
+        "temperature_c",
+        "graphics_mhz",
+        "memory_mhz",
+        "power_w",
+        "limit_w"
+      ],
+      "values": [
+        "84, 1687, 9001, 113.52, [N/A]"
+      ],
+      "reason": ""
+    }
+  },
+  "warmup": 3,
+  "repeats": 15,
+  "batch_calls": 16,
+  "jit_excluded": true,
+  "protocol": "各安全路径逐轮交错且轮换顺序；每次调用后 torch.cuda.synchronize；主机 perf_counter_ns。输入已构造，输出分配留在调用内。",
+  "guard": {
+    "cases": [
+      {
+        "recipe": {
+          "name": "B",
+          "layout": "contiguous",
+          "n": 255
+        },
+        "status": "True",
+        "stages": [
+          "device_dtype",
+          "rank_shape",
+          "stride",
+          "span",
+          "span"
+        ],
+        "host": {
+          "samples_us": [
+            40.53,
+            40.814,
+            36.856,
+            36.048,
+            48.262,
+            47.978,
+            34.56,
+            32.209,
+            32.502,
+            34.082,
+            33.302,
+            33.816,
+            33.889,
+            34.716,
+            33.219
+          ],
+          "median_us": 34.56,
+          "p95_us": 48.262,
+          "min_us": 32.209,
+          "max_us": 48.262
+        }
+      },
+      {
+        "recipe": {
+          "name": "B",
+          "layout": "strided",
+          "n": 257
+        },
+        "status": "False",
+        "stages": [
+          "device_dtype",
+          "rank_shape",
+          "stride"
+        ],
+        "host": {
+          "samples_us": [
+            28.232,
+            13.758,
+            12.794,
+            12.426,
+            12.298,
+            12.298,
+            12.288,
+            11.903,
+            11.444,
+            11.811,
+            11.333,
+            11.186,
+            11.113,
+            10.966,
+            11.058
+          ],
+          "median_us": 11.903,
+          "p95_us": 28.232,
+          "min_us": 10.966,
+          "max_us": 28.232
+        }
+      },
+      {
+        "recipe": {
+          "name": "pointer_hint",
+          "layout": "offset",
+          "n": 256
+        },
+        "status": "False",
+        "stages": [
+          "device_dtype",
+          "rank_shape",
+          "stride",
+          "pointer"
+        ],
+        "host": {
+          "samples_us": [
+            20.499,
+            17.578,
+            17.873,
+            17.505,
+            16.275,
+            16.578,
+            15.962,
+            17.404,
+            16.89,
+            16.807,
+            16.265,
+            15.879,
+            16.476,
+            16.347,
+            15.457
+          ],
+          "median_us": 16.578,
+          "p95_us": 20.499,
+          "min_us": 15.457,
+          "max_us": 20.499
+        }
+      }
+    ],
+    "gc_disabled_during_measurement": true,
+    "note": "完整 GuardPlan.evaluate 含实际输出分配；不是纯谓词 CPU 纳秒级测量。"
+  },
+  "rows": [
+    {
+      "recipe": {
+        "name": "A",
+        "layout": "contiguous",
+        "m": 9,
+        "n": 15
+      },
+      "status": "measured",
+      "direct_guard": "True",
+      "table_path": "Fast",
+      "table_reason": "无唯一且完整匹配的离线成本条目",
+      "repair_feasible": false,
+      "gc_disabled_during_measurement": true,
+      "paths": {
+        "Fallback": {
+          "safe": true,
+          "samples_us": [
+            1915.541,
+            1912.06,
+            1910.003,
+            785.469,
+            1902.95,
+            1911.169,
+            1938.529,
+            1913.64,
+            746.558,
+            1655.603,
+            1910.195,
+            1912.18,
+            172.019,
+            1325.976,
+            1564.129
+          ],
+          "median_us": 1910.003,
+          "p95_us": 1938.529,
+          "min_us": 172.019,
+          "max_us": 1938.529
+        },
+        "DispatchDefault": {
+          "safe": true,
+          "samples_us": [
+            1287.834,
+            1910.444,
+            1897.678,
+            1913.383,
+            1663.419,
+            1909.543,
+            1884.416,
+            1630.09,
+            1915.972,
+            817.919,
+            1935.874,
+            1071.585,
+            1964.116,
+            1911.638,
+            1944.875
+          ],
+          "median_us": 1909.543,
+          "p95_us": 1964.116,
+          "min_us": 817.919,
+          "max_us": 1964.116
+        },
+        "DispatchTable": {
+          "safe": true,
+          "samples_us": [
+            606.574,
+            1682.366,
+            1065.257,
+            1913.088,
+            262.731,
+            1403.158,
+            1339.357,
+            278.123,
+            1914.282,
+            1086.839,
+            1909.856,
+            814.971,
+            1908.368,
+            479.291,
+            1918.875
+          ],
+          "median_us": 1339.357,
+          "p95_us": 1918.875,
+          "min_us": 262.731,
+          "max_us": 1918.875
+        },
+        "DirectFast": {
+          "safe": true,
+          "samples_us": [
+            1913.878,
+            225.654,
+            850.449,
+            1131.679,
+            1968.193,
+            509.893,
+            567.781,
+            1160.276,
+            248.752,
+            1912.345,
+            1912.125,
+            1680.621,
+            586.727,
+            3302.38,
+            340.501
+          ],
+          "median_us": 1131.679,
+          "p95_us": 3302.38,
+          "min_us": 225.654,
+          "max_us": 3302.38
+        }
+      },
+      "amortized_batch_host": {
+        "Fallback": {
+          "samples_us": [
+            119.2615625,
+            240.898875,
+            188.7319375,
+            210.5855625,
+            142.342375,
+            126.5449375,
+            120.8573125,
+            153.4591875,
+            219.0860625,
+            186.606375,
+            157.6671875,
+            120.7700625,
+            166.47425,
+            233.7736875,
+            120.7465
+          ],
+          "median_us": 157.6671875,
+          "p95_us": 240.898875,
+          "min_us": 119.2615625,
+          "max_us": 240.898875
+        },
+        "DispatchDefault": {
+          "samples_us": [
+            240.4419375,
+            172.0489375,
+            120.56625,
+            119.9285625,
+            218.9786875,
+            240.623375,
+            240.8053125,
+            209.9065,
+            119.693125,
+            172.9621875,
+            203.81225,
+            240.1744375,
+            136.4616875,
+            204.4655,
+            194.639625
+          ],
+          "median_us": 203.81225,
+          "p95_us": 240.8053125,
+          "min_us": 119.693125,
+          "max_us": 240.8053125
+        },
+        "DispatchTable": {
+          "samples_us": [
+            240.63825,
+            188.714125,
+            240.4660625,
+            241.0894375,
+            120.9009375,
+            171.4893125,
+            172.596,
+            119.7350625,
+            240.0481875,
+            238.4656875,
+            292.2524375,
+            120.5300625,
+            227.010375,
+            157.4365,
+            120.381375
+          ],
+          "median_us": 188.714125,
+          "p95_us": 292.2524375,
+          "min_us": 119.7350625,
+          "max_us": 292.2524375
+        },
+        "DirectFast": {
+          "samples_us": [
+            119.7328125,
+            120.383125,
+            171.840625,
+            151.7181875,
+            240.07,
+            182.3698125,
+            188.153875,
+            138.6645625,
+            119.64725,
+            174.4879375,
+            135.9886875,
+            194.782,
+            119.1214375,
+            135.990375,
+            239.5946875
+          ],
+          "median_us": 151.7181875,
+          "p95_us": 240.07,
+          "min_us": 119.1214375,
+          "max_us": 240.07
+        }
+      },
+      "order": [
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ]
+      ],
+      "same_semantics": true,
+      "input_metadata": {
+        "X": {
+          "shape": [
+            9,
+            15
+          ],
+          "stride": [
+            15,
+            1
+          ],
+          "offset": 0,
+          "ptr_mod16": 0
+        }
+      },
+      "fingerprint": "d334ef3416995ba61bca64c2c1f35b428b9e14ab0afbeb8ff64c5f5dbcf7eb40"
+    },
+    {
+      "recipe": {
+        "name": "A",
+        "layout": "transpose",
+        "m": 9,
+        "n": 15
+      },
+      "status": "measured",
+      "direct_guard": "False",
+      "table_path": "PyTorch Fallback",
+      "table_reason": "无唯一且完整匹配的离线成本条目",
+      "repair_feasible": true,
+      "gc_disabled_during_measurement": true,
+      "paths": {
+        "Fallback": {
+          "safe": true,
+          "samples_us": [
+            536.214,
+            515.697,
+            1148.805,
+            1911.94,
+            823.705,
+            223.735,
+            1414.153,
+            1566.113,
+            1090.152,
+            133.363,
+            1801.373,
+            536.867,
+            1925.891,
+            1903.363,
+            1917.176
+          ],
+          "median_us": 1148.805,
+          "p95_us": 1925.891,
+          "min_us": 133.363,
+          "max_us": 1925.891
+        },
+        "DispatchDefault": {
+          "safe": true,
+          "samples_us": [
+            1348.054,
+            310.782,
+            761.069,
+            1912.271,
+            1076.387,
+            586.571,
+            524.57,
+            2265.795,
+            725.968,
+            998.36,
+            289.593,
+            1913.64,
+            1362.446,
+            1973.863,
+            1907.781
+          ],
+          "median_us": 1076.387,
+          "p95_us": 2265.795,
+          "min_us": 289.593,
+          "max_us": 2265.795
+        },
+        "DispatchTable": {
+          "safe": true,
+          "samples_us": [
+            1914.916,
+            1913.907,
+            1596.87,
+            1911.904,
+            1908.864,
+            1911.04,
+            1321.264,
+            1877.023,
+            1911.894,
+            1913.768,
+            912.148,
+            1910.618,
+            536.031,
+            1621.391,
+            1115.944
+          ],
+          "median_us": 1908.864,
+          "p95_us": 1914.916,
+          "min_us": 536.031,
+          "max_us": 1914.916
+        },
+        "RelayoutFast": {
+          "safe": true,
+          "samples_us": [
+            1397.869,
+            1918.03,
+            1916.478,
+            1924.918,
+            1684.055,
+            1921.226,
+            1926.884,
+            2011.261,
+            1916.395,
+            1777.117,
+            1975.158,
+            1373.366,
+            1876.827,
+            292.441,
+            780.118
+          ],
+          "median_us": 1916.395,
+          "p95_us": 2011.261,
+          "min_us": 292.441,
+          "max_us": 2011.261
+        }
+      },
+      "amortized_batch_host": {
+        "Fallback": {
+          "samples_us": [
+            241.083125,
+            209.0064375,
+            171.7964375,
+            120.809625,
+            235.8088125,
+            120.1259375,
+            157.936375,
+            121.0575625,
+            240.927,
+            172.8445625,
+            219.1821875,
+            121.1225,
+            173.102875,
+            203.4368125,
+            232.004625
+          ],
+          "median_us": 173.102875,
+          "p95_us": 241.083125,
+          "min_us": 120.1259375,
+          "max_us": 241.083125
+        },
+        "DispatchDefault": {
+          "samples_us": [
+            121.4915625,
+            223.542625,
+            192.203625,
+            241.3695625,
+            120.520875,
+            243.8475625,
+            203.9534375,
+            240.955125,
+            239.85475,
+            120.8085,
+            119.958375,
+            239.73825,
+            188.2239375,
+            216.575875,
+            241.7628125
+          ],
+          "median_us": 216.575875,
+          "p95_us": 243.8475625,
+          "min_us": 119.958375,
+          "max_us": 243.8475625
+        },
+        "DispatchTable": {
+          "samples_us": [
+            224.7996875,
+            137.7359375,
+            121.556375,
+            120.068,
+            195.197,
+            237.5834375,
+            116.644625,
+            120.9663125,
+            121.2648125,
+            255.99925,
+            209.2905625,
+            240.6308125,
+            121.017375,
+            134.296625,
+            120.788375
+          ],
+          "median_us": 134.296625,
+          "p95_us": 255.99925,
+          "min_us": 116.644625,
+          "max_us": 255.99925
+        },
+        "RelayoutFast": {
+          "samples_us": [
+            295.596625,
+            242.71675,
+            361.0493125,
+            245.470375,
+            289.3525625,
+            243.7235625,
+            363.785,
+            243.869375,
+            363.4305,
+            295.939875,
+            295.8281875,
+            362.1648125,
+            280.739,
+            253.31725,
+            252.2016875
+          ],
+          "median_us": 289.3525625,
+          "p95_us": 363.785,
+          "min_us": 242.71675,
+          "max_us": 363.785
+        }
+      },
+      "order": [
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ]
+      ],
+      "same_semantics": true,
+      "input_metadata": {
+        "X": {
+          "shape": [
+            9,
+            15
+          ],
+          "stride": [
+            1,
+            9
+          ],
+          "offset": 0,
+          "ptr_mod16": 0
+        }
+      },
+      "fingerprint": "d334ef3416995ba61bca64c2c1f35b428b9e14ab0afbeb8ff64c5f5dbcf7eb40"
+    },
+    {
+      "recipe": {
+        "name": "A2",
+        "layout": "padded",
+        "m": 5,
+        "n": 13
+      },
+      "status": "measured",
+      "direct_guard": "True",
+      "table_path": "Fast",
+      "table_reason": "无唯一且完整匹配的离线成本条目",
+      "repair_feasible": false,
+      "gc_disabled_during_measurement": true,
+      "paths": {
+        "Fallback": {
+          "safe": true,
+          "samples_us": [
+            1893.801,
+            1903.96,
+            1914.301,
+            1913.685,
+            835.231,
+            1912.06,
+            1917.589,
+            1911.555,
+            487.502,
+            1570.732,
+            154.072,
+            914.628,
+            1829.734,
+            1080.2,
+            531.439
+          ],
+          "median_us": 1829.734,
+          "p95_us": 1917.589,
+          "min_us": 154.072,
+          "max_us": 1917.589
+        },
+        "DispatchDefault": {
+          "safe": true,
+          "samples_us": [
+            1416.035,
+            1917.111,
+            1912.427,
+            1662.73,
+            1902.848,
+            1910.948,
+            1913.254,
+            1342.948,
+            1910.224,
+            698.761,
+            1760.389,
+            995.521,
+            1911.656,
+            250.809,
+            1377.6
+          ],
+          "median_us": 1760.389,
+          "p95_us": 1917.111,
+          "min_us": 250.809,
+          "max_us": 1917.111
+        },
+        "DispatchTable": {
+          "safe": true,
+          "samples_us": [
+            494.188,
+            1573.782,
+            1230.305,
+            240.211,
+            1916.249,
+            1079.216,
+            1667.193,
+            581.677,
+            1904.511,
+            1169.662,
+            1909.653,
+            1905.108,
+            1971.774,
+            1663.676,
+            1966.54
+          ],
+          "median_us": 1663.676,
+          "p95_us": 1971.774,
+          "min_us": 240.211,
+          "max_us": 1971.774
+        },
+        "DirectFast": {
+          "safe": true,
+          "samples_us": [
+            1921.465,
+            332.98,
+            674.665,
+            1083.065,
+            1908.984,
+            831.759,
+            236.243,
+            1456.705,
+            340.061,
+            1912.859,
+            1903.399,
+            1912.685,
+            817.689,
+            1910.48,
+            1906.385
+          ],
+          "median_us": 1456.705,
+          "p95_us": 1921.465,
+          "min_us": 236.243,
+          "max_us": 1921.465
+        }
+      },
+      "amortized_batch_host": {
+        "Fallback": {
+          "samples_us": [
+            207.5019375,
+            121.9966875,
+            158.53975,
+            219.768875,
+            241.534875,
+            138.1785,
+            194.2355,
+            189.5143125,
+            241.7041875,
+            143.0088125,
+            241.70425,
+            240.3608125,
+            226.439625,
+            160.02125,
+            191.1140625
+          ],
+          "median_us": 194.2355,
+          "p95_us": 241.70425,
+          "min_us": 121.9966875,
+          "max_us": 241.70425
+        },
+        "DispatchDefault": {
+          "samples_us": [
+            154.6003125,
+            120.7900625,
+            205.24325,
+            140.8401875,
+            239.772625,
+            121.03575,
+            169.1720625,
+            173.0436875,
+            120.51575,
+            239.116,
+            240.42475,
+            240.4040625,
+            262.3770625,
+            174.431125,
+            119.049875
+          ],
+          "median_us": 173.0436875,
+          "p95_us": 262.3770625,
+          "min_us": 119.049875,
+          "max_us": 262.3770625
+        },
+        "DispatchTable": {
+          "samples_us": [
+            138.6221875,
+            240.1624375,
+            224.2830625,
+            240.832875,
+            120.5995625,
+            206.407875,
+            241.005625,
+            239.547625,
+            209.985125,
+            120.9525,
+            240.4925,
+            119.8716875,
+            131.5774375,
+            187.2773125,
+            238.3308125
+          ],
+          "median_us": 209.985125,
+          "p95_us": 241.005625,
+          "min_us": 119.8716875,
+          "max_us": 241.005625
+        },
+        "DirectFast": {
+          "samples_us": [
+            221.764875,
+            240.9171875,
+            135.8881875,
+            120.064,
+            226.3771875,
+            155.644375,
+            120.1994375,
+            121.123625,
+            151.0781875,
+            219.449375,
+            119.935375,
+            119.6070625,
+            191.448125,
+            237.3985625,
+            173.6860625
+          ],
+          "median_us": 155.644375,
+          "p95_us": 240.9171875,
+          "min_us": 119.6070625,
+          "max_us": 240.9171875
+        }
+      },
+      "order": [
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ]
+      ],
+      "same_semantics": true,
+      "input_metadata": {
+        "X": {
+          "shape": [
+            5,
+            13
+          ],
+          "stride": [
+            16,
+            1
+          ],
+          "offset": 0,
+          "ptr_mod16": 0
+        }
+      },
+      "fingerprint": "4d03152df33ccd1de9db37e8b955f4b2ebf48bc11212062c740d6deb9e2242ab"
+    },
+    {
+      "recipe": {
+        "name": "B",
+        "layout": "contiguous",
+        "n": 255
+      },
+      "status": "measured",
+      "direct_guard": "True",
+      "table_path": "Fast",
+      "table_reason": "无唯一且完整匹配的离线成本条目",
+      "repair_feasible": false,
+      "gc_disabled_during_measurement": true,
+      "paths": {
+        "Fallback": {
+          "safe": true,
+          "samples_us": [
+            1893.279,
+            1857.439,
+            1910.536,
+            828.71,
+            1914.218,
+            1911.848,
+            1919.811,
+            1914.549,
+            743.969,
+            1730.619,
+            1912.978,
+            1914.273,
+            221.952,
+            1323.717,
+            296.987
+          ],
+          "median_us": 1893.279,
+          "p95_us": 1919.811,
+          "min_us": 221.952,
+          "max_us": 1919.811
+        },
+        "DispatchDefault": {
+          "safe": true,
+          "samples_us": [
+            1389.723,
+            1912.188,
+            1911.803,
+            1911.481,
+            1658.606,
+            1908.781,
+            1903.969,
+            1576.978,
+            1911.839,
+            891.704,
+            1908.8,
+            1073.394,
+            1909.094,
+            494.74,
+            1613.052
+          ],
+          "median_us": 1903.969,
+          "p95_us": 1912.188,
+          "min_us": 494.74,
+          "max_us": 1912.188
+        },
+        "DispatchTable": {
+          "safe": true,
+          "samples_us": [
+            519.849,
+            1607.166,
+            1137.573,
+            1914.741,
+            241.019,
+            1337.364,
+            1412.316,
+            328.975,
+            1912.345,
+            1015.608,
+            1910.517,
+            834.488,
+            1866.535,
+            1417.633,
+            1910.003
+          ],
+          "median_us": 1412.316,
+          "p95_us": 1914.741,
+          "min_us": 241.019,
+          "max_us": 1914.741
+        },
+        "DirectFast": {
+          "safe": true,
+          "samples_us": [
+            1979.768,
+            297.529,
+            770.823,
+            1082.505,
+            1917.672,
+            578.508,
+            496.246,
+            1165.961,
+            172.22,
+            1911.573,
+            1850.279,
+            1729.749,
+            630.545,
+            1911.426,
+            1910.251
+          ],
+          "median_us": 1165.961,
+          "p95_us": 1979.768,
+          "min_us": 172.22,
+          "max_us": 1979.768
+        }
+      },
+      "amortized_batch_host": {
+        "Fallback": {
+          "samples_us": [
+            194.9311875,
+            120.1615625,
+            137.180875,
+            244.2914375,
+            225.4764375,
+            155.909,
+            120.1219375,
+            205.5859375,
+            136.9679375,
+            243.853875,
+            152.5401875,
+            240.81675,
+            241.5325625,
+            118.880375,
+            120.6345625
+          ],
+          "median_us": 155.909,
+          "p95_us": 244.2914375,
+          "min_us": 118.880375,
+          "max_us": 244.2914375
+        },
+        "DispatchDefault": {
+          "samples_us": [
+            166.3445,
+            120.01175,
+            224.0024375,
+            240.495375,
+            260.8209375,
+            120.914125,
+            225.2629375,
+            120.4738125,
+            223.58625,
+            256.9079375,
+            141.09275,
+            120.4009375,
+            239.2015625,
+            117.727,
+            203.1814375
+          ],
+          "median_us": 203.1814375,
+          "p95_us": 260.8209375,
+          "min_us": 117.727,
+          "max_us": 260.8209375
+        },
+        "DispatchTable": {
+          "samples_us": [
+            128.3825,
+            262.0016875,
+            204.796125,
+            120.637375,
+            120.4830625,
+            222.9146875,
+            240.4230625,
+            259.4525,
+            120.2029375,
+            225.440875,
+            119.9015,
+            219.9533125,
+            249.7845,
+            232.1573125,
+            115.612
+          ],
+          "median_us": 219.9533125,
+          "p95_us": 262.0016875,
+          "min_us": 115.612,
+          "max_us": 262.0016875
+        },
+        "DirectFast": {
+          "samples_us": [
+            230.062,
+            233.653125,
+            156.5295,
+            118.84425,
+            206.324125,
+            138.3305625,
+            240.923,
+            153.9503125,
+            240.063125,
+            117.6881875,
+            208.104125,
+            119.5233125,
+            233.9478125,
+            248.4860625,
+            138.1681875
+          ],
+          "median_us": 206.324125,
+          "p95_us": 248.4860625,
+          "min_us": 117.6881875,
+          "max_us": 248.4860625
+        }
+      },
+      "order": [
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ]
+      ],
+      "same_semantics": true,
+      "input_metadata": {
+        "X": {
+          "shape": [
+            255
+          ],
+          "stride": [
+            1
+          ],
+          "offset": 0,
+          "ptr_mod16": 0
+        }
+      },
+      "fingerprint": "c0c809cfd95a6f689ae2d767054e9474a70dc9a988bef8dbb38345d4b7893c7d"
+    },
+    {
+      "recipe": {
+        "name": "B",
+        "layout": "strided",
+        "n": 257
+      },
+      "status": "measured",
+      "direct_guard": "False",
+      "table_path": "PyTorch Fallback",
+      "table_reason": "无唯一且完整匹配的离线成本条目",
+      "repair_feasible": true,
+      "gc_disabled_during_measurement": true,
+      "paths": {
+        "Fallback": {
+          "safe": true,
+          "samples_us": [
+            152.255,
+            858.449,
+            1075.654,
+            1912.381,
+            567.046,
+            454.09,
+            1157.217,
+            1912.74,
+            829.271,
+            223.11,
+            1413.996,
+            346.103,
+            1906.228,
+            1913.952,
+            1913.318
+          ],
+          "median_us": 1075.654,
+          "p95_us": 1913.952,
+          "min_us": 152.255,
+          "max_us": 1913.952
+        },
+        "DispatchDefault": {
+          "safe": true,
+          "samples_us": [
+            1646.345,
+            1856.753,
+            1912.106,
+            260.012,
+            1295.943,
+            320.305,
+            752.878,
+            1911.499,
+            1076.544,
+            589.354,
+            485.454,
+            1911.123,
+            1186.304,
+            1840.672,
+            1876.509
+          ],
+          "median_us": 1295.943,
+          "p95_us": 1912.106,
+          "min_us": 260.012,
+          "max_us": 1912.106
+        },
+        "DispatchTable": {
+          "safe": true,
+          "samples_us": [
+            1917.699,
+            1890.202,
+            1911.307,
+            1666.431,
+            1912.354,
+            1890.468,
+            1590.497,
+            1912.427,
+            1911.738,
+            1914.127,
+            1320.089,
+            1912.198,
+            720.348,
+            1779.203,
+            1039.688
+          ],
+          "median_us": 1890.468,
+          "p95_us": 1917.699,
+          "min_us": 720.348,
+          "max_us": 1917.699
+        },
+        "RelayoutFast": {
+          "safe": true,
+          "samples_us": [
+            1049.947,
+            1916.091,
+            841.954,
+            1918.554,
+            1412.131,
+            1888.509,
+            1916.322,
+            1917.488,
+            1684.882,
+            1918.507,
+            1927.214,
+            1570.87,
+            1918.498,
+            199.7,
+            874.787
+          ],
+          "median_us": 1888.509,
+          "p95_us": 1927.214,
+          "min_us": 199.7,
+          "max_us": 1927.214
+        }
+      },
+      "amortized_batch_host": {
+        "Fallback": {
+          "samples_us": [
+            297.2451875,
+            204.0665625,
+            232.2049375,
+            122.38925,
+            238.058625,
+            172.6034375,
+            220.2145,
+            242.01125,
+            120.665,
+            157.0811875,
+            229.21625,
+            154.3155625,
+            192.0633125,
+            226.6285,
+            167.815125
+          ],
+          "median_us": 204.0665625,
+          "p95_us": 297.2451875,
+          "min_us": 120.665,
+          "max_us": 297.2451875
+        },
+        "DispatchDefault": {
+          "samples_us": [
+            188.0930625,
+            220.5945,
+            121.9978125,
+            257.9141875,
+            242.3769375,
+            120.549,
+            121.5725,
+            240.7655,
+            226.2393125,
+            171.8859375,
+            258.553625,
+            209.31125,
+            170.347,
+            122.696375,
+            131.8414375
+          ],
+          "median_us": 188.0930625,
+          "p95_us": 258.553625,
+          "min_us": 120.549,
+          "max_us": 258.553625
+        },
+        "DispatchTable": {
+          "samples_us": [
+            120.0800625,
+            142.629375,
+            122.02425,
+            236.4864375,
+            121.681,
+            261.5946875,
+            211.963125,
+            242.1214375,
+            260.771,
+            193.8178125,
+            241.914875,
+            121.44675,
+            241.0165625,
+            205.063,
+            241.19275
+          ],
+          "median_us": 211.963125,
+          "p95_us": 261.5946875,
+          "min_us": 120.0800625,
+          "max_us": 261.5946875
+        },
+        "RelayoutFast": {
+          "samples_us": [
+            280.8848125,
+            243.8883125,
+            252.7021875,
+            249.0235625,
+            364.9149375,
+            295.4995625,
+            293.6289375,
+            361.6235625,
+            327.638875,
+            243.214375,
+            241.5266875,
+            243.4474375,
+            240.540125,
+            295.0845625,
+            317.42325
+          ],
+          "median_us": 280.8848125,
+          "p95_us": 364.9149375,
+          "min_us": 240.540125,
+          "max_us": 364.9149375
+        }
+      },
+      "order": [
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ]
+      ],
+      "same_semantics": true,
+      "input_metadata": {
+        "X": {
+          "shape": [
+            257
+          ],
+          "stride": [
+            2
+          ],
+          "offset": 0,
+          "ptr_mod16": 0
+        }
+      },
+      "fingerprint": "c0c809cfd95a6f689ae2d767054e9474a70dc9a988bef8dbb38345d4b7893c7d"
+    },
+    {
+      "recipe": {
+        "name": "D",
+        "layout": "x_strided",
+        "n": 257
+      },
+      "status": "measured",
+      "direct_guard": "False",
+      "table_path": "PyTorch Fallback",
+      "table_reason": "无唯一且完整匹配的离线成本条目",
+      "repair_feasible": true,
+      "gc_disabled_during_measurement": true,
+      "paths": {
+        "Fallback": {
+          "safe": true,
+          "samples_us": [
+            1314.064,
+            332.374,
+            1920.317,
+            1080.65,
+            1669.801,
+            577.451,
+            1919.215,
+            1166.043,
+            1913.41,
+            1921.345,
+            1913.888,
+            1724.009,
+            1898.063,
+            1375.046,
+            1914.136
+          ],
+          "median_us": 1724.009,
+          "p95_us": 1921.345,
+          "min_us": 332.374,
+          "max_us": 1921.345
+        },
+        "DispatchDefault": {
+          "safe": true,
+          "samples_us": [
+            575.605,
+            1221.01,
+            1909.893,
+            830.446,
+            276.285,
+            1412.453,
+            321.72,
+            1914.191,
+            1911.978,
+            1824.508,
+            838.106,
+            1912.538,
+            536.123,
+            1912.703,
+            1127.029
+          ],
+          "median_us": 1221.01,
+          "p95_us": 1914.191,
+          "min_us": 276.285,
+          "max_us": 1914.191
+        },
+        "DispatchTable": {
+          "safe": true,
+          "samples_us": [
+            1913.989,
+            1917.654,
+            682.527,
+            1913.989,
+            1878.088,
+            1913.172,
+            498.486,
+            1581.699,
+            208.745,
+            949.602,
+            1882.946,
+            1076.397,
+            1376.157,
+            1911.675,
+            239.99
+          ],
+          "median_us": 1581.699,
+          "p95_us": 1917.654,
+          "min_us": 208.745,
+          "max_us": 1917.654
+        },
+        "RelayoutFast": {
+          "safe": true,
+          "samples_us": [
+            2005.407,
+            1486.751,
+            1918.104,
+            1919.702,
+            1918.958,
+            1336.17,
+            1918.213,
+            749.709,
+            1703.709,
+            1044.647,
+            1917.451,
+            2212.059,
+            1914.678,
+            540.311,
+            1670.858
+          ],
+          "median_us": 1914.678,
+          "p95_us": 2212.059,
+          "min_us": 540.311,
+          "max_us": 2212.059
+        }
+      },
+      "amortized_batch_host": {
+        "Fallback": {
+          "samples_us": [
+            171.6580625,
+            137.6934375,
+            241.5733125,
+            242.513,
+            121.8158125,
+            241.1749375,
+            123.48275,
+            146.110125,
+            202.36,
+            176.96425,
+            122.1441875,
+            242.4389375,
+            188.42,
+            152.7766875,
+            180.62925
+          ],
+          "median_us": 176.96425,
+          "p95_us": 242.513,
+          "min_us": 121.8158125,
+          "max_us": 242.513
+        },
+        "DispatchDefault": {
+          "samples_us": [
+            241.6984375,
+            153.039,
+            244.2730625,
+            240.9459375,
+            241.815,
+            130.2566875,
+            242.4010625,
+            218.4356875,
+            161.9030625,
+            225.124375,
+            244.9693125,
+            121.33825,
+            120.98875,
+            165.5328125,
+            123.9058125
+          ],
+          "median_us": 218.4356875,
+          "p95_us": 244.9693125,
+          "min_us": 120.98875,
+          "max_us": 244.9693125
+        },
+        "DispatchTable": {
+          "samples_us": [
+            174.4529375,
+            210.9075625,
+            144.0476875,
+            120.4766875,
+            122.0844375,
+            166.8570625,
+            231.6709375,
+            120.797,
+            135.0823125,
+            121.544375,
+            260.4736875,
+            241.546875,
+            241.83625,
+            198.40625,
+            130.1659375
+          ],
+          "median_us": 166.8570625,
+          "p95_us": 260.4736875,
+          "min_us": 120.4766875,
+          "max_us": 260.4736875
+        },
+        "RelayoutFast": {
+          "samples_us": [
+            293.4300625,
+            243.0433125,
+            342.422375,
+            242.793625,
+            244.2579375,
+            319.108,
+            244.7655625,
+            243.8349375,
+            295.111,
+            361.821,
+            244.4043125,
+            295.819875,
+            332.2395625,
+            243.789,
+            295.9955
+          ],
+          "median_us": 293.4300625,
+          "p95_us": 361.821,
+          "min_us": 242.793625,
+          "max_us": 361.821
+        }
+      },
+      "order": [
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ]
+      ],
+      "same_semantics": true,
+      "input_metadata": {
+        "X": {
+          "shape": [
+            257
+          ],
+          "stride": [
+            2
+          ],
+          "offset": 0,
+          "ptr_mod16": 0
+        },
+        "Y": {
+          "shape": [
+            257
+          ],
+          "stride": [
+            1
+          ],
+          "offset": 0,
+          "ptr_mod16": 0
+        }
+      },
+      "fingerprint": "68475f1fd0f22427deda7595f51ccd1907ad0c2dbbc1503e0a96e3950ba27a1e"
+    },
+    {
+      "recipe": {
+        "name": "holdout_vector",
+        "layout": "strided",
+        "n": 257
+      },
+      "status": "measured",
+      "direct_guard": "True",
+      "table_path": "Fast",
+      "table_reason": "无唯一且完整匹配的离线成本条目",
+      "repair_feasible": false,
+      "gc_disabled_during_measurement": true,
+      "paths": {
+        "Fallback": {
+          "safe": true,
+          "samples_us": [
+            1900.434,
+            1915.523,
+            1914.007,
+            832.375,
+            1912.896,
+            1926.157,
+            1913.759,
+            1912.942,
+            742.573,
+            1739.123,
+            1884.453,
+            1912.638,
+            238.208,
+            1327.408,
+            333.154
+          ],
+          "median_us": 1900.434,
+          "p95_us": 1926.157,
+          "min_us": 238.208,
+          "max_us": 1926.157
+        },
+        "DispatchDefault": {
+          "safe": true,
+          "samples_us": [
+            1210.43,
+            1915.008,
+            1846.375,
+            1911.619,
+            1669.407,
+            1914.53,
+            1914.43,
+            1578.667,
+            1912.933,
+            899.061,
+            1909.737,
+            1078.996,
+            1914.356,
+            491.001,
+            1569.915
+          ],
+          "median_us": 1846.375,
+          "p95_us": 1915.008,
+          "min_us": 491.001,
+          "max_us": 1915.008
+        },
+        "DispatchTable": {
+          "safe": true,
+          "samples_us": [
+            683.469,
+            1732.07,
+            1013.431,
+            1912.474,
+            244.757,
+            1330.669,
+            1415.457,
+            328.837,
+            1914.274,
+            1009.748,
+            1945.339,
+            834.525,
+            1909.681,
+            1410.166,
+            1911.968
+          ],
+          "median_us": 1410.166,
+          "p95_us": 1945.339,
+          "min_us": 244.757,
+          "max_us": 1945.339
+        },
+        "DirectFast": {
+          "safe": true,
+          "samples_us": [
+            1907.478,
+            173.745,
+            895.902,
+            1075.488,
+            1916.643,
+            577.782,
+            491.405,
+            1166.75,
+            159.656,
+            1913.824,
+            1887.395,
+            1666.973,
+            579.876,
+            1919.261,
+            1915.201
+          ],
+          "median_us": 1166.75,
+          "p95_us": 1919.261,
+          "min_us": 159.656,
+          "max_us": 1919.261
+        }
+      },
+      "amortized_batch_host": {
+        "Fallback": {
+          "samples_us": [
+            195.8426875,
+            122.0425625,
+            121.5701875,
+            175.4966875,
+            121.6000625,
+            153.5630625,
+            193.1223125,
+            226.4643125,
+            155.941125,
+            121.5661875,
+            121.9530625,
+            241.8419375,
+            193.7699375,
+            121.670625,
+            221.936
+          ],
+          "median_us": 155.941125,
+          "p95_us": 241.8419375,
+          "min_us": 121.5661875,
+          "max_us": 241.8419375
+        },
+        "DispatchDefault": {
+          "samples_us": [
+            166.547125,
+            240.3828125,
+            188.8776875,
+            241.5830625,
+            240.7829375,
+            121.024875,
+            287.40725,
+            118.7575,
+            206.374625,
+            240.125125,
+            240.2255,
+            120.4055625,
+            165.96275,
+            207.7016875,
+            120.8675625
+          ],
+          "median_us": 206.374625,
+          "p95_us": 287.40725,
+          "min_us": 118.7575,
+          "max_us": 287.40725
+        },
+        "DispatchTable": {
+          "samples_us": [
+            128.5885625,
+            258.1424375,
+            120.2981875,
+            171.9984375,
+            120.7906875,
+            219.591125,
+            239.8783125,
+            240.38225,
+            120.400375,
+            169.21225,
+            172.3715625,
+            239.7623125,
+            131.26075,
+            137.7350625,
+            151.0975
+          ],
+          "median_us": 169.21225,
+          "p95_us": 258.1424375,
+          "min_us": 120.2981875,
+          "max_us": 258.1424375
+        },
+        "DirectFast": {
+          "samples_us": [
+            230.40775,
+            235.0761875,
+            240.0889375,
+            188.5143125,
+            208.8336875,
+            141.70525,
+            118.8746875,
+            139.0935,
+            239.8776875,
+            191.474,
+            188.1458125,
+            122.8490625,
+            230.9278125,
+            203.9365625,
+            141.860375
+          ],
+          "median_us": 191.474,
+          "p95_us": 240.0889375,
+          "min_us": 118.8746875,
+          "max_us": 240.0889375
+        }
+      },
+      "order": [
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ]
+      ],
+      "same_semantics": true,
+      "input_metadata": {
+        "X": {
+          "shape": [
+            257
+          ],
+          "stride": [
+            2
+          ],
+          "offset": 0,
+          "ptr_mod16": 0
+        }
+      },
+      "fingerprint": "92bb187d1134b18b32f4fe77e6b0c607c6792429b608e4c2772c687b4a24711e"
+    },
+    {
+      "recipe": {
+        "name": "pointer_hint",
+        "layout": "offset",
+        "n": 256
+      },
+      "status": "measured",
+      "direct_guard": "False",
+      "table_path": "PyTorch Fallback",
+      "table_reason": "无唯一且完整匹配的离线成本条目",
+      "repair_feasible": true,
+      "gc_disabled_during_measurement": true,
+      "paths": {
+        "Fallback": {
+          "safe": true,
+          "samples_us": [
+            1351.269,
+            1618.563,
+            1901.379,
+            1906.458,
+            236.013,
+            1323.817,
+            335.634,
+            737.797,
+            1901.957,
+            1095.831,
+            833.257,
+            241.221,
+            1908.515,
+            1415.282,
+            2177.967
+          ],
+          "median_us": 1351.269,
+          "p95_us": 2177.967,
+          "min_us": 236.013,
+          "max_us": 2177.967
+        },
+        "DispatchDefault": {
+          "safe": true,
+          "samples_us": [
+            2469.343,
+            790.192,
+            1920.271,
+            1131.073,
+            1915.651,
+            489.991,
+            1572.495,
+            1172.858,
+            274.826,
+            1910.94,
+            1077.683,
+            1512.028,
+            581.759,
+            1919.426,
+            912.122
+          ],
+          "median_us": 1172.858,
+          "p95_us": 2469.343,
+          "min_us": 274.826,
+          "max_us": 2469.343
+        },
+        "DispatchTable": {
+          "safe": true,
+          "samples_us": [
+            1925.74,
+            1113.372,
+            1913.034,
+            823.155,
+            1910.6,
+            1415.934,
+            1915.743,
+            1914.889,
+            1630.383,
+            1914.65,
+            1909.378,
+            2066.766,
+            1327.436,
+            1912.198,
+            364.619
+          ],
+          "median_us": 1910.6,
+          "p95_us": 2066.766,
+          "min_us": 364.619,
+          "max_us": 2066.766
+        },
+        "RelayoutFast": {
+          "safe": true,
+          "samples_us": [
+            276.901,
+            1923.494,
+            1927.668,
+            1668.149,
+            586.333,
+            1919.756,
+            1914.852,
+            1873.676,
+            1913.41,
+            813.318,
+            1914.732,
+            1916.579,
+            1916.001,
+            496.585,
+            1544.328
+          ],
+          "median_us": 1913.41,
+          "p95_us": 1927.668,
+          "min_us": 276.901,
+          "max_us": 1927.668
+        }
+      },
+      "amortized_batch_host": {
+        "Fallback": {
+          "samples_us": [
+            166.260125,
+            122.7819375,
+            160.734125,
+            238.2216875,
+            187.5259375,
+            152.1550625,
+            179.8945,
+            218.6838125,
+            212.55725,
+            170.0738125,
+            120.2109375,
+            166.6343125,
+            181.2261875,
+            197.6623125,
+            186.4984375
+          ],
+          "median_us": 179.8945,
+          "p95_us": 238.2216875,
+          "min_us": 120.2109375,
+          "max_us": 238.2216875
+        },
+        "DispatchDefault": {
+          "samples_us": [
+            128.5524375,
+            120.3188125,
+            132.9349375,
+            120.1661875,
+            120.60525,
+            166.7600625,
+            121.4755,
+            118.24475,
+            120.0559375,
+            221.632875,
+            240.9539375,
+            194.5345625,
+            178.7579375,
+            293.194375,
+            174.7846875
+          ],
+          "median_us": 132.9349375,
+          "p95_us": 293.194375,
+          "min_us": 118.24475,
+          "max_us": 293.194375
+        },
+        "DispatchTable": {
+          "samples_us": [
+            231.3944375,
+            197.428125,
+            240.3358125,
+            227.823,
+            238.4109375,
+            197.171125,
+            128.5679375,
+            241.1738125,
+            241.2605,
+            119.7545625,
+            255.5033125,
+            120.235625,
+            122.34625,
+            149.1311875,
+            158.115375
+          ],
+          "median_us": 197.428125,
+          "p95_us": 255.5033125,
+          "min_us": 119.7545625,
+          "max_us": 255.5033125
+        },
+        "RelayoutFast": {
+          "samples_us": [
+            241.92175,
+            286.734125,
+            320.854125,
+            294.1070625,
+            331.0473125,
+            241.1106875,
+            294.255125,
+            293.3636875,
+            309.6349375,
+            361.6981875,
+            242.4774375,
+            245.3355625,
+            285.300625,
+            241.9843125,
+            240.825375
+          ],
+          "median_us": 286.734125,
+          "p95_us": 361.6981875,
+          "min_us": 240.825375,
+          "max_us": 361.6981875
+        }
+      },
+      "order": [
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ]
+      ],
+      "same_semantics": true,
+      "input_metadata": {
+        "X": {
+          "shape": [
+            256
+          ],
+          "stride": [
+            1
+          ],
+          "offset": 1,
+          "ptr_mod16": 4
+        }
+      },
+      "fingerprint": "febd57e686dc0917e5bc7746e0bf5c6978339f72aec65629b524c862260a5531"
+    },
+    {
+      "recipe": {
+        "name": "A",
+        "layout": "contiguous",
+        "m": 512,
+        "n": 512
+      },
+      "status": "measured",
+      "direct_guard": "True",
+      "table_path": "Fast",
+      "table_reason": "无唯一且完整匹配的离线成本条目",
+      "repair_feasible": false,
+      "gc_disabled_during_measurement": true,
+      "paths": {
+        "Fallback": {
+          "safe": true,
+          "samples_us": [
+            1613.723,
+            554.299,
+            1917.194,
+            1130.804,
+            1905.971,
+            770.667,
+            1924.863,
+            1836.906,
+            1924.973,
+            1666.1,
+            1920.427,
+            1914.668,
+            1609.425,
+            1914.338,
+            744.18
+          ],
+          "median_us": 1836.906,
+          "p95_us": 1924.973,
+          "min_us": 554.299,
+          "max_us": 1924.973
+        },
+        "DispatchDefault": {
+          "safe": true,
+          "samples_us": [
+            325.071,
+            1333.249,
+            250.671,
+            1923.522,
+            1918.002,
+            1629.582,
+            992.574,
+            1910.453,
+            826.01,
+            1907.036,
+            1419.368,
+            1915.605,
+            1892.214,
+            1628.124,
+            1865.606
+          ],
+          "median_us": 1629.582,
+          "p95_us": 1923.522,
+          "min_us": 250.671,
+          "max_us": 1923.522
+        },
+        "DispatchTable": {
+          "safe": true,
+          "samples_us": [
+            1865.597,
+            1930.713,
+            570.958,
+            1665.779,
+            1914.053,
+            1917.507,
+            326.054,
+            968.147,
+            1087.115,
+            1922.87,
+            588.574,
+            501.132,
+            1193.789,
+            281.521,
+            1917.213
+          ],
+          "median_us": 1193.789,
+          "p95_us": 1930.713,
+          "min_us": 281.521,
+          "max_us": 1930.713
+        },
+        "DirectFast": {
+          "safe": true,
+          "samples_us": [
+            1967.504,
+            1363.465,
+            1917.469,
+            795.097,
+            1927.866,
+            1084.984,
+            1919.784,
+            1912.235,
+            1917.368,
+            241.166,
+            1329.53,
+            335.634,
+            724.241,
+            1924.688,
+            1174.309
+          ],
+          "median_us": 1363.465,
+          "p95_us": 1967.504,
+          "min_us": 241.166,
+          "max_us": 1967.504
+        }
+      },
+      "amortized_batch_host": {
+        "Fallback": {
+          "samples_us": [
+            241.047375,
+            242.7104375,
+            140.607125,
+            244.8425,
+            226.82875,
+            159.679125,
+            122.863375,
+            210.2675,
+            241.2736875,
+            160.018875,
+            242.90275,
+            240.94825,
+            226.6445625,
+            151.738875,
+            121.864625
+          ],
+          "median_us": 226.6445625,
+          "p95_us": 244.8425,
+          "min_us": 121.864625,
+          "max_us": 244.8425
+        },
+        "DispatchDefault": {
+          "samples_us": [
+            188.8105625,
+            122.0511875,
+            224.1028125,
+            242.316125,
+            263.979125,
+            122.1195,
+            224.7719375,
+            122.808875,
+            122.28425,
+            242.103125,
+            240.90175,
+            242.6645,
+            262.765125,
+            124.6193125,
+            226.7708125
+          ],
+          "median_us": 224.7719375,
+          "p95_us": 263.979125,
+          "min_us": 122.0511875,
+          "max_us": 263.979125
+        },
+        "DispatchTable": {
+          "samples_us": [
+            175.83625,
+            260.8065625,
+            208.0541875,
+            122.364625,
+            121.8766875,
+            226.412625,
+            241.633,
+            261.779,
+            227.69725,
+            122.614875,
+            241.808125,
+            122.92425,
+            121.86525,
+            226.0619375,
+            240.005125
+          ],
+          "median_us": 226.0619375,
+          "p95_us": 261.779,
+          "min_us": 121.86525,
+          "max_us": 261.779
+        },
+        "DirectFast": {
+          "samples_us": [
+            240.9545625,
+            226.9435625,
+            156.660375,
+            121.7705,
+            205.9400625,
+            138.81675,
+            242.775875,
+            270.0355625,
+            137.2193125,
+            205.32875,
+            122.277375,
+            122.3565625,
+            213.2345625,
+            138.912125,
+            244.9601875
+          ],
+          "median_us": 205.32875,
+          "p95_us": 270.0355625,
+          "min_us": 121.7705,
+          "max_us": 270.0355625
+        }
+      },
+      "order": [
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ]
+      ],
+      "same_semantics": true,
+      "input_metadata": {
+        "X": {
+          "shape": [
+            512,
+            512
+          ],
+          "stride": [
+            512,
+            1
+          ],
+          "offset": 0,
+          "ptr_mod16": 0
+        }
+      },
+      "fingerprint": "d334ef3416995ba61bca64c2c1f35b428b9e14ab0afbeb8ff64c5f5dbcf7eb40"
+    },
+    {
+      "recipe": {
+        "name": "B",
+        "layout": "contiguous",
+        "n": 262143
+      },
+      "status": "measured",
+      "direct_guard": "True",
+      "table_path": "Fast",
+      "table_reason": "无唯一且完整匹配的离线成本条目",
+      "repair_feasible": false,
+      "gc_disabled_during_measurement": true,
+      "paths": {
+        "Fallback": {
+          "safe": true,
+          "samples_us": [
+            1666.32,
+            466.526,
+            215.809,
+            759.967,
+            1927.315,
+            1081.357,
+            553.601,
+            526.525,
+            1913.429,
+            1139.52,
+            835.047,
+            190.029,
+            1911.316,
+            1404.5,
+            1906.201
+          ],
+          "median_us": 1081.357,
+          "p95_us": 1927.315,
+          "min_us": 190.029,
+          "max_us": 1927.315
+        },
+        "DispatchDefault": {
+          "safe": true,
+          "samples_us": [
+            308.2,
+            1930.924,
+            1699.246,
+            1092.185,
+            1873.833,
+            266.652,
+            1362.197,
+            1389.254,
+            303.315,
+            1916.477,
+            1081.43,
+            1662.821,
+            589.776,
+            1916.221,
+            1203.716
+          ],
+          "median_us": 1362.197,
+          "p95_us": 1930.924,
+          "min_us": 266.652,
+          "max_us": 1930.924
+        },
+        "DispatchTable": {
+          "safe": true,
+          "samples_us": [
+            1917.515,
+            1965.962,
+            1865.046,
+            1928.398,
+            1909.213,
+            1677.203,
+            2102.74,
+            1917.222,
+            1610.215,
+            1917.184,
+            1918.195,
+            1975.232,
+            1330.173,
+            1919.435,
+            370.873
+          ],
+          "median_us": 1917.222,
+          "p95_us": 2102.74,
+          "min_us": 370.873,
+          "max_us": 2102.74
+        },
+        "DirectFast": {
+          "safe": true,
+          "samples_us": [
+            1919.261,
+            1398.172,
+            1917.378,
+            1914.87,
+            823.32,
+            1917.075,
+            1730.904,
+            1917.883,
+            1918.196,
+            774.056,
+            1914.705,
+            1969.185,
+            1922.759,
+            502.288,
+            1504.237
+          ],
+          "median_us": 1914.87,
+          "p95_us": 1969.185,
+          "min_us": 502.288,
+          "max_us": 1969.185
+        }
+      },
+      "amortized_batch_host": {
+        "Fallback": {
+          "samples_us": [
+            167.6934375,
+            238.34225,
+            209.3111875,
+            122.122375,
+            241.612375,
+            125.9510625,
+            120.5231875,
+            174.3754375,
+            122.29975,
+            151.71075,
+            121.6184375,
+            226.807,
+            157.5514375,
+            196.7370625,
+            241.975125
+          ],
+          "median_us": 167.6934375,
+          "p95_us": 241.975125,
+          "min_us": 120.5231875,
+          "max_us": 241.975125
+        },
+        "DispatchDefault": {
+          "samples_us": [
+            132.117,
+            226.14625,
+            155.5164375,
+            223.6516875,
+            242.7580625,
+            242.1984375,
+            192.122,
+            239.493,
+            242.4848125,
+            122.8301875,
+            241.92575,
+            124.0013125,
+            295.558,
+            230.77625,
+            244.1173125
+          ],
+          "median_us": 230.77625,
+          "p95_us": 295.558,
+          "min_us": 122.8301875,
+          "max_us": 295.558
+        },
+        "DispatchTable": {
+          "samples_us": [
+            230.2258125,
+            122.9208125,
+            262.659125,
+            141.83325,
+            122.678,
+            271.622625,
+            122.682625,
+            173.0310625,
+            121.9306875,
+            219.8098125,
+            242.9761875,
+            240.41825,
+            274.1408125,
+            132.4820625,
+            122.6545
+          ],
+          "median_us": 173.0310625,
+          "p95_us": 274.1408125,
+          "min_us": 121.9306875,
+          "max_us": 274.1408125
+        },
+        "DirectFast": {
+          "samples_us": [
+            122.521875,
+            242.6059375,
+            121.255625,
+            240.2075625,
+            242.1973125,
+            207.209125,
+            245.458375,
+            190.118125,
+            214.374125,
+            144.775,
+            242.799375,
+            137.99425,
+            120.91525,
+            167.925875,
+            238.6763125
+          ],
+          "median_us": 207.209125,
+          "p95_us": 245.458375,
+          "min_us": 120.91525,
+          "max_us": 245.458375
+        }
+      },
+      "order": [
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ]
+      ],
+      "same_semantics": true,
+      "input_metadata": {
+        "X": {
+          "shape": [
+            262143
+          ],
+          "stride": [
+            1
+          ],
+          "offset": 0,
+          "ptr_mod16": 0
+        }
+      },
+      "fingerprint": "c0c809cfd95a6f689ae2d767054e9474a70dc9a988bef8dbb38345d4b7893c7d"
+    },
+    {
+      "recipe": {
+        "name": "D",
+        "layout": "contiguous",
+        "n": 262143
+      },
+      "status": "measured",
+      "direct_guard": "True",
+      "table_path": "Fast",
+      "table_reason": "无唯一且完整匹配的离线成本条目",
+      "repair_feasible": false,
+      "gc_disabled_during_measurement": true,
+      "paths": {
+        "Fallback": {
+          "safe": true,
+          "samples_us": [
+            724.315,
+            1722.334,
+            1930.548,
+            1911.831,
+            193.877,
+            1335.83,
+            337.856,
+            752.684,
+            1908.496,
+            1200.704,
+            1907.027,
+            1919.214,
+            1674.632,
+            1919.068,
+            1662.729
+          ],
+          "median_us": 1674.632,
+          "p95_us": 1930.548,
+          "min_us": 193.877,
+          "max_us": 1930.548
+        },
+        "DispatchDefault": {
+          "safe": true,
+          "samples_us": [
+            1916.808,
+            901.192,
+            1908.956,
+            1090.696,
+            1975.541,
+            500.967,
+            1584.664,
+            1173.142,
+            305.629,
+            1919.573,
+            1186.634,
+            1921.602,
+            1918.664,
+            836.223,
+            381.123
+          ],
+          "median_us": 1186.634,
+          "p95_us": 1975.541,
+          "min_us": 305.629,
+          "max_us": 1975.541
+        },
+        "DispatchTable": {
+          "safe": true,
+          "samples_us": [
+            1920.17,
+            1027.427,
+            1911.243,
+            888.97,
+            1921.924,
+            1417.458,
+            1918.324,
+            1917.313,
+            1611.666,
+            1864.55,
+            416.166,
+            734.05,
+            1944.406,
+            1918.59,
+            1087.115
+          ],
+          "median_us": 1864.55,
+          "p95_us": 1944.406,
+          "min_us": 416.166,
+          "max_us": 1944.406
+        },
+        "DirectFast": {
+          "safe": true,
+          "samples_us": [
+            195.787,
+            1911.004,
+            1861.878,
+            1671.436,
+            580.886,
+            1923.274,
+            1920.271,
+            1930.107,
+            1918.856,
+            721.771,
+            1460.734,
+            252.977,
+            1893.168,
+            1919.398,
+            1924.56
+          ],
+          "median_us": 1893.168,
+          "p95_us": 1930.107,
+          "min_us": 195.787,
+          "max_us": 1930.107
+        }
+      },
+      "amortized_batch_host": {
+        "Fallback": {
+          "samples_us": [
+            243.60875,
+            123.0488125,
+            123.0345,
+            153.4930625,
+            221.94175,
+            190.6663125,
+            141.3539375,
+            230.90425,
+            239.1951875,
+            139.2455625,
+            196.339875,
+            123.037375,
+            242.25125,
+            122.136125,
+            123.2055625
+          ],
+          "median_us": 153.4930625,
+          "p95_us": 243.60875,
+          "min_us": 122.136125,
+          "max_us": 243.60875
+        },
+        "DispatchDefault": {
+          "samples_us": [
+            242.6420625,
+            241.571,
+            242.4911875,
+            211.984375,
+            243.278125,
+            123.49425,
+            221.018125,
+            129.831875,
+            243.251125,
+            123.1320625,
+            169.3350625,
+            230.7808125,
+            242.3189375,
+            242.343625,
+            190.0389375
+          ],
+          "median_us": 230.7808125,
+          "p95_us": 243.278125,
+          "min_us": 123.1320625,
+          "max_us": 243.278125
+        },
+        "DispatchTable": {
+          "samples_us": [
+            122.79225,
+            176.9940625,
+            175.836875,
+            122.2090625,
+            242.2741875,
+            241.6536875,
+            210.4793125,
+            247.44275,
+            123.3198125,
+            207.0720625,
+            242.4745,
+            132.76675,
+            122.3273125,
+            269.6181875,
+            122.6275
+          ],
+          "median_us": 176.9940625,
+          "p95_us": 269.6181875,
+          "min_us": 122.2090625,
+          "max_us": 269.6181875
+        },
+        "DirectFast": {
+          "samples_us": [
+            242.702375,
+            188.59475,
+            189.394875,
+            143.7085,
+            174.9689375,
+            123.6245625,
+            156.545625,
+            123.0671875,
+            226.573375,
+            158.7991875,
+            122.5408125,
+            239.81575,
+            240.6495,
+            211.8959375,
+            242.661625
+          ],
+          "median_us": 188.59475,
+          "p95_us": 242.702375,
+          "min_us": 122.5408125,
+          "max_us": 242.702375
+        }
+      },
+      "order": [
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "DirectFast"
+        ],
+        [
+          "Fallback",
+          "DirectFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DirectFast",
+          "Fallback",
+          "DispatchDefault"
+        ]
+      ],
+      "same_semantics": true,
+      "input_metadata": {
+        "X": {
+          "shape": [
+            262143
+          ],
+          "stride": [
+            1
+          ],
+          "offset": 0,
+          "ptr_mod16": 0
+        },
+        "Y": {
+          "shape": [
+            262143
+          ],
+          "stride": [
+            1
+          ],
+          "offset": 0,
+          "ptr_mod16": 0
+        }
+      },
+      "fingerprint": "68475f1fd0f22427deda7595f51ccd1907ad0c2dbbc1503e0a96e3950ba27a1e"
+    },
+    {
+      "recipe": {
+        "name": "D",
+        "layout": "x_strided",
+        "n": 129,
+        "value_shift": 0.25
+      },
+      "status": "measured",
+      "direct_guard": "False",
+      "table_path": "PyTorch Fallback",
+      "table_reason": "匹配离线成本条目",
+      "repair_feasible": true,
+      "gc_disabled_during_measurement": true,
+      "paths": {
+        "Fallback": {
+          "safe": true,
+          "samples_us": [
+            193.316,
+            888.316,
+            1076.562,
+            1917.093,
+            577.268,
+            494.262,
+            1159.504,
+            1912.4,
+            801.498,
+            273.301,
+            1417.835,
+            334.026,
+            1913.217,
+            1914.981,
+            1881.412
+          ],
+          "median_us": 1076.562,
+          "p95_us": 1917.093,
+          "min_us": 193.316,
+          "max_us": 1917.093
+        },
+        "DispatchDefault": {
+          "safe": true,
+          "samples_us": [
+            1687.462,
+            1915.247,
+            1913.189,
+            244.711,
+            1329.025,
+            325.201,
+            751.059,
+            1914.228,
+            1077.251,
+            583.669,
+            491.727,
+            1911.132,
+            1168.807,
+            1055.191,
+            1913.731
+          ],
+          "median_us": 1168.807,
+          "p95_us": 1915.247,
+          "min_us": 244.711,
+          "max_us": 1915.247
+        },
+        "DispatchTable": {
+          "safe": true,
+          "samples_us": [
+            1924.982,
+            1858.453,
+            1917.874,
+            1670.454,
+            1918.195,
+            1904.594,
+            1588.255,
+            1916.689,
+            1917.139,
+            1917.231,
+            1330.981,
+            1918.508,
+            743.446,
+            1914.264,
+            864.574
+          ],
+          "median_us": 1914.264,
+          "p95_us": 1924.982,
+          "min_us": 743.446,
+          "max_us": 1924.982
+        },
+        "RelayoutFast": {
+          "safe": true,
+          "samples_us": [
+            1016.856,
+            1918.241,
+            838.024,
+            1922.374,
+            1419.47,
+            1935.411,
+            1917.717,
+            1948.553,
+            1670.647,
+            1884.728,
+            1916.487,
+            1577.17,
+            1916.303,
+            1909.167,
+            1917.497
+          ],
+          "median_us": 1916.303,
+          "p95_us": 1948.553,
+          "min_us": 838.024,
+          "max_us": 1948.553
+        }
+      },
+      "amortized_batch_host": {
+        "Fallback": {
+          "samples_us": [
+            174.8116875,
+            209.9489375,
+            235.457,
+            142.113375,
+            169.436375,
+            133.186375,
+            239.4265625,
+            218.14575,
+            294.3251875,
+            239.7675,
+            222.8073125,
+            189.01775,
+            168.4510625,
+            168.7553125,
+            241.6738125
+          ],
+          "median_us": 209.9489375,
+          "p95_us": 294.3251875,
+          "min_us": 133.186375,
+          "max_us": 294.3251875
+        },
+        "DispatchDefault": {
+          "samples_us": [
+            189.3903125,
+            167.3553125,
+            257.137,
+            154.0739375,
+            129.4048125,
+            240.0895625,
+            237.4858125,
+            121.7929375,
+            160.2266875,
+            258.6104375,
+            121.8910625,
+            168.3793125,
+            194.9989375,
+            234.7438125,
+            241.1376875
+          ],
+          "median_us": 189.3903125,
+          "p95_us": 258.6104375,
+          "min_us": 121.7929375,
+          "max_us": 258.6104375
+        },
+        "DispatchTable": {
+          "samples_us": [
+            244.7590625,
+            297.797875,
+            245.054125,
+            333.0195625,
+            297.2675625,
+            246.2520625,
+            321.4619375,
+            362.6745625,
+            244.8996875,
+            297.5596875,
+            331.1093125,
+            369.32725,
+            365.1955625,
+            245.2234375,
+            296.8313125
+          ],
+          "median_us": 297.5596875,
+          "p95_us": 369.32725,
+          "min_us": 244.7590625,
+          "max_us": 369.32725
+        },
+        "RelayoutFast": {
+          "samples_us": [
+            244.3526875,
+            296.141375,
+            243.3585,
+            296.2349375,
+            295.3715625,
+            243.1730625,
+            295.3440625,
+            295.6534375,
+            243.318875,
+            295.678125,
+            295.833125,
+            243.7494375,
+            318.0605625,
+            240.502625,
+            335.0211875
+          ],
+          "median_us": 295.3715625,
+          "p95_us": 335.0211875,
+          "min_us": 240.502625,
+          "max_us": 335.0211875
+        }
+      },
+      "order": [
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ]
+      ],
+      "same_semantics": true,
+      "input_metadata": {
+        "X": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            2
+          ],
+          "offset": 0,
+          "ptr_mod16": 0
+        },
+        "Y": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            1
+          ],
+          "offset": 0,
+          "ptr_mod16": 0
+        }
+      },
+      "fingerprint": "68475f1fd0f22427deda7595f51ccd1907ad0c2dbbc1503e0a96e3950ba27a1e"
+    },
+    {
+      "recipe": {
+        "name": "D",
+        "layout": "y_strided",
+        "n": 129,
+        "value_shift": 0.25
+      },
+      "status": "measured",
+      "direct_guard": "False",
+      "table_path": "PyTorch Fallback",
+      "table_reason": "匹配离线成本条目",
+      "repair_feasible": true,
+      "gc_disabled_during_measurement": true,
+      "paths": {
+        "Fallback": {
+          "safe": true,
+          "samples_us": [
+            1888.016,
+            1071.677,
+            836.27,
+            235.912,
+            1904.116,
+            1424.769,
+            1913.594,
+            1912.703,
+            1666.247,
+            1911.784,
+            1913.373,
+            587.324,
+            1912.263,
+            1911.197,
+            1914.264
+          ],
+          "median_us": 1904.116,
+          "p95_us": 1914.264,
+          "min_us": 235.912,
+          "max_us": 1914.264
+        },
+        "DispatchDefault": {
+          "safe": true,
+          "samples_us": [
+            238.429,
+            1915.908,
+            1076.287,
+            1664.355,
+            586.948,
+            1914.888,
+            1172.105,
+            1910.085,
+            1921.612,
+            1913.088,
+            1668.314,
+            1913.117,
+            1418.864,
+            1906.421,
+            1939.19
+          ],
+          "median_us": 1906.421,
+          "p95_us": 1939.19,
+          "min_us": 238.429,
+          "max_us": 1939.19
+        },
+        "DispatchTable": {
+          "safe": true,
+          "samples_us": [
+            1673.355,
+            1921.52,
+            1912.979,
+            1866.008,
+            1326.655,
+            1915.679,
+            336.194,
+            741.76,
+            1080.392,
+            1916.956,
+            836.214,
+            2155.66,
+            492.728,
+            1586.015,
+            1191.079
+          ],
+          "median_us": 1586.015,
+          "p95_us": 2155.66,
+          "min_us": 336.194,
+          "max_us": 2155.66
+        },
+        "RelayoutFast": {
+          "safe": true,
+          "samples_us": [
+            1977.298,
+            832.32,
+            1914.944,
+            1924.427,
+            1911.831,
+            488.558,
+            1576.445,
+            248.981,
+            832.871,
+            1916.055,
+            1082.799,
+            1326.702,
+            1922.034,
+            334.366,
+            727.189
+          ],
+          "median_us": 1326.702,
+          "p95_us": 1977.298,
+          "min_us": 248.981,
+          "max_us": 1977.298
+        }
+      },
+      "amortized_batch_host": {
+        "Fallback": {
+          "samples_us": [
+            120.7855,
+            189.371375,
+            129.8565625,
+            242.7861875,
+            145.743375,
+            228.3063125,
+            205.21625,
+            122.0225,
+            182.71975,
+            121.711375,
+            240.121625,
+            122.190125,
+            241.6559375,
+            233.35875,
+            206.597875
+          ],
+          "median_us": 189.371375,
+          "p95_us": 242.7861875,
+          "min_us": 120.7855,
+          "max_us": 242.7861875
+        },
+        "DispatchDefault": {
+          "samples_us": [
+            185.3648125,
+            151.4834375,
+            233.5159375,
+            123.033375,
+            149.8291875,
+            121.88875,
+            121.36525,
+            220.1135,
+            180.554625,
+            159.979875,
+            242.2693125,
+            256.740875,
+            121.9530625,
+            165.9914375,
+            157.3733125
+          ],
+          "median_us": 159.979875,
+          "p95_us": 256.740875,
+          "min_us": 121.36525,
+          "max_us": 256.740875
+        },
+        "DispatchTable": {
+          "samples_us": [
+            297.4954375,
+            334.8466875,
+            363.9999375,
+            244.775125,
+            297.2113125,
+            362.38925,
+            245.07475,
+            266.5661875,
+            366.09275,
+            292.8740625,
+            244.0030625,
+            348.4121875,
+            245.257875,
+            245.4094375,
+            297.5184375
+          ],
+          "median_us": 297.2113125,
+          "p95_us": 366.09275,
+          "min_us": 244.0030625,
+          "max_us": 366.09275
+        },
+        "RelayoutFast": {
+          "samples_us": [
+            294.2126875,
+            364.0280625,
+            243.51575,
+            338.46,
+            295.01575,
+            243.442875,
+            280.17475,
+            363.623375,
+            243.0468125,
+            273.07825,
+            243.5760625,
+            243.5295,
+            251.6120625,
+            244.2444375,
+            386.6778125
+          ],
+          "median_us": 273.07825,
+          "p95_us": 386.6778125,
+          "min_us": 243.0468125,
+          "max_us": 386.6778125
+        }
+      },
+      "order": [
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "DispatchDefault",
+          "Fallback",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "DispatchDefault",
+          "DispatchTable",
+          "RelayoutFast"
+        ],
+        [
+          "Fallback",
+          "RelayoutFast",
+          "DispatchTable",
+          "DispatchDefault"
+        ],
+        [
+          "DispatchTable",
+          "RelayoutFast",
+          "Fallback",
+          "DispatchDefault"
+        ]
+      ],
+      "same_semantics": true,
+      "input_metadata": {
+        "X": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            1
+          ],
+          "offset": 0,
+          "ptr_mod16": 0
+        },
+        "Y": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            2
+          ],
+          "offset": 0,
+          "ptr_mod16": 0
+        }
+      },
+      "fingerprint": "68475f1fd0f22427deda7595f51ccd1907ad0c2dbbc1503e0a96e3950ba27a1e"
+    }
+  ],
+  "speedup_vs_fallback": {
+    "paired_count": 13,
+    "speedups": [
+      1.4260596689306884,
+      0.6018265313820157,
+      1.0998139060730574,
+      1.3405491405606111,
+      0.5689882082108768,
+      1.0899728709444716,
+      1.347666870425184,
+      0.7072485083219932,
+      1.5387191538873284,
+      0.5640228413819578,
+      0.8981427154004988,
+      0.5623895136720953,
+      1.2005661989325447
+    ],
+    "geomean": 0.930796105803232,
+    "median": 1.0899728709444716,
+    "excluded": []
+  },
+  "paired_round_interval": {
+    "paired_cases": 13,
+    "point_geomean": 0.948838032542925,
+    "ci95": [
+      0.7829432524589653,
+      1.1027617271151935
+    ],
+    "seed": 17,
+    "draws": 500,
+    "scope": "仅对同批输入的轮次重采样；不包括选型、硬件或环境变化的不确定性。"
+  },
+  "amortized_batch_speedup_vs_fallback": {
+    "paired_count": 13,
+    "speedups": [
+      0.8354816445244891,
+      1.2889592348281278,
+      0.924996472964454,
+      0.7088276972414316,
+      0.9627455836952773,
+      1.060573926860303,
+      0.9215711332956095,
+      0.9111898317425645,
+      1.0025772803968824,
+      0.9691522150827687,
+      0.8672215346206882,
+      0.705569155768118,
+      0.6371607238200262
+    ],
+    "geomean": 0.8929061443318919,
+    "median": 0.9215711332956095,
+    "excluded": []
+  },
+  "amortized_batch_interval": {
+    "paired_cases": 13,
+    "point_geomean": 0.9140473267860694,
+    "ci95": [
+      0.8496328694722712,
+      1.0001579721846863
+    ],
+    "seed": 17,
+    "draws": 500,
+    "scope": "仅对同批输入的轮次重采样；不包括选型、硬件或环境变化的不确定性。"
+  },
+  "limits": "仅历史受限入口的 11 组留出尺寸与 2 组同元数据留出数值；缺失新算子、新来源、真实 SMT 删除消融与独立重复硬件，不代表第六阶段完整基准。"
+}

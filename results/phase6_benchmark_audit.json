@@ -1,0 +1,1226 @@
+{
+  "generated_at": "2026-09-25T18:09:57.453409+08:00",
+  "checks": {
+    "six_distinct_function_bodies": true,
+    "all_ast_supported": true,
+    "complete_machine_readable_specs": true,
+    "call_bindings_audited": true,
+    "unit_stride_candidates_proven": true,
+    "workers_completed": true,
+    "eligible_boundaries_correct": true,
+    "ineligible_boundaries_witnessed": true,
+    "shadow_candidates_match_labels": true
+  },
+  "go_offline_benchmark_audit": true,
+  "catalog_fingerprints": {
+    "bench_relu": "af37f3817a1ea6b91d2c2554cccfb7104450b3545512565f7a54feaa47f13433",
+    "bench_square": "d54de18c89686983e37b963a48d51190556f5f2218b3b4529fd618da98a50be8",
+    "bench_multiply": "6f0df8781de9e96269ef85afee4dd2e788e7d57353807dd2ddbd18752f798c70",
+    "bench_axpy": "437503da78a1f1c760828d65bf9fedea173bd01c7b2236f6af2c8d8be6d810f9",
+    "bench_feature_scale": "075158fb5dbc23c2825efa3d74553be049f3b121fe655391f594d0c1c84e8908",
+    "bench_feature_bias": "e200a487ef0f77bf0fbd4dcad5d55d604a6e04333df578a63a17d16e062ec67e"
+  },
+  "static_contracts": {
+    "bench_relu": {
+      "status": "Statically-Proven",
+      "condition_axes": {
+        "X": [
+          0
+        ]
+      },
+      "reason": "所有输入与连续输出使用同一受 mask 一维线性索引",
+      "call_site": {
+        "status": "Supported",
+        "reasons": [],
+        "source": "scenarios.bench_kernels.run_relu"
+      }
+    },
+    "bench_square": {
+      "status": "Statically-Proven",
+      "condition_axes": {
+        "X": [
+          0
+        ]
+      },
+      "reason": "所有输入与连续输出使用同一受 mask 一维线性索引",
+      "call_site": {
+        "status": "Supported",
+        "reasons": [],
+        "source": "scenarios.bench_kernels.run_square"
+      }
+    },
+    "bench_multiply": {
+      "status": "Statically-Proven",
+      "condition_axes": {
+        "X": [
+          0
+        ],
+        "Z": [
+          0
+        ]
+      },
+      "reason": "所有输入与连续输出使用同一受 mask 一维线性索引",
+      "call_site": {
+        "status": "Supported",
+        "reasons": [],
+        "source": "scenarios.bench_kernels.run_multiply"
+      }
+    },
+    "bench_axpy": {
+      "status": "Statically-Proven",
+      "condition_axes": {
+        "X": [
+          0
+        ],
+        "Z": [
+          0
+        ]
+      },
+      "reason": "所有输入与连续输出使用同一受 mask 一维线性索引",
+      "call_site": {
+        "status": "Supported",
+        "reasons": [],
+        "source": "scenarios.bench_kernels.run_axpy"
+      }
+    },
+    "bench_feature_scale": {
+      "status": "Statically-Proven",
+      "condition_axes": {
+        "X": [
+          1
+        ],
+        "F": [
+          0
+        ]
+      },
+      "reason": "逐行地址绑定 X.stride(0)，X 列与特征向量均按单位地址广播读取",
+      "call_site": {
+        "status": "Supported",
+        "reasons": [],
+        "source": "scenarios.bench_kernels.run_feature_scale"
+      }
+    },
+    "bench_feature_bias": {
+      "status": "Statically-Proven",
+      "condition_axes": {
+        "X": [
+          1
+        ],
+        "F": [
+          0
+        ]
+      },
+      "reason": "逐行地址绑定 X.stride(0)，X 列与特征向量均按单位地址广播读取",
+      "call_site": {
+        "status": "Supported",
+        "reasons": [],
+        "source": "scenarios.bench_kernels.run_feature_bias"
+      }
+    }
+  },
+  "physical_rows": [
+    {
+      "layout": "contiguous",
+      "truth": "eligible",
+      "observation": "correct",
+      "mismatch_count": 0,
+      "inputs": {
+        "X": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 0
+        }
+      },
+      "candidate_decision": "True",
+      "kernel": "bench_relu"
+    },
+    {
+      "layout": "offset",
+      "truth": "eligible",
+      "observation": "correct",
+      "mismatch_count": 0,
+      "inputs": {
+        "X": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 1
+        }
+      },
+      "candidate_decision": "True",
+      "kernel": "bench_relu"
+    },
+    {
+      "layout": "strided",
+      "truth": "ineligible",
+      "observation": "numeric_mismatch",
+      "mismatch_count": 94,
+      "inputs": {
+        "X": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            2
+          ],
+          "storage_offset": 0
+        }
+      },
+      "candidate_decision": "False",
+      "kernel": "bench_relu"
+    },
+    {
+      "layout": "contiguous",
+      "truth": "eligible",
+      "observation": "correct",
+      "mismatch_count": 0,
+      "inputs": {
+        "X": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 0
+        }
+      },
+      "candidate_decision": "True",
+      "kernel": "bench_square"
+    },
+    {
+      "layout": "offset",
+      "truth": "eligible",
+      "observation": "correct",
+      "mismatch_count": 0,
+      "inputs": {
+        "X": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 1
+        }
+      },
+      "candidate_decision": "True",
+      "kernel": "bench_square"
+    },
+    {
+      "layout": "strided",
+      "truth": "ineligible",
+      "observation": "numeric_mismatch",
+      "mismatch_count": 128,
+      "inputs": {
+        "X": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            2
+          ],
+          "storage_offset": 0
+        }
+      },
+      "candidate_decision": "False",
+      "kernel": "bench_square"
+    },
+    {
+      "layout": "contiguous",
+      "truth": "eligible",
+      "observation": "correct",
+      "mismatch_count": 0,
+      "inputs": {
+        "X": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 0
+        },
+        "Z": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 0
+        }
+      },
+      "candidate_decision": "True",
+      "kernel": "bench_multiply"
+    },
+    {
+      "layout": "offset",
+      "truth": "eligible",
+      "observation": "correct",
+      "mismatch_count": 0,
+      "inputs": {
+        "X": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 1
+        },
+        "Z": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 1
+        }
+      },
+      "candidate_decision": "True",
+      "kernel": "bench_multiply"
+    },
+    {
+      "layout": "strided",
+      "truth": "ineligible",
+      "observation": "numeric_mismatch",
+      "mismatch_count": 128,
+      "inputs": {
+        "X": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            2
+          ],
+          "storage_offset": 0
+        },
+        "Z": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            2
+          ],
+          "storage_offset": 0
+        }
+      },
+      "candidate_decision": "False",
+      "kernel": "bench_multiply"
+    },
+    {
+      "layout": "contiguous",
+      "truth": "eligible",
+      "observation": "correct",
+      "mismatch_count": 0,
+      "inputs": {
+        "X": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 0
+        },
+        "Z": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 0
+        }
+      },
+      "candidate_decision": "True",
+      "kernel": "bench_axpy"
+    },
+    {
+      "layout": "offset",
+      "truth": "eligible",
+      "observation": "correct",
+      "mismatch_count": 0,
+      "inputs": {
+        "X": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 1
+        },
+        "Z": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 1
+        }
+      },
+      "candidate_decision": "True",
+      "kernel": "bench_axpy"
+    },
+    {
+      "layout": "strided",
+      "truth": "ineligible",
+      "observation": "numeric_mismatch",
+      "mismatch_count": 128,
+      "inputs": {
+        "X": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            2
+          ],
+          "storage_offset": 0
+        },
+        "Z": {
+          "shape": [
+            129
+          ],
+          "stride": [
+            2
+          ],
+          "storage_offset": 0
+        }
+      },
+      "candidate_decision": "False",
+      "kernel": "bench_axpy"
+    },
+    {
+      "layout": "contiguous",
+      "truth": "eligible",
+      "observation": "correct",
+      "mismatch_count": 0,
+      "inputs": {
+        "X": {
+          "shape": [
+            7,
+            11
+          ],
+          "stride": [
+            11,
+            1
+          ],
+          "storage_offset": 0
+        },
+        "F": {
+          "shape": [
+            11
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 0
+        }
+      },
+      "candidate_decision": "True",
+      "kernel": "bench_feature_scale"
+    },
+    {
+      "layout": "offset",
+      "truth": "eligible",
+      "observation": "correct",
+      "mismatch_count": 0,
+      "inputs": {
+        "X": {
+          "shape": [
+            7,
+            11
+          ],
+          "stride": [
+            11,
+            1
+          ],
+          "storage_offset": 1
+        },
+        "F": {
+          "shape": [
+            11
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 1
+        }
+      },
+      "candidate_decision": "True",
+      "kernel": "bench_feature_scale"
+    },
+    {
+      "layout": "x_col_strided",
+      "truth": "ineligible",
+      "observation": "numeric_mismatch",
+      "mismatch_count": 70,
+      "inputs": {
+        "X": {
+          "shape": [
+            7,
+            11
+          ],
+          "stride": [
+            22,
+            2
+          ],
+          "storage_offset": 0
+        },
+        "F": {
+          "shape": [
+            11
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 0
+        }
+      },
+      "candidate_decision": "False",
+      "kernel": "bench_feature_scale"
+    },
+    {
+      "layout": "feature_strided",
+      "truth": "ineligible",
+      "observation": "numeric_mismatch",
+      "mismatch_count": 69,
+      "inputs": {
+        "X": {
+          "shape": [
+            7,
+            11
+          ],
+          "stride": [
+            11,
+            1
+          ],
+          "storage_offset": 0
+        },
+        "F": {
+          "shape": [
+            11
+          ],
+          "stride": [
+            2
+          ],
+          "storage_offset": 0
+        }
+      },
+      "candidate_decision": "False",
+      "kernel": "bench_feature_scale"
+    },
+    {
+      "layout": "contiguous",
+      "truth": "eligible",
+      "observation": "correct",
+      "mismatch_count": 0,
+      "inputs": {
+        "X": {
+          "shape": [
+            7,
+            11
+          ],
+          "stride": [
+            11,
+            1
+          ],
+          "storage_offset": 0
+        },
+        "F": {
+          "shape": [
+            11
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 0
+        }
+      },
+      "candidate_decision": "True",
+      "kernel": "bench_feature_bias"
+    },
+    {
+      "layout": "offset",
+      "truth": "eligible",
+      "observation": "correct",
+      "mismatch_count": 0,
+      "inputs": {
+        "X": {
+          "shape": [
+            7,
+            11
+          ],
+          "stride": [
+            11,
+            1
+          ],
+          "storage_offset": 1
+        },
+        "F": {
+          "shape": [
+            11
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 1
+        }
+      },
+      "candidate_decision": "True",
+      "kernel": "bench_feature_bias"
+    },
+    {
+      "layout": "x_col_strided",
+      "truth": "ineligible",
+      "observation": "numeric_mismatch",
+      "mismatch_count": 70,
+      "inputs": {
+        "X": {
+          "shape": [
+            7,
+            11
+          ],
+          "stride": [
+            22,
+            2
+          ],
+          "storage_offset": 0
+        },
+        "F": {
+          "shape": [
+            11
+          ],
+          "stride": [
+            1
+          ],
+          "storage_offset": 0
+        }
+      },
+      "candidate_decision": "False",
+      "kernel": "bench_feature_bias"
+    },
+    {
+      "layout": "feature_strided",
+      "truth": "ineligible",
+      "observation": "numeric_mismatch",
+      "mismatch_count": 70,
+      "inputs": {
+        "X": {
+          "shape": [
+            7,
+            11
+          ],
+          "stride": [
+            11,
+            1
+          ],
+          "storage_offset": 0
+        },
+        "F": {
+          "shape": [
+            11
+          ],
+          "stride": [
+            2
+          ],
+          "storage_offset": 0
+        }
+      },
+      "candidate_decision": "False",
+      "kernel": "bench_feature_bias"
+    }
+  ],
+  "workers": [
+    {
+      "kernel": "bench_relu",
+      "exit_code": 0,
+      "stderr": "",
+      "detail": {
+        "kernel": "bench_relu",
+        "rows": [
+          {
+            "layout": "contiguous",
+            "truth": "eligible",
+            "observation": "correct",
+            "mismatch_count": 0,
+            "inputs": {
+              "X": {
+                "shape": [
+                  129
+                ],
+                "stride": [
+                  1
+                ],
+                "storage_offset": 0
+              }
+            }
+          },
+          {
+            "layout": "offset",
+            "truth": "eligible",
+            "observation": "correct",
+            "mismatch_count": 0,
+            "inputs": {
+              "X": {
+                "shape": [
+                  129
+                ],
+                "stride": [
+                  1
+                ],
+                "storage_offset": 1
+              }
+            }
+          },
+          {
+            "layout": "strided",
+            "truth": "ineligible",
+            "observation": "numeric_mismatch",
+            "mismatch_count": 94,
+            "inputs": {
+              "X": {
+                "shape": [
+                  129
+                ],
+                "stride": [
+                  2
+                ],
+                "storage_offset": 0
+              }
+            }
+          }
+        ],
+        "environment": {
+          "torch": "2.11.0+cu128",
+          "triton": "3.6.0",
+          "cuda": "12.8",
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+        }
+      }
+    },
+    {
+      "kernel": "bench_square",
+      "exit_code": 0,
+      "stderr": "",
+      "detail": {
+        "kernel": "bench_square",
+        "rows": [
+          {
+            "layout": "contiguous",
+            "truth": "eligible",
+            "observation": "correct",
+            "mismatch_count": 0,
+            "inputs": {
+              "X": {
+                "shape": [
+                  129
+                ],
+                "stride": [
+                  1
+                ],
+                "storage_offset": 0
+              }
+            }
+          },
+          {
+            "layout": "offset",
+            "truth": "eligible",
+            "observation": "correct",
+            "mismatch_count": 0,
+            "inputs": {
+              "X": {
+                "shape": [
+                  129
+                ],
+                "stride": [
+                  1
+                ],
+                "storage_offset": 1
+              }
+            }
+          },
+          {
+            "layout": "strided",
+            "truth": "ineligible",
+            "observation": "numeric_mismatch",
+            "mismatch_count": 128,
+            "inputs": {
+              "X": {
+                "shape": [
+                  129
+                ],
+                "stride": [
+                  2
+                ],
+                "storage_offset": 0
+              }
+            }
+          }
+        ],
+        "environment": {
+          "torch": "2.11.0+cu128",
+          "triton": "3.6.0",
+          "cuda": "12.8",
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+        }
+      }
+    },
+    {
+      "kernel": "bench_multiply",
+      "exit_code": 0,
+      "stderr": "",
+      "detail": {
+        "kernel": "bench_multiply",
+        "rows": [
+          {
+            "layout": "contiguous",
+            "truth": "eligible",
+            "observation": "correct",
+            "mismatch_count": 0,
+            "inputs": {
+              "X": {
+                "shape": [
+                  129
+                ],
+                "stride": [
+                  1
+                ],
+                "storage_offset": 0
+              },
+              "Z": {
+                "shape": [
+                  129
+                ],
+                "stride": [
+                  1
+                ],
+                "storage_offset": 0
+              }
+            }
+          },
+          {
+            "layout": "offset",
+            "truth": "eligible",
+            "observation": "correct",
+            "mismatch_count": 0,
+            "inputs": {
+              "X": {
+                "shape": [
+                  129
+                ],
+                "stride": [
+                  1
+                ],
+                "storage_offset": 1
+              },
+              "Z": {
+                "shape": [
+                  129
+                ],
+                "stride": [
+                  1
+                ],
+                "storage_offset": 1
+              }
+            }
+          },
+          {
+            "layout": "strided",
+            "truth": "ineligible",
+            "observation": "numeric_mismatch",
+            "mismatch_count": 128,
+            "inputs": {
+              "X": {
+                "shape": [
+                  129
+                ],
+                "stride": [
+                  2
+                ],
+                "storage_offset": 0
+              },
+              "Z": {
+                "shape": [
+                  129
+                ],
+                "stride": [
+                  2
+                ],
+                "storage_offset": 0
+              }
+            }
+          }
+        ],
+        "environment": {
+          "torch": "2.11.0+cu128",
+          "triton": "3.6.0",
+          "cuda": "12.8",
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+        }
+      }
+    },
+    {
+      "kernel": "bench_axpy",
+      "exit_code": 0,
+      "stderr": "",
+      "detail": {
+        "kernel": "bench_axpy",
+        "rows": [
+          {
+            "layout": "contiguous",
+            "truth": "eligible",
+            "observation": "correct",
+            "mismatch_count": 0,
+            "inputs": {
+              "X": {
+                "shape": [
+                  129
+                ],
+                "stride": [
+                  1
+                ],
+                "storage_offset": 0
+              },
+              "Z": {
+                "shape": [
+                  129
+                ],
+                "stride": [
+                  1
+                ],
+                "storage_offset": 0
+              }
+            }
+          },
+          {
+            "layout": "offset",
+            "truth": "eligible",
+            "observation": "correct",
+            "mismatch_count": 0,
+            "inputs": {
+              "X": {
+                "shape": [
+                  129
+                ],
+                "stride": [
+                  1
+                ],
+                "storage_offset": 1
+              },
+              "Z": {
+                "shape": [
+                  129
+                ],
+                "stride": [
+                  1
+                ],
+                "storage_offset": 1
+              }
+            }
+          },
+          {
+            "layout": "strided",
+            "truth": "ineligible",
+            "observation": "numeric_mismatch",
+            "mismatch_count": 128,
+            "inputs": {
+              "X": {
+                "shape": [
+                  129
+                ],
+                "stride": [
+                  2
+                ],
+                "storage_offset": 0
+              },
+              "Z": {
+                "shape": [
+                  129
+                ],
+                "stride": [
+                  2
+                ],
+                "storage_offset": 0
+              }
+            }
+          }
+        ],
+        "environment": {
+          "torch": "2.11.0+cu128",
+          "triton": "3.6.0",
+          "cuda": "12.8",
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+        }
+      }
+    },
+    {
+      "kernel": "bench_feature_scale",
+      "exit_code": 0,
+      "stderr": "",
+      "detail": {
+        "kernel": "bench_feature_scale",
+        "rows": [
+          {
+            "layout": "contiguous",
+            "truth": "eligible",
+            "observation": "correct",
+            "mismatch_count": 0,
+            "inputs": {
+              "X": {
+                "shape": [
+                  7,
+                  11
+                ],
+                "stride": [
+                  11,
+                  1
+                ],
+                "storage_offset": 0
+              },
+              "F": {
+                "shape": [
+                  11
+                ],
+                "stride": [
+                  1
+                ],
+                "storage_offset": 0
+              }
+            }
+          },
+          {
+            "layout": "offset",
+            "truth": "eligible",
+            "observation": "correct",
+            "mismatch_count": 0,
+            "inputs": {
+              "X": {
+                "shape": [
+                  7,
+                  11
+                ],
+                "stride": [
+                  11,
+                  1
+                ],
+                "storage_offset": 1
+              },
+              "F": {
+                "shape": [
+                  11
+                ],
+                "stride": [
+                  1
+                ],
+                "storage_offset": 1
+              }
+            }
+          },
+          {
+            "layout": "x_col_strided",
+            "truth": "ineligible",
+            "observation": "numeric_mismatch",
+            "mismatch_count": 70,
+            "inputs": {
+              "X": {
+                "shape": [
+                  7,
+                  11
+                ],
+                "stride": [
+                  22,
+                  2
+                ],
+                "storage_offset": 0
+              },
+              "F": {
+                "shape": [
+                  11
+                ],
+                "stride": [
+                  1
+                ],
+                "storage_offset": 0
+              }
+            }
+          },
+          {
+            "layout": "feature_strided",
+            "truth": "ineligible",
+            "observation": "numeric_mismatch",
+            "mismatch_count": 69,
+            "inputs": {
+              "X": {
+                "shape": [
+                  7,
+                  11
+                ],
+                "stride": [
+                  11,
+                  1
+                ],
+                "storage_offset": 0
+              },
+              "F": {
+                "shape": [
+                  11
+                ],
+                "stride": [
+                  2
+                ],
+                "storage_offset": 0
+              }
+            }
+          }
+        ],
+        "environment": {
+          "torch": "2.11.0+cu128",
+          "triton": "3.6.0",
+          "cuda": "12.8",
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+        }
+      }
+    },
+    {
+      "kernel": "bench_feature_bias",
+      "exit_code": 0,
+      "stderr": "",
+      "detail": {
+        "kernel": "bench_feature_bias",
+        "rows": [
+          {
+            "layout": "contiguous",
+            "truth": "eligible",
+            "observation": "correct",
+            "mismatch_count": 0,
+            "inputs": {
+              "X": {
+                "shape": [
+                  7,
+                  11
+                ],
+                "stride": [
+                  11,
+                  1
+                ],
+                "storage_offset": 0
+              },
+              "F": {
+                "shape": [
+                  11
+                ],
+                "stride": [
+                  1
+                ],
+                "storage_offset": 0
+              }
+            }
+          },
+          {
+            "layout": "offset",
+            "truth": "eligible",
+            "observation": "correct",
+            "mismatch_count": 0,
+            "inputs": {
+              "X": {
+                "shape": [
+                  7,
+                  11
+                ],
+                "stride": [
+                  11,
+                  1
+                ],
+                "storage_offset": 1
+              },
+              "F": {
+                "shape": [
+                  11
+                ],
+                "stride": [
+                  1
+                ],
+                "storage_offset": 1
+              }
+            }
+          },
+          {
+            "layout": "x_col_strided",
+            "truth": "ineligible",
+            "observation": "numeric_mismatch",
+            "mismatch_count": 70,
+            "inputs": {
+              "X": {
+                "shape": [
+                  7,
+                  11
+                ],
+                "stride": [
+                  22,
+                  2
+                ],
+                "storage_offset": 0
+              },
+              "F": {
+                "shape": [
+                  11
+                ],
+                "stride": [
+                  1
+                ],
+                "storage_offset": 0
+              }
+            }
+          },
+          {
+            "layout": "feature_strided",
+            "truth": "ineligible",
+            "observation": "numeric_mismatch",
+            "mismatch_count": 70,
+            "inputs": {
+              "X": {
+                "shape": [
+                  7,
+                  11
+                ],
+                "stride": [
+                  11,
+                  1
+                ],
+                "storage_offset": 0
+              },
+              "F": {
+                "shape": [
+                  11
+                ],
+                "stride": [
+                  2
+                ],
+                "storage_offset": 0
+              }
+            }
+          }
+        ],
+        "environment": {
+          "torch": "2.11.0+cu128",
+          "triton": "3.6.0",
+          "cuda": "12.8",
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+        }
+      }
+    }
+  ],
+  "scope": "仅六个新增项目内离线 Kernel、固定一维与二维特征广播布局及本次 GPU 环境。标签来自独立逻辑索引、wrapper 调用绑定与实际 stride 审计；未编译 GuardPlan，也未扩大 Fast。"
+}

@@ -1,0 +1,1584 @@
+{
+  "generated_at": "2026-09-25T10:51:49.286942+08:00",
+  "seed": 20260925,
+  "arms": [
+    {
+      "name": "predicate_guided",
+      "shadow": {
+        "generated": 36,
+        "unique": 36,
+        "candidate_flips": 6
+      },
+      "worker_budget": 8,
+      "workers_used": 8,
+      "elapsed_s": 45.407116643000336,
+      "categories": {
+        "numeric_mismatch": 6,
+        "correct": 2
+      },
+      "unique_numeric_mismatches": 6,
+      "outcomes": [
+        {
+          "id": "A:padded:6768a1a63380",
+          "reason": "decision_flip",
+          "candidate_flips": 1,
+          "category": "numeric_mismatch",
+          "elapsed_s": 5.516389311999774,
+          "oracle": {
+            "category": "numeric_mismatch",
+            "detail": {
+              "id": "A:padded:6768a1a63380",
+              "fingerprint": "6768a1a63380cdca600fe9fb3e85fa8b5b975b90fc63f743b34c3969d01f7cb8",
+              "case": "A",
+              "label": "padded",
+              "input_metadata": {
+                "X": {
+                  "shape": [
+                    7,
+                    11
+                  ],
+                  "stride": [
+                    14,
+                    1
+                  ],
+                  "storage_offset": 0,
+                  "effective_ptr": 30161240064,
+                  "effective_ptr_mod_16": 0,
+                  "storage_nbytes": 380
+                }
+              },
+              "environment": {
+                "torch": "2.11.0+cu128",
+                "triton": "3.6.0",
+                "cuda_runtime": "12.8",
+                "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+              },
+              "reference_symbol": "scenarios.cases.reference",
+              "expected_shape": [
+                7,
+                11
+              ],
+              "actual_shape": [
+                7,
+                11
+              ],
+              "expected_dtype": "torch.float32",
+              "actual_dtype": "torch.float32",
+              "tolerance": {
+                "rtol": 0.0,
+                "atol": 0.0
+              },
+              "kind": "numeric_mismatch",
+              "first_mismatch": [
+                1,
+                0
+              ],
+              "expected_value": 15.0,
+              "actual_value": 12.0,
+              "mismatch_count": 66
+            },
+            "exit_code": 0,
+            "stderr": "",
+            "evidence": "Empirically-Validated"
+          }
+        },
+        {
+          "id": "A:transpose:aca6a86f0e0a",
+          "reason": "decision_flip",
+          "candidate_flips": 2,
+          "category": "numeric_mismatch",
+          "elapsed_s": 5.835923954000009,
+          "oracle": {
+            "category": "numeric_mismatch",
+            "detail": {
+              "id": "A:transpose:aca6a86f0e0a",
+              "fingerprint": "aca6a86f0e0a3a4f5c5cd2ea737713865eb2018c9c4f7a5080aa6bf85d8647ff",
+              "case": "A",
+              "label": "transpose",
+              "input_metadata": {
+                "X": {
+                  "shape": [
+                    7,
+                    11
+                  ],
+                  "stride": [
+                    1,
+                    7
+                  ],
+                  "storage_offset": 0,
+                  "effective_ptr": 30161240064,
+                  "effective_ptr_mod_16": 0,
+                  "storage_nbytes": 308
+                }
+              },
+              "environment": {
+                "torch": "2.11.0+cu128",
+                "triton": "3.6.0",
+                "cuda_runtime": "12.8",
+                "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+              },
+              "reference_symbol": "scenarios.cases.reference",
+              "expected_shape": [
+                7,
+                11
+              ],
+              "actual_shape": [
+                7,
+                11
+              ],
+              "expected_dtype": "torch.float32",
+              "actual_dtype": "torch.float32",
+              "tolerance": {
+                "rtol": 0.0,
+                "atol": 0.0
+              },
+              "kind": "numeric_mismatch",
+              "first_mismatch": [
+                0,
+                1
+              ],
+              "expected_value": 8.0,
+              "actual_value": 2.0,
+              "mismatch_count": 74
+            },
+            "exit_code": 0,
+            "stderr": "",
+            "evidence": "Empirically-Validated"
+          }
+        },
+        {
+          "id": "A2:transpose:75182b01202a",
+          "reason": "decision_flip",
+          "candidate_flips": 1,
+          "category": "numeric_mismatch",
+          "elapsed_s": 5.811837657000069,
+          "oracle": {
+            "category": "numeric_mismatch",
+            "detail": {
+              "id": "A2:transpose:75182b01202a",
+              "fingerprint": "75182b01202a5d1ebc0c7839dac4797f5becfe3c12ea688ba307d5ec18542af5",
+              "case": "A2",
+              "label": "transpose",
+              "input_metadata": {
+                "X": {
+                  "shape": [
+                    7,
+                    11
+                  ],
+                  "stride": [
+                    1,
+                    7
+                  ],
+                  "storage_offset": 0,
+                  "effective_ptr": 30161240064,
+                  "effective_ptr_mod_16": 0,
+                  "storage_nbytes": 308
+                }
+              },
+              "environment": {
+                "torch": "2.11.0+cu128",
+                "triton": "3.6.0",
+                "cuda_runtime": "12.8",
+                "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+              },
+              "reference_symbol": "scenarios.cases.reference",
+              "expected_shape": [
+                7,
+                11
+              ],
+              "actual_shape": [
+                7,
+                11
+              ],
+              "expected_dtype": "torch.float32",
+              "actual_dtype": "torch.float32",
+              "tolerance": {
+                "rtol": 0.0,
+                "atol": 0.0
+              },
+              "kind": "numeric_mismatch",
+              "first_mismatch": [
+                0,
+                1
+              ],
+              "expected_value": 8.0,
+              "actual_value": 2.0,
+              "mismatch_count": 70
+            },
+            "exit_code": 0,
+            "stderr": "",
+            "evidence": "Empirically-Validated"
+          }
+        },
+        {
+          "id": "B:stride_two:286b0b4b1dea",
+          "reason": "decision_flip",
+          "candidate_flips": 1,
+          "category": "numeric_mismatch",
+          "elapsed_s": 6.229049980000127,
+          "oracle": {
+            "category": "numeric_mismatch",
+            "detail": {
+              "id": "B:stride_two:286b0b4b1dea",
+              "fingerprint": "286b0b4b1dea9a0eafa6740b6bc40226a7d11909c6757c6aec16d6b6fb33c2e4",
+              "case": "B",
+              "label": "stride_two",
+              "input_metadata": {
+                "X": {
+                  "shape": [
+                    129
+                  ],
+                  "stride": [
+                    2
+                  ],
+                  "storage_offset": 0,
+                  "effective_ptr": 30161240064,
+                  "effective_ptr_mod_16": 0,
+                  "storage_nbytes": 1028
+                }
+              },
+              "environment": {
+                "torch": "2.11.0+cu128",
+                "triton": "3.6.0",
+                "cuda_runtime": "12.8",
+                "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+              },
+              "reference_symbol": "scenarios.cases.reference",
+              "expected_shape": [
+                129
+              ],
+              "actual_shape": [
+                129
+              ],
+              "expected_dtype": "torch.float32",
+              "actual_dtype": "torch.float32",
+              "tolerance": {
+                "rtol": 0.0,
+                "atol": 0.0
+              },
+              "kind": "numeric_mismatch",
+              "first_mismatch": [
+                1
+              ],
+              "expected_value": 3.0,
+              "actual_value": 2.0,
+              "mismatch_count": 128
+            },
+            "exit_code": 0,
+            "stderr": "",
+            "evidence": "Empirically-Validated"
+          }
+        },
+        {
+          "id": "D:x_stride:b26f771ef23e",
+          "reason": "decision_flip",
+          "candidate_flips": 1,
+          "category": "numeric_mismatch",
+          "elapsed_s": 6.153770463000001,
+          "oracle": {
+            "category": "numeric_mismatch",
+            "detail": {
+              "id": "D:x_stride:b26f771ef23e",
+              "fingerprint": "b26f771ef23e893da15514e19c87f3b5e3ccd39d80a897a7fa7cae4c6b9cf7c7",
+              "case": "D",
+              "label": "x_stride",
+              "input_metadata": {
+                "X": {
+                  "shape": [
+                    129
+                  ],
+                  "stride": [
+                    2
+                  ],
+                  "storage_offset": 0,
+                  "effective_ptr": 30161240064,
+                  "effective_ptr_mod_16": 0,
+                  "storage_nbytes": 1028
+                },
+                "Y": {
+                  "shape": [
+                    129
+                  ],
+                  "stride": [
+                    1
+                  ],
+                  "storage_offset": 0,
+                  "effective_ptr": 30161241600,
+                  "effective_ptr_mod_16": 0,
+                  "storage_nbytes": 516
+                }
+              },
+              "environment": {
+                "torch": "2.11.0+cu128",
+                "triton": "3.6.0",
+                "cuda_runtime": "12.8",
+                "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+              },
+              "reference_symbol": "scenarios.cases.reference",
+              "expected_shape": [
+                129
+              ],
+              "actual_shape": [
+                129
+              ],
+              "expected_dtype": "torch.float32",
+              "actual_dtype": "torch.float32",
+              "tolerance": {
+                "rtol": 0.0,
+                "atol": 0.0
+              },
+              "kind": "numeric_mismatch",
+              "first_mismatch": [
+                1
+              ],
+              "expected_value": 3.0,
+              "actual_value": 2.0,
+              "mismatch_count": 128
+            },
+            "exit_code": 0,
+            "stderr": "",
+            "evidence": "Empirically-Validated"
+          }
+        },
+        {
+          "id": "D:y_stride:c820dcbcfdde",
+          "reason": "decision_flip",
+          "candidate_flips": 1,
+          "category": "numeric_mismatch",
+          "elapsed_s": 5.698379350999858,
+          "oracle": {
+            "category": "numeric_mismatch",
+            "detail": {
+              "id": "D:y_stride:c820dcbcfdde",
+              "fingerprint": "c820dcbcfddee9edfe3977f8995da25cc772a9f9e2bd8f1351c53b4e51322536",
+              "case": "D",
+              "label": "y_stride",
+              "input_metadata": {
+                "X": {
+                  "shape": [
+                    129
+                  ],
+                  "stride": [
+                    1
+                  ],
+                  "storage_offset": 0,
+                  "effective_ptr": 30161240064,
+                  "effective_ptr_mod_16": 0,
+                  "storage_nbytes": 516
+                },
+                "Y": {
+                  "shape": [
+                    129
+                  ],
+                  "stride": [
+                    2
+                  ],
+                  "storage_offset": 0,
+                  "effective_ptr": 30161241088,
+                  "effective_ptr_mod_16": 0,
+                  "storage_nbytes": 1028
+                }
+              },
+              "environment": {
+                "torch": "2.11.0+cu128",
+                "triton": "3.6.0",
+                "cuda_runtime": "12.8",
+                "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+              },
+              "reference_symbol": "scenarios.cases.reference",
+              "expected_shape": [
+                129
+              ],
+              "actual_shape": [
+                129
+              ],
+              "expected_dtype": "torch.float32",
+              "actual_dtype": "torch.float32",
+              "tolerance": {
+                "rtol": 0.0,
+                "atol": 0.0
+              },
+              "kind": "numeric_mismatch",
+              "first_mismatch": [
+                1
+              ],
+              "expected_value": 3.0,
+              "actual_value": 2.0,
+              "mismatch_count": 128
+            },
+            "exit_code": 0,
+            "stderr": "",
+            "evidence": "Empirically-Validated"
+          }
+        },
+        {
+          "id": "A:single_col:75fdc5142d9b",
+          "reason": "singleton",
+          "candidate_flips": 0,
+          "category": "correct",
+          "elapsed_s": 5.211141421999855,
+          "oracle": {
+            "category": "correct",
+            "detail": {
+              "id": "A:single_col:75fdc5142d9b",
+              "fingerprint": "75fdc5142d9bd81c4751a4f81d9141135ca01b0b0060e0cfaba6715f34d0f59f",
+              "case": "A",
+              "label": "single_col",
+              "input_metadata": {
+                "X": {
+                  "shape": [
+                    7,
+                    1
+                  ],
+                  "stride": [
+                    1,
+                    3
+                  ],
+                  "storage_offset": 0,
+                  "effective_ptr": 30161240064,
+                  "effective_ptr_mod_16": 0,
+                  "storage_nbytes": 28
+                }
+              },
+              "environment": {
+                "torch": "2.11.0+cu128",
+                "triton": "3.6.0",
+                "cuda_runtime": "12.8",
+                "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+              },
+              "reference_symbol": "scenarios.cases.reference",
+              "expected_shape": [
+                7,
+                1
+              ],
+              "actual_shape": [
+                7,
+                1
+              ],
+              "expected_dtype": "torch.float32",
+              "actual_dtype": "torch.float32",
+              "tolerance": {
+                "rtol": 0.0,
+                "atol": 0.0
+              },
+              "kind": "correct",
+              "mismatch_count": 0
+            },
+            "exit_code": 0,
+            "stderr": "",
+            "evidence": "Empirically-Validated"
+          }
+        },
+        {
+          "id": "A:single_row:fca10b892a37",
+          "reason": "singleton",
+          "candidate_flips": 0,
+          "category": "correct",
+          "elapsed_s": 4.949678216999928,
+          "oracle": {
+            "category": "correct",
+            "detail": {
+              "id": "A:single_row:fca10b892a37",
+              "fingerprint": "fca10b892a370a235e68a38d9eea8938ad35651c2400f5f6dc51500231938f56",
+              "case": "A",
+              "label": "single_row",
+              "input_metadata": {
+                "X": {
+                  "shape": [
+                    1,
+                    11
+                  ],
+                  "stride": [
+                    14,
+                    1
+                  ],
+                  "storage_offset": 0,
+                  "effective_ptr": 30161240064,
+                  "effective_ptr_mod_16": 0,
+                  "storage_nbytes": 44
+                }
+              },
+              "environment": {
+                "torch": "2.11.0+cu128",
+                "triton": "3.6.0",
+                "cuda_runtime": "12.8",
+                "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+              },
+              "reference_symbol": "scenarios.cases.reference",
+              "expected_shape": [
+                1,
+                11
+              ],
+              "actual_shape": [
+                1,
+                11
+              ],
+              "expected_dtype": "torch.float32",
+              "actual_dtype": "torch.float32",
+              "tolerance": {
+                "rtol": 0.0,
+                "atol": 0.0
+              },
+              "kind": "correct",
+              "mismatch_count": 0
+            },
+            "exit_code": 0,
+            "stderr": "",
+            "evidence": "Empirically-Validated"
+          }
+        }
+      ],
+      "selection": [
+        {
+          "id": "A:padded:6768a1a63380",
+          "kernel": "A",
+          "reason": "decision_flip",
+          "changed_static_candidates": 1,
+          "dynamic_pointer_unresolved": false,
+          "recipe": {
+            "version": 1,
+            "case": "A",
+            "label": "padded",
+            "inputs": [
+              [
+                "X",
+                {
+                  "shape": [
+                    7,
+                    11
+                  ],
+                  "stride": [
+                    14,
+                    1
+                  ],
+                  "offset": 0,
+                  "storage_elements": null
+                }
+              ]
+            ],
+            "target_family": "shape_stride",
+            "seed": 0
+          }
+        },
+        {
+          "id": "A:transpose:aca6a86f0e0a",
+          "kernel": "A",
+          "reason": "decision_flip",
+          "changed_static_candidates": 2,
+          "dynamic_pointer_unresolved": false,
+          "recipe": {
+            "version": 1,
+            "case": "A",
+            "label": "transpose",
+            "inputs": [
+              [
+                "X",
+                {
+                  "shape": [
+                    7,
+                    11
+                  ],
+                  "stride": [
+                    1,
+                    7
+                  ],
+                  "offset": 0,
+                  "storage_elements": null
+                }
+              ]
+            ],
+            "target_family": "shape_stride",
+            "seed": 0
+          }
+        },
+        {
+          "id": "A2:transpose:75182b01202a",
+          "kernel": "A2",
+          "reason": "decision_flip",
+          "changed_static_candidates": 1,
+          "dynamic_pointer_unresolved": false,
+          "recipe": {
+            "version": 1,
+            "case": "A2",
+            "label": "transpose",
+            "inputs": [
+              [
+                "X",
+                {
+                  "shape": [
+                    7,
+                    11
+                  ],
+                  "stride": [
+                    1,
+                    7
+                  ],
+                  "offset": 0,
+                  "storage_elements": null
+                }
+              ]
+            ],
+            "target_family": "shape_stride",
+            "seed": 0
+          }
+        },
+        {
+          "id": "B:stride_two:286b0b4b1dea",
+          "kernel": "B",
+          "reason": "decision_flip",
+          "changed_static_candidates": 1,
+          "dynamic_pointer_unresolved": false,
+          "recipe": {
+            "version": 1,
+            "case": "B",
+            "label": "stride_two",
+            "inputs": [
+              [
+                "X",
+                {
+                  "shape": [
+                    129
+                  ],
+                  "stride": [
+                    2
+                  ],
+                  "offset": 0,
+                  "storage_elements": null
+                }
+              ]
+            ],
+            "target_family": "shape_stride",
+            "seed": 0
+          }
+        },
+        {
+          "id": "D:x_stride:b26f771ef23e",
+          "kernel": "D",
+          "reason": "decision_flip",
+          "changed_static_candidates": 1,
+          "dynamic_pointer_unresolved": false,
+          "recipe": {
+            "version": 1,
+            "case": "D",
+            "label": "x_stride",
+            "inputs": [
+              [
+                "X",
+                {
+                  "shape": [
+                    129
+                  ],
+                  "stride": [
+                    2
+                  ],
+                  "offset": 0,
+                  "storage_elements": null
+                }
+              ],
+              [
+                "Y",
+                {
+                  "shape": [
+                    129
+                  ],
+                  "stride": [
+                    1
+                  ],
+                  "offset": 0,
+                  "storage_elements": null
+                }
+              ]
+            ],
+            "target_family": "shape_stride",
+            "seed": 0
+          }
+        },
+        {
+          "id": "D:y_stride:c820dcbcfdde",
+          "kernel": "D",
+          "reason": "decision_flip",
+          "changed_static_candidates": 1,
+          "dynamic_pointer_unresolved": false,
+          "recipe": {
+            "version": 1,
+            "case": "D",
+            "label": "y_stride",
+            "inputs": [
+              [
+                "X",
+                {
+                  "shape": [
+                    129
+                  ],
+                  "stride": [
+                    1
+                  ],
+                  "offset": 0,
+                  "storage_elements": null
+                }
+              ],
+              [
+                "Y",
+                {
+                  "shape": [
+                    129
+                  ],
+                  "stride": [
+                    2
+                  ],
+                  "offset": 0,
+                  "storage_elements": null
+                }
+              ]
+            ],
+            "target_family": "shape_stride",
+            "seed": 0
+          }
+        },
+        {
+          "id": "A:single_col:75fdc5142d9b",
+          "kernel": "A",
+          "reason": "singleton",
+          "changed_static_candidates": 0,
+          "dynamic_pointer_unresolved": false,
+          "recipe": {
+            "version": 1,
+            "case": "A",
+            "label": "single_col",
+            "inputs": [
+              [
+                "X",
+                {
+                  "shape": [
+                    7,
+                    1
+                  ],
+                  "stride": [
+                    1,
+                    3
+                  ],
+                  "offset": 0,
+                  "storage_elements": null
+                }
+              ]
+            ],
+            "target_family": "shape_stride",
+            "seed": 0
+          }
+        },
+        {
+          "id": "A:single_row:fca10b892a37",
+          "kernel": "A",
+          "reason": "singleton",
+          "changed_static_candidates": 0,
+          "dynamic_pointer_unresolved": false,
+          "recipe": {
+            "version": 1,
+            "case": "A",
+            "label": "single_row",
+            "inputs": [
+              [
+                "X",
+                {
+                  "shape": [
+                    1,
+                    11
+                  ],
+                  "stride": [
+                    14,
+                    1
+                  ],
+                  "offset": 0,
+                  "storage_elements": null
+                }
+              ]
+            ],
+            "target_family": "shape_stride",
+            "seed": 0
+          }
+        }
+      ],
+      "conclusion_scope": "只比较这批有限配方在同一 worker 预算内的发现；不同生成分布及筛选会影响结果。",
+      "review_overstrong_witnesses": 0,
+      "review_understrong_conflicts": 0
+    },
+    {
+      "name": "uniform_stride_offset",
+      "shadow": {
+        "generated": 36,
+        "unique": 36,
+        "candidate_flips": 14
+      },
+      "worker_budget": 8,
+      "workers_used": 8,
+      "elapsed_s": 44.95561887000031,
+      "categories": {
+        "numeric_mismatch": 8
+      },
+      "unique_numeric_mismatches": 8,
+      "outcomes": [
+        {
+          "id": "A:random_20260925:5e074004de59",
+          "reason": "decision_flip",
+          "candidate_flips": 1,
+          "category": "numeric_mismatch",
+          "elapsed_s": 4.979307684000105,
+          "oracle": {
+            "category": "numeric_mismatch",
+            "detail": {
+              "id": "A:random_20260925:5e074004de59",
+              "fingerprint": "5e074004de593f2e3eabcee867e2b9da3d53146cf4373749dc53a53b1cc12785",
+              "case": "A",
+              "label": "random_20260925",
+              "input_metadata": {
+                "X": {
+                  "shape": [
+                    7,
+                    11
+                  ],
+                  "stride": [
+                    14,
+                    1
+                  ],
+                  "storage_offset": 0,
+                  "effective_ptr": 30161240064,
+                  "effective_ptr_mod_16": 0,
+                  "storage_nbytes": 380
+                }
+              },
+              "environment": {
+                "torch": "2.11.0+cu128",
+                "triton": "3.6.0",
+                "cuda_runtime": "12.8",
+                "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+              },
+              "reference_symbol": "scenarios.cases.reference",
+              "expected_shape": [
+                7,
+                11
+              ],
+              "actual_shape": [
+                7,
+                11
+              ],
+              "expected_dtype": "torch.float32",
+              "actual_dtype": "torch.float32",
+              "tolerance": {
+                "rtol": 0.0,
+                "atol": 0.0
+              },
+              "kind": "numeric_mismatch",
+              "first_mismatch": [
+                1,
+                0
+              ],
+              "expected_value": 15.0,
+              "actual_value": 12.0,
+              "mismatch_count": 66
+            },
+            "exit_code": 0,
+            "stderr": "",
+            "evidence": "Empirically-Validated"
+          }
+        },
+        {
+          "id": "A:random_20260927:e593187fbdbc",
+          "reason": "decision_flip",
+          "candidate_flips": 2,
+          "category": "numeric_mismatch",
+          "elapsed_s": 6.429808095000226,
+          "oracle": {
+            "category": "numeric_mismatch",
+            "detail": {
+              "id": "A:random_20260927:e593187fbdbc",
+              "fingerprint": "e593187fbdbc06e9c945b6c4f4c3d8522906d478774e4236e2d1a14115d4fee0",
+              "case": "A",
+              "label": "random_20260927",
+              "input_metadata": {
+                "X": {
+                  "shape": [
+                    7,
+                    11
+                  ],
+                  "stride": [
+                    12,
+                    2
+                  ],
+                  "storage_offset": 2,
+                  "effective_ptr": 30161240072,
+                  "effective_ptr_mod_16": 8,
+                  "storage_nbytes": 380
+                }
+              },
+              "environment": {
+                "torch": "2.11.0+cu128",
+                "triton": "3.6.0",
+                "cuda_runtime": "12.8",
+                "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+              },
+              "reference_symbol": "scenarios.cases.reference",
+              "expected_shape": [
+                7,
+                11
+              ],
+              "actual_shape": [
+                7,
+                11
+              ],
+              "expected_dtype": "torch.float32",
+              "actual_dtype": "torch.float32",
+              "tolerance": {
+                "rtol": 0.0,
+                "atol": 0.0
+              },
+              "kind": "numeric_mismatch",
+              "first_mismatch": [
+                0,
+                1
+              ],
+              "expected_value": 5.0,
+              "actual_value": 4.0,
+              "mismatch_count": 76
+            },
+            "exit_code": 0,
+            "stderr": "",
+            "evidence": "Empirically-Validated"
+          }
+        },
+        {
+          "id": "A:random_20260928:69c1a6f5ab6e",
+          "reason": "decision_flip",
+          "candidate_flips": 1,
+          "category": "numeric_mismatch",
+          "elapsed_s": 6.345860832000199,
+          "oracle": {
+            "category": "numeric_mismatch",
+            "detail": {
+              "id": "A:random_20260928:69c1a6f5ab6e",
+              "fingerprint": "69c1a6f5ab6e1c302ca585b113ed1192ae8caf461644945965e49ca867c3f9a6",
+              "case": "A",
+              "label": "random_20260928",
+              "input_metadata": {
+                "X": {
+                  "shape": [
+                    1,
+                    11
+                  ],
+                  "stride": [
+                    14,
+                    3
+                  ],
+                  "storage_offset": 0,
+                  "effective_ptr": 30161240064,
+                  "effective_ptr_mod_16": 0,
+                  "storage_nbytes": 124
+                }
+              },
+              "environment": {
+                "torch": "2.11.0+cu128",
+                "triton": "3.6.0",
+                "cuda_runtime": "12.8",
+                "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+              },
+              "reference_symbol": "scenarios.cases.reference",
+              "expected_shape": [
+                1,
+                11
+              ],
+              "actual_shape": [
+                1,
+                11
+              ],
+              "expected_dtype": "torch.float32",
+              "actual_dtype": "torch.float32",
+              "tolerance": {
+                "rtol": 0.0,
+                "atol": 0.0
+              },
+              "kind": "numeric_mismatch",
+              "first_mismatch": [
+                0,
+                1
+              ],
+              "expected_value": 4.0,
+              "actual_value": 2.0,
+              "mismatch_count": 10
+            },
+            "exit_code": 0,
+            "stderr": "",
+            "evidence": "Empirically-Validated"
+          }
+        },
+        {
+          "id": "A:random_20260929:c8aa15791388",
+          "reason": "decision_flip",
+          "candidate_flips": 1,
+          "category": "numeric_mismatch",
+          "elapsed_s": 5.665823751999596,
+          "oracle": {
+            "category": "numeric_mismatch",
+            "detail": {
+              "id": "A:random_20260929:c8aa15791388",
+              "fingerprint": "c8aa15791388169e2b5314acb919682232847909402156ff56b5bb01d63723b4",
+              "case": "A",
+              "label": "random_20260929",
+              "input_metadata": {
+                "X": {
+                  "shape": [
+                    7,
+                    1
+                  ],
+                  "stride": [
+                    2,
+                    3
+                  ],
+                  "storage_offset": 2,
+                  "effective_ptr": 30161240072,
+                  "effective_ptr_mod_16": 8,
+                  "storage_nbytes": 60
+                }
+              },
+              "environment": {
+                "torch": "2.11.0+cu128",
+                "triton": "3.6.0",
+                "cuda_runtime": "12.8",
+                "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+              },
+              "reference_symbol": "scenarios.cases.reference",
+              "expected_shape": [
+                7,
+                1
+              ],
+              "actual_shape": [
+                7,
+                1
+              ],
+              "expected_dtype": "torch.float32",
+              "actual_dtype": "torch.float32",
+              "tolerance": {
+                "rtol": 0.0,
+                "atol": 0.0
+              },
+              "kind": "numeric_mismatch",
+              "first_mismatch": [
+                1,
+                0
+              ],
+              "expected_value": 5.0,
+              "actual_value": 4.0,
+              "mismatch_count": 6
+            },
+            "exit_code": 0,
+            "stderr": "",
+            "evidence": "Empirically-Validated"
+          }
+        },
+        {
+          "id": "A2:random_20260930:56481bf7bcac",
+          "reason": "decision_flip",
+          "candidate_flips": 1,
+          "category": "numeric_mismatch",
+          "elapsed_s": 6.086223685000277,
+          "oracle": {
+            "category": "numeric_mismatch",
+            "detail": {
+              "id": "A2:random_20260930:56481bf7bcac",
+              "fingerprint": "56481bf7bcace778c437a784f0043197863319a489fa947ba68c2d947ae06019",
+              "case": "A2",
+              "label": "random_20260930",
+              "input_metadata": {
+                "X": {
+                  "shape": [
+                    7,
+                    11
+                  ],
+                  "stride": [
+                    22,
+                    2
+                  ],
+                  "storage_offset": 1,
+                  "effective_ptr": 30161240068,
+                  "effective_ptr_mod_16": 4,
+                  "storage_nbytes": 616
+                }
+              },
+              "environment": {
+                "torch": "2.11.0+cu128",
+                "triton": "3.6.0",
+                "cuda_runtime": "12.8",
+                "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+              },
+              "reference_symbol": "scenarios.cases.reference",
+              "expected_shape": [
+                7,
+                11
+              ],
+              "actual_shape": [
+                7,
+                11
+              ],
+              "expected_dtype": "torch.float32",
+              "actual_dtype": "torch.float32",
+              "tolerance": {
+                "rtol": 0.0,
+                "atol": 0.0
+              },
+              "kind": "numeric_mismatch",
+              "first_mismatch": [
+                0,
+                1
+              ],
+              "expected_value": 4.0,
+              "actual_value": 3.0,
+              "mismatch_count": 70
+            },
+            "exit_code": 0,
+            "stderr": "",
+            "evidence": "Empirically-Validated"
+          }
+        },
+        {
+          "id": "A2:random_20260932:b079a7746c39",
+          "reason": "decision_flip",
+          "candidate_flips": 1,
+          "category": "numeric_mismatch",
+          "elapsed_s": 5.094352113000241,
+          "oracle": {
+            "category": "numeric_mismatch",
+            "detail": {
+              "id": "A2:random_20260932:b079a7746c39",
+              "fingerprint": "b079a7746c39c986b46aea893146720c699123b2692c3c4fe27570bcc69ffec2",
+              "case": "A2",
+              "label": "random_20260932",
+              "input_metadata": {
+                "X": {
+                  "shape": [
+                    7,
+                    11
+                  ],
+                  "stride": [
+                    14,
+                    2
+                  ],
+                  "storage_offset": 0,
+                  "effective_ptr": 30161240064,
+                  "effective_ptr_mod_16": 0,
+                  "storage_nbytes": 420
+                }
+              },
+              "environment": {
+                "torch": "2.11.0+cu128",
+                "triton": "3.6.0",
+                "cuda_runtime": "12.8",
+                "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+              },
+              "reference_symbol": "scenarios.cases.reference",
+              "expected_shape": [
+                7,
+                11
+              ],
+              "actual_shape": [
+                7,
+                11
+              ],
+              "expected_dtype": "torch.float32",
+              "actual_dtype": "torch.float32",
+              "tolerance": {
+                "rtol": 0.0,
+                "atol": 0.0
+              },
+              "kind": "numeric_mismatch",
+              "first_mismatch": [
+                0,
+                1
+              ],
+              "expected_value": 3.0,
+              "actual_value": 2.0,
+              "mismatch_count": 70
+            },
+            "exit_code": 0,
+            "stderr": "",
+            "evidence": "Empirically-Validated"
+          }
+        },
+        {
+          "id": "A2:random_20260933:d9164a60c518",
+          "reason": "decision_flip",
+          "candidate_flips": 1,
+          "category": "numeric_mismatch",
+          "elapsed_s": 5.206776351999906,
+          "oracle": {
+            "category": "numeric_mismatch",
+            "detail": {
+              "id": "A2:random_20260933:d9164a60c518",
+              "fingerprint": "d9164a60c5186439eef20f4ad0333c5f90a07e028d60a68c3677cef2ff21a52d",
+              "case": "A2",
+              "label": "random_20260933",
+              "input_metadata": {
+                "X": {
+                  "shape": [
+                    1,
+                    11
+                  ],
+                  "stride": [
+                    11,
+                    2
+                  ],
+                  "storage_offset": 2,
+                  "effective_ptr": 30161240072,
+                  "effective_ptr_mod_16": 8,
+                  "storage_nbytes": 92
+                }
+              },
+              "environment": {
+                "torch": "2.11.0+cu128",
+                "triton": "3.6.0",
+                "cuda_runtime": "12.8",
+                "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+              },
+              "reference_symbol": "scenarios.cases.reference",
+              "expected_shape": [
+                1,
+                11
+              ],
+              "actual_shape": [
+                1,
+                11
+              ],
+              "expected_dtype": "torch.float32",
+              "actual_dtype": "torch.float32",
+              "tolerance": {
+                "rtol": 0.0,
+                "atol": 0.0
+              },
+              "kind": "numeric_mismatch",
+              "first_mismatch": [
+                0,
+                1
+              ],
+              "expected_value": 5.0,
+              "actual_value": 4.0,
+              "mismatch_count": 10
+            },
+            "exit_code": 0,
+            "stderr": "",
+            "evidence": "Empirically-Validated"
+          }
+        },
+        {
+          "id": "B:random_20260940:48be6f5afcae",
+          "reason": "decision_flip",
+          "candidate_flips": 1,
+          "category": "numeric_mismatch",
+          "elapsed_s": 5.146386566000274,
+          "oracle": {
+            "category": "numeric_mismatch",
+            "detail": {
+              "id": "B:random_20260940:48be6f5afcae",
+              "fingerprint": "48be6f5afcae95b6db51a18ec8560c3c52ab0217d17fe1d7139021617224b7c5",
+              "case": "B",
+              "label": "random_20260940",
+              "input_metadata": {
+                "X": {
+                  "shape": [
+                    127
+                  ],
+                  "stride": [
+                    4
+                  ],
+                  "storage_offset": 3,
+                  "effective_ptr": 30161240076,
+                  "effective_ptr_mod_16": 12,
+                  "storage_nbytes": 2032
+                }
+              },
+              "environment": {
+                "torch": "2.11.0+cu128",
+                "triton": "3.6.0",
+                "cuda_runtime": "12.8",
+                "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+              },
+              "reference_symbol": "scenarios.cases.reference",
+              "expected_shape": [
+                127
+              ],
+              "actual_shape": [
+                127
+              ],
+              "expected_dtype": "torch.float32",
+              "actual_dtype": "torch.float32",
+              "tolerance": {
+                "rtol": 0.0,
+                "atol": 0.0
+              },
+              "kind": "numeric_mismatch",
+              "first_mismatch": [
+                1
+              ],
+              "expected_value": 8.0,
+              "actual_value": 5.0,
+              "mismatch_count": 126
+            },
+            "exit_code": 0,
+            "stderr": "",
+            "evidence": "Empirically-Validated"
+          }
+        }
+      ],
+      "selection": [
+        {
+          "id": "A:random_20260925:5e074004de59",
+          "kernel": "A",
+          "reason": "decision_flip",
+          "changed_static_candidates": 1,
+          "dynamic_pointer_unresolved": false,
+          "recipe": {
+            "version": 1,
+            "case": "A",
+            "label": "random_20260925",
+            "inputs": [
+              [
+                "X",
+                {
+                  "shape": [
+                    7,
+                    11
+                  ],
+                  "stride": [
+                    14,
+                    1
+                  ],
+                  "offset": 0,
+                  "storage_elements": null
+                }
+              ]
+            ],
+            "target_family": "shape_stride",
+            "seed": 20260925
+          }
+        },
+        {
+          "id": "A:random_20260927:e593187fbdbc",
+          "kernel": "A",
+          "reason": "decision_flip",
+          "changed_static_candidates": 2,
+          "dynamic_pointer_unresolved": false,
+          "recipe": {
+            "version": 1,
+            "case": "A",
+            "label": "random_20260927",
+            "inputs": [
+              [
+                "X",
+                {
+                  "shape": [
+                    7,
+                    11
+                  ],
+                  "stride": [
+                    12,
+                    2
+                  ],
+                  "offset": 2,
+                  "storage_elements": null
+                }
+              ]
+            ],
+            "target_family": "shape_stride",
+            "seed": 20260927
+          }
+        },
+        {
+          "id": "A:random_20260928:69c1a6f5ab6e",
+          "kernel": "A",
+          "reason": "decision_flip",
+          "changed_static_candidates": 1,
+          "dynamic_pointer_unresolved": false,
+          "recipe": {
+            "version": 1,
+            "case": "A",
+            "label": "random_20260928",
+            "inputs": [
+              [
+                "X",
+                {
+                  "shape": [
+                    1,
+                    11
+                  ],
+                  "stride": [
+                    14,
+                    3
+                  ],
+                  "offset": 0,
+                  "storage_elements": null
+                }
+              ]
+            ],
+            "target_family": "shape_stride",
+            "seed": 20260928
+          }
+        },
+        {
+          "id": "A:random_20260929:c8aa15791388",
+          "kernel": "A",
+          "reason": "decision_flip",
+          "changed_static_candidates": 1,
+          "dynamic_pointer_unresolved": false,
+          "recipe": {
+            "version": 1,
+            "case": "A",
+            "label": "random_20260929",
+            "inputs": [
+              [
+                "X",
+                {
+                  "shape": [
+                    7,
+                    1
+                  ],
+                  "stride": [
+                    2,
+                    3
+                  ],
+                  "offset": 2,
+                  "storage_elements": null
+                }
+              ]
+            ],
+            "target_family": "shape_stride",
+            "seed": 20260929
+          }
+        },
+        {
+          "id": "A2:random_20260930:56481bf7bcac",
+          "kernel": "A2",
+          "reason": "decision_flip",
+          "changed_static_candidates": 1,
+          "dynamic_pointer_unresolved": false,
+          "recipe": {
+            "version": 1,
+            "case": "A2",
+            "label": "random_20260930",
+            "inputs": [
+              [
+                "X",
+                {
+                  "shape": [
+                    7,
+                    11
+                  ],
+                  "stride": [
+                    22,
+                    2
+                  ],
+                  "offset": 1,
+                  "storage_elements": null
+                }
+              ]
+            ],
+            "target_family": "shape_stride",
+            "seed": 20260930
+          }
+        },
+        {
+          "id": "A2:random_20260932:b079a7746c39",
+          "kernel": "A2",
+          "reason": "decision_flip",
+          "changed_static_candidates": 1,
+          "dynamic_pointer_unresolved": false,
+          "recipe": {
+            "version": 1,
+            "case": "A2",
+            "label": "random_20260932",
+            "inputs": [
+              [
+                "X",
+                {
+                  "shape": [
+                    7,
+                    11
+                  ],
+                  "stride": [
+                    14,
+                    2
+                  ],
+                  "offset": 0,
+                  "storage_elements": null
+                }
+              ]
+            ],
+            "target_family": "shape_stride",
+            "seed": 20260932
+          }
+        },
+        {
+          "id": "A2:random_20260933:d9164a60c518",
+          "kernel": "A2",
+          "reason": "decision_flip",
+          "changed_static_candidates": 1,
+          "dynamic_pointer_unresolved": false,
+          "recipe": {
+            "version": 1,
+            "case": "A2",
+            "label": "random_20260933",
+            "inputs": [
+              [
+                "X",
+                {
+                  "shape": [
+                    1,
+                    11
+                  ],
+                  "stride": [
+                    11,
+                    2
+                  ],
+                  "offset": 2,
+                  "storage_elements": null
+                }
+              ]
+            ],
+            "target_family": "shape_stride",
+            "seed": 20260933
+          }
+        },
+        {
+          "id": "B:random_20260940:48be6f5afcae",
+          "kernel": "B",
+          "reason": "decision_flip",
+          "changed_static_candidates": 1,
+          "dynamic_pointer_unresolved": false,
+          "recipe": {
+            "version": 1,
+            "case": "B",
+            "label": "random_20260940",
+            "inputs": [
+              [
+                "X",
+                {
+                  "shape": [
+                    127
+                  ],
+                  "stride": [
+                    4
+                  ],
+                  "offset": 3,
+                  "storage_elements": null
+                }
+              ]
+            ],
+            "target_family": "tile_mask",
+            "seed": 20260940
+          }
+        }
+      ],
+      "conclusion_scope": "只比较这批有限配方在同一 worker 预算内的发现；不同生成分布及筛选会影响结果。",
+      "review_overstrong_witnesses": 0,
+      "review_understrong_conflicts": 0
+    }
+  ],
+  "smt_real_deletions": [],
+  "smt_fixture_only": true,
+  "limits": "当前真实候选无可删除冗余对；边界结果为执行观察，不能单独削弱或放宽一般契约。"
+}

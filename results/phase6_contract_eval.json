@@ -1,0 +1,995 @@
+{
+  "generated_at": "2026-09-25T18:14:24.201798+08:00",
+  "mode": "fresh_isolated_limited_domain",
+  "guard_report_checks": {
+    "八个入口均有当前源码的受支持计划": true,
+    "全部隔离样例数值正确": true,
+    "两个留出案例直接 Fast": true,
+    "Fast、修复及 Fallback 均有实际路径": true,
+    "A2 padding 未复制": true,
+    "指针提示错位拒绝且索引提示不要求指针对齐": true
+  },
+  "guard_report_go": true,
+  "plan_fingerprints": {
+    "A": "d334ef3416995ba61bca64c2c1f35b428b9e14ab0afbeb8ff64c5f5dbcf7eb40",
+    "A2": "4d03152df33ccd1de9db37e8b955f4b2ebf48bc11212062c740d6deb9e2242ab",
+    "B": "c0c809cfd95a6f689ae2d767054e9474a70dc9a988bef8dbb38345d4b7893c7d",
+    "D": "68475f1fd0f22427deda7595f51ccd1907ad0c2dbbc1503e0a96e3950ba27a1e",
+    "holdout_vector": "92bb187d1134b18b32f4fe77e6b0c607c6792429b608e4c2772c687b4a24711e",
+    "holdout_matrix": "e7ac361a49a703863dc5ba1f9ee56c8f10c67bff5bb997df667e35ceb654f86a",
+    "pointer_hint": "febd57e686dc0917e5bc7746e0bf5c6978339f72aec65629b524c862260a5531",
+    "index_hint": "483b5e97ed8dd05c55b2af70a64976593ca30d23cedf647b12512f3778f963ee"
+  },
+  "rows": [
+    {
+      "id": "A:contiguous:7:11",
+      "kernel": "A",
+      "recipe": {
+        "name": "A",
+        "layout": "contiguous"
+      },
+      "evidence_mode": "online_guard",
+      "truth": "eligible",
+      "truth_source": "A: 二维线性地址与连续布局对应",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Fast",
+      "worker_exit_code": 0
+    },
+    {
+      "id": "A:transpose:7:11",
+      "kernel": "A",
+      "recipe": {
+        "name": "A",
+        "layout": "transpose"
+      },
+      "evidence_mode": "online_guard",
+      "truth": "ineligible",
+      "truth_source": "A: 转置后线性地址与 x[row,col] 不对应",
+      "decision": "False",
+      "classification": "correct",
+      "path": "PyTorch Fallback",
+      "worker_exit_code": 0
+    },
+    {
+      "id": "A:single_row:1:11",
+      "kernel": "A",
+      "recipe": {
+        "name": "A",
+        "layout": "single_row",
+        "m": 1
+      },
+      "evidence_mode": "online_guard",
+      "truth": "eligible",
+      "truth_source": "A: row 恒为 0，行步长无作用",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Fast",
+      "worker_exit_code": 0
+    },
+    {
+      "id": "A:single_col:7:1",
+      "kernel": "A",
+      "recipe": {
+        "name": "A",
+        "layout": "single_col",
+        "n": 1
+      },
+      "evidence_mode": "online_guard",
+      "truth": "eligible",
+      "truth_source": "A: col 恒为 0，列步长无作用",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Fast",
+      "worker_exit_code": 0
+    },
+    {
+      "id": "A2:padded:7:11",
+      "kernel": "A2",
+      "recipe": {
+        "name": "A2",
+        "layout": "padded"
+      },
+      "evidence_mode": "online_guard",
+      "truth": "eligible",
+      "truth_source": "A2: 行步长已绑定，列步长为 1",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Fast",
+      "worker_exit_code": 0
+    },
+    {
+      "id": "A2:transpose:7:11",
+      "kernel": "A2",
+      "recipe": {
+        "name": "A2",
+        "layout": "transpose",
+        "policy": "prefer_repair"
+      },
+      "evidence_mode": "online_guard",
+      "truth": "ineligible",
+      "truth_source": "A2: 列步长不是 1",
+      "decision": "False",
+      "classification": "correct",
+      "path": "Relayout+Fast",
+      "worker_exit_code": 0
+    },
+    {
+      "id": "B:contiguous:7:127",
+      "kernel": "B",
+      "recipe": {
+        "name": "B",
+        "layout": "contiguous",
+        "n": 127
+      },
+      "evidence_mode": "online_guard",
+      "truth": "eligible",
+      "truth_source": "B: 单位步长，尾部 mask 覆盖 N",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Fast",
+      "worker_exit_code": 0
+    },
+    {
+      "id": "B:contiguous:7:128",
+      "kernel": "B",
+      "recipe": {
+        "name": "B",
+        "layout": "contiguous",
+        "n": 128
+      },
+      "evidence_mode": "online_guard",
+      "truth": "eligible",
+      "truth_source": "B: 单位步长，整 Tile",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Fast",
+      "worker_exit_code": 0
+    },
+    {
+      "id": "B:contiguous:7:129",
+      "kernel": "B",
+      "recipe": {
+        "name": "B",
+        "layout": "contiguous",
+        "n": 129
+      },
+      "evidence_mode": "online_guard",
+      "truth": "eligible",
+      "truth_source": "B: 单位步长，尾部 mask 覆盖 N",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Fast",
+      "worker_exit_code": 0
+    },
+    {
+      "id": "B:offset:7:129",
+      "kernel": "B",
+      "recipe": {
+        "name": "B",
+        "layout": "offset",
+        "n": 129
+      },
+      "evidence_mode": "online_guard",
+      "truth": "eligible",
+      "truth_source": "B: 有效首地址偏移不改变单位逻辑步长",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Fast",
+      "worker_exit_code": 0
+    },
+    {
+      "id": "B:strided:7:129",
+      "kernel": "B",
+      "recipe": {
+        "name": "B",
+        "layout": "strided",
+        "n": 129,
+        "policy": "prefer_repair"
+      },
+      "evidence_mode": "online_guard",
+      "truth": "ineligible",
+      "truth_source": "B: 原始 idx 地址与步长视图的逻辑 idx 不对应",
+      "decision": "False",
+      "classification": "correct",
+      "path": "Relayout+Fast",
+      "worker_exit_code": 0
+    },
+    {
+      "id": "D:contiguous:7:129",
+      "kernel": "D",
+      "recipe": {
+        "name": "D",
+        "layout": "contiguous",
+        "n": 129
+      },
+      "evidence_mode": "online_guard",
+      "truth": "eligible",
+      "truth_source": "D: X/Y 均单位步长且 mask 覆盖 N",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Fast",
+      "worker_exit_code": 0
+    },
+    {
+      "id": "D:x_offset:7:129",
+      "kernel": "D",
+      "recipe": {
+        "name": "D",
+        "layout": "x_offset",
+        "n": 129
+      },
+      "evidence_mode": "online_guard",
+      "truth": "eligible",
+      "truth_source": "D: X 有 offset 但单位步长",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Fast",
+      "worker_exit_code": 0
+    },
+    {
+      "id": "D:x_strided:7:129",
+      "kernel": "D",
+      "recipe": {
+        "name": "D",
+        "layout": "x_strided",
+        "n": 129,
+        "policy": "prefer_repair"
+      },
+      "evidence_mode": "online_guard",
+      "truth": "ineligible",
+      "truth_source": "D: X 非单位步长发生错读",
+      "decision": "False",
+      "classification": "correct",
+      "path": "Relayout+Fast",
+      "worker_exit_code": 0
+    },
+    {
+      "id": "D:y_strided:7:129",
+      "kernel": "D",
+      "recipe": {
+        "name": "D",
+        "layout": "y_strided",
+        "n": 129,
+        "policy": "prefer_repair"
+      },
+      "evidence_mode": "online_guard",
+      "truth": "ineligible",
+      "truth_source": "D: Y 非单位步长发生错读",
+      "decision": "False",
+      "classification": "correct",
+      "path": "Relayout+Fast",
+      "worker_exit_code": 0
+    },
+    {
+      "id": "holdout_vector:strided:7:129",
+      "kernel": "holdout_vector",
+      "recipe": {
+        "name": "holdout_vector",
+        "layout": "strided",
+        "n": 129
+      },
+      "evidence_mode": "online_guard",
+      "truth": "eligible",
+      "truth_source": "显式 S=x.stride(0) 的逐元素读取",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Fast",
+      "worker_exit_code": 0
+    },
+    {
+      "id": "holdout_matrix:strided:7:11",
+      "kernel": "holdout_matrix",
+      "recipe": {
+        "name": "holdout_matrix",
+        "layout": "strided",
+        "m": 7,
+        "n": 11
+      },
+      "evidence_mode": "online_guard",
+      "truth": "eligible",
+      "truth_source": "显式 S0/S1 与当前输入步长绑定",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Fast",
+      "worker_exit_code": 0
+    },
+    {
+      "id": "pointer_hint:contiguous:7:128",
+      "kernel": "pointer_hint",
+      "recipe": {
+        "name": "pointer_hint",
+        "layout": "contiguous",
+        "n": 128
+      },
+      "evidence_mode": "online_guard",
+      "truth": "eligible",
+      "truth_source": "有效指针满足 16 字节提示时本次可进入 Fast",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Fast",
+      "worker_exit_code": 0
+    },
+    {
+      "id": "pointer_hint:offset:7:128",
+      "kernel": "pointer_hint",
+      "recipe": {
+        "name": "pointer_hint",
+        "layout": "offset",
+        "n": 128
+      },
+      "evidence_mode": "online_guard",
+      "truth": "ineligible",
+      "truth_source": "4 字节 offset 后有效指针不满足 16 字节提示",
+      "decision": "False",
+      "classification": "correct",
+      "path": "PyTorch Fallback",
+      "worker_exit_code": 0
+    },
+    {
+      "id": "index_hint:offset:7:128",
+      "kernel": "index_hint",
+      "recipe": {
+        "name": "index_hint",
+        "layout": "offset",
+        "n": 128
+      },
+      "evidence_mode": "online_guard",
+      "truth": "eligible",
+      "truth_source": "提示约束 idx 的倍数，不约束 X 指针",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Fast",
+      "worker_exit_code": 0
+    }
+  ],
+  "benchmark_shadow_rows": [
+    {
+      "id": "bench_relu:contiguous",
+      "kernel": "bench_relu",
+      "recipe": {
+        "layout": "contiguous"
+      },
+      "evidence_mode": "offline_shadow_candidate",
+      "truth": "eligible",
+      "truth_source": "独立一维索引与物理 stride 审计",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Offline Shadow"
+    },
+    {
+      "id": "bench_relu:offset",
+      "kernel": "bench_relu",
+      "recipe": {
+        "layout": "offset"
+      },
+      "evidence_mode": "offline_shadow_candidate",
+      "truth": "eligible",
+      "truth_source": "独立一维索引与物理 stride 审计",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Offline Shadow"
+    },
+    {
+      "id": "bench_relu:strided",
+      "kernel": "bench_relu",
+      "recipe": {
+        "layout": "strided"
+      },
+      "evidence_mode": "offline_shadow_candidate",
+      "truth": "ineligible",
+      "truth_source": "独立一维索引与物理 stride 审计",
+      "decision": "False",
+      "classification": "numeric_mismatch",
+      "path": "Offline Shadow"
+    },
+    {
+      "id": "bench_square:contiguous",
+      "kernel": "bench_square",
+      "recipe": {
+        "layout": "contiguous"
+      },
+      "evidence_mode": "offline_shadow_candidate",
+      "truth": "eligible",
+      "truth_source": "独立一维索引与物理 stride 审计",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Offline Shadow"
+    },
+    {
+      "id": "bench_square:offset",
+      "kernel": "bench_square",
+      "recipe": {
+        "layout": "offset"
+      },
+      "evidence_mode": "offline_shadow_candidate",
+      "truth": "eligible",
+      "truth_source": "独立一维索引与物理 stride 审计",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Offline Shadow"
+    },
+    {
+      "id": "bench_square:strided",
+      "kernel": "bench_square",
+      "recipe": {
+        "layout": "strided"
+      },
+      "evidence_mode": "offline_shadow_candidate",
+      "truth": "ineligible",
+      "truth_source": "独立一维索引与物理 stride 审计",
+      "decision": "False",
+      "classification": "numeric_mismatch",
+      "path": "Offline Shadow"
+    },
+    {
+      "id": "bench_multiply:contiguous",
+      "kernel": "bench_multiply",
+      "recipe": {
+        "layout": "contiguous"
+      },
+      "evidence_mode": "offline_shadow_candidate",
+      "truth": "eligible",
+      "truth_source": "独立一维索引与物理 stride 审计",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Offline Shadow"
+    },
+    {
+      "id": "bench_multiply:offset",
+      "kernel": "bench_multiply",
+      "recipe": {
+        "layout": "offset"
+      },
+      "evidence_mode": "offline_shadow_candidate",
+      "truth": "eligible",
+      "truth_source": "独立一维索引与物理 stride 审计",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Offline Shadow"
+    },
+    {
+      "id": "bench_multiply:strided",
+      "kernel": "bench_multiply",
+      "recipe": {
+        "layout": "strided"
+      },
+      "evidence_mode": "offline_shadow_candidate",
+      "truth": "ineligible",
+      "truth_source": "独立一维索引与物理 stride 审计",
+      "decision": "False",
+      "classification": "numeric_mismatch",
+      "path": "Offline Shadow"
+    },
+    {
+      "id": "bench_axpy:contiguous",
+      "kernel": "bench_axpy",
+      "recipe": {
+        "layout": "contiguous"
+      },
+      "evidence_mode": "offline_shadow_candidate",
+      "truth": "eligible",
+      "truth_source": "独立一维索引与物理 stride 审计",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Offline Shadow"
+    },
+    {
+      "id": "bench_axpy:offset",
+      "kernel": "bench_axpy",
+      "recipe": {
+        "layout": "offset"
+      },
+      "evidence_mode": "offline_shadow_candidate",
+      "truth": "eligible",
+      "truth_source": "独立一维索引与物理 stride 审计",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Offline Shadow"
+    },
+    {
+      "id": "bench_axpy:strided",
+      "kernel": "bench_axpy",
+      "recipe": {
+        "layout": "strided"
+      },
+      "evidence_mode": "offline_shadow_candidate",
+      "truth": "ineligible",
+      "truth_source": "独立一维索引与物理 stride 审计",
+      "decision": "False",
+      "classification": "numeric_mismatch",
+      "path": "Offline Shadow"
+    },
+    {
+      "id": "bench_feature_scale:contiguous",
+      "kernel": "bench_feature_scale",
+      "recipe": {
+        "layout": "contiguous"
+      },
+      "evidence_mode": "offline_shadow_candidate",
+      "truth": "eligible",
+      "truth_source": "独立一维索引与物理 stride 审计",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Offline Shadow"
+    },
+    {
+      "id": "bench_feature_scale:offset",
+      "kernel": "bench_feature_scale",
+      "recipe": {
+        "layout": "offset"
+      },
+      "evidence_mode": "offline_shadow_candidate",
+      "truth": "eligible",
+      "truth_source": "独立一维索引与物理 stride 审计",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Offline Shadow"
+    },
+    {
+      "id": "bench_feature_scale:x_col_strided",
+      "kernel": "bench_feature_scale",
+      "recipe": {
+        "layout": "x_col_strided"
+      },
+      "evidence_mode": "offline_shadow_candidate",
+      "truth": "ineligible",
+      "truth_source": "独立一维索引与物理 stride 审计",
+      "decision": "False",
+      "classification": "numeric_mismatch",
+      "path": "Offline Shadow"
+    },
+    {
+      "id": "bench_feature_scale:feature_strided",
+      "kernel": "bench_feature_scale",
+      "recipe": {
+        "layout": "feature_strided"
+      },
+      "evidence_mode": "offline_shadow_candidate",
+      "truth": "ineligible",
+      "truth_source": "独立一维索引与物理 stride 审计",
+      "decision": "False",
+      "classification": "numeric_mismatch",
+      "path": "Offline Shadow"
+    },
+    {
+      "id": "bench_feature_bias:contiguous",
+      "kernel": "bench_feature_bias",
+      "recipe": {
+        "layout": "contiguous"
+      },
+      "evidence_mode": "offline_shadow_candidate",
+      "truth": "eligible",
+      "truth_source": "独立一维索引与物理 stride 审计",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Offline Shadow"
+    },
+    {
+      "id": "bench_feature_bias:offset",
+      "kernel": "bench_feature_bias",
+      "recipe": {
+        "layout": "offset"
+      },
+      "evidence_mode": "offline_shadow_candidate",
+      "truth": "eligible",
+      "truth_source": "独立一维索引与物理 stride 审计",
+      "decision": "True",
+      "classification": "correct",
+      "path": "Offline Shadow"
+    },
+    {
+      "id": "bench_feature_bias:x_col_strided",
+      "kernel": "bench_feature_bias",
+      "recipe": {
+        "layout": "x_col_strided"
+      },
+      "evidence_mode": "offline_shadow_candidate",
+      "truth": "ineligible",
+      "truth_source": "独立一维索引与物理 stride 审计",
+      "decision": "False",
+      "classification": "numeric_mismatch",
+      "path": "Offline Shadow"
+    },
+    {
+      "id": "bench_feature_bias:feature_strided",
+      "kernel": "bench_feature_bias",
+      "recipe": {
+        "layout": "feature_strided"
+      },
+      "evidence_mode": "offline_shadow_candidate",
+      "truth": "ineligible",
+      "truth_source": "独立一维索引与物理 stride 审计",
+      "decision": "False",
+      "classification": "numeric_mismatch",
+      "path": "Offline Shadow"
+    }
+  ],
+  "benchmark_audit_generated_at": "2026-09-25T18:09:57.453409+08:00",
+  "metrics": {
+    "counts": {
+      "total": 20,
+      "unlabeled": 0,
+      "labeled": 20,
+      "decided": 20,
+      "tp": 14,
+      "fp": 0,
+      "tn": 6,
+      "fn": 0,
+      "Unknown": 0,
+      "Unsupported": 0
+    },
+    "precision": 1.0,
+    "recall_on_decided": 1.0,
+    "false_rejection_on_decided": 0.0,
+    "decision_coverage": 1.0,
+    "unknown_share_labeled": 0.0,
+    "by_kernel": {
+      "A": {
+        "labeled": 4,
+        "unknown": 0,
+        "tp": 3,
+        "fp": 0,
+        "tn": 1,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "A2": {
+        "labeled": 2,
+        "unknown": 0,
+        "tp": 1,
+        "fp": 0,
+        "tn": 1,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "B": {
+        "labeled": 5,
+        "unknown": 0,
+        "tp": 4,
+        "fp": 0,
+        "tn": 1,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "D": {
+        "labeled": 4,
+        "unknown": 0,
+        "tp": 2,
+        "fp": 0,
+        "tn": 2,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "holdout_matrix": {
+        "labeled": 1,
+        "unknown": 0,
+        "tp": 1,
+        "fp": 0,
+        "tn": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "holdout_vector": {
+        "labeled": 1,
+        "unknown": 0,
+        "tp": 1,
+        "fp": 0,
+        "tn": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "index_hint": {
+        "labeled": 1,
+        "unknown": 0,
+        "tp": 1,
+        "fp": 0,
+        "tn": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "pointer_hint": {
+        "labeled": 2,
+        "unknown": 0,
+        "tp": 1,
+        "fp": 0,
+        "tn": 1,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      }
+    },
+    "macro_by_kernel": {
+      "precision": {
+        "value": 1.0,
+        "defined_kernels": 8
+      },
+      "recall_on_decided": {
+        "value": 1.0,
+        "defined_kernels": 8
+      }
+    },
+    "meaning": "Precision/recall 仅作用于有独立标签且已明确判定的输入；Unknown/Unsupported 单列，recall 不能解释为全清单召回。"
+  },
+  "benchmark_metrics": {
+    "counts": {
+      "total": 20,
+      "unlabeled": 0,
+      "labeled": 20,
+      "decided": 20,
+      "tp": 12,
+      "fp": 0,
+      "tn": 8,
+      "fn": 0,
+      "Unknown": 0,
+      "Unsupported": 0
+    },
+    "precision": 1.0,
+    "recall_on_decided": 1.0,
+    "false_rejection_on_decided": 0.0,
+    "decision_coverage": 1.0,
+    "unknown_share_labeled": 0.0,
+    "by_kernel": {
+      "bench_axpy": {
+        "labeled": 3,
+        "unknown": 0,
+        "tp": 2,
+        "fp": 0,
+        "tn": 1,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "bench_feature_bias": {
+        "labeled": 4,
+        "unknown": 0,
+        "tp": 2,
+        "fp": 0,
+        "tn": 2,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "bench_feature_scale": {
+        "labeled": 4,
+        "unknown": 0,
+        "tp": 2,
+        "fp": 0,
+        "tn": 2,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "bench_multiply": {
+        "labeled": 3,
+        "unknown": 0,
+        "tp": 2,
+        "fp": 0,
+        "tn": 1,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "bench_relu": {
+        "labeled": 3,
+        "unknown": 0,
+        "tp": 2,
+        "fp": 0,
+        "tn": 1,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "bench_square": {
+        "labeled": 3,
+        "unknown": 0,
+        "tp": 2,
+        "fp": 0,
+        "tn": 1,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      }
+    },
+    "macro_by_kernel": {
+      "precision": {
+        "value": 1.0,
+        "defined_kernels": 6
+      },
+      "recall_on_decided": {
+        "value": 1.0,
+        "defined_kernels": 6
+      }
+    },
+    "meaning": "Precision/recall 仅作用于有独立标签且已明确判定的输入；Unknown/Unsupported 单列，recall 不能解释为全清单召回。"
+  },
+  "combined_metrics": {
+    "counts": {
+      "total": 40,
+      "unlabeled": 0,
+      "labeled": 40,
+      "decided": 40,
+      "tp": 26,
+      "fp": 0,
+      "tn": 14,
+      "fn": 0,
+      "Unknown": 0,
+      "Unsupported": 0
+    },
+    "precision": 1.0,
+    "recall_on_decided": 1.0,
+    "false_rejection_on_decided": 0.0,
+    "decision_coverage": 1.0,
+    "unknown_share_labeled": 0.0,
+    "by_kernel": {
+      "A": {
+        "labeled": 4,
+        "unknown": 0,
+        "tp": 3,
+        "fp": 0,
+        "tn": 1,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "A2": {
+        "labeled": 2,
+        "unknown": 0,
+        "tp": 1,
+        "fp": 0,
+        "tn": 1,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "B": {
+        "labeled": 5,
+        "unknown": 0,
+        "tp": 4,
+        "fp": 0,
+        "tn": 1,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "D": {
+        "labeled": 4,
+        "unknown": 0,
+        "tp": 2,
+        "fp": 0,
+        "tn": 2,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "bench_axpy": {
+        "labeled": 3,
+        "unknown": 0,
+        "tp": 2,
+        "fp": 0,
+        "tn": 1,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "bench_feature_bias": {
+        "labeled": 4,
+        "unknown": 0,
+        "tp": 2,
+        "fp": 0,
+        "tn": 2,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "bench_feature_scale": {
+        "labeled": 4,
+        "unknown": 0,
+        "tp": 2,
+        "fp": 0,
+        "tn": 2,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "bench_multiply": {
+        "labeled": 3,
+        "unknown": 0,
+        "tp": 2,
+        "fp": 0,
+        "tn": 1,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "bench_relu": {
+        "labeled": 3,
+        "unknown": 0,
+        "tp": 2,
+        "fp": 0,
+        "tn": 1,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "bench_square": {
+        "labeled": 3,
+        "unknown": 0,
+        "tp": 2,
+        "fp": 0,
+        "tn": 1,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "holdout_matrix": {
+        "labeled": 1,
+        "unknown": 0,
+        "tp": 1,
+        "fp": 0,
+        "tn": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "holdout_vector": {
+        "labeled": 1,
+        "unknown": 0,
+        "tp": 1,
+        "fp": 0,
+        "tn": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "index_hint": {
+        "labeled": 1,
+        "unknown": 0,
+        "tp": 1,
+        "fp": 0,
+        "tn": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      },
+      "pointer_hint": {
+        "labeled": 2,
+        "unknown": 0,
+        "tp": 1,
+        "fp": 0,
+        "tn": 1,
+        "fn": 0,
+        "precision": 1.0,
+        "recall_on_decided": 1.0
+      }
+    },
+    "macro_by_kernel": {
+      "precision": {
+        "value": 1.0,
+        "defined_kernels": 14
+      },
+      "recall_on_decided": {
+        "value": 1.0,
+        "defined_kernels": 14
+      }
+    },
+    "meaning": "Precision/recall 仅作用于有独立标签且已明确判定的输入；Unknown/Unsupported 单列，recall 不能解释为全清单召回。"
+  },
+  "catalog_coverage": {
+    "registered": 15,
+    "syntax_supported": 14,
+    "syntax_unknown": 0,
+    "syntax_unsupported": 1,
+    "candidate_complete": 14,
+    "guard_available": 8,
+    "fast_feasible": 8
+  },
+  "label_scope": "仅既有确切输入；标签来自索引/调用/提示义务的人工审计，未经第二名审计者盲审。不能外推契约恢复总体 precision/recall。"
+}

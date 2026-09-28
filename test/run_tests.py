@@ -20,7 +20,7 @@ def main() -> int:
     args = parser.parse_args()
 
     print("[1/2] 运行测试", flush=True)
-    tests = subprocess.run([sys.executable, "-m", "pytest", "-q", "test/test_contract_dsl.py", "test/test_access_ir.py", "test/test_stage_integration.py", "test/test_poc.py", "test/test_candidates.py", "test/test_shape_stride.py", "test/test_alignment.py", "test/test_span.py", "test/test_holdouts.py", "test/test_candidate_report.py", "test/test_mutation.py", "test/test_smt_refine.py", "test/test_guard_dispatch.py"], cwd=ROOT, check=False, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    tests = subprocess.run([sys.executable, "-m", "pytest", "-q", "test"], cwd=ROOT, check=False, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     print(tests.stdout, end="", flush=True)
     if tests.returncode:
         return tests.returncode
@@ -36,7 +36,7 @@ def main() -> int:
 
     data = json.loads(data_path.read_text(encoding="utf-8"))
     stage5_ok = True
-    if result_path.stem.startswith("guard_regression"):
+    if result_path.stem.startswith(("guard_regression", "phase6_regression")):
         from pact.cost_model import COST_VERSION, CostTable
         from pact.guard_plan import SPECS, compile_guard_plan
 
@@ -63,9 +63,12 @@ def main() -> int:
                       "go_stage5_regression": bool(summary and data["go_core"] and guard_current and cost_current)}
         stage5_ok = validation["go_stage5_regression"]
         data["stage5_validation"] = validation
+        if result_path.stem.startswith("phase6_regression"):
+            from bench.validate import phase6_source_fingerprint
+            data["stage6_source_fingerprint"] = phase6_source_fingerprint()
         data_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         with result_path.open("a", encoding="utf-8") as report:
-            report.write("\n## 第五阶段验收汇总\n\n")
+            report.write("\n## 历史 Guard 基线与当前测试汇总\n\n")
             report.write(f"- 测试：{validation['pytest_summary']}；退出码 {validation['pytest_exit_code']}。\n")
             report.write(f"- 旧隔离检查：{sum(data['checks'].values())}/{len(data['checks'])}；逐例 {len(data['runs'])}，附加重复 {len(data['repeat_runs'])}。\n")
             report.write(f"- 新 Guard 隔离：{validation['guard_isolated_runs']} 例，报告验收 {'通过' if validation['guard_report_passed'] else '未通过'}；离线成本样例 {validation['cost_cases']}。\n")

@@ -19,37 +19,39 @@ class ParseFailure(Exception):
 
 @dataclass(frozen=True)
 class Expr:
-    op: str
-    value: int | str | None = None
-    args: tuple[Expr, ...] = ()
+    op: str # 操作类型符
+    value: int | str | None = None # 具体数值
+    args: tuple[Expr, ...] = () # 子表达式元组
 
-    def key(self) -> str:
+    def key(self) -> str: # 将数学表达式转换成唯一的字符串
         return f"{self.op}({self.value if self.value is not None else ','.join(item.key() for item in self.args)})"
 
-    def contains_index(self) -> bool:
+    def contains_index(self) -> bool: # 检查表达式中是否包含 pid 或 lane
         return self.op in ("pid", "lane") or any(item.contains_index() for item in self.args)
 
 
+# 消除交换律与结合律
 def _commutative(op: str, items: tuple[Expr, ...]) -> Expr:
     flat = tuple(part for item in items for part in (item.args if item.op == op else (item,)))
+    # 强制字典序排序是消除交换律与结合律的关键
     return Expr(op, args=tuple(sorted(flat, key=Expr.key)))
 
 
 @dataclass(frozen=True)
 class AccessPoint:
-    kind: str
-    pointer_param: str
-    tensor: str
-    raw_address: str
-    raw_offset: str
+    kind: str # "load" 还是 "store"
+    pointer_param: str # 对应源码参数里的哪一个，如 "X"
+    tensor: str # 绑定的逻辑张量名称，如 "X"
+    raw_address: str # 源码里的原始文本，如 "X + row * S0 + col"
+    raw_offset: str 
     expanded_offset: str
-    offset: Expr
-    raw_mask: str
+    offset: Expr # 规范化后的纯代数 Expr 树
+    raw_mask: str # 源码里的原始 mask 文本，如 "col < N"
     expanded_mask: str
-    mask: Expr
-    source_file: str
-    line: int
-    element_bytes: int | None
+    mask: Expr # 规范化后的 mask 比较树
+    source_file: str # 源文件名
+    line: int # 源码第几行
+    element_bytes: int | None # 单个元素字节数（如 float32 为 4）
     index_calls: tuple[str, ...]
     constexpr: tuple[str, ...]
     value: Expr | None = None
@@ -104,30 +106,42 @@ def _source(fn_or_source) -> tuple[str, int, str]:
     return textwrap.dedent("".join(lines)), first, name
 
 
+# 遍历 Python AST，把复杂的变量赋值层层剖析，还原成 Expr
 class _Normalizer:
     def __init__(self, signature: tuple[str, ...], assignments: dict[str, ast.AST], constexpr: tuple[str, ...]):
+        # 记录每个参数在函数签名中的位置
         self.params = {name: pos for pos, name in enumerate(signature)}
+        # 记录函数体内所有的临时赋值语句
         self.assignments = assignments
+        # 记录哪些参数被标记了 tl.constexpr
         self.constexpr = set(constexpr)
 
+    # 递归下降解析器：python AST -> Expr
     def expr(self, node: ast.AST, seen: frozenset[str] = frozenset()) -> Expr:
         if _tl_call(node, "multiple_of") and len(node.args) == 2 and not node.keywords:
             return self.expr(node.args[0], seen)
+        
         if isinstance(node, ast.Constant) and type(node.value) is int:
             return Expr("const", node.value)
+        
         if isinstance(node, ast.Name):
+            # 防死循环：检查循环定义 (比如 a = b; b = a)
             if node.id in self.assignments:
                 if node.id in seen:
                     raise ParseFailure("Unsupported", "索引变量存在循环定义")
+                # 把变量替换为其原始赋值表达式，继续递归
                 return self.expr(self.assignments[node.id], seen | {node.id})
             if node.id in self.params:
+                # 溯源到最外层函数参数
                 return Expr("param", self.params[node.id])
             raise ParseFailure("Unknown", f"未绑定的索引变量：{node.id}")
+        
         if _tl_call(node, "program_id"):
             axis = node.args[0] if len(node.args) == 1 and not node.keywords else (node.keywords[0].value if not node.args and len(node.keywords) == 1 and node.keywords[0].arg == "axis" else None)
             if not isinstance(axis, ast.Constant) or type(axis.value) is not int or axis.value != 0:
                 raise ParseFailure("Unsupported", "只支持 program_id 的第 0 轴")
             return Expr("pid", axis.value)
+        
         if _tl_call(node, "arange"):
             if len(node.args) != 2 or not isinstance(node.args[0], ast.Constant) or node.args[0].value != 0:
                 raise ParseFailure("Unsupported", "只支持从 0 开始的 arange")
@@ -137,19 +151,25 @@ class _Normalizer:
             if block.op not in ("param", "const"):
                 raise ParseFailure("Unsupported", "arange 的块大小需要静态标量")
             return Expr("lane", args=(block,))
+        
         if isinstance(node, ast.BinOp) and isinstance(node.op, (ast.Add, ast.Mult)):
             left, right = self.expr(node.left, seen), self.expr(node.right, seen)
             if isinstance(node.op, ast.Add):
                 return _commutative("add", (left, right))
+            # 仿射支持域检查：
             if left.contains_index() and right.contains_index():
                 raise ParseFailure("Unsupported", "两个索引量相乘不在仿射支持域")
             return _commutative("mul", (left, right))
+        
         raise ParseFailure("Unsupported", f"不支持的索引表达式：{ast.unparse(node)}")
 
+    # 边界掩码的规范化：
     def mask(self, node: ast.AST) -> Expr:
         if isinstance(node, ast.Name) and node.id in self.assignments:
             return self.mask(self.assignments[node.id])
+        # 比较必须是严格的小于号
         if isinstance(node, ast.Compare) and len(node.ops) == len(node.comparators) == 1 and isinstance(node.ops[0], ast.Lt):
+            # 左边必须是包含线程索引的动态量，右边必须是静态边界
             left, right = self.expr(node.left), self.expr(node.comparators[0])
             if not left.contains_index() or right.contains_index():
                 raise ParseFailure("Unsupported", "mask 不是受支持的尾部边界比较")

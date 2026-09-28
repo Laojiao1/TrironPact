@@ -1,6 +1,6 @@
 # TritonPact：Triton Kernel 访存契约分析
 
-TritonPact 研究 PyTorch Tensor 的物理布局与 Triton Kernel 访存之间的契约。项目已完成**第一阶段 PoC**、**第二阶段契约 DSL 与统一 AST/Access IR**、**第三阶段候选契约提取**、**第四阶段边界证据与精化**和**第五阶段 Guard 与分派**。在外部给定算子语义、Kernel 参数映射和 PyTorch 参考实现的前提下，系统解析受支持的 Triton Python 源码，核对物理布局候选，并在独立新入口执行 Fast、显式 Relayout+Fast 或 PyTorch Fallback。
+TritonPact 研究 PyTorch Tensor 的物理布局与 Triton Kernel 访存之间的契约。项目已完成**第一阶段 PoC**、**第二阶段契约 DSL 与统一 AST/Access IR**、**第三阶段候选契约提取**、**第四阶段边界证据与精化**、**第五阶段 Guard 与分派**和**第六阶段受限实验评估**。在外部给定算子语义、Kernel 参数映射和 PyTorch 参考实现的前提下，系统解析受支持的 Triton Python 源码，核对物理布局候选，并在独立新入口执行 Fast、显式 Relayout+Fast 或 PyTorch Fallback。
 
 当前结论仅适用于已实现的规则 Tile、有限仿射地址模板、显式 mask 和限定输入域。算子原本应实现的语义不能只从 Kernel 当前实现推断；现阶段由 `pact/semantics.py` 明确提供。项目主线见[研究项目说明](../../docs/TritonPact%20研究项目说明.md)，阶段范围与实施记录见[第一阶段 PoC 开发方案](../../docs/开发路线/TritonPact%20第一阶段%20PoC%20开发方案.md)和[第二阶段开发方案](../../docs/开发路线/TritonPact%20第二阶段%20契约DSL与Access%20IR开发方案.md)。
 
@@ -105,6 +105,24 @@ python main.py stage-boundary --quick --output results/boundary_refinement_quick
 
 快速模式只运行一轮关键配置；`--output` 将 Markdown 和同名 JSON 另存。也可单独运行 `python -m pytest -q test/test_poc.py`。验收失败时命令返回非零退出码。
 
+## 第六阶段受限实验入口
+
+从项目根目录、WSL2 的 `triton` 环境运行，命令使用 `python`。第六阶段报告单独保存，不覆盖历史报告：
+
+```bash
+python -m bench.inventory --output results/phase6_bench_inventory.md
+python -m bench.benchmark_audit --output results/phase6_benchmark_audit.md
+python -m bench.contract_eval --output results/phase6_contract_eval.md
+python -m bench.boundary_eval --output results/phase6_boundary_ablation.md --workers 8
+python -m bench.error_prevention --output results/phase6_error_prevention.md
+python -m bench.performance --output results/phase6_dispatch_performance.md --warmup 3 --repeats 15 --batch-calls 16
+python -m bench.guard_overhead --source results/phase6_dispatch_performance.json --output results/phase6_guard_overhead.md
+python test/run_tests.py --output results/phase6_regression.md
+python -m bench.validate --output results/phase6_stage_status.md
+```
+
+`bench/catalog.json` 区分正向集、挑战集与待核查来源。当前登记 15 个不同函数体：14 个 AST `Supported` 正向样本、1 个原样保留且明确 `Unsupported` 的 vLLM 挑战样本；覆盖 elementwise/mapping、2D layout、feature broadcast 三类，并固定 Triton 与 vLLM 两个开源来源。清单与 `bench/specs.py` 共同记录 wrapper、独立参考、参数绑定、dtype/输入域、核心契约、允许路径和排除理由。五层分母为登记 15、可解析 14、候选完整 14、Guard 可用 8、Fast 可行 8。新增六个项目内 Kernel 只进入离线影子报告，没有注册 GuardPlan 或扩大 Fast。边界随机对照与谓词引导对照采用相同 GPU worker 预算，当前有限样例不支持“谓词引导总是更好”的结论。性能报告分别保存单次同步完成延迟和批量摊销吞吐，后者不等于单次调用延迟。
+
 ## 验收结果与证据边界
 
 第二阶段基线为 **18 项测试、11/11 项 PoC 检查及 4/4 项 IR 检查通过**。第三阶段完整验收为 **50 项测试、11/11 项隔离检查及 6/6 项候选报告检查通过**；机器结果中 `go_core=true`、`refinement_verified=true`、`go_candidates=true`。完整回归保留 28 个逐例运行和 27 个附加重复运行，A 转置原始 Fast、A2 padding 直通、B 非整除直通三组关键配置各累计 10 次。两个留出 Kernel 的非连续输入和成对提示样例另经隔离进程数值核对；有限运行结果不替代静态推导。
@@ -115,4 +133,4 @@ python main.py stage-boundary --quick --output results/boundary_refinement_quick
 
 机器结果分别记录 `guard_basis`、`fast_eligible` 和 `observation_level`。`Statically-Proven` 只指声明语义、参数映射与受支持模板内的布局判断，且只有 Guard 放行才取得 Fast 资格；`Empirically-Validated` 只说明这一次运行已观察到正确或错误结果。普通异常、超时和进程故障不会直接被判作非法访存。未知 dtype、无法解释的输入或超出支持范围的情况不进入 Fast。
 
-旧 PoC Guard 尚未接入第三阶段新候选，也没有新增对齐提示案例 C 的 Fast 路径。复杂间接索引、动态循环、任意 alias、已有 Generic Kernel、图级 Guard、自动成本分派和库级自动发现与语义恢复仍不在当前实现范围内。A2 证明了一个非连续输入可以避免复制并正确直通；当前报告没有端到端性能测量，也不据此宣称稳定加速。
+旧 PoC Guard 仍作为历史入口；第五阶段新入口已接入经当前源码核对的候选、真实指针对齐检查、显式 Relayout 和离线成本查表。第六阶段新增受限基准、隔离契约核对、边界对照和同步性能试运行。新增离线基准共 20 个物理边界样例：12 个连续或偏移输入数值正确，4 个一维步长切片及 4 个二维特征广播步长违约均形成数值错读见证。旧在线 Guard 20 个标签与新增离线影子 20 个标签分列统计，各自 FP/FN/Unknown 均为 0；合并 40 个只用于样例总览。该结果只覆盖固定样例和声明语义，不构成库级恢复率或新增在线 Fast 资格。复杂间接索引、动态循环、任意 alias、Generic Kernel、图级 Guard、库级自动发现与自动语义恢复仍不在实现范围。本机 13 组受限留出输入的单次同步速度比随测量轮次大幅波动，GPU 测量前后频率亦明显变化；批量摊销与单次延迟结论须分开，尚无可外推的稳定加速证据。成本表仅精确命中 2 组。
