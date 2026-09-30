@@ -1,0 +1,3517 @@
+{
+  "generated_at": "2026-09-30T13:20:09.161751+08:00",
+  "fingerprints": {
+    "corpus": "0b0cc402299f46dc3e248310a2450c35cbc726bbf324b980b691ad820a44a46d",
+    "sources": "017fb0dc8f904fa18b42f06faee22d4b12a4e3d13d56a0582561c56e8827263c",
+    "implementation": "5aae76831e69013392ad632cdbbe1f499bfbfbca890038ef58755cb30805a5bd"
+  },
+  "environment": {
+    "system": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31",
+    "python": "3.10.20",
+    "torch": "2.11.0+cu128",
+    "triton": "3.6.0",
+    "cuda": "12.8",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+  },
+  "rows": [
+    {
+      "id": "triton_add",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "x_ptr": "x",
+            "y_ptr": "y",
+            "output_ptr": "out",
+            "n_elements": "x.numel()",
+            "BLOCK_SIZE": "128"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "x_ptr": "x",
+            "y_ptr": "y",
+            "output_ptr": "out",
+            "n_elements": "x.numel()",
+            "BLOCK_SIZE": "128"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "triton_add"
+      ],
+      "elapsed_seconds": 8.413113245000204
+    },
+    {
+      "id": "triton_where_zero",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "a_ptr": "x",
+            "out_ptr": "out",
+            "BLOCK_SIZE": "32"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                32
+              ],
+              "stride_elements": [
+                32,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                32
+              ],
+              "stride_elements": [
+                32,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "a_ptr": "x",
+            "out_ptr": "out",
+            "BLOCK_SIZE": "32"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                32
+              ],
+              "stride_elements": [
+                32,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                32
+              ],
+              "stride_elements": [
+                32,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "triton_where_zero"
+      ],
+      "elapsed_seconds": 6.786655429000348
+    },
+    {
+      "id": "triton_interleave",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "Z": "out",
+            "N": "128"
+          },
+          "tensor_metadata": {
+            "out": {
+              "shape": [
+                256
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "Z": "out",
+            "N": "128"
+          },
+          "tensor_metadata": {
+            "out": {
+              "shape": [
+                256
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "triton_interleave"
+      ],
+      "elapsed_seconds": 7.269682588000251
+    },
+    {
+      "id": "triton_ravel",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "out_ptr": "out"
+          },
+          "tensor_metadata": {
+            "out": {
+              "shape": [
+                256
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "out_ptr": "out"
+          },
+          "tensor_metadata": {
+            "out": {
+              "shape": [
+                256
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "triton_ravel"
+      ],
+      "elapsed_seconds": 7.399588276000031
+    },
+    {
+      "id": "pytorch_sub",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "in_ptr0": "x",
+            "in_ptr1": "y",
+            "out_ptr": "out",
+            "n_elements": "x.numel()",
+            "BLOCK_SIZE": "128"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "in_ptr0": "x",
+            "in_ptr1": "y",
+            "out_ptr": "out",
+            "n_elements": "x.numel()",
+            "BLOCK_SIZE": "128"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "pytorch_sub"
+      ],
+      "elapsed_seconds": 7.104959385999791
+    },
+    {
+      "id": "pytorch_double",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "in_ptr0": "x",
+            "out_ptr": "out",
+            "n_elements": "x.numel()",
+            "BLOCK_SIZE": "128"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "in_ptr0": "x",
+            "out_ptr": "out",
+            "n_elements": "x.numel()",
+            "BLOCK_SIZE": "128"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "pytorch_double"
+      ],
+      "elapsed_seconds": 6.965475386000435
+    },
+    {
+      "id": "pytorch_double_strided",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "in_ptr": "x",
+            "out_ptr": "out",
+            "in_y_stride": "x.stride(0)",
+            "out_y_stride": "out.stride(0)",
+            "X_BLOCK_SIZE": "8",
+            "Y_BLOCK_SIZE": "8"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                16,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                16,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "in_ptr": "x",
+            "out_ptr": "out",
+            "in_y_stride": "x.stride(0)",
+            "out_y_stride": "out.stride(0)",
+            "X_BLOCK_SIZE": "8",
+            "Y_BLOCK_SIZE": "8"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                16,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                16,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "pytorch_double_strided"
+      ],
+      "elapsed_seconds": 7.048463322000316
+    },
+    {
+      "id": "triton_broadcast",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "x_ptr": "x",
+            "y_ptr": "y",
+            "y_broadcasted_ptr": "out",
+            "M": "32",
+            "N": "64"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                64
+              ],
+              "stride_elements": [
+                64,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                64
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                64
+              ],
+              "stride_elements": [
+                64,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "x_ptr": "x",
+            "y_ptr": "y",
+            "y_broadcasted_ptr": "out",
+            "M": "32",
+            "N": "64"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                64
+              ],
+              "stride_elements": [
+                64,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                64
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                64
+              ],
+              "stride_elements": [
+                64,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "triton_broadcast"
+      ],
+      "elapsed_seconds": 7.166733698000826
+    },
+    {
+      "id": "triton_where_broadcast",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "cond_ptr": "mask",
+            "a_ptr": "x",
+            "out_ptr": "out",
+            "BLOCK_SIZE": "32"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                32
+              ],
+              "stride_elements": [
+                32,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "mask": {
+              "shape": [
+                32
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.bool"
+            },
+            "out": {
+              "shape": [
+                32,
+                32
+              ],
+              "stride_elements": [
+                32,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "cond_ptr": "mask",
+            "a_ptr": "x",
+            "out_ptr": "out",
+            "BLOCK_SIZE": "32"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                32
+              ],
+              "stride_elements": [
+                32,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "mask": {
+              "shape": [
+                32
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.bool"
+            },
+            "out": {
+              "shape": [
+                32,
+                32
+              ],
+              "stride_elements": [
+                32,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "triton_where_broadcast"
+      ],
+      "elapsed_seconds": 7.013291485999616
+    },
+    {
+      "id": "pytorch_masked_add",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "in_ptr0": "x",
+            "in_ptr1": "y",
+            "mask_ptr": "mask",
+            "out_ptr": "out",
+            "n_elements": "x.numel()",
+            "BLOCK_SIZE": "128"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "mask": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.bool"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "in_ptr0": "x",
+            "in_ptr1": "y",
+            "mask_ptr": "mask",
+            "out_ptr": "out",
+            "n_elements": "x.numel()",
+            "BLOCK_SIZE": "128"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "mask": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.bool"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "pytorch_masked_add"
+      ],
+      "elapsed_seconds": 7.243417593999766
+    },
+    {
+      "id": "liger_swiglu",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "a_ptr": "x",
+            "b_ptr": "y",
+            "c_ptr": "out",
+            "stride": "x.stride(0)",
+            "gate_multiplier": "1.0",
+            "n_cols": "256",
+            "BLOCK_SIZE": "256"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "a_ptr": "x",
+            "b_ptr": "y",
+            "c_ptr": "out",
+            "stride": "x.stride(0)",
+            "gate_multiplier": "1.0",
+            "n_cols": "256",
+            "BLOCK_SIZE": "256"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "liger_swiglu"
+      ],
+      "elapsed_seconds": 6.9888812580002195
+    },
+    {
+      "id": "liger_swiglu_tiled",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "a_ptr": "x",
+            "b_ptr": "y",
+            "c_ptr": "out",
+            "stride": "x.stride(0)",
+            "gate_multiplier": "1.0",
+            "n_cols": "256",
+            "BLOCK_SIZE": "128"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "a_ptr": "x",
+            "b_ptr": "y",
+            "c_ptr": "out",
+            "stride": "x.stride(0)",
+            "gate_multiplier": "1.0",
+            "n_cols": "256",
+            "BLOCK_SIZE": "128"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "liger_swiglu_tiled"
+      ],
+      "elapsed_seconds": 7.218128943000011
+    },
+    {
+      "id": "liger_geglu",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "a": "x",
+            "b": "y",
+            "c": "out",
+            "stride": "x.stride(0)",
+            "n_cols": "256",
+            "BLOCK_SIZE": "256"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "a": "x",
+            "b": "y",
+            "c": "out",
+            "stride": "x.stride(0)",
+            "n_cols": "256",
+            "BLOCK_SIZE": "256"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "liger_geglu"
+      ],
+      "elapsed_seconds": 7.068178336000528
+    },
+    {
+      "id": "liger_fused_swiglu",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "y_ptr": "x",
+            "c_ptr": "out",
+            "in_stride": "x.stride(0)",
+            "out_stride": "out.stride(0)",
+            "ffn_size": "256",
+            "BLOCK_SIZE": "256"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                512
+              ],
+              "stride_elements": [
+                512,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "y_ptr": "x",
+            "c_ptr": "out",
+            "in_stride": "x.stride(0)",
+            "out_stride": "out.stride(0)",
+            "ffn_size": "256",
+            "BLOCK_SIZE": "256"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                512
+              ],
+              "stride_elements": [
+                512,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "liger_fused_swiglu"
+      ],
+      "elapsed_seconds": 7.263988920999509
+    },
+    {
+      "id": "flag_slice",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "input_ptr": "x",
+            "output_ptr": "out",
+            "dim": "1",
+            "start": "2",
+            "step": "2",
+            "input_stride_0": "x.stride(0)",
+            "input_stride_1": "x.stride(1)",
+            "output_size_0": "16",
+            "output_size_1": "15",
+            "BLOCK_SIZE": "16"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                16,
+                32
+              ],
+              "stride_elements": [
+                32,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                16,
+                15
+              ],
+              "stride_elements": [
+                15,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "input_ptr": "x",
+            "output_ptr": "out",
+            "dim": "1",
+            "start": "2",
+            "step": "2",
+            "input_stride_0": "x.stride(0)",
+            "input_stride_1": "x.stride(1)",
+            "output_size_0": "16",
+            "output_size_1": "15",
+            "BLOCK_SIZE": "16"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                16,
+                32
+              ],
+              "stride_elements": [
+                32,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                16,
+                15
+              ],
+              "stride_elements": [
+                15,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "flag_slice"
+      ],
+      "elapsed_seconds": 7.296310624999933
+    },
+    {
+      "id": "triton_permute",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "X": "x",
+            "stride_xm": "x.stride(0)",
+            "stride_xn": "x.stride(1)",
+            "Z": "out",
+            "stride_zm": "out.stride(1)",
+            "stride_zn": "out.stride(0)",
+            "BLOCK_M": "64",
+            "BLOCK_N": "64"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                64,
+                64
+              ],
+              "stride_elements": [
+                64,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                64,
+                64
+              ],
+              "stride_elements": [
+                64,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "X": "x",
+            "stride_xm": "x.stride(0)",
+            "stride_xn": "x.stride(1)",
+            "Z": "out",
+            "stride_zm": "out.stride(1)",
+            "stride_zn": "out.stride(0)",
+            "BLOCK_M": "64",
+            "BLOCK_N": "64"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                64,
+                64
+              ],
+              "stride_elements": [
+                64,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                64,
+                64
+              ],
+              "stride_elements": [
+                64,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "triton_permute"
+      ],
+      "elapsed_seconds": 7.031202683000629
+    },
+    {
+      "id": "triton_trans2d",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "In": "x",
+            "Out": "out",
+            "in_shape1": "16",
+            "in_shape2": "16",
+            "ou_shape1": "16",
+            "ou_shape2": "16",
+            "trans1": "1",
+            "trans2": "0"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                16,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            },
+            "out": {
+              "shape": [
+                16,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "In": "x",
+            "Out": "out",
+            "in_shape1": "16",
+            "in_shape2": "16",
+            "ou_shape1": "16",
+            "ou_shape2": "16",
+            "trans1": "1",
+            "trans2": "0"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                16,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            },
+            "out": {
+              "shape": [
+                16,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "triton_trans2d"
+      ],
+      "elapsed_seconds": 6.393150590000005
+    },
+    {
+      "id": "triton_flip",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "X": "x",
+            "Z": "out",
+            "M": "8",
+            "N": "2",
+            "K": "256",
+            "dim": "2"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                2,
+                256
+              ],
+              "stride_elements": [
+                512,
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                2,
+                256
+              ],
+              "stride_elements": [
+                512,
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "X": "x",
+            "Z": "out",
+            "M": "8",
+            "N": "2",
+            "K": "256",
+            "dim": "2"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                2,
+                256
+              ],
+              "stride_elements": [
+                512,
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                2,
+                256
+              ],
+              "stride_elements": [
+                512,
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "triton_flip"
+      ],
+      "elapsed_seconds": 6.876896931000374
+    },
+    {
+      "id": "triton_pair_flip",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "out_ptr": "out",
+            "x_ptr": "x",
+            "N": "16"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                1,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                1,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "out_ptr": "out",
+            "x_ptr": "x",
+            "N": "16"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                1,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                1,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "triton_pair_flip"
+      ],
+      "elapsed_seconds": 6.869025104000684
+    },
+    {
+      "id": "triton_split",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "out2",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "X": "x",
+            "Z1": "out",
+            "Z2": "out2",
+            "N": "256"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                128,
+                2
+              ],
+              "stride_elements": [
+                2,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            },
+            "out": {
+              "shape": [
+                128
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            },
+            "out2": {
+              "shape": [
+                128
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "out2",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "X": "x",
+            "Z1": "out",
+            "Z2": "out2",
+            "N": "256"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                128,
+                2
+              ],
+              "stride_elements": [
+                2,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            },
+            "out": {
+              "shape": [
+                128
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            },
+            "out2": {
+              "shape": [
+                128
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "triton_split"
+      ],
+      "elapsed_seconds": 7.081238409000434
+    },
+    {
+      "id": "triton_softmax",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "X": "x",
+            "Z": "out",
+            "numel": "128",
+            "shape": "(128,)",
+            "dim": "0",
+            "ieee_rounding": "False"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                128
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                128
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "X": "x",
+            "Z": "out",
+            "numel": "128",
+            "shape": "(128,)",
+            "dim": "0",
+            "ieee_rounding": "False"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                128
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                128
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "triton_softmax"
+      ],
+      "elapsed_seconds": 6.868363307000436
+    },
+    {
+      "id": "liger_softmax",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "Y_ptr": "out",
+            "Y_row_stride": "out.stride(0)",
+            "X_ptr": "x",
+            "X_row_stride": "x.stride(0)",
+            "n_cols": "256",
+            "BLOCK_SIZE": "256"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "Y_ptr": "out",
+            "Y_row_stride": "out.stride(0)",
+            "X_ptr": "x",
+            "X_row_stride": "x.stride(0)",
+            "n_cols": "256",
+            "BLOCK_SIZE": "256"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "liger_softmax"
+      ],
+      "elapsed_seconds": 6.878404508000131
+    },
+    {
+      "id": "liger_layernorm",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "mean",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "Y_ptr": "out",
+            "Y_row_stride": "out.stride(0)",
+            "X_ptr": "x",
+            "X_row_stride": "x.stride(0)",
+            "W_ptr": "w",
+            "W_row_stride": "1",
+            "B_ptr": "b",
+            "B_row_stride": "1",
+            "Mean_ptr": "mean",
+            "Mean_row_stride": "1",
+            "RSTD_ptr": "rstd",
+            "RSTD_row_stride": "1",
+            "n_cols": "80",
+            "eps": "1e-5",
+            "BLOCK_SIZE": "128"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "b": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "mean": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "mean",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "Y_ptr": "out",
+            "Y_row_stride": "out.stride(0)",
+            "X_ptr": "x",
+            "X_row_stride": "x.stride(0)",
+            "W_ptr": "w",
+            "W_row_stride": "1",
+            "B_ptr": "b",
+            "B_row_stride": "1",
+            "Mean_ptr": "mean",
+            "Mean_row_stride": "1",
+            "RSTD_ptr": "rstd",
+            "RSTD_row_stride": "1",
+            "n_cols": "80",
+            "eps": "1e-5",
+            "BLOCK_SIZE": "128"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "b": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "mean": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "liger_layernorm"
+      ],
+      "elapsed_seconds": 7.176912597999944
+    },
+    {
+      "id": "unsloth_layernorm",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "mean",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "Y": "out",
+            "Y_row_stride": "out.stride(0)",
+            "X": "x",
+            "X_row_stride": "x.stride(0)",
+            "W": "w",
+            "b": "b",
+            "r": "rstd",
+            "mu": "mean",
+            "n_cols": "80",
+            "eps": "1e-5",
+            "BLOCK_SIZE": "128"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "b": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "mean": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "mean",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "Y": "out",
+            "Y_row_stride": "out.stride(0)",
+            "X": "x",
+            "X_row_stride": "x.stride(0)",
+            "W": "w",
+            "b": "b",
+            "r": "rstd",
+            "mu": "mean",
+            "n_cols": "80",
+            "eps": "1e-5",
+            "BLOCK_SIZE": "128"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "b": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "mean": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "unsloth_layernorm"
+      ],
+      "elapsed_seconds": 7.216370539000309
+    },
+    {
+      "id": "liger_rmsnorm",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "Y_ptr": "out",
+            "Y_row_stride": "out.stride(0)",
+            "X_ptr": "x",
+            "X_row_stride": "x.stride(0)",
+            "W_ptr": "w",
+            "W_row_stride": "1",
+            "RSTD_ptr": "rstd",
+            "RSTD_row_stride": "1",
+            "n_cols": "80",
+            "eps": "1e-6",
+            "offset": "0.0",
+            "casting_mode": "0",
+            "elementwise_affine": "True",
+            "BLOCK_SIZE": "128"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "Y_ptr": "out",
+            "Y_row_stride": "out.stride(0)",
+            "X_ptr": "x",
+            "X_row_stride": "x.stride(0)",
+            "W_ptr": "w",
+            "W_row_stride": "1",
+            "RSTD_ptr": "rstd",
+            "RSTD_row_stride": "1",
+            "n_cols": "80",
+            "eps": "1e-6",
+            "offset": "0.0",
+            "casting_mode": "0",
+            "elementwise_affine": "True",
+            "BLOCK_SIZE": "128"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "liger_rmsnorm"
+      ],
+      "elapsed_seconds": 7.02702720400066
+    },
+    {
+      "id": "liger_block_rmsnorm",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "Y_ptr": "out",
+            "Y_row_stride": "out.stride(0)",
+            "X_ptr": "x",
+            "X_row_stride": "x.stride(0)",
+            "W_ptr": "w",
+            "W_row_stride": "1",
+            "RSTD_ptr": "rstd",
+            "RSTD_row_stride": "1",
+            "n_rows": "8",
+            "n_cols": "80",
+            "eps": "1e-6",
+            "offset": "0.0",
+            "casting_mode": "0",
+            "elementwise_affine": "True",
+            "BLOCK_SIZE": "128",
+            "BLOCK_ROW": "4"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "Y_ptr": "out",
+            "Y_row_stride": "out.stride(0)",
+            "X_ptr": "x",
+            "X_row_stride": "x.stride(0)",
+            "W_ptr": "w",
+            "W_row_stride": "1",
+            "RSTD_ptr": "rstd",
+            "RSTD_row_stride": "1",
+            "n_rows": "8",
+            "n_cols": "80",
+            "eps": "1e-6",
+            "offset": "0.0",
+            "casting_mode": "0",
+            "elementwise_affine": "True",
+            "BLOCK_SIZE": "128",
+            "BLOCK_ROW": "4"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "liger_block_rmsnorm"
+      ],
+      "elapsed_seconds": 7.201291410000522
+    },
+    {
+      "id": "unsloth_rmsnorm",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "Y": "out",
+            "Y_row_stride": "out.stride(0)",
+            "X": "x",
+            "X_row_stride": "x.stride(0)",
+            "W": "w",
+            "W_row_stride": "1",
+            "r": "rstd",
+            "r_row_stride": "1",
+            "n_cols": "80",
+            "eps": "1e-6",
+            "BLOCK_SIZE": "128"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "Y": "out",
+            "Y_row_stride": "out.stride(0)",
+            "X": "x",
+            "X_row_stride": "x.stride(0)",
+            "W": "w",
+            "W_row_stride": "1",
+            "r": "rstd",
+            "r_row_stride": "1",
+            "n_cols": "80",
+            "eps": "1e-6",
+            "BLOCK_SIZE": "128"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "unsloth_rmsnorm"
+      ],
+      "elapsed_seconds": 8.027935676999732
+    },
+    {
+      "id": "unsloth_gemma_rmsnorm",
+      "status": "passed",
+      "runs": [
+        {
+          "seed": 17,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "Y": "out",
+            "Y_row_stride": "out.stride(0)",
+            "X": "x",
+            "X_row_stride": "x.stride(0)",
+            "W": "w",
+            "W_row_stride": "1",
+            "r": "rstd",
+            "r_row_stride": "1",
+            "n_cols": "80",
+            "eps": "1e-6",
+            "BLOCK_SIZE": "128"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "parameters": {
+            "Y": "out",
+            "Y_row_stride": "out.stride(0)",
+            "X": "x",
+            "X_row_stride": "x.stride(0)",
+            "W": "w",
+            "W_row_stride": "1",
+            "r": "rstd",
+            "r_row_stride": "1",
+            "n_cols": "80",
+            "eps": "1e-6",
+            "BLOCK_SIZE": "128"
+          },
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "Empirically-Validated：仅两个冻结输入，不证明一般安全，不授予 Fast",
+      "exit_code": 0,
+      "stderr": "",
+      "command": [
+        "python",
+        "-m",
+        "bench.e1.worker",
+        "unsloth_gemma_rmsnorm"
+      ],
+      "elapsed_seconds": 9.481283844000245
+    }
+  ],
+  "scope": "冻结输入参考 smoke；非 Guard/契约恢复评估，holdout 未用于规则调试"
+}

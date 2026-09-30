@@ -1,0 +1,114 @@
+{
+  "generated_at": "2026-09-30T13:30:14.743914+08:00",
+  "status": "go_native_resources_deferred",
+  "go_e1_core": true,
+  "go_e1": true,
+  "native_resource_ready": false,
+  "native_resource_policy": "2026-09-30 用户决定延期到项目开发完成后、正式跨硬件实验前，不阻塞 e2。",
+  "git": {
+    "start_head": "8eb9d97ebca4db3639d3333820492d47f28dca79",
+    "current_head": "8eb9d97ebca4db3639d3333820492d47f28dca79",
+    "origin_main": "8eb9d97ebca4db3639d3333820492d47f28dca79",
+    "worktree_status": "M README.md\n M bench/catalog.json\n?? bench/E1_THIRD_PARTY_NOTICES.md\n?? bench/e1/\n?? results/e1_capability_gap.json\n?? results/e1_capability_gap.md\n?? results/e1_corpus_inventory.json\n?? results/e1_corpus_inventory.md\n?? results/e1_development_record.json\n?? results/e1_development_record.md\n?? results/e1_native_linux_resources.json\n?? results/e1_native_linux_resources.md\n?? results/e1_regression.json\n?? results/e1_regression.md\n?? results/e1_regression_isolation.json\n?? results/e1_regression_isolation.md\n?? results/e1_related_work_baselines.json\n?? results/e1_related_work_baselines.md\n?? results/e1_semantic_audit.json\n?? results/e1_semantic_audit.md\n?? results/e1_semantic_smoke.json\n?? results/e1_semantic_smoke.md\n?? scripts/\n?? test/test_e1_corpus.py"
+  },
+  "environment": {
+    "system": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31",
+    "python": "3.10.20",
+    "torch": "2.11.0+cu128",
+    "triton": "3.6.0",
+    "cuda": "12.8",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+  },
+  "phase6": {
+    "go_stage6": true,
+    "source_fingerprint_current": true,
+    "historical_counts": {
+      "registered": 15,
+      "syntax_supported": 14,
+      "candidate_complete": 14,
+      "guard_available": 8,
+      "fast_feasible": 8
+    }
+  },
+  "e1_counts": {
+    "registered": 40,
+    "external": 40,
+    "sources": 5,
+    "syntax": {
+      "Supported": 2,
+      "Unsupported": 34,
+      "Unknown": 4
+    },
+    "positive_declared": 28,
+    "semantic_complete": 28,
+    "positive_by_family": {
+      "elementwise_mapping": 7,
+      "feature_broadcast": 7,
+      "layout_2d": 6,
+      "row_reduction": 8
+    },
+    "splits": {
+      "development": 21,
+      "holdout": 7,
+      "challenge": 12
+    },
+    "candidate_complete": 0,
+    "guard_available": 0,
+    "fast_feasible": 0,
+    "integrated": 0
+  },
+  "core_checks": {
+    "phase6_current_and_go": true,
+    "regression_and_legacy_isolation": true,
+    "corpus_frozen": true,
+    "source_size_threshold": true,
+    "positive_reference_threshold": true,
+    "all_positive_smoke_passed": true,
+    "source_and_binding_audit": true,
+    "related_work_reviewed": true,
+    "no_online_capability_change": true,
+    "semantic_report_current": true
+  },
+  "resource_checks": {
+    "two_candidates_registered": true,
+    "scripts_prepared": true,
+    "two_native_resources_acquired": false,
+    "two_native_smokes_passed": false
+  },
+  "regression": {
+    "command": [
+      "python",
+      "test/run_tests.py",
+      "--quick",
+      "--output",
+      "/mnt/f/Project/Paper/Code/TritonPact/results/e1_regression_isolation.md"
+    ],
+    "exit_code": 0,
+    "pytest_summary": "115 passed in 48.09s",
+    "stdout_tail": "[1/2] 运行测试\n........................................................................ [ 62%]\n...........................................                              [100%]\n115 passed in 48.09s\n[2/2] 运行隔离案例\n通过：四个变体进入 Access IR\n通过：语义规格与逐谓词来源可追溯\n通过：A 两组转置尺寸均出现数值错误\n通过：A Guard 拦截并正确回退\n通过：A2 非连续输入正确直通且连续化会复制\n通过：B 非整除边界正确直通\n通过：未知类型安全回退\n通过：官方教程双输入契约阻止错读\n通过：关键输入重复稳定\n通过：经验观察与静态放行分开记录\n通过：单谓词补集触发候选修订并放行\n受限案例验收：通过\nA 模板内的动态候选修订：已验证\n结果文件：e1_regression_isolation.md\n",
+    "legacy_isolation_passed": true,
+    "legacy_isolation_checks": {
+      "四个变体进入 Access IR": true,
+      "语义规格与逐谓词来源可追溯": true,
+      "A 两组转置尺寸均出现数值错误": true,
+      "A Guard 拦截并正确回退": true,
+      "A2 非连续输入正确直通且连续化会复制": true,
+      "B 非整除边界正确直通": true,
+      "未知类型安全回退": true,
+      "官方教程双输入契约阻止错读": true,
+      "关键输入重复稳定": true,
+      "经验观察与静态放行分开记录": true,
+      "单谓词补集触发候选修订并放行": true
+    },
+    "report": "results/e1_regression_isolation.md"
+  },
+  "reports": [
+    "results/e1_corpus_inventory.md",
+    "results/e1_semantic_audit.md",
+    "results/e1_capability_gap.md",
+    "results/e1_related_work_baselines.md",
+    "results/e1_native_linux_resources.md",
+    "results/e1_regression.md"
+  ],
+  "scope": "e1 Go 不授予任何新增 Guard/Fast；两套原生 Linux 机器未取得，native_resource_ready 保持 false，正式跨硬件实验前必须重新验收。"
+}

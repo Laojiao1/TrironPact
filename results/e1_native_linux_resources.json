@@ -1,0 +1,54 @@
+{
+  "as_of": "2026-09-30",
+  "policy": "2026-09-30 用户决定暂缓实机项：e1 只冻结候选、目标版本、公开成本和脚本；不预订、不登录、不付费。项目开发完成后、正式跨硬件实验前重新打开，记录实际 driver、OS image、时段、账单并运行只读 smoke。",
+  "execution_gate": "deferred_by_user_until_project_development_complete",
+  "candidates": [
+    {
+      "id": "runpod_rtx4090_ada",
+      "provider": "Runpod Secure Cloud Pods",
+      "gpu": "NVIDIA RTX 4090 24 GB",
+      "architecture": "Ada",
+      "target_os": "native Ubuntu 22.04 x86_64",
+      "driver": "Unknown until provisioned",
+      "availability_window": "marketplace capacity not reserved; user to schedule",
+      "cost_usd_per_gpu_hour": 0.74,
+      "price_source": "https://www.runpod.io/pricing",
+      "price_observed": "2026-09-30",
+      "access_status": "not_acquired",
+      "smoke_status": "not_run"
+    },
+    {
+      "id": "runpod_a100_pcie_ampere",
+      "provider": "Runpod Secure Cloud Pods",
+      "gpu": "NVIDIA A100 PCIe 80 GB",
+      "architecture": "Ampere",
+      "target_os": "native Ubuntu 22.04 x86_64",
+      "driver": "Unknown until provisioned",
+      "availability_window": "marketplace capacity not reserved; user to schedule",
+      "cost_usd_per_gpu_hour": 1.59,
+      "price_source": "https://www.runpod.io/pricing",
+      "price_observed": "2026-09-30",
+      "access_status": "not_acquired",
+      "smoke_status": "not_run"
+    }
+  ],
+  "generated_at": "2026-09-30T13:19:50.573374+08:00",
+  "registry_sha256": "8b5c9c7cc487877ae51efcc893ac4c0c0b416a6916e9d8ba4ba463ffc2a0c19e",
+  "preparation": {
+    "setup_script": "scripts/e1/setup_native_linux.sh",
+    "setup_sha256": "3252cf32de2c07f03e9a80a7daa269232a65750702d77f1cb74cf0eb37bad564",
+    "smoke_script": "scripts/e1/native_smoke.py",
+    "smoke_sha256": "eb7c69cd27679b03143db645d890a51ab21bb8c35cc8ea468d41ca21e811f72b"
+  },
+  "development_environment": {
+    "system": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31",
+    "counts_as_native_linux_resource": false,
+    "reason": "当前为 WSL2 开发环境，只用于实现和正确性 smoke。"
+  },
+  "checks": {
+    "two_candidates_registered": true,
+    "scripts_prepared": true,
+    "two_native_resources_acquired": false,
+    "two_native_smokes_passed": false
+  }
+}

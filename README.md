@@ -13,6 +13,7 @@ TritonPact 研究 PyTorch Tensor 的物理布局与 Triton Kernel 访存之间�
 | 第三阶段：候选提取 | 受限 wrapper 绑定核对；A/A2/B/D 与两个留出 Kernel 的 shape/stride、逐访问点 span 候选；成对 `tl.multiple_of` alignment 义务；离线机器报告与完整隔离回归 | [候选提取报告](results/candidate_extraction_report.md)、[第三阶段分派回归](results/candidate_regression.md)及同名 JSON；[开发记录](../../docs/开发路线/TritonPact%20第三阶段%20候选契约提取开发方案.md) |
 | 第四阶段：边界证据与精化 | 受限 JSON 变异配方、独立 GPU worker、原始 Kernel 与参考语义比较、逐候选影子值、保守精化建议和受限 SMT 冗余检查 | [边界证据报告](results/boundary_refinement_report.md)、[第四阶段分派回归](results/refinement_regression.md)及同名 JSON；[开发记录](../../docs/开发路线/TritonPact%20第四阶段%20边界证据与精化开发方案.md) |
 | 第五阶段：Guard 与分派 | 当前源码重新生成有类型 Guard；真实输入与输出复验；显式复制修复；隔离路径报告与离线同步成本表；旧 `runtime.py` 保留 | [Guard 隔离报告](results/guard_dispatch_report.md)、[成本标定](results/cost_calibration.md)、[第五阶段回归](results/guard_regression.md)及同名 JSON；[开发记录](../../docs/开发路线/TritonPact%20第五阶段%20Guard%20与分派开发方案.md) |
+| 增强阶段一：真实语料与证据冻结 | 40 个固定开源函数体、28 个带独立参考的正向候选、12 个挑战；开发/留出/挑战划分、来源/许可/绑定/语义审计、能力缺口与最近邻基线 | [语料清单](results/e1_corpus_inventory.md)、[语义审计](results/e1_semantic_audit.md)、[能力缺口](results/e1_capability_gap.md)、[阶段状态](results/e1_regression.md)及同名 JSON |
 
 第二阶段的 `Supported` 只表示受限访存语法可解释。旧 `pact/runtime.py` 的 Guard 仍执行经独立语义核对的 **PoC 兼容谓词**；第五阶段的 `pact/dispatch.py` 独立构造新 Guard。
 

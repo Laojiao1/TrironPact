@@ -1,0 +1,272 @@
+{
+  "triton": {
+    "repository": "triton-lang/triton",
+    "revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+    "commit_date": "2026-09-24T21:09:59Z",
+    "license_id": "MIT",
+    "assets": {
+      "LICENSE": {
+        "sha256": "92640fb97222fd0a698ff28ce0c3782c172623f8d6c609b557636a80f28fb946",
+        "bytes": 1132,
+        "url": "https://raw.githubusercontent.com/triton-lang/triton/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/LICENSE"
+      },
+      "python/tutorials/01-vector-add.py": {
+        "sha256": "842430949e0ccde4fbce07606cce3ac4bac36bf21b2b12619a31b795ca4029b3",
+        "bytes": 5644,
+        "url": "https://raw.githubusercontent.com/triton-lang/triton/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/tutorials/01-vector-add.py"
+      },
+      "python/tutorials/02-fused-softmax.py": {
+        "sha256": "361e72779d5ea372b43399107ca212ac4405a25fc569b829b88653ccb61f1421",
+        "bytes": 9974,
+        "url": "https://raw.githubusercontent.com/triton-lang/triton/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/tutorials/02-fused-softmax.py"
+      },
+      "python/tutorials/05-layer-norm.py": {
+        "sha256": "241f9f74e2f18567b26f3b4cf9b9873ae859150ccd10976d65d38fe24896d1d2",
+        "bytes": 15924,
+        "url": "https://raw.githubusercontent.com/triton-lang/triton/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/tutorials/05-layer-norm.py"
+      },
+      "python/test/unit/language/test_core.py": {
+        "sha256": "b6f148d50ebc0117f9cff7d9b7b883bc1439dfadd5787d3cf61023fcb2243abc",
+        "bytes": 314637,
+        "url": "https://raw.githubusercontent.com/triton-lang/triton/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/test/unit/language/test_core.py"
+      },
+      "python/test/unit/language/test_standard.py": {
+        "sha256": "8aedfd39de8eacbd387141925c3c74132fd0838c837b1388120cd6ffdc2ea55c",
+        "bytes": 9791,
+        "url": "https://raw.githubusercontent.com/triton-lang/triton/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/test/unit/language/test_standard.py"
+      }
+    }
+  },
+  "liger": {
+    "repository": "linkedin/Liger-Kernel",
+    "revision": "40a9d8a61bdc546f4e70220619d4db9760fa80b1",
+    "commit_date": "2026-09-25T02:26:05Z",
+    "license_id": "BSD-2-Clause",
+    "assets": {
+      "LICENSE": {
+        "sha256": "3a1ccb0c7274b68e1af2ca1d54b10b662085ca56753400182ecf87ae33f2d1a8",
+        "bytes": 1312,
+        "url": "https://raw.githubusercontent.com/linkedin/Liger-Kernel/40a9d8a61bdc546f4e70220619d4db9760fa80b1/LICENSE"
+      },
+      "src/liger_kernel/ops/swiglu.py": {
+        "sha256": "7397029e8fefac0de42e5eeafcbbac147644a91c357bd30b9ba019fa5df3ce0a",
+        "bytes": 17089,
+        "url": "https://raw.githubusercontent.com/linkedin/Liger-Kernel/40a9d8a61bdc546f4e70220619d4db9760fa80b1/src/liger_kernel/ops/swiglu.py"
+      },
+      "src/liger_kernel/ops/geglu.py": {
+        "sha256": "c868f150d58fe1ff2913872b500fd76764075f73f6ea655217bdc2e0a72fc097",
+        "bytes": 4499,
+        "url": "https://raw.githubusercontent.com/linkedin/Liger-Kernel/40a9d8a61bdc546f4e70220619d4db9760fa80b1/src/liger_kernel/ops/geglu.py"
+      },
+      "src/liger_kernel/ops/layer_norm.py": {
+        "sha256": "c8922cc2bccd8eb80decdc09a2d91676667388edbbf0feb34d51cd3317d48ad0",
+        "bytes": 10693,
+        "url": "https://raw.githubusercontent.com/linkedin/Liger-Kernel/40a9d8a61bdc546f4e70220619d4db9760fa80b1/src/liger_kernel/ops/layer_norm.py"
+      },
+      "src/liger_kernel/ops/rms_norm.py": {
+        "sha256": "5f725509cafc9273ea1db1655a21ef958ef6b02affb0e8f9d25f4de1efb3dcd4",
+        "bytes": 24157,
+        "url": "https://raw.githubusercontent.com/linkedin/Liger-Kernel/40a9d8a61bdc546f4e70220619d4db9760fa80b1/src/liger_kernel/ops/rms_norm.py"
+      },
+      "src/liger_kernel/ops/group_norm.py": {
+        "sha256": "614c4cc80b41a4a8cf0d33c7d1b51735546e5a3d7210dc08a98c857c24507525",
+        "bytes": 11255,
+        "url": "https://raw.githubusercontent.com/linkedin/Liger-Kernel/40a9d8a61bdc546f4e70220619d4db9760fa80b1/src/liger_kernel/ops/group_norm.py"
+      },
+      "src/liger_kernel/ops/softmax.py": {
+        "sha256": "b60391c7a30ad480c3b592aa19aae3d083c8563a802045175d83e28a785176d2",
+        "bytes": 5864,
+        "url": "https://raw.githubusercontent.com/linkedin/Liger-Kernel/40a9d8a61bdc546f4e70220619d4db9760fa80b1/src/liger_kernel/ops/softmax.py"
+      },
+      "test/ops/test_swiglu.py": {
+        "sha256": "1f0219622d7e48fec5f9562ca275672ae6b629cf090a66b37fa93e967d145c11",
+        "bytes": 6457,
+        "url": "https://raw.githubusercontent.com/linkedin/Liger-Kernel/40a9d8a61bdc546f4e70220619d4db9760fa80b1/test/ops/test_swiglu.py"
+      },
+      "test/ops/test_geglu.py": {
+        "sha256": "950c7dbaa5dcbef4822e996487fc7565e67689b3ef15b528b367ee1ea8b6de05",
+        "bytes": 4283,
+        "url": "https://raw.githubusercontent.com/linkedin/Liger-Kernel/40a9d8a61bdc546f4e70220619d4db9760fa80b1/test/ops/test_geglu.py"
+      },
+      "test/ops/test_layer_norm.py": {
+        "sha256": "2d773bfb0bf2faa25ae7c7e6e990485f91b54b6fc3dcc04a2b0597dc0177b719",
+        "bytes": 10306,
+        "url": "https://raw.githubusercontent.com/linkedin/Liger-Kernel/40a9d8a61bdc546f4e70220619d4db9760fa80b1/test/ops/test_layer_norm.py"
+      },
+      "test/ops/test_rms_norm.py": {
+        "sha256": "e76d03ecd4dce0afbd2f5db3000ede7b7f49a9be1958d9c913e52d3543e4be6b",
+        "bytes": 12571,
+        "url": "https://raw.githubusercontent.com/linkedin/Liger-Kernel/40a9d8a61bdc546f4e70220619d4db9760fa80b1/test/ops/test_rms_norm.py"
+      },
+      "test/ops/test_softmax.py": {
+        "sha256": "396bde9b40a352bfc6e45cf74d71e0ecaf1deb5566304244ce6232b5d0d47a3c",
+        "bytes": 9200,
+        "url": "https://raw.githubusercontent.com/linkedin/Liger-Kernel/40a9d8a61bdc546f4e70220619d4db9760fa80b1/test/ops/test_softmax.py"
+      },
+      "src/liger_kernel/testing/_op_helpers.py": {
+        "sha256": "1aa0f29152544babe36e3c469905db31f5bc1c1ed17b981a90cfab5b0fc5ec7e",
+        "bytes": 18427,
+        "url": "https://raw.githubusercontent.com/linkedin/Liger-Kernel/40a9d8a61bdc546f4e70220619d4db9760fa80b1/src/liger_kernel/testing/_op_helpers.py"
+      },
+      "src/liger_kernel/testing/__init__.py": {
+        "sha256": "5067ed6390d5455ecf5a48e8c347a459545b8cc8eb909913297292542cbda835",
+        "bytes": 1423,
+        "url": "https://raw.githubusercontent.com/linkedin/Liger-Kernel/40a9d8a61bdc546f4e70220619d4db9760fa80b1/src/liger_kernel/testing/__init__.py"
+      }
+    }
+  },
+  "unsloth": {
+    "repository": "unslothai/unsloth",
+    "revision": "7ebf192674a217faa15891de3e95a517fb5d890e",
+    "commit_date": "2026-09-30T03:43:38Z",
+    "license_id": "Apache-2.0; selected test files carry AGPL-3.0-only SPDX",
+    "assets": {
+      "LICENSE": {
+        "sha256": "40e0b458a68b557560def38b106a1a0da1aac57685536dcb882f1c78c647e4d3",
+        "bytes": 11550,
+        "url": "https://raw.githubusercontent.com/unslothai/unsloth/7ebf192674a217faa15891de3e95a517fb5d890e/LICENSE"
+      },
+      "unsloth/kernels/swiglu.py": {
+        "sha256": "591ef79a133731b485ca60fd72bfb666e3e4255d5ef39c5fdb3b5c1c8db96ddd",
+        "bytes": 4236,
+        "url": "https://raw.githubusercontent.com/unslothai/unsloth/7ebf192674a217faa15891de3e95a517fb5d890e/unsloth/kernels/swiglu.py"
+      },
+      "unsloth/kernels/geglu.py": {
+        "sha256": "7a1a34518080e61401a05d4b94261a0054fe261c815d923809ad3388ffb56ce6",
+        "bytes": 8414,
+        "url": "https://raw.githubusercontent.com/unslothai/unsloth/7ebf192674a217faa15891de3e95a517fb5d890e/unsloth/kernels/geglu.py"
+      },
+      "unsloth/kernels/layernorm.py": {
+        "sha256": "cd6870c021d8a92fd65c60f226ddabe3b552b6921343ffdf87933afc9579ed9d",
+        "bytes": 6965,
+        "url": "https://raw.githubusercontent.com/unslothai/unsloth/7ebf192674a217faa15891de3e95a517fb5d890e/unsloth/kernels/layernorm.py"
+      },
+      "unsloth/kernels/rms_layernorm.py": {
+        "sha256": "6244c41d7058effa73a0f103f9b2a9c3c24902fa2becd3fda08f26c477ef75d1",
+        "bytes": 10169,
+        "url": "https://raw.githubusercontent.com/unslothai/unsloth/7ebf192674a217faa15891de3e95a517fb5d890e/unsloth/kernels/rms_layernorm.py"
+      },
+      "unsloth/kernels/rope_embedding.py": {
+        "sha256": "4e21ceb46b51857695e09316119fe4c63184674bbfa6aeaa5cd9a9be6af2f8c1",
+        "bytes": 13883,
+        "url": "https://raw.githubusercontent.com/unslothai/unsloth/7ebf192674a217faa15891de3e95a517fb5d890e/unsloth/kernels/rope_embedding.py"
+      },
+      "tests/test_layernorm_gradient_layout.py": {
+        "sha256": "19f7811a259e67b9626e18bad70d4a497bc202a886f963e6af1f07f6ecf74d1e",
+        "bytes": 7499,
+        "url": "https://raw.githubusercontent.com/unslothai/unsloth/7ebf192674a217faa15891de3e95a517fb5d890e/tests/test_layernorm_gradient_layout.py"
+      },
+      "tests/test_rmsnorm_gradient_layout.py": {
+        "sha256": "45ec5515719fabbf3d621523ae9100968947d0b33e8bb2a5a1b7b28296dd2eda",
+        "bytes": 5216,
+        "url": "https://raw.githubusercontent.com/unslothai/unsloth/7ebf192674a217faa15891de3e95a517fb5d890e/tests/test_rmsnorm_gradient_layout.py"
+      }
+    }
+  },
+  "flag_gems": {
+    "repository": "FlagOpen/FlagGems",
+    "revision": "b2044acafb7f72a19312158edf0d2bf333e26891",
+    "commit_date": "2026-09-30T03:16:24Z",
+    "license_id": "Apache-2.0",
+    "assets": {
+      "LICENSE": {
+        "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+        "bytes": 10174,
+        "url": "https://raw.githubusercontent.com/FlagOpen/FlagGems/b2044acafb7f72a19312158edf0d2bf333e26891/LICENSE"
+      },
+      "src/flag_gems/ops/transpose_copy.py": {
+        "sha256": "dbbba392f1bfd40cc4d046a1b94d68567340e2e03acda7b2ee759c9333d5f151",
+        "bytes": 14636,
+        "url": "https://raw.githubusercontent.com/FlagOpen/FlagGems/b2044acafb7f72a19312158edf0d2bf333e26891/src/flag_gems/ops/transpose_copy.py"
+      },
+      "src/flag_gems/ops/slice.py": {
+        "sha256": "49c5f71f9c074a50432f423b7f1d084abbd13cb6db1c7446dc48fe4dc7d3a501",
+        "bytes": 7218,
+        "url": "https://raw.githubusercontent.com/FlagOpen/FlagGems/b2044acafb7f72a19312158edf0d2bf333e26891/src/flag_gems/ops/slice.py"
+      },
+      "src/flag_gems/ops/slice_copy.py": {
+        "sha256": "e6b43da6f2ef19c99f12680d2aa857cccb8ff291313d53eb5e5f5b8fac6c6692",
+        "bytes": 12447,
+        "url": "https://raw.githubusercontent.com/FlagOpen/FlagGems/b2044acafb7f72a19312158edf0d2bf333e26891/src/flag_gems/ops/slice_copy.py"
+      },
+      "src/flag_gems/ops/cat.py": {
+        "sha256": "0ccc55b9dac8a171ffcf2c51d5ceffa32a0ae43896db22b49007b3f9bb302ee6",
+        "bytes": 10460,
+        "url": "https://raw.githubusercontent.com/FlagOpen/FlagGems/b2044acafb7f72a19312158edf0d2bf333e26891/src/flag_gems/ops/cat.py"
+      },
+      "src/flag_gems/ops/stack.py": {
+        "sha256": "a2580fb11326dc898dd66ad01cb2850bb88cfccacde4012d30aea29da5356c09",
+        "bytes": 5452,
+        "url": "https://raw.githubusercontent.com/FlagOpen/FlagGems/b2044acafb7f72a19312158edf0d2bf333e26891/src/flag_gems/ops/stack.py"
+      },
+      "src/flag_gems/ops/pad.py": {
+        "sha256": "36eae270af1013799abbe88ef7eb452886ecbd2745378516ffcfd044b3104d38",
+        "bytes": 18105,
+        "url": "https://raw.githubusercontent.com/FlagOpen/FlagGems/b2044acafb7f72a19312158edf0d2bf333e26891/src/flag_gems/ops/pad.py"
+      },
+      "src/flag_gems/ops/flip.py": {
+        "sha256": "397db4b7bbdaeab1979b89810c6ee7da656659e326cbb3b43537d43eb1b07d5b",
+        "bytes": 2046,
+        "url": "https://raw.githubusercontent.com/FlagOpen/FlagGems/b2044acafb7f72a19312158edf0d2bf333e26891/src/flag_gems/ops/flip.py"
+      },
+      "tests/test_transpose_copy.py": {
+        "sha256": "1d429c4a62d21bc8a4ad094f06b25cfd02cfc48c01470e6a9b85d83b5ad7e120",
+        "bytes": 11646,
+        "url": "https://raw.githubusercontent.com/FlagOpen/FlagGems/b2044acafb7f72a19312158edf0d2bf333e26891/tests/test_transpose_copy.py"
+      },
+      "tests/test_slice.py": {
+        "sha256": "1afe1b73cc1e3c154bb3b506d4e7dcc725bf4ba7ee38a06e92cc7576b2c933ef",
+        "bytes": 4251,
+        "url": "https://raw.githubusercontent.com/FlagOpen/FlagGems/b2044acafb7f72a19312158edf0d2bf333e26891/tests/test_slice.py"
+      },
+      "tests/test_slice_copy.py": {
+        "sha256": "96fcf685f9803bf148e074cc4a70d253b00932d4d070fd20d96986ededf3f79b",
+        "bytes": 22649,
+        "url": "https://raw.githubusercontent.com/FlagOpen/FlagGems/b2044acafb7f72a19312158edf0d2bf333e26891/tests/test_slice_copy.py"
+      },
+      "tests/test_cat.py": {
+        "sha256": "f30221093374a10991a5617e97675ccda497debfe40966efbfd998087d52b0e7",
+        "bytes": 4216,
+        "url": "https://raw.githubusercontent.com/FlagOpen/FlagGems/b2044acafb7f72a19312158edf0d2bf333e26891/tests/test_cat.py"
+      },
+      "tests/test_stack.py": {
+        "sha256": "35a12a8f98881f2cd67a751965202751cd29b085e5e751c5b52743ebaef12861",
+        "bytes": 4456,
+        "url": "https://raw.githubusercontent.com/FlagOpen/FlagGems/b2044acafb7f72a19312158edf0d2bf333e26891/tests/test_stack.py"
+      },
+      "tests/test_pad.py": {
+        "sha256": "38cfc995924597ac2af5afd58fa16fa015daca34071cc8d163b03beda80637ed",
+        "bytes": 3351,
+        "url": "https://raw.githubusercontent.com/FlagOpen/FlagGems/b2044acafb7f72a19312158edf0d2bf333e26891/tests/test_pad.py"
+      },
+      "tests/test_flip.py": {
+        "sha256": "1e941cc9aeb8bb378600afa7dae2bb5ee774dd1fff1d8cef945877f76a3a8963",
+        "bytes": 2469,
+        "url": "https://raw.githubusercontent.com/FlagOpen/FlagGems/b2044acafb7f72a19312158edf0d2bf333e26891/tests/test_flip.py"
+      }
+    }
+  },
+  "pytorch": {
+    "repository": "pytorch/pytorch",
+    "revision": "a6b28b689562679531a842f27d4e39ba50bb34f1",
+    "commit_date": "2026-09-30T03:32:58Z",
+    "license_id": "PyTorch BSD-style",
+    "assets": {
+      "LICENSE": {
+        "sha256": "bd018feef8825e88181c84eb7e3aa4eafb8f08a20d9fd6ef948569610c4a3e43",
+        "bytes": 3464,
+        "url": "https://raw.githubusercontent.com/pytorch/pytorch/a6b28b689562679531a842f27d4e39ba50bb34f1/LICENSE"
+      },
+      "test/inductor/test_triton_kernels.py": {
+        "sha256": "c5cd5e3d6be6abd386c560d32e68754151532c60cec3e7ee7570f009d3ebbac2",
+        "bytes": 261382,
+        "url": "https://raw.githubusercontent.com/pytorch/pytorch/a6b28b689562679531a842f27d4e39ba50bb34f1/test/inductor/test_triton_kernels.py"
+      },
+      "torch/testing/_internal/triton_utils.py": {
+        "sha256": "4d8b4358a1ca57312f4bdf1bddc1ed99a960494cabf84ed69ab88fea8284a491",
+        "bytes": 34751,
+        "url": "https://raw.githubusercontent.com/pytorch/pytorch/a6b28b689562679531a842f27d4e39ba50bb34f1/torch/testing/_internal/triton_utils.py"
+      }
+    }
+  }
+}

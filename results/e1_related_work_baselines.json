@@ -1,0 +1,132 @@
+{
+  "as_of": "2026-09-30",
+  "primary_venue_direction": {
+    "name": "CGO-style CCF B compiler and program-analysis track",
+    "rationale": "以真实 Triton wrapper-layout contract 恢复、保守 Guard/Fallback 和可复现实证为必需层；TTIR、复杂循环与图级 Guard 留作更高目标 backlog。",
+    "classification_source": "https://www.ccf.org.cn/Academic_Evaluation/ARCH_DCP_SS/"
+  },
+  "works": [
+    {
+      "id": "m2k",
+      "title": "M2K: Making the Model-Kernel Interface Explicit for Reliable CUDA Kernel Verification",
+      "publication": "SOSP 2026 accepted paper",
+      "official_url": "https://sigops.org/s/conferences/sosp/2026/accepted.html",
+      "repository": "system-pclub/M2K",
+      "revision": "54c5e257457d9a51aa93d2e68e83fe5dfaa7e8b3",
+      "overlap": "从模型调用恢复 CUDA kernel 接口约束并做内存安全验证。",
+      "boundary": "目标为 CUDA/LLM 系统和符号执行；不直接恢复 Triton Python wrapper 与物理 layout 的在线分派契约。",
+      "baseline": "qualitative_only",
+      "reason": "完整 artifact 要求 Ubuntu 22.04、至少 256 GB RAM、155 GB 磁盘，消融还需 H200；当前环境未满足。"
+    },
+    {
+      "id": "tilelens",
+      "title": "Triton-Sanitizer / TileLens",
+      "publication": "Triton-Sanitizer, ASPLOS 2026; code evolved into TileLens",
+      "official_url": "https://www.asplos-conference.org/asplos2026/program/",
+      "repository": "Deep-Learning-Profiling-Tools/TileLens",
+      "revision": "29d190d06153520629cc7cb260469e56327753c2",
+      "overlap": "通过解释/符号执行检查 tile DSL 访存并给出越界诊断。",
+      "boundary": "以给定输入/trace 的 sanitizer 为主，不等价于 wrapper 物理 layout 前置条件恢复或在线 Fast 资格。",
+      "baseline": "frozen_public_code",
+      "reason": "已固定官方仓库提交；为避免改变主开发环境，本阶段不安装完整 TileLens 依赖。"
+    },
+    {
+      "id": "triton_verify",
+      "title": "triton-verify",
+      "publication": "unpublished public prototype; upstream RFC opened 2026-06-07",
+      "official_url": "https://github.com/triton-lang/triton/issues/10525",
+      "repository": "alinamiretai/triton-verify",
+      "revision": "03fb746626fa7f7115923aa6b126ab963cd33053",
+      "overlap": "在 TTIR 上用 Z3 证明给定 buffer/grid/stride 下的指针边界。",
+      "boundary": "buffer size 与 stride 需手工提供，只检查 pre-optimization TTIR 指针安全，不检查数值语义。",
+      "baseline": "executable_smoke",
+      "reason": "作为 e1 固定的直接可运行外部对照；安全与越界两个公开示例均须复现。"
+    },
+    {
+      "id": "deepconstr",
+      "title": "Towards More Complete Constraints for Deep Learning Library Testing via Complementary Set Guided Refinement",
+      "publication": "ISSTA 2024",
+      "official_url": "https://2024.issta.org/",
+      "repository": "THU-WingTecher/DeepConstr",
+      "revision": "fdb1e5d809ca514ad703e04006214b1d3a60fc68",
+      "overlap": "恢复深度学习库 API 输入约束并以补集反馈改进测试生成。",
+      "boundary": "对象是框架 API/图测试约束，不建模 Triton kernel 物理地址、wrapper stride/offset 或分派。",
+      "baseline": "qualitative_only",
+      "reason": "官方 artifact 依赖 Docker、预构建环境和长时 fuzz；不是 e1 的直接 Kernel 对照。"
+    },
+    {
+      "id": "cusafe",
+      "title": "CuSafe: Capturing Memory Corruption on NVIDIA GPUs",
+      "publication": "USENIX Security 2026",
+      "official_url": "https://www.usenix.org/conference/usenixsecurity26/presentation/lu-hongyi",
+      "repository": null,
+      "revision": null,
+      "overlap": "商品 NVIDIA GPU 上的动态空间/时间内存错误检测。",
+      "boundary": "运行时 CUDA sanitizer，不恢复 Triton wrapper 契约；官方论文页未给出可固定代码仓库。",
+      "baseline": "qualitative_only",
+      "reason": "无已核实的官方公开代码，不能声称可运行。"
+    }
+  ],
+  "generated_at": "2026-09-30T12:57:05.575841+08:00",
+  "fingerprints": {
+    "registry_sha256": "387b900d210669fa5563000030196c587d914764914f361ea66517c4ca511cc1",
+    "implementation_sha256": "69015dc7f9f1f386bc80e70284d648e71ef6f019ee86588c3d722bc54ab90cc4"
+  },
+  "executable_baseline": {
+    "status": "passed",
+    "archive_url": "https://codeload.github.com/alinamiretai/triton-verify/tar.gz/03fb746626fa7f7115923aa6b126ab963cd33053",
+    "archive_sha256": "f89711a5a612ee67b6b5cac253de55e6b016a8d7a130e5bfaf7b3e6a0181a509",
+    "revision": "03fb746626fa7f7115923aa6b126ab963cd33053",
+    "dependencies": {
+      "lark": "1.2.2",
+      "z3-solver": "4.15.3.0"
+    },
+    "install": {
+      "command": [
+        "/tmp/tritonpact-e1-baseline-fhlhq0qg/venv/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "--disable-pip-version-check",
+        "lark==1.2.2",
+        "z3-solver==4.15.3.0"
+      ],
+      "exit_code": 0,
+      "stdout": "Collecting lark==1.2.2\n  Downloading lark-1.2.2-py3-none-any.whl (111 kB)\n     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 111.0/111.0 kB 330.6 kB/s eta 0:00:00\nCollecting z3-solver==4.15.3.0\n  Downloading z3_solver-4.15.3.0-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (29.1 MB)\n     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 29.1/29.1 MB 417.2 kB/s eta 0:00:00\nInstalling collected packages: z3-solver, lark\nSuccessfully installed lark-1.2.2 z3-solver-4.15.3.0\n",
+      "stderr": ""
+    },
+    "cases": {
+      "safe_512": {
+        "command": [
+          "/tmp/tritonpact-e1-baseline-fhlhq0qg/venv/bin/python",
+          "main.py",
+          "real_vector_add.ttir",
+          "512",
+          "4"
+        ],
+        "exit_code": 0,
+        "stdout": "preprocessed 17 ops\nparsed 17 ops\nblock_size=128  buffer_size=512  grid_size=4  stride=None\n\nSAFE: no out-of-bounds access possible for any program id\n",
+        "stderr": ""
+      },
+      "bug_500": {
+        "command": [
+          "/tmp/tritonpact-e1-baseline-fhlhq0qg/venv/bin/python",
+          "main.py",
+          "real_vector_add.ttir",
+          "500",
+          "4"
+        ],
+        "exit_code": 0,
+        "stdout": "preprocessed 17 ops\nparsed 17 ops\nblock_size=128  buffer_size=500  grid_size=4  stride=None\n\nBUG FOUND:\n  pid        = 3\n  offset_max = 511\n  buffer_size= 500\n  overflow by= 12 elements\n",
+        "stderr": ""
+      }
+    },
+    "scope": "仅复现公开 TTIR 指针边界示例；不代表 TritonPact 等价、完整或更安全。"
+  },
+  "checks": {
+    "first_party_sources_reviewed": true,
+    "public_code_pinned": true,
+    "primary_direction_frozen": true,
+    "external_baseline_reproduced": true
+  }
+}

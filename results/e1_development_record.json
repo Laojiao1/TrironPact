@@ -1,0 +1,14 @@
+{
+  "date": "2026-09-30",
+  "commands": [
+    {"block": "baseline", "command": "python test/run_tests.py --quick --output /tmp/tritonpact_e1_baseline_quick.md", "exit_code": 0, "result": "107 passed; legacy isolation 11/11"},
+    {"block": "catalog", "command": "python -m bench.e1.catalog --build", "exit_code": 0, "result": "registered=40 source_binding_hash_audit=passed"},
+    {"block": "schema_tests", "command": "python -m pytest -q test/test_e1_corpus.py", "exit_code": 0, "result": "8 passed"},
+    {"block": "semantic_freeze", "command": "python -m bench.e1.audit --freeze --smoke", "exit_code": 0, "result": "28/28 passed; frozen=true"},
+    {"block": "related_baseline", "command": "python -m bench.e1.related --run-triton-verify", "exit_code": 0, "result": "safe and bug examples reproduced"},
+    {"block": "native_resources", "command": "python -m bench.e1.resources", "exit_code": 0, "result": "registered; not_acquired/not_run"},
+    {"block": "final_validation", "command": "python -m bench.e1.validate", "exit_code": 0, "result": "115 passed; legacy isolation 11/11; go_e1_core=true; go_e1=true; native_resource_ready=false"}
+  ],
+  "scope": {"access_ir_changed": false, "candidate_rules_changed": false, "guard_or_fast_changed": false, "e4_experiment_run": false},
+  "status": "go_native_resources_deferred"
+}

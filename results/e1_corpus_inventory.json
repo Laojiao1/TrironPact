@@ -1,0 +1,676 @@
+{
+  "generated_at": "2026-09-30T13:26:21.602709+08:00",
+  "fingerprints": {
+    "corpus": "0b0cc402299f46dc3e248310a2450c35cbc726bbf324b980b691ad820a44a46d",
+    "sources": "017fb0dc8f904fa18b42f06faee22d4b12a4e3d13d56a0582561c56e8827263c",
+    "implementation": "5aae76831e69013392ad632cdbbe1f499bfbfbca890038ef58755cb30805a5bd"
+  },
+  "counts": {
+    "registered": 40,
+    "external": 40,
+    "sources": 5,
+    "syntax": {
+      "Supported": 2,
+      "Unsupported": 34,
+      "Unknown": 4
+    },
+    "positive_declared": 28,
+    "semantic_complete": 28,
+    "positive_by_family": {
+      "elementwise_mapping": 7,
+      "feature_broadcast": 7,
+      "layout_2d": 6,
+      "row_reduction": 8
+    },
+    "splits": {
+      "development": 21,
+      "holdout": 7,
+      "challenge": 12
+    },
+    "candidate_complete": 0,
+    "guard_available": 0,
+    "fast_feasible": 0,
+    "integrated": 0
+  },
+  "smoke_current": true,
+  "checks": {
+    "sources_and_bindings": true,
+    "size_and_sources": true,
+    "positive_reference_threshold": true,
+    "all_declared_positive_smoke": true,
+    "frozen": true
+  },
+  "entries": [
+    {
+      "id": "triton_add",
+      "source": "triton",
+      "family": "elementwise_mapping",
+      "split": "development",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Supported",
+      "reason": "访存语法已归一化；尚未核对独立算子语义",
+      "first_rejection": null,
+      "accesses_before_rejection": 3
+    },
+    {
+      "id": "triton_where_zero",
+      "source": "triton",
+      "family": "elementwise_mapping",
+      "split": "development",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "不支持的索引表达式：tl.arange(0, BLOCK_SIZE)[None, :]",
+      "first_rejection": {
+        "parser_reason": "不支持的索引表达式：tl.arange(0, BLOCK_SIZE)[None, :]",
+        "source_file": "python/test/unit/language/test_core.py",
+        "function_line": 1044,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "triton_interleave",
+      "source": "triton",
+      "family": "elementwise_mapping",
+      "split": "holdout",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "缺少显式 load/store 访问",
+      "first_rejection": {
+        "parser_reason": "缺少显式 load/store 访问",
+        "source_file": "python/test/unit/language/test_core.py",
+        "function_line": 2902,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "triton_ravel",
+      "source": "triton",
+      "family": "elementwise_mapping",
+      "split": "development",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "第 4 行重复定义变量或覆盖参数",
+      "first_rejection": {
+        "parser_reason": "第 4 行重复定义变量或覆盖参数",
+        "source_file": "python/test/unit/language/test_standard.py",
+        "function_line": 122,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "pytorch_sub",
+      "source": "pytorch",
+      "family": "elementwise_mapping",
+      "split": "development",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unknown",
+      "reason": "arange 块大小缺少 constexpr 声明",
+      "first_rejection": {
+        "parser_reason": "arange 块大小缺少 constexpr 声明",
+        "source_file": "torch/testing/_internal/triton_utils.py",
+        "function_line": 106,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "pytorch_double",
+      "source": "pytorch",
+      "family": "elementwise_mapping",
+      "split": "development",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unknown",
+      "reason": "arange 块大小缺少 constexpr 声明",
+      "first_rejection": {
+        "parser_reason": "arange 块大小缺少 constexpr 声明",
+        "source_file": "torch/testing/_internal/triton_utils.py",
+        "function_line": 576,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "pytorch_double_strided",
+      "source": "pytorch",
+      "family": "elementwise_mapping",
+      "split": "holdout",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "不支持的索引表达式：y_offsets[:, None]",
+      "first_rejection": {
+        "parser_reason": "不支持的索引表达式：y_offsets[:, None]",
+        "source_file": "torch/testing/_internal/triton_utils.py",
+        "function_line": 628,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "triton_broadcast",
+      "source": "triton",
+      "family": "feature_broadcast",
+      "split": "development",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "不支持第 7 行的控制流或语句",
+      "first_rejection": {
+        "parser_reason": "不支持第 7 行的控制流或语句",
+        "source_file": "python/test/unit/language/test_core.py",
+        "function_line": 692,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "triton_where_broadcast",
+      "source": "triton",
+      "family": "feature_broadcast",
+      "split": "development",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "不支持的索引表达式：tl.arange(0, BLOCK_SIZE)[None, :]",
+      "first_rejection": {
+        "parser_reason": "不支持的索引表达式：tl.arange(0, BLOCK_SIZE)[None, :]",
+        "source_file": "python/test/unit/language/test_core.py",
+        "function_line": 1034,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "pytorch_masked_add",
+      "source": "pytorch",
+      "family": "feature_broadcast",
+      "split": "development",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "访存调用存在未建模的嵌套形式",
+      "first_rejection": {
+        "parser_reason": "访存调用存在未建模的嵌套形式",
+        "source_file": "torch/testing/_internal/triton_utils.py",
+        "function_line": 1072,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "liger_swiglu",
+      "source": "liger",
+      "family": "feature_broadcast",
+      "split": "holdout",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "不支持第 8 行的控制流或语句",
+      "first_rejection": {
+        "parser_reason": "不支持第 8 行的控制流或语句",
+        "source_file": "src/liger_kernel/ops/swiglu.py",
+        "function_line": 57,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "liger_swiglu_tiled",
+      "source": "liger",
+      "family": "feature_broadcast",
+      "split": "development",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "不支持第 8 行的控制流或语句",
+      "first_rejection": {
+        "parser_reason": "不支持第 8 行的控制流或语句",
+        "source_file": "src/liger_kernel/ops/swiglu.py",
+        "function_line": 108,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "liger_geglu",
+      "source": "liger",
+      "family": "feature_broadcast",
+      "split": "development",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "不支持第 6 行的控制流或语句",
+      "first_rejection": {
+        "parser_reason": "不支持第 6 行的控制流或语句",
+        "source_file": "src/liger_kernel/ops/geglu.py",
+        "function_line": 24,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "liger_fused_swiglu",
+      "source": "liger",
+      "family": "feature_broadcast",
+      "split": "development",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "不支持第 7 行的控制流或语句",
+      "first_rejection": {
+        "parser_reason": "不支持第 7 行的控制流或语句",
+        "source_file": "src/liger_kernel/ops/swiglu.py",
+        "function_line": 317,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "flag_slice",
+      "source": "flag_gems",
+      "family": "layout_2d",
+      "split": "holdout",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "不支持的索引表达式：tl.where(dim == 0, start + out_idx_0 * step, out_idx_0)",
+      "first_rejection": {
+        "parser_reason": "不支持的索引表达式：tl.where(dim == 0, start + out_idx_0 * step, out_idx_0)",
+        "source_file": "src/flag_gems/ops/slice.py",
+        "function_line": 63,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "triton_permute",
+      "source": "triton",
+      "family": "layout_2d",
+      "split": "development",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "缺少显式 load/store 访问",
+      "first_rejection": {
+        "parser_reason": "缺少显式 load/store 访问",
+        "source_file": "python/test/unit/language/test_core.py",
+        "function_line": 4062,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "triton_trans2d",
+      "source": "triton",
+      "family": "layout_2d",
+      "split": "development",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "缺少显式 load/store 访问",
+      "first_rejection": {
+        "parser_reason": "缺少显式 load/store 访问",
+        "source_file": "python/test/unit/language/test_core.py",
+        "function_line": 4108,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "triton_flip",
+      "source": "triton",
+      "family": "layout_2d",
+      "split": "development",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "第 8 行重复定义变量或覆盖参数",
+      "first_rejection": {
+        "parser_reason": "第 8 行重复定义变量或覆盖参数",
+        "source_file": "python/test/unit/language/test_standard.py",
+        "function_line": 78,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "triton_pair_flip",
+      "source": "triton",
+      "family": "layout_2d",
+      "split": "holdout",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "不支持第 5 行的控制流或语句",
+      "first_rejection": {
+        "parser_reason": "不支持第 5 行的控制流或语句",
+        "source_file": "python/test/unit/language/test_standard.py",
+        "function_line": 100,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "triton_split",
+      "source": "triton",
+      "family": "layout_2d",
+      "split": "development",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "不支持第 6 行的控制流或语句",
+      "first_rejection": {
+        "parser_reason": "不支持第 6 行的控制流或语句",
+        "source_file": "python/test/unit/language/test_core.py",
+        "function_line": 2934,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "triton_softmax",
+      "source": "triton",
+      "family": "row_reduction",
+      "split": "development",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "不支持第 6 行的控制流或语句",
+      "first_rejection": {
+        "parser_reason": "不支持第 6 行的控制流或语句",
+        "source_file": "python/test/unit/language/test_standard.py",
+        "function_line": 164,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "liger_softmax",
+      "source": "liger",
+      "family": "row_reduction",
+      "split": "development",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Supported",
+      "reason": "访存语法已归一化；尚未核对独立算子语义",
+      "first_rejection": null,
+      "accesses_before_rejection": 2
+    },
+    {
+      "id": "liger_layernorm",
+      "source": "liger",
+      "family": "row_reduction",
+      "split": "holdout",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unknown",
+      "reason": "访存基址缺少唯一指针绑定",
+      "first_rejection": {
+        "parser_reason": "访存基址缺少唯一指针绑定",
+        "source_file": "src/liger_kernel/ops/layer_norm.py",
+        "function_line": 26,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 2
+    },
+    {
+      "id": "unsloth_layernorm",
+      "source": "unsloth",
+      "family": "row_reduction",
+      "split": "development",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "不支持第 19 行的控制流或语句",
+      "first_rejection": {
+        "parser_reason": "不支持第 19 行的控制流或语句",
+        "source_file": "unsloth/kernels/layernorm.py",
+        "function_line": 22,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "liger_rmsnorm",
+      "source": "liger",
+      "family": "row_reduction",
+      "split": "development",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "不支持第 37 行的控制流或语句",
+      "first_rejection": {
+        "parser_reason": "不支持第 37 行的控制流或语句",
+        "source_file": "src/liger_kernel/ops/rms_norm.py",
+        "function_line": 67,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "liger_block_rmsnorm",
+      "source": "liger",
+      "family": "row_reduction",
+      "split": "development",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "不支持第 40 行的控制流或语句",
+      "first_rejection": {
+        "parser_reason": "不支持第 40 行的控制流或语句",
+        "source_file": "src/liger_kernel/ops/rms_norm.py",
+        "function_line": 247,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "unsloth_rmsnorm",
+      "source": "unsloth",
+      "family": "row_reduction",
+      "split": "holdout",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "不支持第 24 行的控制流或语句",
+      "first_rejection": {
+        "parser_reason": "不支持第 24 行的控制流或语句",
+        "source_file": "unsloth/kernels/rms_layernorm.py",
+        "function_line": 18,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "unsloth_gemma_rmsnorm",
+      "source": "unsloth",
+      "family": "row_reduction",
+      "split": "development",
+      "semantic_status": "complete_in_smoke_domain",
+      "status": "Unsupported",
+      "reason": "不支持第 21 行的控制流或语句",
+      "first_rejection": {
+        "parser_reason": "不支持第 21 行的控制流或语句",
+        "source_file": "unsloth/kernels/rms_layernorm.py",
+        "function_line": 119,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "triton_signed_neg",
+      "source": "triton",
+      "family": "elementwise_mapping",
+      "split": "challenge",
+      "semantic_status": "not_required_challenge",
+      "status": "Unsupported",
+      "reason": "tl.load/store 缺少显式 mask",
+      "first_rejection": {
+        "parser_reason": "tl.load/store 缺少显式 mask",
+        "source_file": "python/test/unit/language/test_core.py",
+        "function_line": 1084,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "triton_cat",
+      "source": "triton",
+      "family": "layout_2d",
+      "split": "challenge",
+      "semantic_status": "not_required_challenge",
+      "status": "Unsupported",
+      "reason": "tl.load/store 缺少显式 mask",
+      "first_rejection": {
+        "parser_reason": "tl.load/store 缺少显式 mask",
+        "source_file": "python/test/unit/language/test_core.py",
+        "function_line": 2644,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "triton_tutorial_softmax",
+      "source": "triton",
+      "family": "row_reduction",
+      "split": "challenge",
+      "semantic_status": "not_required_challenge",
+      "status": "Unsupported",
+      "reason": "不支持第 7 行的控制流或语句",
+      "first_rejection": {
+        "parser_reason": "不支持第 7 行的控制流或语句",
+        "source_file": "python/tutorials/02-fused-softmax.py",
+        "function_line": 84,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "triton_tutorial_layernorm",
+      "source": "triton",
+      "family": "row_reduction",
+      "split": "challenge",
+      "semantic_status": "not_required_challenge",
+      "status": "Unsupported",
+      "reason": "不支持第 16 行的控制流或语句",
+      "first_rejection": {
+        "parser_reason": "不支持第 16 行的控制流或语句",
+        "source_file": "python/tutorials/05-layer-norm.py",
+        "function_line": 48,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "triton_gather",
+      "source": "triton",
+      "family": "indirect_index",
+      "split": "challenge",
+      "semantic_status": "not_required_challenge",
+      "status": "Unsupported",
+      "reason": "不支持的索引表达式：tl.arange(0, src_dim0)[:, None]",
+      "first_rejection": {
+        "parser_reason": "不支持的索引表达式：tl.arange(0, src_dim0)[:, None]",
+        "source_file": "python/test/unit/language/test_core.py",
+        "function_line": 7768,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "triton_trans4d",
+      "source": "triton",
+      "family": "tensor_descriptor",
+      "split": "challenge",
+      "semantic_status": "not_required_challenge",
+      "status": "Unsupported",
+      "reason": "不支持第 19 行的控制流或语句",
+      "first_rejection": {
+        "parser_reason": "不支持第 19 行的控制流或语句",
+        "source_file": "python/test/unit/language/test_core.py",
+        "function_line": 4131,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "triton_reshape_template",
+      "source": "triton",
+      "family": "source_template",
+      "split": "challenge",
+      "semantic_status": "not_required_challenge",
+      "status": "Unknown",
+      "reason": "访存基址缺少唯一指针绑定",
+      "first_rejection": {
+        "parser_reason": "访存基址缺少唯一指针绑定",
+        "source_file": "python/test/unit/language/test_core.py",
+        "function_line": 5995,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "liger_swiglu_backward",
+      "source": "liger",
+      "family": "inplace_multi_store",
+      "split": "challenge",
+      "semantic_status": "not_required_challenge",
+      "status": "Unsupported",
+      "reason": "不支持第 8 行的控制流或语句",
+      "first_rejection": {
+        "parser_reason": "不支持第 8 行的控制流或语句",
+        "source_file": "src/liger_kernel/ops/swiglu.py",
+        "function_line": 78,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "unsloth_swiglu",
+      "source": "unsloth",
+      "family": "feature_broadcast",
+      "split": "challenge",
+      "semantic_status": "not_required_challenge",
+      "status": "Unsupported",
+      "reason": "不支持第 4 行的控制流或语句",
+      "first_rejection": {
+        "parser_reason": "不支持第 4 行的控制流或语句",
+        "source_file": "unsloth/kernels/swiglu.py",
+        "function_line": 24,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "unsloth_rope",
+      "source": "unsloth",
+      "family": "inplace_rope",
+      "split": "challenge",
+      "semantic_status": "not_required_challenge",
+      "status": "Unsupported",
+      "reason": "不支持第 37 行的控制流或语句",
+      "first_rejection": {
+        "parser_reason": "不支持第 37 行的控制流或语句",
+        "source_file": "unsloth/kernels/rope_embedding.py",
+        "function_line": 101,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "flag_cat",
+      "source": "flag_gems",
+      "family": "layout_2d",
+      "split": "challenge",
+      "semantic_status": "not_required_challenge",
+      "status": "Unsupported",
+      "reason": "不支持第 27 行的控制流或语句",
+      "first_rejection": {
+        "parser_reason": "不支持第 27 行的控制流或语句",
+        "source_file": "src/flag_gems/ops/cat.py",
+        "function_line": 55,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    },
+    {
+      "id": "flag_complex_transpose",
+      "source": "flag_gems",
+      "family": "complex_static_loop",
+      "split": "challenge",
+      "semantic_status": "not_required_challenge",
+      "status": "Unsupported",
+      "reason": "不支持第 25 行的控制流或语句",
+      "first_rejection": {
+        "parser_reason": "不支持第 25 行的控制流或语句",
+        "source_file": "src/flag_gems/ops/transpose_copy.py",
+        "function_line": 61,
+        "node_location": "参见 parser_reason；无行号时 Unknown"
+      },
+      "accesses_before_rejection": 0
+    }
+  ],
+  "scope": "仅 e1 语料与有界语义证据。语法、语义完整、候选、Guard、Fast、接入分母分列；旧15个历史样本另存，未混入这40个真实样本。"
+}

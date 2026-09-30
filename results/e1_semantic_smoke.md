@@ -1,0 +1,30 @@
+# e1 隔离参考 smoke
+
+- triton_add：passed；退出码 0。
+- triton_where_zero：passed；退出码 0。
+- triton_interleave：passed；退出码 0。
+- triton_ravel：passed；退出码 0。
+- pytorch_sub：passed；退出码 0。
+- pytorch_double：passed；退出码 0。
+- pytorch_double_strided：passed；退出码 0。
+- triton_broadcast：passed；退出码 0。
+- triton_where_broadcast：passed；退出码 0。
+- pytorch_masked_add：passed；退出码 0。
+- liger_swiglu：passed；退出码 0。
+- liger_swiglu_tiled：passed；退出码 0。
+- liger_geglu：passed；退出码 0。
+- liger_fused_swiglu：passed；退出码 0。
+- flag_slice：passed；退出码 0。
+- triton_permute：passed；退出码 0。
+- triton_trans2d：passed；退出码 0。
+- triton_flip：passed；退出码 0。
+- triton_pair_flip：passed；退出码 0。
+- triton_split：passed；退出码 0。
+- triton_softmax：passed；退出码 0。
+- liger_softmax：passed；退出码 0。
+- liger_layernorm：passed；退出码 0。
+- unsloth_layernorm：passed；退出码 0。
+- liger_rmsnorm：passed；退出码 0。
+- liger_block_rmsnorm：passed；退出码 0。
+- unsloth_rmsnorm：passed；退出码 0。
+- unsloth_gemma_rmsnorm：passed；退出码 0。

@@ -1,0 +1,4458 @@
+{
+  "version": 1,
+  "freeze_status": "frozen",
+  "split_policy": "选型顺序每四个的第三个进入 holdout；挑战另列；e1 允许真值/来源 smoke，禁止据此调分析规则",
+  "entries": [
+    {
+      "id": "triton_add",
+      "source": "triton",
+      "file": "python/tutorials/01-vector-add.py",
+      "function": "add_kernel",
+      "family": "elementwise_mapping",
+      "test_file": "python/tutorials/01-vector-add.py",
+      "reference_anchor": "output_torch = x + y",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              129
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "y",
+            "shape": [
+              129
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              129
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x",
+          "y"
+        ],
+        "outputs": [
+          "out"
+        ],
+        "bindings": [
+          {
+            "parameter": "x_ptr",
+            "expression": "x"
+          },
+          {
+            "parameter": "y_ptr",
+            "expression": "y"
+          },
+          {
+            "parameter": "output_ptr",
+            "expression": "out"
+          },
+          {
+            "parameter": "n_elements",
+            "expression": "x.numel()"
+          },
+          {
+            "parameter": "BLOCK_SIZE",
+            "expression": "128"
+          }
+        ],
+        "grid": [
+          2
+        ],
+        "reference": "add",
+        "rtol": 1e-05,
+        "atol": 1e-06
+      },
+      "helper": "",
+      "audit_note": "",
+      "split": "development",
+      "revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "repository": "triton-lang/triton",
+      "license_id": "MIT",
+      "license_sha256": "92640fb97222fd0a698ff28ce0c3782c172623f8d6c609b557636a80f28fb946",
+      "source_url": "https://github.com/triton-lang/triton/blob/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/tutorials/01-vector-add.py#L29",
+      "line": 29,
+      "file_sha256": "842430949e0ccde4fbce07606cce3ac4bac36bf21b2b12619a31b795ca4029b3",
+      "function_sha256": "4367cce6ad76d1b1479d5e7a5302474929bb296393966d3bda317d73ba294650",
+      "normalized_body_sha256": "9b033e2bea8a9200cca3c8a2d7a4bf2c4a1431b33eb32625e1f0a9840dc37be1",
+      "signature": [
+        "x_ptr",
+        "y_ptr",
+        "output_ptr",
+        "n_elements",
+        "BLOCK_SIZE"
+      ],
+      "pointers": {
+        "x_ptr": "x",
+        "y_ptr": "y",
+        "output_ptr": "out"
+      },
+      "features": {
+        "program_id_axes": [
+          0
+        ],
+        "load_count": 2,
+        "store_count": 1,
+        "explicit_masks": 3,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/triton_add.py",
+      "kernel_module_sha256": "befbb8aae871725894ae6aaef17fb29bb4ea76fbc3d8c306c4d17cf31c2aebac",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "842430949e0ccde4fbce07606cce3ac4bac36bf21b2b12619a31b795ca4029b3",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "triton_where_zero",
+      "source": "triton",
+      "file": "python/test/unit/language/test_core.py",
+      "function": "test_where_broadcast.where_scalar_condition",
+      "family": "elementwise_mapping",
+      "test_file": "python/test/unit/language/test_core.py",
+      "reference_anchor": "z = np.where(0, x, 0)",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              32,
+              32
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              32,
+              32
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x"
+        ],
+        "outputs": [
+          "out"
+        ],
+        "bindings": [
+          {
+            "parameter": "a_ptr",
+            "expression": "x"
+          },
+          {
+            "parameter": "out_ptr",
+            "expression": "out"
+          },
+          {
+            "parameter": "BLOCK_SIZE",
+            "expression": "32"
+          }
+        ],
+        "grid": [
+          1
+        ],
+        "reference": "zeros",
+        "rtol": 0,
+        "atol": 0
+      },
+      "helper": "",
+      "audit_note": "",
+      "split": "development",
+      "revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "repository": "triton-lang/triton",
+      "license_id": "MIT",
+      "license_sha256": "92640fb97222fd0a698ff28ce0c3782c172623f8d6c609b557636a80f28fb946",
+      "source_url": "https://github.com/triton-lang/triton/blob/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/test/unit/language/test_core.py#L1044",
+      "line": 1044,
+      "file_sha256": "b6f148d50ebc0117f9cff7d9b7b883bc1439dfadd5787d3cf61023fcb2243abc",
+      "function_sha256": "731560896fa08f114ee56dfce5d75a297ae6e96848ed34aecac043f9932200ca",
+      "normalized_body_sha256": "4f9537c1a7a50627112ac727ed7a2b894ce62f1ca4bf3a0ccae7c84842bff71f",
+      "signature": [
+        "a_ptr",
+        "out_ptr",
+        "BLOCK_SIZE"
+      ],
+      "pointers": {
+        "a_ptr": "x",
+        "out_ptr": "out"
+      },
+      "features": {
+        "program_id_axes": [],
+        "load_count": 1,
+        "store_count": 1,
+        "explicit_masks": 0,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": true,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/triton_where_zero.py",
+      "kernel_module_sha256": "4514a11e8e1511cb15393d82c427284671c076ae5932d38b42771781028abfa6",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "b6f148d50ebc0117f9cff7d9b7b883bc1439dfadd5787d3cf61023fcb2243abc",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "triton_interleave",
+      "source": "triton",
+      "file": "python/test/unit/language/test_core.py",
+      "function": "test_interleave.kernel",
+      "family": "elementwise_mapping",
+      "test_file": "python/test/unit/language/test_core.py",
+      "reference_anchor": "z_ref = torch.stack([x, y], dim=-1).reshape(256)",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "out",
+            "shape": [
+              256
+            ],
+            "dtype": "int32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [],
+        "outputs": [
+          "out"
+        ],
+        "bindings": [
+          {
+            "parameter": "Z",
+            "expression": "out"
+          },
+          {
+            "parameter": "N",
+            "expression": "128"
+          }
+        ],
+        "grid": [
+          1
+        ],
+        "reference": "interleave",
+        "rtol": 0,
+        "atol": 0
+      },
+      "helper": "",
+      "audit_note": "生成映射，无输入 load；debug=False 保留原 decorator，未改函数体。",
+      "split": "holdout",
+      "revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "repository": "triton-lang/triton",
+      "license_id": "MIT",
+      "license_sha256": "92640fb97222fd0a698ff28ce0c3782c172623f8d6c609b557636a80f28fb946",
+      "source_url": "https://github.com/triton-lang/triton/blob/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/test/unit/language/test_core.py#L2902",
+      "line": 2902,
+      "file_sha256": "b6f148d50ebc0117f9cff7d9b7b883bc1439dfadd5787d3cf61023fcb2243abc",
+      "function_sha256": "278eee6db43591742500019d333d80aa80acb2580a4f1f63d8c0739c457048e4",
+      "normalized_body_sha256": "743792c347c7a9525afbcd1015158b46ad791ab7ca1a1fa82d0f63e588803839",
+      "signature": [
+        "Z",
+        "N"
+      ],
+      "pointers": {
+        "Z": "out"
+      },
+      "features": {
+        "program_id_axes": [],
+        "load_count": 0,
+        "store_count": 1,
+        "explicit_masks": 0,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": false,
+        "layout_transform": true
+      },
+      "kernel_module": "kernels/triton_interleave.py",
+      "kernel_module_sha256": "15929586b580de6bb3830cde4a4b47c7a96459acdf6242d7b6f8ce2114966806",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "b6f148d50ebc0117f9cff7d9b7b883bc1439dfadd5787d3cf61023fcb2243abc",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "triton_ravel",
+      "source": "triton",
+      "file": "python/test/unit/language/test_standard.py",
+      "function": "test_ravel.triton_ravel",
+      "family": "elementwise_mapping",
+      "test_file": "python/test/unit/language/test_standard.py",
+      "reference_anchor": "torch.arange(0, 256, device=device)",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "out",
+            "shape": [
+              256
+            ],
+            "dtype": "int32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [],
+        "outputs": [
+          "out"
+        ],
+        "bindings": [
+          {
+            "parameter": "out_ptr",
+            "expression": "out"
+          }
+        ],
+        "grid": [
+          1
+        ],
+        "reference": "ravel",
+        "rtol": 0,
+        "atol": 0
+      },
+      "helper": "",
+      "audit_note": "",
+      "split": "development",
+      "revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "repository": "triton-lang/triton",
+      "license_id": "MIT",
+      "license_sha256": "92640fb97222fd0a698ff28ce0c3782c172623f8d6c609b557636a80f28fb946",
+      "source_url": "https://github.com/triton-lang/triton/blob/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/test/unit/language/test_standard.py#L122",
+      "line": 122,
+      "file_sha256": "8aedfd39de8eacbd387141925c3c74132fd0838c837b1388120cd6ffdc2ea55c",
+      "function_sha256": "86b1e13c31cc8d7c7b1389ac168f168f16ac3f5be6381cef85225af711caaa32",
+      "normalized_body_sha256": "84e6b91e185a5147f63e272d42c35b649d9e87b7891862c6dee10b26dea79929",
+      "signature": [
+        "out_ptr"
+      ],
+      "pointers": {
+        "out_ptr": "out"
+      },
+      "features": {
+        "program_id_axes": [],
+        "load_count": 0,
+        "store_count": 1,
+        "explicit_masks": 0,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": false,
+        "layout_transform": true
+      },
+      "kernel_module": "kernels/triton_ravel.py",
+      "kernel_module_sha256": "0b17d821ab8b0e55bc5158f78f3c3b0715700465bf0a140f8ac0fd47df9cb7ac",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "8aedfd39de8eacbd387141925c3c74132fd0838c837b1388120cd6ffdc2ea55c",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "pytorch_sub",
+      "source": "pytorch",
+      "file": "torch/testing/_internal/triton_utils.py",
+      "function": "sub_kernel",
+      "family": "elementwise_mapping",
+      "test_file": "test/inductor/test_triton_kernels.py",
+      "reference_anchor": "shared sub_kernel; independent torch.sub mathematical specification",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              129
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "y",
+            "shape": [
+              129
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              129
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x",
+          "y"
+        ],
+        "outputs": [
+          "out"
+        ],
+        "bindings": [
+          {
+            "parameter": "in_ptr0",
+            "expression": "x"
+          },
+          {
+            "parameter": "in_ptr1",
+            "expression": "y"
+          },
+          {
+            "parameter": "out_ptr",
+            "expression": "out"
+          },
+          {
+            "parameter": "n_elements",
+            "expression": "x.numel()"
+          },
+          {
+            "parameter": "BLOCK_SIZE",
+            "expression": "128"
+          }
+        ],
+        "grid": [
+          2
+        ],
+        "reference": "sub",
+        "rtol": 1e-05,
+        "atol": 1e-06
+      },
+      "helper": "",
+      "audit_note": "参考为独立 torch.sub 逻辑定义，非上游输出快照；共享测试 Kernel 在本测试文件未直接调用 sub，不能声称复用现成 sub 黄金测试。",
+      "split": "development",
+      "revision": "a6b28b689562679531a842f27d4e39ba50bb34f1",
+      "repository": "pytorch/pytorch",
+      "license_id": "PyTorch BSD-style",
+      "license_sha256": "bd018feef8825e88181c84eb7e3aa4eafb8f08a20d9fd6ef948569610c4a3e43",
+      "source_url": "https://github.com/pytorch/pytorch/blob/a6b28b689562679531a842f27d4e39ba50bb34f1/torch/testing/_internal/triton_utils.py#L106",
+      "line": 106,
+      "file_sha256": "4d8b4358a1ca57312f4bdf1bddc1ed99a960494cabf84ed69ab88fea8284a491",
+      "function_sha256": "60d2fc532770c8682196284f048eb32ff10ca1faa5992cd225d0850ccfb5b839",
+      "normalized_body_sha256": "f8ee7ba8c3389c5ffb34f70b3fdf7997a3250cc10c8a9fbcf95fe99bec18eb1b",
+      "signature": [
+        "in_ptr0",
+        "in_ptr1",
+        "out_ptr",
+        "n_elements",
+        "BLOCK_SIZE"
+      ],
+      "pointers": {
+        "in_ptr0": "x",
+        "in_ptr1": "y",
+        "out_ptr": "out"
+      },
+      "features": {
+        "program_id_axes": [
+          0
+        ],
+        "load_count": 2,
+        "store_count": 1,
+        "explicit_masks": 3,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/pytorch_sub.py",
+      "kernel_module_sha256": "4dea50f69cb7d1d776d76b308fb92882b21ccaed25ed642e9c595bcdc476cae2",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "c5cd5e3d6be6abd386c560d32e68754151532c60cec3e7ee7570f009d3ebbac2",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "pytorch_double",
+      "source": "pytorch",
+      "file": "torch/testing/_internal/triton_utils.py",
+      "function": "mul2_kernel",
+      "family": "elementwise_mapping",
+      "test_file": "test/inductor/test_triton_kernels.py",
+      "reference_anchor": "test_triton_kernel_with_views",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              129
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              129
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x"
+        ],
+        "outputs": [
+          "out"
+        ],
+        "bindings": [
+          {
+            "parameter": "in_ptr0",
+            "expression": "x"
+          },
+          {
+            "parameter": "out_ptr",
+            "expression": "out"
+          },
+          {
+            "parameter": "n_elements",
+            "expression": "x.numel()"
+          },
+          {
+            "parameter": "BLOCK_SIZE",
+            "expression": "128"
+          }
+        ],
+        "grid": [
+          2
+        ],
+        "reference": "double",
+        "rtol": 1e-05,
+        "atol": 1e-06
+      },
+      "helper": "",
+      "audit_note": "",
+      "split": "development",
+      "revision": "a6b28b689562679531a842f27d4e39ba50bb34f1",
+      "repository": "pytorch/pytorch",
+      "license_id": "PyTorch BSD-style",
+      "license_sha256": "bd018feef8825e88181c84eb7e3aa4eafb8f08a20d9fd6ef948569610c4a3e43",
+      "source_url": "https://github.com/pytorch/pytorch/blob/a6b28b689562679531a842f27d4e39ba50bb34f1/torch/testing/_internal/triton_utils.py#L576",
+      "line": 576,
+      "file_sha256": "4d8b4358a1ca57312f4bdf1bddc1ed99a960494cabf84ed69ab88fea8284a491",
+      "function_sha256": "c1f9f9dedb128a9405955f442e05522012a7273dfa6e337c4d568caf31a30c7f",
+      "normalized_body_sha256": "19b015ca2d943518d615f84f8ee0b85895d6bd488562c4f0485709a3c7fae266",
+      "signature": [
+        "in_ptr0",
+        "out_ptr",
+        "n_elements",
+        "BLOCK_SIZE"
+      ],
+      "pointers": {
+        "in_ptr0": "x",
+        "out_ptr": "out"
+      },
+      "features": {
+        "program_id_axes": [
+          0
+        ],
+        "load_count": 1,
+        "store_count": 1,
+        "explicit_masks": 2,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/pytorch_double.py",
+      "kernel_module_sha256": "3d3739da1cb6265a207bb990f7255e084f7dd4caafefb2f491266d8630cb1d3a",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "c5cd5e3d6be6abd386c560d32e68754151532c60cec3e7ee7570f009d3ebbac2",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "pytorch_double_strided",
+      "source": "pytorch",
+      "file": "torch/testing/_internal/triton_utils.py",
+      "function": "double_strided_kernel",
+      "family": "elementwise_mapping",
+      "test_file": "test/inductor/test_triton_kernels.py",
+      "reference_anchor": "test_triton_kernel_strided_input",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              16,
+              16
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              16,
+              16
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x"
+        ],
+        "outputs": [
+          "out"
+        ],
+        "bindings": [
+          {
+            "parameter": "in_ptr",
+            "expression": "x"
+          },
+          {
+            "parameter": "out_ptr",
+            "expression": "out"
+          },
+          {
+            "parameter": "in_y_stride",
+            "expression": "x.stride(0)"
+          },
+          {
+            "parameter": "out_y_stride",
+            "expression": "out.stride(0)"
+          },
+          {
+            "parameter": "X_BLOCK_SIZE",
+            "expression": "8"
+          },
+          {
+            "parameter": "Y_BLOCK_SIZE",
+            "expression": "8"
+          }
+        ],
+        "grid": [
+          2,
+          2
+        ],
+        "reference": "double",
+        "rtol": 1e-05,
+        "atol": 1e-06
+      },
+      "helper": "",
+      "audit_note": "该函数为二维显式行 stride 映射，与一维 mul2 的 grid 和坐标不同；归入映射类，不用二维形状充作布局变换。",
+      "split": "holdout",
+      "revision": "a6b28b689562679531a842f27d4e39ba50bb34f1",
+      "repository": "pytorch/pytorch",
+      "license_id": "PyTorch BSD-style",
+      "license_sha256": "bd018feef8825e88181c84eb7e3aa4eafb8f08a20d9fd6ef948569610c4a3e43",
+      "source_url": "https://github.com/pytorch/pytorch/blob/a6b28b689562679531a842f27d4e39ba50bb34f1/torch/testing/_internal/triton_utils.py#L628",
+      "line": 628,
+      "file_sha256": "4d8b4358a1ca57312f4bdf1bddc1ed99a960494cabf84ed69ab88fea8284a491",
+      "function_sha256": "e4f868de1c6e7e53cd1c83f548cf8ad7a615063b308e331e2c348859c9f6927a",
+      "normalized_body_sha256": "bb2484ba0e2c84b2576b9c915283ea17ba93ed0d762c1f84e8034febbdbf3d63",
+      "signature": [
+        "in_ptr",
+        "out_ptr",
+        "in_y_stride",
+        "out_y_stride",
+        "X_BLOCK_SIZE",
+        "Y_BLOCK_SIZE"
+      ],
+      "pointers": {
+        "in_ptr": "x",
+        "out_ptr": "out"
+      },
+      "features": {
+        "program_id_axes": [
+          0,
+          1
+        ],
+        "load_count": 1,
+        "store_count": 1,
+        "explicit_masks": 0,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": true,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/pytorch_double_strided.py",
+      "kernel_module_sha256": "5302d399969224cfae4aa82e7fa73a3108557686dcbcb222db6e4642b6b1c145",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "c5cd5e3d6be6abd386c560d32e68754151532c60cec3e7ee7570f009d3ebbac2",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "triton_broadcast",
+      "source": "triton",
+      "file": "python/test/unit/language/test_core.py",
+      "function": "test_broadcast.broadcast_kernel",
+      "family": "feature_broadcast",
+      "test_file": "python/test/unit/language/test_core.py",
+      "reference_anchor": "np.broadcast_arrays(x, y)",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              32,
+              64
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "y",
+            "shape": [
+              64
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              32,
+              64
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x",
+          "y"
+        ],
+        "outputs": [
+          "out"
+        ],
+        "bindings": [
+          {
+            "parameter": "x_ptr",
+            "expression": "x"
+          },
+          {
+            "parameter": "y_ptr",
+            "expression": "y"
+          },
+          {
+            "parameter": "y_broadcasted_ptr",
+            "expression": "out"
+          },
+          {
+            "parameter": "M",
+            "expression": "32"
+          },
+          {
+            "parameter": "N",
+            "expression": "64"
+          }
+        ],
+        "grid": [
+          1
+        ],
+        "reference": "broadcast",
+        "rtol": 0,
+        "atol": 0
+      },
+      "helper": "",
+      "audit_note": "",
+      "split": "development",
+      "revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "repository": "triton-lang/triton",
+      "license_id": "MIT",
+      "license_sha256": "92640fb97222fd0a698ff28ce0c3782c172623f8d6c609b557636a80f28fb946",
+      "source_url": "https://github.com/triton-lang/triton/blob/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/test/unit/language/test_core.py#L692",
+      "line": 692,
+      "file_sha256": "b6f148d50ebc0117f9cff7d9b7b883bc1439dfadd5787d3cf61023fcb2243abc",
+      "function_sha256": "1573d7a057787f9dac9c80838d266eb7f2851182a11939cc612c89e4208a3f95",
+      "normalized_body_sha256": "f1b1313bb42e9ea9681874321c8ad665d6cd7bfe1be8b72eff9d9c49cd68865f",
+      "signature": [
+        "x_ptr",
+        "y_ptr",
+        "y_broadcasted_ptr",
+        "M",
+        "N"
+      ],
+      "pointers": {
+        "x_ptr": "x",
+        "y_ptr": "y",
+        "y_broadcasted_ptr": "out"
+      },
+      "features": {
+        "program_id_axes": [],
+        "load_count": 2,
+        "store_count": 1,
+        "explicit_masks": 0,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": true,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/triton_broadcast.py",
+      "kernel_module_sha256": "eec769d7119eea446cf3ea0b910fd5f5c2155d7c0d3c6736f6ed7e6c8bf1a4ac",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "b6f148d50ebc0117f9cff7d9b7b883bc1439dfadd5787d3cf61023fcb2243abc",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "triton_where_broadcast",
+      "source": "triton",
+      "file": "python/test/unit/language/test_core.py",
+      "function": "test_where_broadcast.where_kernel",
+      "family": "feature_broadcast",
+      "test_file": "python/test/unit/language/test_core.py",
+      "reference_anchor": "z = np.where(mask, x, 0)",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              32,
+              32
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "mask",
+            "shape": [
+              32
+            ],
+            "dtype": "bool",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              32,
+              32
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x",
+          "mask"
+        ],
+        "outputs": [
+          "out"
+        ],
+        "bindings": [
+          {
+            "parameter": "cond_ptr",
+            "expression": "mask"
+          },
+          {
+            "parameter": "a_ptr",
+            "expression": "x"
+          },
+          {
+            "parameter": "out_ptr",
+            "expression": "out"
+          },
+          {
+            "parameter": "BLOCK_SIZE",
+            "expression": "32"
+          }
+        ],
+        "grid": [
+          1
+        ],
+        "reference": "where_broadcast",
+        "rtol": 0,
+        "atol": 0
+      },
+      "helper": "",
+      "audit_note": "",
+      "split": "development",
+      "revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "repository": "triton-lang/triton",
+      "license_id": "MIT",
+      "license_sha256": "92640fb97222fd0a698ff28ce0c3782c172623f8d6c609b557636a80f28fb946",
+      "source_url": "https://github.com/triton-lang/triton/blob/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/test/unit/language/test_core.py#L1034",
+      "line": 1034,
+      "file_sha256": "b6f148d50ebc0117f9cff7d9b7b883bc1439dfadd5787d3cf61023fcb2243abc",
+      "function_sha256": "d966470d8bc31c2c0d8cea786ef9c4020421d3ccf02eed1850a0a2ec60f7544e",
+      "normalized_body_sha256": "674d35af5f9549da1f5e79a8de56fab7855b1143995b4637cbf73506805b3c7e",
+      "signature": [
+        "cond_ptr",
+        "a_ptr",
+        "out_ptr",
+        "BLOCK_SIZE"
+      ],
+      "pointers": {
+        "cond_ptr": "mask",
+        "a_ptr": "x",
+        "out_ptr": "out"
+      },
+      "features": {
+        "program_id_axes": [],
+        "load_count": 2,
+        "store_count": 1,
+        "explicit_masks": 0,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": true,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/triton_where_broadcast.py",
+      "kernel_module_sha256": "74e35f5041e0a8af4c23d3e99ae41d72906f74dafbc2cb796b33b762b4e1d4a4",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "b6f148d50ebc0117f9cff7d9b7b883bc1439dfadd5787d3cf61023fcb2243abc",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "pytorch_masked_add",
+      "source": "pytorch",
+      "file": "torch/testing/_internal/triton_utils.py",
+      "function": "masked_add_kernel_with_bool_tensor",
+      "family": "feature_broadcast",
+      "test_file": "test/inductor/test_triton_kernels.py",
+      "reference_anchor": "masked_add_kernel_with_bool_tensor; independent torch.where(mask, x+y, x)",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              129
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "y",
+            "shape": [
+              129
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              129
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          },
+          {
+            "name": "mask",
+            "shape": [
+              129
+            ],
+            "dtype": "bool",
+            "fill": "random"
+          }
+        ],
+        "inputs": [
+          "x",
+          "y",
+          "mask"
+        ],
+        "outputs": [
+          "out"
+        ],
+        "bindings": [
+          {
+            "parameter": "in_ptr0",
+            "expression": "x"
+          },
+          {
+            "parameter": "in_ptr1",
+            "expression": "y"
+          },
+          {
+            "parameter": "mask_ptr",
+            "expression": "mask"
+          },
+          {
+            "parameter": "out_ptr",
+            "expression": "out"
+          },
+          {
+            "parameter": "n_elements",
+            "expression": "x.numel()"
+          },
+          {
+            "parameter": "BLOCK_SIZE",
+            "expression": "128"
+          }
+        ],
+        "grid": [
+          2
+        ],
+        "reference": "masked_add",
+        "rtol": 1e-05,
+        "atol": 1e-06
+      },
+      "helper": "",
+      "audit_note": "多输入值掩码，不是访存 mask；真值来自独立 Eager 公式，未将数据相关条件授予 Fast。",
+      "split": "development",
+      "revision": "a6b28b689562679531a842f27d4e39ba50bb34f1",
+      "repository": "pytorch/pytorch",
+      "license_id": "PyTorch BSD-style",
+      "license_sha256": "bd018feef8825e88181c84eb7e3aa4eafb8f08a20d9fd6ef948569610c4a3e43",
+      "source_url": "https://github.com/pytorch/pytorch/blob/a6b28b689562679531a842f27d4e39ba50bb34f1/torch/testing/_internal/triton_utils.py#L1072",
+      "line": 1072,
+      "file_sha256": "4d8b4358a1ca57312f4bdf1bddc1ed99a960494cabf84ed69ab88fea8284a491",
+      "function_sha256": "99508fa84c44469dc750fcbce33ed3a3b019e7a97d7bf6453be79dfb4603378d",
+      "normalized_body_sha256": "a66a9a57da2e6fbadc65ead9eadcf0982111ed3b7d5c7fe428e6c3c9173de139",
+      "signature": [
+        "in_ptr0",
+        "in_ptr1",
+        "mask_ptr",
+        "out_ptr",
+        "n_elements",
+        "BLOCK_SIZE"
+      ],
+      "pointers": {
+        "in_ptr0": "x",
+        "in_ptr1": "y",
+        "mask_ptr": "mask",
+        "out_ptr": "out"
+      },
+      "features": {
+        "program_id_axes": [
+          0
+        ],
+        "load_count": 3,
+        "store_count": 1,
+        "explicit_masks": 4,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/pytorch_masked_add.py",
+      "kernel_module_sha256": "0072ffb315c17681e059ecd6693fba3cf57494d143c9157719955f0364b99557",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "c5cd5e3d6be6abd386c560d32e68754151532c60cec3e7ee7570f009d3ebbac2",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "liger_swiglu",
+      "source": "liger",
+      "file": "src/liger_kernel/ops/swiglu.py",
+      "function": "_swiglu_forward_kernel",
+      "family": "feature_broadcast",
+      "test_file": "test/ops/test_swiglu.py",
+      "reference_anchor": "_swiglu_ref",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              32,
+              256
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "y",
+            "shape": [
+              32,
+              256
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              32,
+              256
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x",
+          "y"
+        ],
+        "outputs": [
+          "out"
+        ],
+        "bindings": [
+          {
+            "parameter": "a_ptr",
+            "expression": "x"
+          },
+          {
+            "parameter": "b_ptr",
+            "expression": "y"
+          },
+          {
+            "parameter": "c_ptr",
+            "expression": "out"
+          },
+          {
+            "parameter": "stride",
+            "expression": "x.stride(0)"
+          },
+          {
+            "parameter": "gate_multiplier",
+            "expression": "1.0"
+          },
+          {
+            "parameter": "n_cols",
+            "expression": "256"
+          },
+          {
+            "parameter": "BLOCK_SIZE",
+            "expression": "256"
+          }
+        ],
+        "grid": [
+          32
+        ],
+        "reference": "swiglu",
+        "rtol": 1e-05,
+        "atol": 1e-05
+      },
+      "helper": "silu",
+      "audit_note": "tiled 样本直接调用底层函数进行语义 smoke；不是上游 wide-row 选择阈值或性能实验。",
+      "split": "holdout",
+      "revision": "40a9d8a61bdc546f4e70220619d4db9760fa80b1",
+      "repository": "linkedin/Liger-Kernel",
+      "license_id": "BSD-2-Clause",
+      "license_sha256": "3a1ccb0c7274b68e1af2ca1d54b10b662085ca56753400182ecf87ae33f2d1a8",
+      "source_url": "https://github.com/linkedin/Liger-Kernel/blob/40a9d8a61bdc546f4e70220619d4db9760fa80b1/src/liger_kernel/ops/swiglu.py#L57",
+      "line": 57,
+      "file_sha256": "7397029e8fefac0de42e5eeafcbbac147644a91c357bd30b9ba019fa5df3ce0a",
+      "function_sha256": "021883fbe4e673a3845a84ff4d686905bd8850c7fb38815d407ef4f425d6685f",
+      "normalized_body_sha256": "4d94c4fc2d2ec9cfc6d9e5730f36a5b144756dd84aaa1d3c14ae631e8b2b24a4",
+      "signature": [
+        "a_ptr",
+        "b_ptr",
+        "c_ptr",
+        "stride",
+        "gate_multiplier",
+        "n_cols",
+        "BLOCK_SIZE"
+      ],
+      "pointers": {
+        "a_ptr": "x",
+        "b_ptr": "y",
+        "c_ptr": "out"
+      },
+      "features": {
+        "program_id_axes": [
+          0
+        ],
+        "load_count": 2,
+        "store_count": 1,
+        "explicit_masks": 3,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": true,
+        "pointer_update": true,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/liger_swiglu.py",
+      "kernel_module_sha256": "8737f1c72a9a45cab3a6080f8a035aa9383d97ca9aabceec6fce79819d317284",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "1f0219622d7e48fec5f9562ca275672ae6b629cf090a66b37fa93e967d145c11",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "liger_swiglu_tiled",
+      "source": "liger",
+      "file": "src/liger_kernel/ops/swiglu.py",
+      "function": "_swiglu_forward_kernel_tiled",
+      "family": "feature_broadcast",
+      "test_file": "test/ops/test_swiglu.py",
+      "reference_anchor": "_swiglu_ref",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              32,
+              256
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "y",
+            "shape": [
+              32,
+              256
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              32,
+              256
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x",
+          "y"
+        ],
+        "outputs": [
+          "out"
+        ],
+        "bindings": [
+          {
+            "parameter": "a_ptr",
+            "expression": "x"
+          },
+          {
+            "parameter": "b_ptr",
+            "expression": "y"
+          },
+          {
+            "parameter": "c_ptr",
+            "expression": "out"
+          },
+          {
+            "parameter": "stride",
+            "expression": "x.stride(0)"
+          },
+          {
+            "parameter": "gate_multiplier",
+            "expression": "1.0"
+          },
+          {
+            "parameter": "n_cols",
+            "expression": "256"
+          },
+          {
+            "parameter": "BLOCK_SIZE",
+            "expression": "128"
+          }
+        ],
+        "grid": [
+          32,
+          2
+        ],
+        "reference": "swiglu",
+        "rtol": 1e-05,
+        "atol": 1e-05
+      },
+      "helper": "silu",
+      "audit_note": "tiled 样本直接调用底层函数进行语义 smoke；不是上游 wide-row 选择阈值或性能实验。",
+      "split": "development",
+      "revision": "40a9d8a61bdc546f4e70220619d4db9760fa80b1",
+      "repository": "linkedin/Liger-Kernel",
+      "license_id": "BSD-2-Clause",
+      "license_sha256": "3a1ccb0c7274b68e1af2ca1d54b10b662085ca56753400182ecf87ae33f2d1a8",
+      "source_url": "https://github.com/linkedin/Liger-Kernel/blob/40a9d8a61bdc546f4e70220619d4db9760fa80b1/src/liger_kernel/ops/swiglu.py#L108",
+      "line": 108,
+      "file_sha256": "7397029e8fefac0de42e5eeafcbbac147644a91c357bd30b9ba019fa5df3ce0a",
+      "function_sha256": "0a0d3335d5821dc65bb0f22f47e04be98921a6f954dfca7e7536a81e9d5a7d6f",
+      "normalized_body_sha256": "12a783ae66f360cd463e67c3ebe5a894f3576c470787e294d005d52a72c425e2",
+      "signature": [
+        "a_ptr",
+        "b_ptr",
+        "c_ptr",
+        "stride",
+        "gate_multiplier",
+        "n_cols",
+        "BLOCK_SIZE"
+      ],
+      "pointers": {
+        "a_ptr": "x",
+        "b_ptr": "y",
+        "c_ptr": "out"
+      },
+      "features": {
+        "program_id_axes": [
+          0,
+          1
+        ],
+        "load_count": 2,
+        "store_count": 1,
+        "explicit_masks": 3,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": true,
+        "pointer_update": true,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/liger_swiglu_tiled.py",
+      "kernel_module_sha256": "f09ec57958405cfbead4f91a9cd09dc12285d703e689e02a08f319af052d2a66",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "1f0219622d7e48fec5f9562ca275672ae6b629cf090a66b37fa93e967d145c11",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "liger_geglu",
+      "source": "liger",
+      "file": "src/liger_kernel/ops/geglu.py",
+      "function": "_geglu_tanh_forward_kernel",
+      "family": "feature_broadcast",
+      "test_file": "test/ops/test_geglu.py",
+      "reference_anchor": "_geglu_ref",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              32,
+              256
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "y",
+            "shape": [
+              32,
+              256
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              32,
+              256
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x",
+          "y"
+        ],
+        "outputs": [
+          "out"
+        ],
+        "bindings": [
+          {
+            "parameter": "a",
+            "expression": "x"
+          },
+          {
+            "parameter": "b",
+            "expression": "y"
+          },
+          {
+            "parameter": "c",
+            "expression": "out"
+          },
+          {
+            "parameter": "stride",
+            "expression": "x.stride(0)"
+          },
+          {
+            "parameter": "n_cols",
+            "expression": "256"
+          },
+          {
+            "parameter": "BLOCK_SIZE",
+            "expression": "256"
+          }
+        ],
+        "grid": [
+          32
+        ],
+        "reference": "geglu",
+        "rtol": 1e-05,
+        "atol": 1e-05
+      },
+      "helper": "",
+      "audit_note": "",
+      "split": "development",
+      "revision": "40a9d8a61bdc546f4e70220619d4db9760fa80b1",
+      "repository": "linkedin/Liger-Kernel",
+      "license_id": "BSD-2-Clause",
+      "license_sha256": "3a1ccb0c7274b68e1af2ca1d54b10b662085ca56753400182ecf87ae33f2d1a8",
+      "source_url": "https://github.com/linkedin/Liger-Kernel/blob/40a9d8a61bdc546f4e70220619d4db9760fa80b1/src/liger_kernel/ops/geglu.py#L24",
+      "line": 24,
+      "file_sha256": "c868f150d58fe1ff2913872b500fd76764075f73f6ea655217bdc2e0a72fc097",
+      "function_sha256": "95b9ec8d6ab47c4e06ae9a9456c8effcaefa42104357ec71d0a8335432af19df",
+      "normalized_body_sha256": "206b9097afde9f74cbcb9962d9da50c488bd1bbff3a3c2ff5d1cf145bd0817c0",
+      "signature": [
+        "a",
+        "b",
+        "c",
+        "stride",
+        "n_cols",
+        "BLOCK_SIZE"
+      ],
+      "pointers": {
+        "a": "x",
+        "b": "y",
+        "c": "out"
+      },
+      "features": {
+        "program_id_axes": [
+          0
+        ],
+        "load_count": 2,
+        "store_count": 1,
+        "explicit_masks": 3,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": true,
+        "pointer_update": true,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/liger_geglu.py",
+      "kernel_module_sha256": "ee35c6d85bc5d539198de4c09b21fb874264508c3e10e73d0db2dffdb8ac6ed0",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "950c7dbaa5dcbef4822e996487fc7565e67689b3ef15b528b367ee1ea8b6de05",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "liger_fused_swiglu",
+      "source": "liger",
+      "file": "src/liger_kernel/ops/swiglu.py",
+      "function": "_swiglu_fused_gate_up_forward_kernel",
+      "family": "feature_broadcast",
+      "test_file": "test/ops/test_swiglu.py",
+      "reference_anchor": "_swiglu_ref applied to gate/up halves",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              32,
+              512
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              32,
+              256
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x"
+        ],
+        "outputs": [
+          "out"
+        ],
+        "bindings": [
+          {
+            "parameter": "y_ptr",
+            "expression": "x"
+          },
+          {
+            "parameter": "c_ptr",
+            "expression": "out"
+          },
+          {
+            "parameter": "in_stride",
+            "expression": "x.stride(0)"
+          },
+          {
+            "parameter": "out_stride",
+            "expression": "out.stride(0)"
+          },
+          {
+            "parameter": "ffn_size",
+            "expression": "256"
+          },
+          {
+            "parameter": "BLOCK_SIZE",
+            "expression": "256"
+          }
+        ],
+        "grid": [
+          32
+        ],
+        "reference": "fused_swiglu",
+        "rtol": 1e-05,
+        "atol": 1e-05
+      },
+      "helper": "silu",
+      "audit_note": "独立参考复用 _swiglu_ref；输入拆半为本地审计适配，非原测试直接覆盖此入口。",
+      "split": "development",
+      "revision": "40a9d8a61bdc546f4e70220619d4db9760fa80b1",
+      "repository": "linkedin/Liger-Kernel",
+      "license_id": "BSD-2-Clause",
+      "license_sha256": "3a1ccb0c7274b68e1af2ca1d54b10b662085ca56753400182ecf87ae33f2d1a8",
+      "source_url": "https://github.com/linkedin/Liger-Kernel/blob/40a9d8a61bdc546f4e70220619d4db9760fa80b1/src/liger_kernel/ops/swiglu.py#L317",
+      "line": 317,
+      "file_sha256": "7397029e8fefac0de42e5eeafcbbac147644a91c357bd30b9ba019fa5df3ce0a",
+      "function_sha256": "0968facd43e28da6fbaad1a15b66bef498d3df2ef0020dbef33adefd8627a3ec",
+      "normalized_body_sha256": "cfa1cf33279a7d1ce16a33c723fee0b56041c6e2560181c09e4dee848c44954d",
+      "signature": [
+        "y_ptr",
+        "c_ptr",
+        "in_stride",
+        "out_stride",
+        "ffn_size",
+        "BLOCK_SIZE"
+      ],
+      "pointers": {
+        "y_ptr": "x",
+        "c_ptr": "out"
+      },
+      "features": {
+        "program_id_axes": [
+          0
+        ],
+        "load_count": 2,
+        "store_count": 1,
+        "explicit_masks": 3,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": true,
+        "pointer_update": true,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/liger_fused_swiglu.py",
+      "kernel_module_sha256": "45d41a4397942852fc225502e8b4dd270d63543a4f55f230a94766ddc869ef83",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "1f0219622d7e48fec5f9562ca275672ae6b629cf090a66b37fa93e967d145c11",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "flag_slice",
+      "source": "flag_gems",
+      "file": "src/flag_gems/ops/slice.py",
+      "function": "slice_kernel_2d",
+      "family": "layout_2d",
+      "test_file": "tests/test_slice.py",
+      "reference_anchor": "torch.ops.aten.slice.Tensor(ref_inp, dim, start, end, step)",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              16,
+              32
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              16,
+              15
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x"
+        ],
+        "outputs": [
+          "out"
+        ],
+        "bindings": [
+          {
+            "parameter": "input_ptr",
+            "expression": "x"
+          },
+          {
+            "parameter": "output_ptr",
+            "expression": "out"
+          },
+          {
+            "parameter": "dim",
+            "expression": "1"
+          },
+          {
+            "parameter": "start",
+            "expression": "2"
+          },
+          {
+            "parameter": "step",
+            "expression": "2"
+          },
+          {
+            "parameter": "input_stride_0",
+            "expression": "x.stride(0)"
+          },
+          {
+            "parameter": "input_stride_1",
+            "expression": "x.stride(1)"
+          },
+          {
+            "parameter": "output_size_0",
+            "expression": "16"
+          },
+          {
+            "parameter": "output_size_1",
+            "expression": "15"
+          },
+          {
+            "parameter": "BLOCK_SIZE",
+            "expression": "16"
+          }
+        ],
+        "grid": [
+          16,
+          1
+        ],
+        "reference": "slice2d",
+        "rtol": 0,
+        "atol": 0
+      },
+      "helper": "",
+      "audit_note": "输出坐标和 stride 均为元素单位；直接传 Tensor 指针，未重复叠加 storage_offset。",
+      "split": "holdout",
+      "revision": "b2044acafb7f72a19312158edf0d2bf333e26891",
+      "repository": "FlagOpen/FlagGems",
+      "license_id": "Apache-2.0",
+      "license_sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+      "source_url": "https://github.com/FlagOpen/FlagGems/blob/b2044acafb7f72a19312158edf0d2bf333e26891/src/flag_gems/ops/slice.py#L63",
+      "line": 63,
+      "file_sha256": "49c5f71f9c074a50432f423b7f1d084abbd13cb6db1c7446dc48fe4dc7d3a501",
+      "function_sha256": "b7219918d4f779c40f0f800c499cb54b899c00a208af274d9dc3362872274d65",
+      "normalized_body_sha256": "d79e289343e95d0c54541f7f167a3f22e17a24b0479eee9d81cd74809ebcc8a8",
+      "signature": [
+        "input_ptr",
+        "output_ptr",
+        "dim",
+        "start",
+        "step",
+        "input_stride_0",
+        "input_stride_1",
+        "output_size_0",
+        "output_size_1",
+        "BLOCK_SIZE"
+      ],
+      "pointers": {
+        "input_ptr": "x",
+        "output_ptr": "out"
+      },
+      "features": {
+        "program_id_axes": [
+          0,
+          1
+        ],
+        "load_count": 1,
+        "store_count": 1,
+        "explicit_masks": 2,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/flag_slice.py",
+      "kernel_module_sha256": "d5b567dc569d3a712e28375a8358e82f73ad2759ed98aed7312b6439f3d92edf",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "1afe1b73cc1e3c154bb3b506d4e7dcc725bf4ba7ee38a06e92cc7576b2c933ef",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "triton_permute",
+      "source": "triton",
+      "file": "python/test/unit/language/test_core.py",
+      "function": "test_permute.kernel",
+      "family": "layout_2d",
+      "test_file": "python/test/unit/language/test_core.py",
+      "reference_anchor": "z_ref = x.transpose(*perm)",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              64,
+              64
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              64,
+              64
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x"
+        ],
+        "outputs": [
+          "out"
+        ],
+        "bindings": [
+          {
+            "parameter": "X",
+            "expression": "x"
+          },
+          {
+            "parameter": "stride_xm",
+            "expression": "x.stride(0)"
+          },
+          {
+            "parameter": "stride_xn",
+            "expression": "x.stride(1)"
+          },
+          {
+            "parameter": "Z",
+            "expression": "out"
+          },
+          {
+            "parameter": "stride_zm",
+            "expression": "out.stride(1)"
+          },
+          {
+            "parameter": "stride_zn",
+            "expression": "out.stride(0)"
+          },
+          {
+            "parameter": "BLOCK_M",
+            "expression": "64"
+          },
+          {
+            "parameter": "BLOCK_N",
+            "expression": "64"
+          }
+        ],
+        "grid": [
+          1,
+          1
+        ],
+        "reference": "transpose",
+        "rtol": 0,
+        "atol": 0
+      },
+      "helper": "",
+      "audit_note": "",
+      "split": "development",
+      "revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "repository": "triton-lang/triton",
+      "license_id": "MIT",
+      "license_sha256": "92640fb97222fd0a698ff28ce0c3782c172623f8d6c609b557636a80f28fb946",
+      "source_url": "https://github.com/triton-lang/triton/blob/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/test/unit/language/test_core.py#L4062",
+      "line": 4062,
+      "file_sha256": "b6f148d50ebc0117f9cff7d9b7b883bc1439dfadd5787d3cf61023fcb2243abc",
+      "function_sha256": "2b1352b1959e40cbe2383ba05e3a72ce8e36d693d572c353bf05bbbcf028c4f9",
+      "normalized_body_sha256": "db665ec13025a8540cc566a83ccc88395d979d721ae906db454d9f9f573f2d55",
+      "signature": [
+        "X",
+        "stride_xm",
+        "stride_xn",
+        "Z",
+        "stride_zm",
+        "stride_zn",
+        "BLOCK_M",
+        "BLOCK_N"
+      ],
+      "pointers": {
+        "X": "x",
+        "Z": "out"
+      },
+      "features": {
+        "program_id_axes": [],
+        "load_count": 1,
+        "store_count": 1,
+        "explicit_masks": 0,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": true,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/triton_permute.py",
+      "kernel_module_sha256": "ac60d8cfcea8a56639c10abb8801bcc455d50e141a794fc225ea07894d24c796",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "b6f148d50ebc0117f9cff7d9b7b883bc1439dfadd5787d3cf61023fcb2243abc",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "triton_trans2d",
+      "source": "triton",
+      "file": "python/test/unit/language/test_core.py",
+      "function": "test_trans_2d.kernel",
+      "family": "layout_2d",
+      "test_file": "python/test/unit/language/test_core.py",
+      "reference_anchor": "expected = torch.permute(input, perm)",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              16,
+              16
+            ],
+            "dtype": "int32",
+            "fill": "arange"
+          },
+          {
+            "name": "out",
+            "shape": [
+              16,
+              16
+            ],
+            "dtype": "int32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x"
+        ],
+        "outputs": [
+          "out"
+        ],
+        "bindings": [
+          {
+            "parameter": "In",
+            "expression": "x"
+          },
+          {
+            "parameter": "Out",
+            "expression": "out"
+          },
+          {
+            "parameter": "in_shape1",
+            "expression": "16"
+          },
+          {
+            "parameter": "in_shape2",
+            "expression": "16"
+          },
+          {
+            "parameter": "ou_shape1",
+            "expression": "16"
+          },
+          {
+            "parameter": "ou_shape2",
+            "expression": "16"
+          },
+          {
+            "parameter": "trans1",
+            "expression": "1"
+          },
+          {
+            "parameter": "trans2",
+            "expression": "0"
+          }
+        ],
+        "grid": [
+          1
+        ],
+        "reference": "transpose",
+        "rtol": 0,
+        "atol": 0
+      },
+      "helper": "",
+      "audit_note": "",
+      "split": "development",
+      "revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "repository": "triton-lang/triton",
+      "license_id": "MIT",
+      "license_sha256": "92640fb97222fd0a698ff28ce0c3782c172623f8d6c609b557636a80f28fb946",
+      "source_url": "https://github.com/triton-lang/triton/blob/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/test/unit/language/test_core.py#L4108",
+      "line": 4108,
+      "file_sha256": "b6f148d50ebc0117f9cff7d9b7b883bc1439dfadd5787d3cf61023fcb2243abc",
+      "function_sha256": "e3a4abdbf639c53f945839fa16f401594a763156ece65833d236bb6845714b37",
+      "normalized_body_sha256": "b3279434fecd827ca613ee8b71a9183a6d04f2578443fa87f86f6cb935ca1c5b",
+      "signature": [
+        "In",
+        "Out",
+        "in_shape1",
+        "in_shape2",
+        "ou_shape1",
+        "ou_shape2",
+        "trans1",
+        "trans2"
+      ],
+      "pointers": {
+        "In": "x",
+        "Out": "out"
+      },
+      "features": {
+        "program_id_axes": [],
+        "load_count": 1,
+        "store_count": 1,
+        "explicit_masks": 0,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": true,
+        "layout_transform": true
+      },
+      "kernel_module": "kernels/triton_trans2d.py",
+      "kernel_module_sha256": "db27068e2ad9713f0a5cc5b45d59b58e86a7de95730575f1eb9c3d6aa72580fb",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "b6f148d50ebc0117f9cff7d9b7b883bc1439dfadd5787d3cf61023fcb2243abc",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "triton_flip",
+      "source": "triton",
+      "file": "python/test/unit/language/test_standard.py",
+      "function": "test_flip.flip_kernel",
+      "family": "layout_2d",
+      "test_file": "python/test/unit/language/test_standard.py",
+      "reference_anchor": "y = torch.flip(x, ...)",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              8,
+              2,
+              256
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              8,
+              2,
+              256
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x"
+        ],
+        "outputs": [
+          "out"
+        ],
+        "bindings": [
+          {
+            "parameter": "X",
+            "expression": "x"
+          },
+          {
+            "parameter": "Z",
+            "expression": "out"
+          },
+          {
+            "parameter": "M",
+            "expression": "8"
+          },
+          {
+            "parameter": "N",
+            "expression": "2"
+          },
+          {
+            "parameter": "K",
+            "expression": "256"
+          },
+          {
+            "parameter": "dim",
+            "expression": "2"
+          }
+        ],
+        "grid": [
+          1
+        ],
+        "reference": "flip",
+        "rtol": 0,
+        "atol": 0
+      },
+      "helper": "",
+      "audit_note": "",
+      "split": "development",
+      "revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "repository": "triton-lang/triton",
+      "license_id": "MIT",
+      "license_sha256": "92640fb97222fd0a698ff28ce0c3782c172623f8d6c609b557636a80f28fb946",
+      "source_url": "https://github.com/triton-lang/triton/blob/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/test/unit/language/test_standard.py#L78",
+      "line": 78,
+      "file_sha256": "8aedfd39de8eacbd387141925c3c74132fd0838c837b1388120cd6ffdc2ea55c",
+      "function_sha256": "6f774c0cb3c2bc3d4a6aeb19ec2e576f5e343b770d9cbce2fa07dcf3b818616d",
+      "normalized_body_sha256": "9570396ff4b53443d42b61252ca89671baaa179e79da68033be9bf0271602255",
+      "signature": [
+        "X",
+        "Z",
+        "M",
+        "N",
+        "K",
+        "dim"
+      ],
+      "pointers": {
+        "X": "x",
+        "Z": "out"
+      },
+      "features": {
+        "program_id_axes": [],
+        "load_count": 1,
+        "store_count": 1,
+        "explicit_masks": 0,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": true,
+        "layout_transform": true
+      },
+      "kernel_module": "kernels/triton_flip.py",
+      "kernel_module_sha256": "b91f18a35b7ec4e0c194190d79e96914c1f117734aeafae4ff6c57d2ebf9fde2",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "8aedfd39de8eacbd387141925c3c74132fd0838c837b1388120cd6ffdc2ea55c",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "triton_pair_flip",
+      "source": "triton",
+      "file": "python/test/unit/language/test_standard.py",
+      "function": "test_flip_inf.triton_flip_kernel",
+      "family": "layout_2d",
+      "test_file": "python/test/unit/language/test_standard.py",
+      "reference_anchor": "expect = x.reshape(-1, 8, 2).flip(-1).reshape(-1, 16)",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              1,
+              16
+            ],
+            "dtype": "float32",
+            "fill": "arange_inf"
+          },
+          {
+            "name": "out",
+            "shape": [
+              1,
+              16
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x"
+        ],
+        "outputs": [
+          "out"
+        ],
+        "bindings": [
+          {
+            "parameter": "out_ptr",
+            "expression": "out"
+          },
+          {
+            "parameter": "x_ptr",
+            "expression": "x"
+          },
+          {
+            "parameter": "N",
+            "expression": "16"
+          }
+        ],
+        "grid": [
+          1
+        ],
+        "reference": "pair_flip",
+        "rtol": 0,
+        "atol": 0
+      },
+      "helper": "",
+      "audit_note": "smoke 采用 arange 且包含末元素 inf，与上游复现一致；不把历史 Issue 分类为布局漏洞。",
+      "split": "holdout",
+      "revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "repository": "triton-lang/triton",
+      "license_id": "MIT",
+      "license_sha256": "92640fb97222fd0a698ff28ce0c3782c172623f8d6c609b557636a80f28fb946",
+      "source_url": "https://github.com/triton-lang/triton/blob/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/test/unit/language/test_standard.py#L100",
+      "line": 100,
+      "file_sha256": "8aedfd39de8eacbd387141925c3c74132fd0838c837b1388120cd6ffdc2ea55c",
+      "function_sha256": "2bddca145620a9207674f5912897ca9b02e40c4cdeb4d6b4b67abf5c1852de38",
+      "normalized_body_sha256": "5e1e49415f73173888ae871401df0b265e70e05c82a998164d30b513639caf7f",
+      "signature": [
+        "out_ptr",
+        "x_ptr",
+        "N"
+      ],
+      "pointers": {
+        "out_ptr": "out",
+        "x_ptr": "x"
+      },
+      "features": {
+        "program_id_axes": [
+          0
+        ],
+        "load_count": 1,
+        "store_count": 1,
+        "explicit_masks": 0,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": false,
+        "layout_transform": true
+      },
+      "kernel_module": "kernels/triton_pair_flip.py",
+      "kernel_module_sha256": "556b59e6cc833bd1521b39b2e6b8149269d56bf6fa806a9ee31e69247446ce8d",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "8aedfd39de8eacbd387141925c3c74132fd0838c837b1388120cd6ffdc2ea55c",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "triton_split",
+      "source": "triton",
+      "file": "python/test/unit/language/test_core.py",
+      "function": "test_split.kernel",
+      "family": "layout_2d",
+      "test_file": "python/test/unit/language/test_core.py",
+      "reference_anchor": "z1_ref, z2_ref = (x[:, 0], x[:, 1])",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              128,
+              2
+            ],
+            "dtype": "int32",
+            "fill": "arange"
+          },
+          {
+            "name": "out",
+            "shape": [
+              128
+            ],
+            "dtype": "int32",
+            "fill": "empty"
+          },
+          {
+            "name": "out2",
+            "shape": [
+              128
+            ],
+            "dtype": "int32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x"
+        ],
+        "outputs": [
+          "out",
+          "out2"
+        ],
+        "bindings": [
+          {
+            "parameter": "X",
+            "expression": "x"
+          },
+          {
+            "parameter": "Z1",
+            "expression": "out"
+          },
+          {
+            "parameter": "Z2",
+            "expression": "out2"
+          },
+          {
+            "parameter": "N",
+            "expression": "256"
+          }
+        ],
+        "grid": [
+          1
+        ],
+        "reference": "split",
+        "rtol": 0,
+        "atol": 0
+      },
+      "helper": "",
+      "audit_note": "",
+      "split": "development",
+      "revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "repository": "triton-lang/triton",
+      "license_id": "MIT",
+      "license_sha256": "92640fb97222fd0a698ff28ce0c3782c172623f8d6c609b557636a80f28fb946",
+      "source_url": "https://github.com/triton-lang/triton/blob/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/test/unit/language/test_core.py#L2934",
+      "line": 2934,
+      "file_sha256": "b6f148d50ebc0117f9cff7d9b7b883bc1439dfadd5787d3cf61023fcb2243abc",
+      "function_sha256": "e0d7c0fdb75fe90c51d6a10ef6fa383673945cafb4fc4921924a91f8bb1cb870",
+      "normalized_body_sha256": "a7655ec80fb9ba5fc73511d26832d148cd91f6723ee230dbd8b35233cc3d2915",
+      "signature": [
+        "X",
+        "Z1",
+        "Z2",
+        "N"
+      ],
+      "pointers": {
+        "X": "x",
+        "Z1": "out",
+        "Z2": "out2"
+      },
+      "features": {
+        "program_id_axes": [],
+        "load_count": 1,
+        "store_count": 2,
+        "explicit_masks": 0,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": false,
+        "layout_transform": true
+      },
+      "kernel_module": "kernels/triton_split.py",
+      "kernel_module_sha256": "5f82072619755b3497cf2bdaab7ddc9a25aefeddca5c892cf0253601af9ffe8f",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "b6f148d50ebc0117f9cff7d9b7b883bc1439dfadd5787d3cf61023fcb2243abc",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "triton_softmax",
+      "source": "triton",
+      "file": "python/test/unit/language/test_standard.py",
+      "function": "test_softmax.softmax_kernel",
+      "family": "row_reduction",
+      "test_file": "python/test/unit/language/test_standard.py",
+      "reference_anchor": "torch.softmax(x, dim=dim)",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              128
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              128
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x"
+        ],
+        "outputs": [
+          "out"
+        ],
+        "bindings": [
+          {
+            "parameter": "X",
+            "expression": "x"
+          },
+          {
+            "parameter": "Z",
+            "expression": "out"
+          },
+          {
+            "parameter": "numel",
+            "expression": "128"
+          },
+          {
+            "parameter": "shape",
+            "expression": "(128,)"
+          },
+          {
+            "parameter": "dim",
+            "expression": "0"
+          },
+          {
+            "parameter": "ieee_rounding",
+            "expression": "False"
+          }
+        ],
+        "grid": [
+          1
+        ],
+        "reference": "softmax",
+        "rtol": 1e-05,
+        "atol": 1e-06
+      },
+      "helper": "",
+      "audit_note": "采用上游参数矩阵中的一维 GPU 可执行项；二维 axis 复现仅标为当前 Triton 版本兼容缺口，不改写函数体。",
+      "split": "development",
+      "revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "repository": "triton-lang/triton",
+      "license_id": "MIT",
+      "license_sha256": "92640fb97222fd0a698ff28ce0c3782c172623f8d6c609b557636a80f28fb946",
+      "source_url": "https://github.com/triton-lang/triton/blob/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/test/unit/language/test_standard.py#L164",
+      "line": 164,
+      "file_sha256": "8aedfd39de8eacbd387141925c3c74132fd0838c837b1388120cd6ffdc2ea55c",
+      "function_sha256": "cb56fea06eca8e9bfc28a1a150abefe0eca40721a43ad36ad67889669192446b",
+      "normalized_body_sha256": "1e651a4192cde33ae884e2571464a560116d76a6b7410e281f92fb3127f5c0ed",
+      "signature": [
+        "X",
+        "Z",
+        "numel",
+        "shape",
+        "dim",
+        "ieee_rounding"
+      ],
+      "pointers": {
+        "X": "x",
+        "Z": "out"
+      },
+      "features": {
+        "program_id_axes": [],
+        "load_count": 1,
+        "store_count": 1,
+        "explicit_masks": 0,
+        "loop": false,
+        "branch": true,
+        "reduction": true,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/triton_softmax.py",
+      "kernel_module_sha256": "52978ff188e35818a0ed99778e5ea7fddecfaa99a9556bd2af4cc8449c612cbb",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "8aedfd39de8eacbd387141925c3c74132fd0838c837b1388120cd6ffdc2ea55c",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "liger_softmax",
+      "source": "liger",
+      "file": "src/liger_kernel/ops/softmax.py",
+      "function": "_softmax_single_block_forward_kernel",
+      "family": "row_reduction",
+      "test_file": "test/ops/test_softmax.py",
+      "reference_anchor": "_softmax_ref",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              32,
+              256
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              32,
+              256
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x"
+        ],
+        "outputs": [
+          "out"
+        ],
+        "bindings": [
+          {
+            "parameter": "Y_ptr",
+            "expression": "out"
+          },
+          {
+            "parameter": "Y_row_stride",
+            "expression": "out.stride(0)"
+          },
+          {
+            "parameter": "X_ptr",
+            "expression": "x"
+          },
+          {
+            "parameter": "X_row_stride",
+            "expression": "x.stride(0)"
+          },
+          {
+            "parameter": "n_cols",
+            "expression": "256"
+          },
+          {
+            "parameter": "BLOCK_SIZE",
+            "expression": "256"
+          }
+        ],
+        "grid": [
+          32
+        ],
+        "reference": "softmax",
+        "rtol": 1e-05,
+        "atol": 1e-05
+      },
+      "helper": "",
+      "audit_note": "",
+      "split": "development",
+      "revision": "40a9d8a61bdc546f4e70220619d4db9760fa80b1",
+      "repository": "linkedin/Liger-Kernel",
+      "license_id": "BSD-2-Clause",
+      "license_sha256": "3a1ccb0c7274b68e1af2ca1d54b10b662085ca56753400182ecf87ae33f2d1a8",
+      "source_url": "https://github.com/linkedin/Liger-Kernel/blob/40a9d8a61bdc546f4e70220619d4db9760fa80b1/src/liger_kernel/ops/softmax.py#L11",
+      "line": 11,
+      "file_sha256": "b60391c7a30ad480c3b592aa19aae3d083c8563a802045175d83e28a785176d2",
+      "function_sha256": "96ab0df8b4a130346f53ae8278b7f7ef68fc2b63fe84d76a69a816e109a22546",
+      "normalized_body_sha256": "55fc1f537ca49a543744e7e6bc91f4ef581aadfde420a6cb6603ba36873e2003",
+      "signature": [
+        "Y_ptr",
+        "Y_row_stride",
+        "X_ptr",
+        "X_row_stride",
+        "n_cols",
+        "BLOCK_SIZE"
+      ],
+      "pointers": {
+        "Y_ptr": "out",
+        "X_ptr": "x"
+      },
+      "features": {
+        "program_id_axes": [
+          0
+        ],
+        "load_count": 1,
+        "store_count": 1,
+        "explicit_masks": 2,
+        "loop": false,
+        "branch": false,
+        "reduction": true,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/liger_softmax.py",
+      "kernel_module_sha256": "95061436e59dd92753ba4f5bc20c9b956b18053bdf299a9c76083d3c77f47c0f",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "396bde9b40a352bfc6e45cf74d71e0ecaf1deb5566304244ce6232b5d0d47a3c",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "liger_layernorm",
+      "source": "liger",
+      "file": "src/liger_kernel/ops/layer_norm.py",
+      "function": "_layer_norm_forward_kernel",
+      "family": "row_reduction",
+      "test_file": "test/ops/test_layer_norm.py",
+      "reference_anchor": "pytorch_reference_layer_norm",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              8,
+              80
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "w",
+            "shape": [
+              80
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "b",
+            "shape": [
+              80
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              8,
+              80
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          },
+          {
+            "name": "mean",
+            "shape": [
+              8
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          },
+          {
+            "name": "rstd",
+            "shape": [
+              8
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x",
+          "w",
+          "b"
+        ],
+        "outputs": [
+          "out",
+          "mean",
+          "rstd"
+        ],
+        "bindings": [
+          {
+            "parameter": "Y_ptr",
+            "expression": "out"
+          },
+          {
+            "parameter": "Y_row_stride",
+            "expression": "out.stride(0)"
+          },
+          {
+            "parameter": "X_ptr",
+            "expression": "x"
+          },
+          {
+            "parameter": "X_row_stride",
+            "expression": "x.stride(0)"
+          },
+          {
+            "parameter": "W_ptr",
+            "expression": "w"
+          },
+          {
+            "parameter": "W_row_stride",
+            "expression": "1"
+          },
+          {
+            "parameter": "B_ptr",
+            "expression": "b"
+          },
+          {
+            "parameter": "B_row_stride",
+            "expression": "1"
+          },
+          {
+            "parameter": "Mean_ptr",
+            "expression": "mean"
+          },
+          {
+            "parameter": "Mean_row_stride",
+            "expression": "1"
+          },
+          {
+            "parameter": "RSTD_ptr",
+            "expression": "rstd"
+          },
+          {
+            "parameter": "RSTD_row_stride",
+            "expression": "1"
+          },
+          {
+            "parameter": "n_cols",
+            "expression": "80"
+          },
+          {
+            "parameter": "eps",
+            "expression": "1e-5"
+          },
+          {
+            "parameter": "BLOCK_SIZE",
+            "expression": "128"
+          }
+        ],
+        "grid": [
+          8
+        ],
+        "reference": "layernorm",
+        "rtol": 0.0001,
+        "atol": 1e-05
+      },
+      "helper": "",
+      "audit_note": "辅助 mean/rstd 另由 PyTorch 行统计量核对；小 shape 为 e1 有界适配，不声称运行全部上游参数矩阵。",
+      "split": "holdout",
+      "revision": "40a9d8a61bdc546f4e70220619d4db9760fa80b1",
+      "repository": "linkedin/Liger-Kernel",
+      "license_id": "BSD-2-Clause",
+      "license_sha256": "3a1ccb0c7274b68e1af2ca1d54b10b662085ca56753400182ecf87ae33f2d1a8",
+      "source_url": "https://github.com/linkedin/Liger-Kernel/blob/40a9d8a61bdc546f4e70220619d4db9760fa80b1/src/liger_kernel/ops/layer_norm.py#L26",
+      "line": 26,
+      "file_sha256": "c8922cc2bccd8eb80decdc09a2d91676667388edbbf0feb34d51cd3317d48ad0",
+      "function_sha256": "f3f564de25c44873c0ee44017a470829055c3f10279f06c484433383f0a8ea74",
+      "normalized_body_sha256": "1524049920ce80e9b3aa7de979d826de4f9818e6738def8878ae74aabcb04215",
+      "signature": [
+        "Y_ptr",
+        "Y_row_stride",
+        "X_ptr",
+        "X_row_stride",
+        "W_ptr",
+        "W_row_stride",
+        "B_ptr",
+        "B_row_stride",
+        "Mean_ptr",
+        "Mean_row_stride",
+        "RSTD_ptr",
+        "RSTD_row_stride",
+        "n_cols",
+        "eps",
+        "BLOCK_SIZE"
+      ],
+      "pointers": {
+        "Y_ptr": "out",
+        "X_ptr": "x",
+        "W_ptr": "w",
+        "B_ptr": "b",
+        "Mean_ptr": "mean",
+        "RSTD_ptr": "rstd"
+      },
+      "features": {
+        "program_id_axes": [
+          0
+        ],
+        "load_count": 3,
+        "store_count": 3,
+        "explicit_masks": 4,
+        "loop": false,
+        "branch": false,
+        "reduction": true,
+        "cast": true,
+        "pointer_update": false,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/liger_layernorm.py",
+      "kernel_module_sha256": "85217e514d6c886e3e4d3e6202b49ad3dc6322ce678ca2f12e373c44a81f2097",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "2d773bfb0bf2faa25ae7c7e6e990485f91b54b6fc3dcc04a2b0597dc0177b719",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "unsloth_layernorm",
+      "source": "unsloth",
+      "file": "unsloth/kernels/layernorm.py",
+      "function": "layernorm_forward",
+      "family": "row_reduction",
+      "test_file": "tests/test_layernorm_gradient_layout.py",
+      "reference_anchor": "expected = torch.nn.functional.layer_norm",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              8,
+              80
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "w",
+            "shape": [
+              80
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "b",
+            "shape": [
+              80
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              8,
+              80
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          },
+          {
+            "name": "mean",
+            "shape": [
+              8
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          },
+          {
+            "name": "rstd",
+            "shape": [
+              8
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x",
+          "w",
+          "b"
+        ],
+        "outputs": [
+          "out",
+          "rstd",
+          "mean"
+        ],
+        "bindings": [
+          {
+            "parameter": "Y",
+            "expression": "out"
+          },
+          {
+            "parameter": "Y_row_stride",
+            "expression": "out.stride(0)"
+          },
+          {
+            "parameter": "X",
+            "expression": "x"
+          },
+          {
+            "parameter": "X_row_stride",
+            "expression": "x.stride(0)"
+          },
+          {
+            "parameter": "W",
+            "expression": "w"
+          },
+          {
+            "parameter": "b",
+            "expression": "b"
+          },
+          {
+            "parameter": "r",
+            "expression": "rstd"
+          },
+          {
+            "parameter": "mu",
+            "expression": "mean"
+          },
+          {
+            "parameter": "n_cols",
+            "expression": "80"
+          },
+          {
+            "parameter": "eps",
+            "expression": "1e-5"
+          },
+          {
+            "parameter": "BLOCK_SIZE",
+            "expression": "128"
+          }
+        ],
+        "grid": [
+          8
+        ],
+        "reference": "layernorm",
+        "rtol": 0.01,
+        "atol": 0.001
+      },
+      "helper": "",
+      "audit_note": "",
+      "split": "development",
+      "revision": "7ebf192674a217faa15891de3e95a517fb5d890e",
+      "repository": "unslothai/unsloth",
+      "license_id": "Apache-2.0; selected test files carry AGPL-3.0-only SPDX",
+      "license_sha256": "40e0b458a68b557560def38b106a1a0da1aac57685536dcb882f1c78c647e4d3",
+      "source_url": "https://github.com/unslothai/unsloth/blob/7ebf192674a217faa15891de3e95a517fb5d890e/unsloth/kernels/layernorm.py#L22",
+      "line": 22,
+      "file_sha256": "cd6870c021d8a92fd65c60f226ddabe3b552b6921343ffdf87933afc9579ed9d",
+      "function_sha256": "5c806a7a39902491877dffb72140401ad0a161873483ccb4d706af0113e3af12",
+      "normalized_body_sha256": "b0983806e606346be838f0e068bc6efed52fa7b819c14555ff3dcf32e496d160",
+      "signature": [
+        "Y",
+        "Y_row_stride",
+        "X",
+        "X_row_stride",
+        "W",
+        "b",
+        "r",
+        "mu",
+        "n_cols",
+        "eps",
+        "BLOCK_SIZE"
+      ],
+      "pointers": {
+        "Y": "out",
+        "X": "x",
+        "W": "w",
+        "b": "b",
+        "r": "rstd",
+        "mu": "mean"
+      },
+      "features": {
+        "program_id_axes": [
+          0
+        ],
+        "load_count": 3,
+        "store_count": 3,
+        "explicit_masks": 4,
+        "loop": false,
+        "branch": false,
+        "reduction": true,
+        "cast": true,
+        "pointer_update": true,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/unsloth_layernorm.py",
+      "kernel_module_sha256": "c0c03ad06ff9a0fb16672bb62b5500381be9cc55c6659f67c0d70bee08f01ba0",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "19f7811a259e67b9626e18bad70d4a497bc202a886f963e6af1f07f6ecf74d1e",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "liger_rmsnorm",
+      "source": "liger",
+      "file": "src/liger_kernel/ops/rms_norm.py",
+      "function": "_rms_norm_forward_kernel",
+      "family": "row_reduction",
+      "test_file": "test/ops/test_rms_norm.py",
+      "reference_anchor": "pytorch_reference_rms_norm",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              8,
+              80
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "w",
+            "shape": [
+              80
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              8,
+              80
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          },
+          {
+            "name": "rstd",
+            "shape": [
+              8
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x",
+          "w"
+        ],
+        "outputs": [
+          "out",
+          "rstd"
+        ],
+        "bindings": [
+          {
+            "parameter": "Y_ptr",
+            "expression": "out"
+          },
+          {
+            "parameter": "Y_row_stride",
+            "expression": "out.stride(0)"
+          },
+          {
+            "parameter": "X_ptr",
+            "expression": "x"
+          },
+          {
+            "parameter": "X_row_stride",
+            "expression": "x.stride(0)"
+          },
+          {
+            "parameter": "W_ptr",
+            "expression": "w"
+          },
+          {
+            "parameter": "W_row_stride",
+            "expression": "1"
+          },
+          {
+            "parameter": "RSTD_ptr",
+            "expression": "rstd"
+          },
+          {
+            "parameter": "RSTD_row_stride",
+            "expression": "1"
+          },
+          {
+            "parameter": "n_cols",
+            "expression": "80"
+          },
+          {
+            "parameter": "eps",
+            "expression": "1e-6"
+          },
+          {
+            "parameter": "offset",
+            "expression": "0.0"
+          },
+          {
+            "parameter": "casting_mode",
+            "expression": "0"
+          },
+          {
+            "parameter": "elementwise_affine",
+            "expression": "True"
+          },
+          {
+            "parameter": "BLOCK_SIZE",
+            "expression": "128"
+          }
+        ],
+        "grid": [
+          8
+        ],
+        "reference": "rmsnorm",
+        "rtol": 0.0001,
+        "atol": 0.0001
+      },
+      "helper": "",
+      "audit_note": "上游明确继承 Unsloth RMSNorm；记录共同谱系，不把两个项目名当作独立算法证据。",
+      "split": "development",
+      "revision": "40a9d8a61bdc546f4e70220619d4db9760fa80b1",
+      "repository": "linkedin/Liger-Kernel",
+      "license_id": "BSD-2-Clause",
+      "license_sha256": "3a1ccb0c7274b68e1af2ca1d54b10b662085ca56753400182ecf87ae33f2d1a8",
+      "source_url": "https://github.com/linkedin/Liger-Kernel/blob/40a9d8a61bdc546f4e70220619d4db9760fa80b1/src/liger_kernel/ops/rms_norm.py#L67",
+      "line": 67,
+      "file_sha256": "5f725509cafc9273ea1db1655a21ef958ef6b02affb0e8f9d25f4de1efb3dcd4",
+      "function_sha256": "a808d7b37981aa1819a40f830861327f41874c1384bb1e59caaae0ed72902a48",
+      "normalized_body_sha256": "8ea769e8a8c170df281e614d342c8719acc2d770e5fecab10f350eda9057317f",
+      "signature": [
+        "Y_ptr",
+        "Y_row_stride",
+        "X_ptr",
+        "X_row_stride",
+        "W_ptr",
+        "W_row_stride",
+        "RSTD_ptr",
+        "RSTD_row_stride",
+        "n_cols",
+        "eps",
+        "offset",
+        "casting_mode",
+        "elementwise_affine",
+        "BLOCK_SIZE"
+      ],
+      "pointers": {
+        "Y_ptr": "out",
+        "X_ptr": "x",
+        "W_ptr": "w",
+        "RSTD_ptr": "rstd"
+      },
+      "features": {
+        "program_id_axes": [
+          0
+        ],
+        "load_count": 2,
+        "store_count": 2,
+        "explicit_masks": 3,
+        "loop": false,
+        "branch": true,
+        "reduction": true,
+        "cast": true,
+        "pointer_update": false,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/liger_rmsnorm.py",
+      "kernel_module_sha256": "a61589543eebc4a6a0c8368f3d93368890320ac196c8854102aab4d3b13be7da",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "e76d03ecd4dce0afbd2f5db3000ede7b7f49a9be1958d9c913e52d3543e4be6b",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "liger_block_rmsnorm",
+      "source": "liger",
+      "file": "src/liger_kernel/ops/rms_norm.py",
+      "function": "_block_rms_norm_forward_kernel",
+      "family": "row_reduction",
+      "test_file": "test/ops/test_rms_norm.py",
+      "reference_anchor": "pytorch_reference_rms_norm",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              8,
+              80
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "w",
+            "shape": [
+              80
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              8,
+              80
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          },
+          {
+            "name": "rstd",
+            "shape": [
+              8
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x",
+          "w"
+        ],
+        "outputs": [
+          "out",
+          "rstd"
+        ],
+        "bindings": [
+          {
+            "parameter": "Y_ptr",
+            "expression": "out"
+          },
+          {
+            "parameter": "Y_row_stride",
+            "expression": "out.stride(0)"
+          },
+          {
+            "parameter": "X_ptr",
+            "expression": "x"
+          },
+          {
+            "parameter": "X_row_stride",
+            "expression": "x.stride(0)"
+          },
+          {
+            "parameter": "W_ptr",
+            "expression": "w"
+          },
+          {
+            "parameter": "W_row_stride",
+            "expression": "1"
+          },
+          {
+            "parameter": "RSTD_ptr",
+            "expression": "rstd"
+          },
+          {
+            "parameter": "RSTD_row_stride",
+            "expression": "1"
+          },
+          {
+            "parameter": "n_rows",
+            "expression": "8"
+          },
+          {
+            "parameter": "n_cols",
+            "expression": "80"
+          },
+          {
+            "parameter": "eps",
+            "expression": "1e-6"
+          },
+          {
+            "parameter": "offset",
+            "expression": "0.0"
+          },
+          {
+            "parameter": "casting_mode",
+            "expression": "0"
+          },
+          {
+            "parameter": "elementwise_affine",
+            "expression": "True"
+          },
+          {
+            "parameter": "BLOCK_SIZE",
+            "expression": "128"
+          },
+          {
+            "parameter": "BLOCK_ROW",
+            "expression": "4"
+          }
+        ],
+        "grid": [
+          2
+        ],
+        "reference": "rmsnorm",
+        "rtol": 0.0001,
+        "atol": 0.0001
+      },
+      "helper": "",
+      "audit_note": "上游明确继承 Unsloth RMSNorm；记录共同谱系，不把两个项目名当作独立算法证据。",
+      "split": "development",
+      "revision": "40a9d8a61bdc546f4e70220619d4db9760fa80b1",
+      "repository": "linkedin/Liger-Kernel",
+      "license_id": "BSD-2-Clause",
+      "license_sha256": "3a1ccb0c7274b68e1af2ca1d54b10b662085ca56753400182ecf87ae33f2d1a8",
+      "source_url": "https://github.com/linkedin/Liger-Kernel/blob/40a9d8a61bdc546f4e70220619d4db9760fa80b1/src/liger_kernel/ops/rms_norm.py#L247",
+      "line": 247,
+      "file_sha256": "5f725509cafc9273ea1db1655a21ef958ef6b02affb0e8f9d25f4de1efb3dcd4",
+      "function_sha256": "b85b98ca9b8b5f1e7aee6392703b20932a7f257d5fdd87f1b242c56fe8ccd97e",
+      "normalized_body_sha256": "05afef279495e58e413785e7e3c8d1d0ec24032564139b49d2d84ee241f2f69c",
+      "signature": [
+        "Y_ptr",
+        "Y_row_stride",
+        "X_ptr",
+        "X_row_stride",
+        "W_ptr",
+        "W_row_stride",
+        "RSTD_ptr",
+        "RSTD_row_stride",
+        "n_rows",
+        "n_cols",
+        "eps",
+        "offset",
+        "casting_mode",
+        "elementwise_affine",
+        "BLOCK_SIZE",
+        "BLOCK_ROW"
+      ],
+      "pointers": {
+        "Y_ptr": "out",
+        "X_ptr": "x",
+        "W_ptr": "w",
+        "RSTD_ptr": "rstd"
+      },
+      "features": {
+        "program_id_axes": [
+          0
+        ],
+        "load_count": 2,
+        "store_count": 2,
+        "explicit_masks": 3,
+        "loop": false,
+        "branch": true,
+        "reduction": true,
+        "cast": true,
+        "pointer_update": false,
+        "broadcast": true,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/liger_block_rmsnorm.py",
+      "kernel_module_sha256": "85c867522a27b6cddac7e1f7dd18f3f739985cedec5022bf8ff0b095c3a05882",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "e76d03ecd4dce0afbd2f5db3000ede7b7f49a9be1958d9c913e52d3543e4be6b",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "unsloth_rmsnorm",
+      "source": "unsloth",
+      "file": "unsloth/kernels/rms_layernorm.py",
+      "function": "_rms_layernorm_forward",
+      "family": "row_reduction",
+      "test_file": "tests/test_rmsnorm_gradient_layout.py",
+      "reference_anchor": "torch.nn.functional.rms_norm / Gemma weight offset",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              8,
+              80
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "w",
+            "shape": [
+              80
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              8,
+              80
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          },
+          {
+            "name": "rstd",
+            "shape": [
+              8
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x",
+          "w"
+        ],
+        "outputs": [
+          "out",
+          "rstd"
+        ],
+        "bindings": [
+          {
+            "parameter": "Y",
+            "expression": "out"
+          },
+          {
+            "parameter": "Y_row_stride",
+            "expression": "out.stride(0)"
+          },
+          {
+            "parameter": "X",
+            "expression": "x"
+          },
+          {
+            "parameter": "X_row_stride",
+            "expression": "x.stride(0)"
+          },
+          {
+            "parameter": "W",
+            "expression": "w"
+          },
+          {
+            "parameter": "W_row_stride",
+            "expression": "1"
+          },
+          {
+            "parameter": "r",
+            "expression": "rstd"
+          },
+          {
+            "parameter": "r_row_stride",
+            "expression": "1"
+          },
+          {
+            "parameter": "n_cols",
+            "expression": "80"
+          },
+          {
+            "parameter": "eps",
+            "expression": "1e-6"
+          },
+          {
+            "parameter": "BLOCK_SIZE",
+            "expression": "128"
+          }
+        ],
+        "grid": [
+          8
+        ],
+        "reference": "rmsnorm",
+        "rtol": 0.01,
+        "atol": 0.001
+      },
+      "helper": "",
+      "audit_note": "辅助 rstd 用独立行统计量；Gemma 的 weight+1 与 cast 语义单列审计，共同 RMS 谱系不隐去。",
+      "split": "holdout",
+      "revision": "7ebf192674a217faa15891de3e95a517fb5d890e",
+      "repository": "unslothai/unsloth",
+      "license_id": "Apache-2.0; selected test files carry AGPL-3.0-only SPDX",
+      "license_sha256": "40e0b458a68b557560def38b106a1a0da1aac57685536dcb882f1c78c647e4d3",
+      "source_url": "https://github.com/unslothai/unsloth/blob/7ebf192674a217faa15891de3e95a517fb5d890e/unsloth/kernels/rms_layernorm.py#L18",
+      "line": 18,
+      "file_sha256": "6244c41d7058effa73a0f103f9b2a9c3c24902fa2becd3fda08f26c477ef75d1",
+      "function_sha256": "541af9b6fc741ee7cba0fab2fbc5f3b2cd61f4d45258b03d40783d7c58926eff",
+      "normalized_body_sha256": "4eac142b7b70233808e5c9ee50ea0ce44607f6cf50930a8c2a06435f64f61809",
+      "signature": [
+        "Y",
+        "Y_row_stride",
+        "X",
+        "X_row_stride",
+        "W",
+        "W_row_stride",
+        "r",
+        "r_row_stride",
+        "n_cols",
+        "eps",
+        "BLOCK_SIZE"
+      ],
+      "pointers": {
+        "Y": "out",
+        "X": "x",
+        "W": "w",
+        "r": "rstd"
+      },
+      "features": {
+        "program_id_axes": [
+          0
+        ],
+        "load_count": 2,
+        "store_count": 2,
+        "explicit_masks": 3,
+        "loop": false,
+        "branch": false,
+        "reduction": true,
+        "cast": true,
+        "pointer_update": true,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/unsloth_rmsnorm.py",
+      "kernel_module_sha256": "9ae83603777f07982f2d8a2883b052706c9a57e556ecc3a1962e19413316368a",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "45ec5515719fabbf3d621523ae9100968947d0b33e8bb2a5a1b7b28296dd2eda",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "unsloth_gemma_rmsnorm",
+      "source": "unsloth",
+      "file": "unsloth/kernels/rms_layernorm.py",
+      "function": "_gemma_rms_layernorm_forward",
+      "family": "row_reduction",
+      "test_file": "tests/test_rmsnorm_gradient_layout.py",
+      "reference_anchor": "torch.nn.functional.rms_norm / Gemma weight offset",
+      "smoke": {
+        "tensors": [
+          {
+            "name": "x",
+            "shape": [
+              8,
+              80
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "w",
+            "shape": [
+              80
+            ],
+            "dtype": "float32",
+            "fill": "random"
+          },
+          {
+            "name": "out",
+            "shape": [
+              8,
+              80
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          },
+          {
+            "name": "rstd",
+            "shape": [
+              8
+            ],
+            "dtype": "float32",
+            "fill": "empty"
+          }
+        ],
+        "inputs": [
+          "x",
+          "w"
+        ],
+        "outputs": [
+          "out",
+          "rstd"
+        ],
+        "bindings": [
+          {
+            "parameter": "Y",
+            "expression": "out"
+          },
+          {
+            "parameter": "Y_row_stride",
+            "expression": "out.stride(0)"
+          },
+          {
+            "parameter": "X",
+            "expression": "x"
+          },
+          {
+            "parameter": "X_row_stride",
+            "expression": "x.stride(0)"
+          },
+          {
+            "parameter": "W",
+            "expression": "w"
+          },
+          {
+            "parameter": "W_row_stride",
+            "expression": "1"
+          },
+          {
+            "parameter": "r",
+            "expression": "rstd"
+          },
+          {
+            "parameter": "r_row_stride",
+            "expression": "1"
+          },
+          {
+            "parameter": "n_cols",
+            "expression": "80"
+          },
+          {
+            "parameter": "eps",
+            "expression": "1e-6"
+          },
+          {
+            "parameter": "BLOCK_SIZE",
+            "expression": "128"
+          }
+        ],
+        "grid": [
+          8
+        ],
+        "reference": "gemma_rmsnorm",
+        "rtol": 0.01,
+        "atol": 0.001
+      },
+      "helper": "",
+      "audit_note": "辅助 rstd 用独立行统计量；Gemma 的 weight+1 与 cast 语义单列审计，共同 RMS 谱系不隐去。",
+      "split": "development",
+      "revision": "7ebf192674a217faa15891de3e95a517fb5d890e",
+      "repository": "unslothai/unsloth",
+      "license_id": "Apache-2.0; selected test files carry AGPL-3.0-only SPDX",
+      "license_sha256": "40e0b458a68b557560def38b106a1a0da1aac57685536dcb882f1c78c647e4d3",
+      "source_url": "https://github.com/unslothai/unsloth/blob/7ebf192674a217faa15891de3e95a517fb5d890e/unsloth/kernels/rms_layernorm.py#L119",
+      "line": 119,
+      "file_sha256": "6244c41d7058effa73a0f103f9b2a9c3c24902fa2becd3fda08f26c477ef75d1",
+      "function_sha256": "845a4a02a7946c199aabbf43d81c07d7925aa205a9901e214f90c56ab1d31472",
+      "normalized_body_sha256": "fbffc1d32f705648ebc1197cbbf5b85f533d5ddfbfad48ce59b219956f7b8cb4",
+      "signature": [
+        "Y",
+        "Y_row_stride",
+        "X",
+        "X_row_stride",
+        "W",
+        "W_row_stride",
+        "r",
+        "r_row_stride",
+        "n_cols",
+        "eps",
+        "BLOCK_SIZE"
+      ],
+      "pointers": {
+        "Y": "out",
+        "X": "x",
+        "W": "w",
+        "r": "rstd"
+      },
+      "features": {
+        "program_id_axes": [
+          0
+        ],
+        "load_count": 2,
+        "store_count": 2,
+        "explicit_masks": 3,
+        "loop": false,
+        "branch": false,
+        "reduction": true,
+        "cast": true,
+        "pointer_update": true,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": "kernels/unsloth_gemma_rmsnorm.py",
+      "kernel_module_sha256": "3827eaffa9986644dc26a4bde266b83aa3f19ab805785b277e15d00bff7ae1f6",
+      "adaptation": "仅移除外层作用域缩进并补充导入/固定 helper 常量；函数体和 decorator 未修改",
+      "reference_file_sha256": "45ec5515719fabbf3d621523ae9100968947d0b33e8bb2a5a1b7b28296dd2eda",
+      "semantic_status": "declared_independent_reference",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "独立新分配输入/输出，禁止共享 storage；不证明一般 alias",
+      "input_recipe": "CUDA；非空连续新分配；float32/int32/bool；固定两种 seed=17,42；smoke shapes 见 tensors；部分 shape 为有界适配",
+      "tolerance_provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+    },
+    {
+      "id": "triton_signed_neg",
+      "source": "triton",
+      "file": "python/test/unit/language/test_core.py",
+      "function": "_neg_signed_zero_kernel",
+      "family": "elementwise_mapping",
+      "test_file": "",
+      "reference_anchor": "",
+      "smoke": null,
+      "helper": "",
+      "audit_note": "挑战仅固定来源和拒绝边界，不进入正向分母、不重写参考。上游仅以 pytest.mark.interpreter 覆盖；当前 GPU smoke 数值相等但 signbit 不一致，故降为挑战。",
+      "split": "challenge",
+      "revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "repository": "triton-lang/triton",
+      "license_id": "MIT",
+      "license_sha256": "92640fb97222fd0a698ff28ce0c3782c172623f8d6c609b557636a80f28fb946",
+      "source_url": "https://github.com/triton-lang/triton/blob/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/test/unit/language/test_core.py#L1084",
+      "line": 1084,
+      "file_sha256": "b6f148d50ebc0117f9cff7d9b7b883bc1439dfadd5787d3cf61023fcb2243abc",
+      "function_sha256": "3bbed476bc17ac5030b4f2fe2c3895b689e072044cae8823e59ea3abd3ea06fd",
+      "normalized_body_sha256": "ef41b5080f0359e381d5495cb2e1a01ffe902255bdf82c676be34c5e36a3892a",
+      "signature": [
+        "x_ptr",
+        "y_ptr"
+      ],
+      "pointers": {
+        "x_ptr": "x_ptr",
+        "y_ptr": "y_ptr"
+      },
+      "features": {
+        "program_id_axes": [],
+        "load_count": 1,
+        "store_count": 1,
+        "explicit_masks": 0,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": null,
+      "kernel_module_sha256": null,
+      "adaptation": "未适配、未执行",
+      "reference_file_sha256": null,
+      "semantic_status": "not_required_challenge",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "Unknown",
+      "input_recipe": null,
+      "tolerance_provenance": null
+    },
+    {
+      "id": "triton_cat",
+      "source": "triton",
+      "file": "python/test/unit/language/test_core.py",
+      "function": "test_cat.kernel",
+      "family": "layout_2d",
+      "test_file": "",
+      "reference_anchor": "",
+      "smoke": null,
+      "helper": "",
+      "audit_note": "挑战仅固定来源和拒绝边界，不进入正向分母、不重写参考。当前 GPU 后端拒绝 can_reorder=False；True 会改变逐元素顺序，故不冒称 torch.cat 语义完整。",
+      "split": "challenge",
+      "revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "repository": "triton-lang/triton",
+      "license_id": "MIT",
+      "license_sha256": "92640fb97222fd0a698ff28ce0c3782c172623f8d6c609b557636a80f28fb946",
+      "source_url": "https://github.com/triton-lang/triton/blob/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/test/unit/language/test_core.py#L2644",
+      "line": 2644,
+      "file_sha256": "b6f148d50ebc0117f9cff7d9b7b883bc1439dfadd5787d3cf61023fcb2243abc",
+      "function_sha256": "8c8ccf58bbfab3290ed85bea7d10304a3a3637ac99902287934bbdcb78d0bd84",
+      "normalized_body_sha256": "202751fbc885f4393e2f27daa65df5f1992cf4e0dfbdc2732d1188990952a946",
+      "signature": [
+        "X",
+        "Y",
+        "Z",
+        "N",
+        "CAN_REORDER"
+      ],
+      "pointers": {
+        "X": "X",
+        "Y": "Y",
+        "Z": "Z"
+      },
+      "features": {
+        "program_id_axes": [],
+        "load_count": 2,
+        "store_count": 1,
+        "explicit_masks": 0,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": false,
+        "layout_transform": true
+      },
+      "kernel_module": null,
+      "kernel_module_sha256": null,
+      "adaptation": "未适配、未执行",
+      "reference_file_sha256": null,
+      "semantic_status": "not_required_challenge",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "Unknown",
+      "input_recipe": null,
+      "tolerance_provenance": null
+    },
+    {
+      "id": "triton_tutorial_softmax",
+      "source": "triton",
+      "file": "python/tutorials/02-fused-softmax.py",
+      "function": "softmax_kernel",
+      "family": "row_reduction",
+      "test_file": "",
+      "reference_anchor": "",
+      "smoke": null,
+      "helper": "",
+      "audit_note": "挑战仅固定来源和拒绝边界，不进入正向分母、不重写参考。",
+      "split": "challenge",
+      "revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "repository": "triton-lang/triton",
+      "license_id": "MIT",
+      "license_sha256": "92640fb97222fd0a698ff28ce0c3782c172623f8d6c609b557636a80f28fb946",
+      "source_url": "https://github.com/triton-lang/triton/blob/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/tutorials/02-fused-softmax.py#L84",
+      "line": 84,
+      "file_sha256": "361e72779d5ea372b43399107ca212ac4405a25fc569b829b88653ccb61f1421",
+      "function_sha256": "4064a6fd93200d8554d95a3b193d898fd21069b910ce19aca60b025e0c0e36cb",
+      "normalized_body_sha256": "a6b4c36bde796189f3633f6760c4b04df3931ceae5d442cd97330830ad99c18e",
+      "signature": [
+        "output_ptr",
+        "input_ptr",
+        "input_row_stride",
+        "output_row_stride",
+        "n_rows",
+        "n_cols",
+        "BLOCK_SIZE",
+        "num_stages"
+      ],
+      "pointers": {
+        "output_ptr": "output_ptr",
+        "input_ptr": "input_ptr"
+      },
+      "features": {
+        "program_id_axes": [
+          0
+        ],
+        "load_count": 1,
+        "store_count": 1,
+        "explicit_masks": 2,
+        "loop": true,
+        "branch": false,
+        "reduction": true,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": null,
+      "kernel_module_sha256": null,
+      "adaptation": "未适配、未执行",
+      "reference_file_sha256": null,
+      "semantic_status": "not_required_challenge",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "Unknown",
+      "input_recipe": null,
+      "tolerance_provenance": null
+    },
+    {
+      "id": "triton_tutorial_layernorm",
+      "source": "triton",
+      "file": "python/tutorials/05-layer-norm.py",
+      "function": "_layer_norm_fwd_fused",
+      "family": "row_reduction",
+      "test_file": "",
+      "reference_anchor": "",
+      "smoke": null,
+      "helper": "",
+      "audit_note": "挑战仅固定来源和拒绝边界，不进入正向分母、不重写参考。",
+      "split": "challenge",
+      "revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "repository": "triton-lang/triton",
+      "license_id": "MIT",
+      "license_sha256": "92640fb97222fd0a698ff28ce0c3782c172623f8d6c609b557636a80f28fb946",
+      "source_url": "https://github.com/triton-lang/triton/blob/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/tutorials/05-layer-norm.py#L48",
+      "line": 48,
+      "file_sha256": "241f9f74e2f18567b26f3b4cf9b9873ae859150ccd10976d65d38fe24896d1d2",
+      "function_sha256": "8c5423e7346fa8cfaceacc54630960de4fb5beca15932c221242efe94b686489",
+      "normalized_body_sha256": "5148abee7bf7e36f3dda43406bb09f144808622718adb0c37f300411c07d10d1",
+      "signature": [
+        "X",
+        "Y",
+        "W",
+        "B",
+        "Mean",
+        "Rstd",
+        "stride",
+        "N",
+        "eps",
+        "BLOCK_SIZE"
+      ],
+      "pointers": {
+        "X": "X",
+        "Y": "Y"
+      },
+      "features": {
+        "program_id_axes": [
+          0
+        ],
+        "load_count": 5,
+        "store_count": 3,
+        "explicit_masks": 6,
+        "loop": true,
+        "branch": false,
+        "reduction": true,
+        "cast": true,
+        "pointer_update": true,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": null,
+      "kernel_module_sha256": null,
+      "adaptation": "未适配、未执行",
+      "reference_file_sha256": null,
+      "semantic_status": "not_required_challenge",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "Unknown",
+      "input_recipe": null,
+      "tolerance_provenance": null
+    },
+    {
+      "id": "triton_gather",
+      "source": "triton",
+      "file": "python/test/unit/language/test_core.py",
+      "function": "gather_test_kernel",
+      "family": "indirect_index",
+      "test_file": "",
+      "reference_anchor": "",
+      "smoke": null,
+      "helper": "",
+      "audit_note": "挑战仅固定来源和拒绝边界，不进入正向分母、不重写参考。",
+      "split": "challenge",
+      "revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "repository": "triton-lang/triton",
+      "license_id": "MIT",
+      "license_sha256": "92640fb97222fd0a698ff28ce0c3782c172623f8d6c609b557636a80f28fb946",
+      "source_url": "https://github.com/triton-lang/triton/blob/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/test/unit/language/test_core.py#L7768",
+      "line": 7768,
+      "file_sha256": "b6f148d50ebc0117f9cff7d9b7b883bc1439dfadd5787d3cf61023fcb2243abc",
+      "function_sha256": "1f7b26536bc80b3fd54fce76d5023812e2b126456a25a4ec8bb365ed56af7557",
+      "normalized_body_sha256": "2ab8199a266cb3c259269f777baff585e4de993e4e1b74ad5a189f83a5d007a1",
+      "signature": [
+        "src_ptr",
+        "idx_ptr",
+        "out_ptr",
+        "axis",
+        "src_dim0",
+        "src_dim1",
+        "src_stride0",
+        "src_stride1",
+        "idx_dim0",
+        "idx_dim1",
+        "idx_stride0",
+        "idx_stride1",
+        "out_dim0",
+        "out_dim1",
+        "out_stride0",
+        "out_stride1"
+      ],
+      "pointers": {
+        "src_ptr": "src_ptr",
+        "idx_ptr": "idx_ptr",
+        "out_ptr": "out_ptr"
+      },
+      "features": {
+        "program_id_axes": [],
+        "load_count": 2,
+        "store_count": 1,
+        "explicit_masks": 0,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": true,
+        "layout_transform": false
+      },
+      "kernel_module": null,
+      "kernel_module_sha256": null,
+      "adaptation": "未适配、未执行",
+      "reference_file_sha256": null,
+      "semantic_status": "not_required_challenge",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "Unknown",
+      "input_recipe": null,
+      "tolerance_provenance": null
+    },
+    {
+      "id": "triton_trans4d",
+      "source": "triton",
+      "file": "python/test/unit/language/test_core.py",
+      "function": "test_trans_4d.kernel",
+      "family": "tensor_descriptor",
+      "test_file": "",
+      "reference_anchor": "",
+      "smoke": null,
+      "helper": "",
+      "audit_note": "挑战仅固定来源和拒绝边界，不进入正向分母、不重写参考。",
+      "split": "challenge",
+      "revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "repository": "triton-lang/triton",
+      "license_id": "MIT",
+      "license_sha256": "92640fb97222fd0a698ff28ce0c3782c172623f8d6c609b557636a80f28fb946",
+      "source_url": "https://github.com/triton-lang/triton/blob/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/test/unit/language/test_core.py#L4131",
+      "line": 4131,
+      "file_sha256": "b6f148d50ebc0117f9cff7d9b7b883bc1439dfadd5787d3cf61023fcb2243abc",
+      "function_sha256": "f1cd4593f1b2c5cb7b38ed0fc1f3b9d6b0754cce05fe90f359337c714c06862f",
+      "normalized_body_sha256": "46ac93d307a9f2ec067c05e02a1cb2289fbcdf1a6bc644b3986e982b303c3e12",
+      "signature": [
+        "In",
+        "Out",
+        "in_shape1",
+        "in_shape2",
+        "in_shape3",
+        "in_shape4",
+        "ou_shape1",
+        "ou_shape2",
+        "ou_shape3",
+        "ou_shape4",
+        "trans1",
+        "trans2",
+        "trans3",
+        "trans4"
+      ],
+      "pointers": {
+        "In": "In",
+        "Out": "Out"
+      },
+      "features": {
+        "program_id_axes": [],
+        "load_count": 0,
+        "store_count": 0,
+        "explicit_masks": 0,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": null,
+      "kernel_module_sha256": null,
+      "adaptation": "未适配、未执行",
+      "reference_file_sha256": null,
+      "semantic_status": "not_required_challenge",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "Unknown",
+      "input_recipe": null,
+      "tolerance_provenance": null
+    },
+    {
+      "id": "triton_reshape_template",
+      "source": "triton",
+      "file": "python/test/unit/language/test_core.py",
+      "function": "test_reshape.kernel",
+      "family": "source_template",
+      "test_file": "",
+      "reference_anchor": "",
+      "smoke": null,
+      "helper": "",
+      "audit_note": "挑战仅固定来源和拒绝边界，不进入正向分母、不重写参考。",
+      "split": "challenge",
+      "revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "repository": "triton-lang/triton",
+      "license_id": "MIT",
+      "license_sha256": "92640fb97222fd0a698ff28ce0c3782c172623f8d6c609b557636a80f28fb946",
+      "source_url": "https://github.com/triton-lang/triton/blob/f394c9bb86b2eaca08b0e11c4cd397d19a56c693/python/test/unit/language/test_core.py#L5995",
+      "line": 5995,
+      "file_sha256": "b6f148d50ebc0117f9cff7d9b7b883bc1439dfadd5787d3cf61023fcb2243abc",
+      "function_sha256": "a19a2f38eba833e6057e4be74fbab4d6afc21537377c96d352d8a28b96b47447",
+      "normalized_body_sha256": "a95f0c43ad0f37916399790355db1896ad12cb124db023f287a2371dc83625f3",
+      "signature": [
+        "Z",
+        "X",
+        "out_tuple"
+      ],
+      "pointers": {
+        "Z": "Z",
+        "X": "X"
+      },
+      "features": {
+        "program_id_axes": [],
+        "load_count": 1,
+        "store_count": 1,
+        "explicit_masks": 0,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": false,
+        "pointer_update": false,
+        "broadcast": false,
+        "layout_transform": true
+      },
+      "kernel_module": null,
+      "kernel_module_sha256": null,
+      "adaptation": "未适配、未执行",
+      "reference_file_sha256": null,
+      "semantic_status": "not_required_challenge",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "Unknown",
+      "input_recipe": null,
+      "tolerance_provenance": null
+    },
+    {
+      "id": "liger_swiglu_backward",
+      "source": "liger",
+      "file": "src/liger_kernel/ops/swiglu.py",
+      "function": "_swiglu_backward_kernel",
+      "family": "inplace_multi_store",
+      "test_file": "",
+      "reference_anchor": "",
+      "smoke": null,
+      "helper": "",
+      "audit_note": "挑战仅固定来源和拒绝边界，不进入正向分母、不重写参考。",
+      "split": "challenge",
+      "revision": "40a9d8a61bdc546f4e70220619d4db9760fa80b1",
+      "repository": "linkedin/Liger-Kernel",
+      "license_id": "BSD-2-Clause",
+      "license_sha256": "3a1ccb0c7274b68e1af2ca1d54b10b662085ca56753400182ecf87ae33f2d1a8",
+      "source_url": "https://github.com/linkedin/Liger-Kernel/blob/40a9d8a61bdc546f4e70220619d4db9760fa80b1/src/liger_kernel/ops/swiglu.py#L78",
+      "line": 78,
+      "file_sha256": "7397029e8fefac0de42e5eeafcbbac147644a91c357bd30b9ba019fa5df3ce0a",
+      "function_sha256": "2879be86221089add8e8e23a306f0c918f09ef0aefd55c9595d084119ed29130",
+      "normalized_body_sha256": "1e7d351a0e558280abe4543d99bca329f4dca5f2e80b870763b7a34335801853",
+      "signature": [
+        "dc_ptr",
+        "a_ptr",
+        "b_ptr",
+        "stride",
+        "gate_multiplier",
+        "n_cols",
+        "BLOCK_SIZE"
+      ],
+      "pointers": {
+        "dc_ptr": "dc_ptr",
+        "a_ptr": "a_ptr",
+        "b_ptr": "b_ptr"
+      },
+      "features": {
+        "program_id_axes": [
+          0
+        ],
+        "load_count": 3,
+        "store_count": 2,
+        "explicit_masks": 5,
+        "loop": false,
+        "branch": false,
+        "reduction": false,
+        "cast": true,
+        "pointer_update": true,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": null,
+      "kernel_module_sha256": null,
+      "adaptation": "未适配、未执行",
+      "reference_file_sha256": null,
+      "semantic_status": "not_required_challenge",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "Unknown",
+      "input_recipe": null,
+      "tolerance_provenance": null
+    },
+    {
+      "id": "unsloth_swiglu",
+      "source": "unsloth",
+      "file": "unsloth/kernels/swiglu.py",
+      "function": "_fg_kernel",
+      "family": "feature_broadcast",
+      "test_file": "",
+      "reference_anchor": "",
+      "smoke": null,
+      "helper": "",
+      "audit_note": "挑战仅固定来源和拒绝边界，不进入正向分母、不重写参考。",
+      "split": "challenge",
+      "revision": "7ebf192674a217faa15891de3e95a517fb5d890e",
+      "repository": "unslothai/unsloth",
+      "license_id": "Apache-2.0; selected test files carry AGPL-3.0-only SPDX",
+      "license_sha256": "40e0b458a68b557560def38b106a1a0da1aac57685536dcb882f1c78c647e4d3",
+      "source_url": "https://github.com/unslothai/unsloth/blob/7ebf192674a217faa15891de3e95a517fb5d890e/unsloth/kernels/swiglu.py#L24",
+      "line": 24,
+      "file_sha256": "591ef79a133731b485ca60fd72bfb666e3e4255d5ef39c5fdb3b5c1c8db96ddd",
+      "function_sha256": "d5c9377e699d3029cdd6444482c173cac090bce8ec8413204e83fb855fd42752",
+      "normalized_body_sha256": "ffd986d60710589095832aff53e9fbbb667284796b73883acee1c8c12c82c0b4",
+      "signature": [
+        "e",
+        "g",
+        "h",
+        "n_elements",
+        "BLOCK_SIZE",
+        "LONG_INDEXING"
+      ],
+      "pointers": {
+        "e": "e",
+        "g": "g",
+        "h": "h"
+      },
+      "features": {
+        "program_id_axes": [
+          0
+        ],
+        "load_count": 2,
+        "store_count": 1,
+        "explicit_masks": 3,
+        "loop": false,
+        "branch": true,
+        "reduction": false,
+        "cast": true,
+        "pointer_update": false,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": null,
+      "kernel_module_sha256": null,
+      "adaptation": "未适配、未执行",
+      "reference_file_sha256": null,
+      "semantic_status": "not_required_challenge",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "Unknown",
+      "input_recipe": null,
+      "tolerance_provenance": null
+    },
+    {
+      "id": "unsloth_rope",
+      "source": "unsloth",
+      "file": "unsloth/kernels/rope_embedding.py",
+      "function": "_rope_embedding",
+      "family": "inplace_rope",
+      "test_file": "",
+      "reference_anchor": "",
+      "smoke": null,
+      "helper": "",
+      "audit_note": "挑战仅固定来源和拒绝边界，不进入正向分母、不重写参考。",
+      "split": "challenge",
+      "revision": "7ebf192674a217faa15891de3e95a517fb5d890e",
+      "repository": "unslothai/unsloth",
+      "license_id": "Apache-2.0; selected test files carry AGPL-3.0-only SPDX",
+      "license_sha256": "40e0b458a68b557560def38b106a1a0da1aac57685536dcb882f1c78c647e4d3",
+      "source_url": "https://github.com/unslothai/unsloth/blob/7ebf192674a217faa15891de3e95a517fb5d890e/unsloth/kernels/rope_embedding.py#L101",
+      "line": 101,
+      "file_sha256": "4e21ceb46b51857695e09316119fe4c63184674bbfa6aeaa5cd9a9be6af2f8c1",
+      "function_sha256": "ad2285122df1da34fc6bc0b8c4b20721b711475f274843debbda18d3c161f173",
+      "normalized_body_sha256": "ef14ff70ddbe433269b71331acf10a6a00ad5aa776e9121a1a64312867c1f802",
+      "signature": [
+        "Q",
+        "Q_row_stride",
+        "cos",
+        "cos_row_stride",
+        "sin",
+        "sin_row_stride",
+        "seqlen",
+        "head_dim",
+        "n_heads",
+        "BACKWARD_PASS",
+        "BLOCK_SIZE"
+      ],
+      "pointers": {
+        "Q": "Q",
+        "cos": "cos",
+        "sin": "sin"
+      },
+      "features": {
+        "program_id_axes": [
+          0,
+          1
+        ],
+        "load_count": 4,
+        "store_count": 2,
+        "explicit_masks": 6,
+        "loop": true,
+        "branch": true,
+        "reduction": false,
+        "cast": true,
+        "pointer_update": false,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": null,
+      "kernel_module_sha256": null,
+      "adaptation": "未适配、未执行",
+      "reference_file_sha256": null,
+      "semantic_status": "not_required_challenge",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "Unknown",
+      "input_recipe": null,
+      "tolerance_provenance": null
+    },
+    {
+      "id": "flag_cat",
+      "source": "flag_gems",
+      "file": "src/flag_gems/ops/cat.py",
+      "function": "cat_copy_func_kernel_4",
+      "family": "layout_2d",
+      "test_file": "",
+      "reference_anchor": "",
+      "smoke": null,
+      "helper": "",
+      "audit_note": "挑战仅固定来源和拒绝边界，不进入正向分母、不重写参考。",
+      "split": "challenge",
+      "revision": "b2044acafb7f72a19312158edf0d2bf333e26891",
+      "repository": "FlagOpen/FlagGems",
+      "license_id": "Apache-2.0",
+      "license_sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+      "source_url": "https://github.com/FlagOpen/FlagGems/blob/b2044acafb7f72a19312158edf0d2bf333e26891/src/flag_gems/ops/cat.py#L55",
+      "line": 55,
+      "file_sha256": "0ccc55b9dac8a171ffcf2c51d5ceffa32a0ae43896db22b49007b3f9bb302ee6",
+      "function_sha256": "bf7ea619f15c69783226059b0dca4c0460e45c3a4ab65e3ebbc6431447550cd6",
+      "normalized_body_sha256": "b9722a44c721141111af29db774f09fdb7caaacadd1f0ba476034009d1511001",
+      "signature": [
+        "out_ptr",
+        "in_ptr_a",
+        "in_ptr_b",
+        "in_ptr_c",
+        "in_ptr_d",
+        "dim_size_in_a",
+        "dim_size_in_b",
+        "dim_size_in_c",
+        "dim_size_in_d",
+        "dim_size_out",
+        "dim_prod_post",
+        "dim_offset_a",
+        "dim_offset_b",
+        "dim_offset_c",
+        "dim_offset_d",
+        "total_elements_a",
+        "total_elements_b",
+        "total_elements_c",
+        "total_elements_d",
+        "BLOCK_X"
+      ],
+      "pointers": {
+        "out_ptr": "out_ptr",
+        "in_ptr_a": "in_ptr_a",
+        "in_ptr_b": "in_ptr_b",
+        "in_ptr_c": "in_ptr_c",
+        "in_ptr_d": "in_ptr_d"
+      },
+      "features": {
+        "program_id_axes": [
+          0,
+          1
+        ],
+        "load_count": 1,
+        "store_count": 1,
+        "explicit_masks": 2,
+        "loop": false,
+        "branch": true,
+        "reduction": false,
+        "cast": true,
+        "pointer_update": false,
+        "broadcast": false,
+        "layout_transform": false
+      },
+      "kernel_module": null,
+      "kernel_module_sha256": null,
+      "adaptation": "未适配、未执行",
+      "reference_file_sha256": null,
+      "semantic_status": "not_required_challenge",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "Unknown",
+      "input_recipe": null,
+      "tolerance_provenance": null
+    },
+    {
+      "id": "flag_complex_transpose",
+      "source": "flag_gems",
+      "file": "src/flag_gems/ops/transpose_copy.py",
+      "function": "_complex_transpose_tiled_kernel",
+      "family": "complex_static_loop",
+      "test_file": "",
+      "reference_anchor": "",
+      "smoke": null,
+      "helper": "",
+      "audit_note": "挑战仅固定来源和拒绝边界，不进入正向分母、不重写参考。",
+      "split": "challenge",
+      "revision": "b2044acafb7f72a19312158edf0d2bf333e26891",
+      "repository": "FlagOpen/FlagGems",
+      "license_id": "Apache-2.0",
+      "license_sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+      "source_url": "https://github.com/FlagOpen/FlagGems/blob/b2044acafb7f72a19312158edf0d2bf333e26891/src/flag_gems/ops/transpose_copy.py#L61",
+      "line": 61,
+      "file_sha256": "dbbba392f1bfd40cc4d046a1b94d68567340e2e03acda7b2ee759c9333d5f151",
+      "function_sha256": "b5ec387e778fc7cfd8c693f05de65a4fe82ae583c426531b106226ac31ed9c19",
+      "normalized_body_sha256": "ceb5122d5380ee0a146b3cc10754cdd07518e86aba197c882d2af8a06f0d17b2",
+      "signature": [
+        "input",
+        "out",
+        "M",
+        "N",
+        "INPUT_STRIDES",
+        "OUTPUT_STRIDES",
+        "OTHER_SHAPE",
+        "OTHER_INPUT_STRIDES",
+        "OTHER_OUTPUT_STRIDES",
+        "WORDS",
+        "CONJ",
+        "NEG",
+        "SIGN_MASK",
+        "BLOCK"
+      ],
+      "pointers": {
+        "input": "input",
+        "out": "out"
+      },
+      "features": {
+        "program_id_axes": [
+          0
+        ],
+        "load_count": 1,
+        "store_count": 1,
+        "explicit_masks": 0,
+        "loop": true,
+        "branch": false,
+        "reduction": false,
+        "cast": true,
+        "pointer_update": true,
+        "broadcast": true,
+        "layout_transform": true
+      },
+      "kernel_module": null,
+      "kernel_module_sha256": null,
+      "adaptation": "未适配、未执行",
+      "reference_file_sha256": null,
+      "semantic_status": "not_required_challenge",
+      "candidate_status": "Unknown",
+      "guard_status": "not_registered",
+      "fast_status": "not_eligible",
+      "alias_policy": "Unknown",
+      "input_recipe": null,
+      "tolerance_provenance": null
+    }
+  ]
+}
