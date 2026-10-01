@@ -1,0 +1,5923 @@
+{
+  "generated_at": "2026-10-01T12:13:34.808209+08:00",
+  "mode": "development_and_frozen_holdout",
+  "rows": [
+    {
+      "id": "triton_add",
+      "status": "passed",
+      "plan_fingerprint": "31cb566f98d3acac3894e9d0dae7e408f9d6432efadb57fbc8ea6aee75eb1804",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "x_ptr",
+                "line": 31
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "x_ptr",
+                "line": 31
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "y_ptr",
+                "line": 32
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "y_ptr",
+                "line": 32
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "output_ptr",
+                "line": 35
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "output_ptr",
+                "line": 35
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "x_ptr",
+                "line": 31
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "x_ptr",
+                "line": 31
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "y_ptr",
+                "line": 32
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "y_ptr",
+                "line": 32
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "output_ptr",
+                "line": 35
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "output_ptr",
+                "line": 35
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "triton_add"
+      ],
+      "elapsed_seconds": 8.05306265399986
+    },
+    {
+      "id": "triton_where_zero",
+      "status": "passed",
+      "plan_fingerprint": "c6a0474205e9543df055e760287c9362b4704f683f93a12c7da6898c7d931603",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "a_ptr",
+                "line": 15
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "a_ptr",
+                "line": 15
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "out_ptr",
+                "line": 17
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "out_ptr",
+                "line": 17
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                32
+              ],
+              "stride_elements": [
+                32,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                32
+              ],
+              "stride_elements": [
+                32,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "a_ptr",
+                "line": 15
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "a_ptr",
+                "line": 15
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "out_ptr",
+                "line": 17
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "out_ptr",
+                "line": 17
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                32
+              ],
+              "stride_elements": [
+                32,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                32
+              ],
+              "stride_elements": [
+                32,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "triton_where_zero"
+      ],
+      "elapsed_seconds": 7.772124832999907
+    },
+    {
+      "id": "triton_interleave",
+      "status": "passed",
+      "plan_fingerprint": "5b6ae4b271a085cd283fed63c80bad10aae5aa01742a9f33c3f8802b194f4db9",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Z",
+                "line": 13
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Z",
+                "line": 13
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "out": {
+              "shape": [
+                256
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Z",
+                "line": 13
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Z",
+                "line": 13
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "out": {
+              "shape": [
+                256
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "triton_interleave"
+      ],
+      "elapsed_seconds": 8.037727314999984
+    },
+    {
+      "id": "triton_ravel",
+      "status": "passed",
+      "plan_fingerprint": "6da06303f7fe8981d1e4fe1bc1a203e3f24e533b497328d47a6f23dd1d7baa4a",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "out_ptr",
+                "line": 15
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "out_ptr",
+                "line": 15
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "out": {
+              "shape": [
+                256
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "out_ptr",
+                "line": 15
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "out_ptr",
+                "line": 15
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "out": {
+              "shape": [
+                256
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "triton_ravel"
+      ],
+      "elapsed_seconds": 7.873933129000079
+    },
+    {
+      "id": "pytorch_sub",
+      "status": "passed",
+      "plan_fingerprint": "a675ccf4e754b7945736467d9c7fc000553abd26b743b6efb143650f7205c383",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "in_ptr0",
+                "line": 22
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "in_ptr0",
+                "line": 22
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "in_ptr1",
+                "line": 23
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "in_ptr1",
+                "line": 23
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "out_ptr",
+                "line": 25
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "out_ptr",
+                "line": 25
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "in_ptr0",
+                "line": 22
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "in_ptr0",
+                "line": 22
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "in_ptr1",
+                "line": 23
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "in_ptr1",
+                "line": 23
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "out_ptr",
+                "line": 25
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "out_ptr",
+                "line": 25
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "pytorch_sub"
+      ],
+      "elapsed_seconds": 7.921722877000093
+    },
+    {
+      "id": "pytorch_double",
+      "status": "passed",
+      "plan_fingerprint": "6d062a6dabcbdfb6bc194086f60a6e08db4856b62364230073cface17c68333e",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "in_ptr0",
+                "line": 21
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "in_ptr0",
+                "line": 21
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "out_ptr",
+                "line": 23
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "out_ptr",
+                "line": 23
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "in_ptr0",
+                "line": 21
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "in_ptr0",
+                "line": 21
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "out_ptr",
+                "line": 23
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "out_ptr",
+                "line": 23
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "pytorch_double"
+      ],
+      "elapsed_seconds": 7.692728124000041
+    },
+    {
+      "id": "pytorch_double_strided",
+      "status": "passed",
+      "plan_fingerprint": "e3395f42a09d65f23880115b0dbba2bc32a3665475e97964699c35e2d8610bb6",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "in_ptr",
+                "line": 27
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "in_ptr",
+                "line": 27
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "out_ptr",
+                "line": 28
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "out_ptr",
+                "line": 28
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                16,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                16,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "in_ptr",
+                "line": 27
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "in_ptr",
+                "line": 27
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "out_ptr",
+                "line": 28
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "out_ptr",
+                "line": 28
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                16,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                16,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "pytorch_double_strided"
+      ],
+      "elapsed_seconds": 7.375955794999982
+    },
+    {
+      "id": "triton_broadcast",
+      "status": "passed",
+      "plan_fingerprint": "05ee9244818429860456f9f76ff77dabe3d2dd92764e87a0c3cd1d201abac484",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "x_ptr",
+                "line": 14
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "x_ptr",
+                "line": 14
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "y_ptr",
+                "line": 15
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "y_ptr",
+                "line": 15
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "y_broadcasted_ptr",
+                "line": 17
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "y_broadcasted_ptr",
+                "line": 17
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                64
+              ],
+              "stride_elements": [
+                64,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                64
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                64
+              ],
+              "stride_elements": [
+                64,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "x_ptr",
+                "line": 14
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "x_ptr",
+                "line": 14
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "y_ptr",
+                "line": 15
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "y_ptr",
+                "line": 15
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "y_broadcasted_ptr",
+                "line": 17
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "y_broadcasted_ptr",
+                "line": 17
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                64
+              ],
+              "stride_elements": [
+                64,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                64
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                64
+              ],
+              "stride_elements": [
+                64,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "triton_broadcast"
+      ],
+      "elapsed_seconds": 8.75045891700006
+    },
+    {
+      "id": "triton_where_broadcast",
+      "status": "passed",
+      "plan_fingerprint": "79b6e13172287cea7c23d89c0a379ef573b7ae2cfce60b67d0c5074be3c914e4",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "cond_ptr",
+                "line": 15
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "cond_ptr",
+                "line": 15
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "a_ptr",
+                "line": 16
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "a_ptr",
+                "line": 16
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "out_ptr",
+                "line": 18
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "out_ptr",
+                "line": 18
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                32
+              ],
+              "stride_elements": [
+                32,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "mask": {
+              "shape": [
+                32
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.bool"
+            },
+            "out": {
+              "shape": [
+                32,
+                32
+              ],
+              "stride_elements": [
+                32,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "cond_ptr",
+                "line": 15
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "cond_ptr",
+                "line": 15
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "a_ptr",
+                "line": 16
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "a_ptr",
+                "line": 16
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "out_ptr",
+                "line": 18
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "out_ptr",
+                "line": 18
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                32
+              ],
+              "stride_elements": [
+                32,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "mask": {
+              "shape": [
+                32
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.bool"
+            },
+            "out": {
+              "shape": [
+                32,
+                32
+              ],
+              "stride_elements": [
+                32,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "triton_where_broadcast"
+      ],
+      "elapsed_seconds": 8.504917735999925
+    },
+    {
+      "id": "pytorch_masked_add",
+      "status": "passed",
+      "plan_fingerprint": "762ccdf0f544b89110b2775292bfa8e08f1c3690e08c9c9a1c300c4e4366fbec",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "in_ptr0",
+                "line": 24
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "in_ptr0",
+                "line": 24
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "in_ptr1",
+                "line": 25
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "in_ptr1",
+                "line": 25
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "mask_ptr",
+                "line": 26
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "mask_ptr",
+                "line": 26
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "out_ptr",
+                "line": 28
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "out_ptr",
+                "line": 28
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "mask": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.bool"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "in_ptr0",
+                "line": 24
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "in_ptr0",
+                "line": 24
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "in_ptr1",
+                "line": 25
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "in_ptr1",
+                "line": 25
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "mask_ptr",
+                "line": 26
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "mask_ptr",
+                "line": 26
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "out_ptr",
+                "line": 28
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "out_ptr",
+                "line": 28
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "mask": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.bool"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "pytorch_masked_add"
+      ],
+      "elapsed_seconds": 7.674593365999954
+    },
+    {
+      "id": "liger_swiglu",
+      "status": "passed",
+      "plan_fingerprint": "0f48aff1eeb69cf13f99cd18958c5855f283aed8891d16ac9e0e8d7248becff7",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "a_ptr",
+                "line": 29
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "a_ptr",
+                "line": 29
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "b_ptr",
+                "line": 30
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "b_ptr",
+                "line": 30
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "c_ptr",
+                "line": 32
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "c_ptr",
+                "line": 32
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "a_ptr",
+                "line": 29
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "a_ptr",
+                "line": 29
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "b_ptr",
+                "line": 30
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "b_ptr",
+                "line": 30
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "c_ptr",
+                "line": 32
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "c_ptr",
+                "line": 32
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "liger_swiglu"
+      ],
+      "elapsed_seconds": 7.725782497999944
+    },
+    {
+      "id": "liger_swiglu_tiled",
+      "status": "passed",
+      "plan_fingerprint": "cdb63a919785c02175f12b6fe3c628d4669e75f04f4c6394cd818fbc2a30e82a",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "a_ptr",
+                "line": 29
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "a_ptr",
+                "line": 29
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "b_ptr",
+                "line": 30
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "b_ptr",
+                "line": 30
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "c_ptr",
+                "line": 32
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "c_ptr",
+                "line": 32
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "a_ptr",
+                "line": 29
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "a_ptr",
+                "line": 29
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "b_ptr",
+                "line": 30
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "b_ptr",
+                "line": 30
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "c_ptr",
+                "line": 32
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "c_ptr",
+                "line": 32
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "liger_swiglu_tiled"
+      ],
+      "elapsed_seconds": 7.127035110999941
+    },
+    {
+      "id": "liger_geglu",
+      "status": "passed",
+      "plan_fingerprint": "373ecbcbe9db4ecff75010a65813d0ec75f70228bc20f788ea137b6cdc33de13",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "a",
+                "line": 21
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "a",
+                "line": 21
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "b",
+                "line": 22
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "b",
+                "line": 22
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "c",
+                "line": 32
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "c",
+                "line": 32
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "a",
+                "line": 21
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "a",
+                "line": 21
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "b",
+                "line": 22
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "b",
+                "line": 22
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "c",
+                "line": 32
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "c",
+                "line": 32
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "y": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "liger_geglu"
+      ],
+      "elapsed_seconds": 7.060412313000143
+    },
+    {
+      "id": "liger_fused_swiglu",
+      "status": "passed",
+      "plan_fingerprint": "04ea2197d3add1d0e78f96e48583add568f205322a648a41fba38c5fa88f8131",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "y_ptr",
+                "line": 27
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "y_ptr",
+                "line": 27
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "y_ptr",
+                "line": 28
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "y_ptr",
+                "line": 28
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "c_ptr",
+                "line": 29
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "c_ptr",
+                "line": 29
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                512
+              ],
+              "stride_elements": [
+                512,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "y_ptr",
+                "line": 27
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "y_ptr",
+                "line": 27
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "y_ptr",
+                "line": 28
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "y_ptr",
+                "line": 28
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "c_ptr",
+                "line": 29
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "c_ptr",
+                "line": 29
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                512
+              ],
+              "stride_elements": [
+                512,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "liger_fused_swiglu"
+      ],
+      "elapsed_seconds": 7.335585192999815
+    },
+    {
+      "id": "flag_slice",
+      "status": "Unknown",
+      "reason": "地址 tl.where 条件不是已绑定 constexpr",
+      "plan_fingerprint": "d4cf6d71e39a5b0815aeabf4f5353c7c5b426391d5ec19b46aa26fd1855b9dd2",
+      "runs": [],
+      "stderr": "",
+      "exit_code": 2,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "flag_slice"
+      ],
+      "elapsed_seconds": 6.298880903999816
+    },
+    {
+      "id": "triton_permute",
+      "status": "passed",
+      "plan_fingerprint": "1e9f5a6434f8264f79d52ad7fedc5891977949c4f4c7a253afcadad789355f66",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Z",
+                "line": 16
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Z",
+                "line": 16
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X",
+                "line": 16
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X",
+                "line": 16
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                64,
+                64
+              ],
+              "stride_elements": [
+                64,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                64,
+                64
+              ],
+              "stride_elements": [
+                64,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Z",
+                "line": 16
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Z",
+                "line": 16
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X",
+                "line": 16
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X",
+                "line": 16
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                64,
+                64
+              ],
+              "stride_elements": [
+                64,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                64,
+                64
+              ],
+              "stride_elements": [
+                64,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "triton_permute"
+      ],
+      "elapsed_seconds": 7.117634771999974
+    },
+    {
+      "id": "triton_trans2d",
+      "status": "passed",
+      "plan_fingerprint": "a1579dcf074f7344c723b802ac9ff556097ad254d874215c24e643b38c61c369",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Out",
+                "line": 15
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Out",
+                "line": 15
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "In",
+                "line": 15
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "In",
+                "line": 15
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                16,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            },
+            "out": {
+              "shape": [
+                16,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Out",
+                "line": 15
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Out",
+                "line": 15
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "In",
+                "line": 15
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "In",
+                "line": 15
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                16,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            },
+            "out": {
+              "shape": [
+                16,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "triton_trans2d"
+      ],
+      "elapsed_seconds": 6.871336035000013
+    },
+    {
+      "id": "triton_flip",
+      "status": "passed",
+      "plan_fingerprint": "7a00f90c658cf58857f44e0f6438005fff6262c795bd49e59de97a91cf057190",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X",
+                "line": 16
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X",
+                "line": 16
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Z",
+                "line": 18
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Z",
+                "line": 18
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                2,
+                256
+              ],
+              "stride_elements": [
+                512,
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                2,
+                256
+              ],
+              "stride_elements": [
+                512,
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X",
+                "line": 16
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X",
+                "line": 16
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Z",
+                "line": 18
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Z",
+                "line": 18
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                2,
+                256
+              ],
+              "stride_elements": [
+                512,
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                2,
+                256
+              ],
+              "stride_elements": [
+                512,
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "triton_flip"
+      ],
+      "elapsed_seconds": 7.147393993999913
+    },
+    {
+      "id": "triton_pair_flip",
+      "status": "passed",
+      "plan_fingerprint": "148fbc15bf0f857ee00e168a508dd2869a4b2bb29ce85e2ee279c723d83bf743",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "x_ptr",
+                "line": 13
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "x_ptr",
+                "line": 13
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "out_ptr",
+                "line": 17
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "out_ptr",
+                "line": 17
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                1,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                1,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "x_ptr",
+                "line": 13
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "x_ptr",
+                "line": 13
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "out_ptr",
+                "line": 17
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "out_ptr",
+                "line": 17
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                1,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                1,
+                16
+              ],
+              "stride_elements": [
+                16,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "triton_pair_flip"
+      ],
+      "elapsed_seconds": 6.989526864000027
+    },
+    {
+      "id": "triton_split",
+      "status": "passed",
+      "plan_fingerprint": "2d6ac72ef49c1e3af4744f8ca5441bda9750b574692d0d1c3c94c097e5a77784",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X",
+                "line": 13
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X",
+                "line": 13
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Z1",
+                "line": 16
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Z1",
+                "line": 16
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Z2",
+                "line": 17
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Z2",
+                "line": 17
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "out2",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                128,
+                2
+              ],
+              "stride_elements": [
+                2,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            },
+            "out": {
+              "shape": [
+                128
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            },
+            "out2": {
+              "shape": [
+                128
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X",
+                "line": 13
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X",
+                "line": 13
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Z1",
+                "line": 16
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Z1",
+                "line": 16
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Z2",
+                "line": 17
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Z2",
+                "line": 17
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "out2",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                128,
+                2
+              ],
+              "stride_elements": [
+                2,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            },
+            "out": {
+              "shape": [
+                128
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            },
+            "out2": {
+              "shape": [
+                128
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.int32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "triton_split"
+      ],
+      "elapsed_seconds": 6.960248648000061
+    },
+    {
+      "id": "triton_softmax",
+      "status": "passed",
+      "plan_fingerprint": "1a663431bc8f54cd0106279a2049fd0b6303659ae10ad351b2e3bcaac453f1b0",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X",
+                "line": 14
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X",
+                "line": 14
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Z",
+                "line": 20
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Z",
+                "line": 20
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                128
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                128
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X",
+                "line": 14
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X",
+                "line": 14
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Z",
+                "line": 20
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Z",
+                "line": 20
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                128
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                128
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "triton_softmax"
+      ],
+      "elapsed_seconds": 6.844775137999932
+    },
+    {
+      "id": "liger_softmax",
+      "status": "passed",
+      "plan_fingerprint": "aacf57baeee60cdc1a3ec0ffb29989776c15fec8f8e8d58c968d038764ea24d9",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X_ptr",
+                "line": 23
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X_ptr",
+                "line": 23
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Y_ptr",
+                "line": 28
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Y_ptr",
+                "line": 28
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X_ptr",
+                "line": 23
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X_ptr",
+                "line": 23
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Y_ptr",
+                "line": 28
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Y_ptr",
+                "line": 28
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "liger_softmax"
+      ],
+      "elapsed_seconds": 7.216353132999984
+    },
+    {
+      "id": "liger_layernorm",
+      "status": "passed",
+      "plan_fingerprint": "b911830b8c93124829d5ada0f0e0679188c3e47034a21e1606fc55e6a95dac00",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "W_ptr",
+                "line": 38
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "W_ptr",
+                "line": 38
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "B_ptr",
+                "line": 39
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "B_ptr",
+                "line": 39
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X_ptr",
+                "line": 50
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X_ptr",
+                "line": 50
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Mean_ptr",
+                "line": 62
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Mean_ptr",
+                "line": 62
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "RSTD_ptr",
+                "line": 63
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "RSTD_ptr",
+                "line": 63
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Y_ptr",
+                "line": 70
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Y_ptr",
+                "line": 70
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "mean",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "b": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "mean": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "W_ptr",
+                "line": 38
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "W_ptr",
+                "line": 38
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "B_ptr",
+                "line": 39
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "B_ptr",
+                "line": 39
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X_ptr",
+                "line": 50
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X_ptr",
+                "line": 50
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Mean_ptr",
+                "line": 62
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Mean_ptr",
+                "line": 62
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "RSTD_ptr",
+                "line": 63
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "RSTD_ptr",
+                "line": 63
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Y_ptr",
+                "line": 70
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Y_ptr",
+                "line": 70
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "mean",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "b": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "mean": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "liger_layernorm"
+      ],
+      "elapsed_seconds": 7.232634169999983
+    },
+    {
+      "id": "unsloth_layernorm",
+      "status": "passed",
+      "plan_fingerprint": "a43743f2d79dc45092f3d3260e4562c6b56345068fd637580c26992b101ab1d5",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X",
+                "line": 34
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X",
+                "line": 34
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "W",
+                "line": 35
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "W",
+                "line": 35
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "b",
+                "line": 36
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "b",
+                "line": 36
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "r",
+                "line": 45
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "r",
+                "line": 45
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "mu",
+                "line": 46
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "mu",
+                "line": 46
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Y",
+                "line": 48
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Y",
+                "line": 48
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "mean",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "b": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "mean": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X",
+                "line": 34
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X",
+                "line": 34
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "W",
+                "line": 35
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "W",
+                "line": 35
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "b",
+                "line": 36
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "b",
+                "line": 36
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "r",
+                "line": 45
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "r",
+                "line": 45
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "mu",
+                "line": 46
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "mu",
+                "line": 46
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Y",
+                "line": 48
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Y",
+                "line": 48
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "mean",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "b": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "mean": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "unsloth_layernorm"
+      ],
+      "elapsed_seconds": 7.0112177979999615
+    },
+    {
+      "id": "liger_rmsnorm",
+      "status": "passed",
+      "plan_fingerprint": "f55bb96aeb151cd61b00c80b7116be7e67f6fec79506dc3842eca26168786860",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X_ptr",
+                "line": 44
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X_ptr",
+                "line": 44
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "W_ptr",
+                "line": 47
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "W_ptr",
+                "line": 47
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "RSTD_ptr",
+                "line": 77
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "RSTD_ptr",
+                "line": 77
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Y_ptr",
+                "line": 93
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Y_ptr",
+                "line": 93
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X_ptr",
+                "line": 44
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X_ptr",
+                "line": 44
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "W_ptr",
+                "line": 47
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "W_ptr",
+                "line": 47
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "RSTD_ptr",
+                "line": 77
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "RSTD_ptr",
+                "line": 77
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Y_ptr",
+                "line": 93
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Y_ptr",
+                "line": 93
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "liger_rmsnorm"
+      ],
+      "elapsed_seconds": 8.53809324100007
+    },
+    {
+      "id": "liger_block_rmsnorm",
+      "status": "passed",
+      "plan_fingerprint": "a6b0bcbeea42e24ab2c5e4b9a46b0992571fcf2af71cbfd0994f79079e95f039",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X_ptr",
+                "line": 43
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X_ptr",
+                "line": 43
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "W_ptr",
+                "line": 50
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "W_ptr",
+                "line": 50
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "RSTD_ptr",
+                "line": 76
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "RSTD_ptr",
+                "line": 76
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Y_ptr",
+                "line": 92
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Y_ptr",
+                "line": 92
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X_ptr",
+                "line": 43
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X_ptr",
+                "line": 43
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "W_ptr",
+                "line": 50
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "W_ptr",
+                "line": 50
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "RSTD_ptr",
+                "line": 76
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "RSTD_ptr",
+                "line": 76
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Y_ptr",
+                "line": 92
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Y_ptr",
+                "line": 92
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "liger_block_rmsnorm"
+      ],
+      "elapsed_seconds": 7.9303587540000535
+    },
+    {
+      "id": "unsloth_rmsnorm",
+      "status": "passed",
+      "plan_fingerprint": "17ac69abb06aac0a89097d82fce43251470b95620bd64e48931bcd6ddad7688a",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X",
+                "line": 37
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X",
+                "line": 37
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "W",
+                "line": 38
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "W",
+                "line": 38
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "r",
+                "line": 44
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "r",
+                "line": 44
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Y",
+                "line": 48
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Y",
+                "line": 48
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X",
+                "line": 37
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X",
+                "line": 37
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "W",
+                "line": 38
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "W",
+                "line": 38
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "r",
+                "line": 44
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "r",
+                "line": 44
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Y",
+                "line": 48
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Y",
+                "line": 48
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "unsloth_rmsnorm"
+      ],
+      "elapsed_seconds": 7.439725151999937
+    },
+    {
+      "id": "unsloth_gemma_rmsnorm",
+      "status": "passed",
+      "plan_fingerprint": "403c67b2549dc44c6d3f186306d3d4c6b40029c4a64c158e40e560563d770cad",
+      "runs": [
+        {
+          "seed": 17,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X",
+                "line": 34
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X",
+                "line": 34
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "W",
+                "line": 35
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "W",
+                "line": 35
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "r",
+                "line": 41
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "r",
+                "line": 41
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Y",
+                "line": 45
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Y",
+                "line": 45
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        },
+        {
+          "seed": 42,
+          "guard": {
+            "status": "True",
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "X",
+                "line": 34
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "X",
+                "line": 34
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "W",
+                "line": 35
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "W",
+                "line": 35
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "r",
+                "line": 41
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "r",
+                "line": 41
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "Y",
+                "line": 45
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "Y",
+                "line": 45
+              }
+            ]
+          },
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "tensor_metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "dtype": "torch.float32"
+            }
+          }
+        }
+      ],
+      "evidence": "冻结调用域内 Guard+原始 Kernel+独立参考的有界经验核对；不证明一般数值语义",
+      "stderr": "",
+      "exit_code": 0,
+      "command": [
+        "python",
+        "-m",
+        "bench.e2.worker",
+        "unsloth_gemma_rmsnorm"
+      ],
+      "elapsed_seconds": 7.742723933999969
+    }
+  ]
+}

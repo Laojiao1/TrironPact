@@ -1,0 +1,109 @@
+{
+  "generated_at": "2026-10-01T12:38:13.400532+08:00",
+  "status": "go",
+  "go_e2": true,
+  "git": {
+    "start_head": "4faf8fb8cd5e212f35997ea75e5ebb514ec6c472",
+    "current_head": "4faf8fb8cd5e212f35997ea75e5ebb514ec6c472",
+    "origin_main": "8eb9d97ebca4db3639d3333820492d47f28dca79",
+    "worktree_status": " M README.md\n M bench/catalog.json\n?? bench/e2/\n?? pact/e2_access.py\n?? pact/e2_contracts.py\n?? pact/e2_guard.py\n?? results/e2_access_ir_coverage.json\n?? results/e2_access_ir_coverage.md\n?? results/e2_candidate_extraction.json\n?? results/e2_candidate_extraction.md\n?? results/e2_development_record.json\n?? results/e2_development_record.md\n?? results/e2_guard_coverage.json\n?? results/e2_guard_coverage.md\n?? results/e2_guard_smoke.json\n?? results/e2_regression.json\n?? results/e2_regression.md\n?? results/e2_regression_isolation.json\n?? results/e2_regression_isolation.md\n?? test/test_e2_access_ir.py\n?? test/test_e2_contracts.py\n?? test/test_e2_guard.py\n?? test/test_e2_invariants.py",
+    "unexpected_paths": []
+  },
+  "environment": {
+    "system": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31",
+    "python": "3.10.20",
+    "torch": "2.11.0+cu128",
+    "triton": "3.6.0",
+    "cuda": "12.8",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+  },
+  "counts": {
+    "registered": 40,
+    "positive": 28,
+    "supported": 27,
+    "unknown": 1,
+    "unsupported": 0,
+    "candidate_complete": 27,
+    "guard_available": 27,
+    "fast_feasible": 27,
+    "integrated": 0,
+    "challenge": 12
+  },
+  "candidate_complete_by_family": {
+    "elementwise_mapping": 7,
+    "feature_broadcast": 7,
+    "layout_2d": 5,
+    "row_reduction": 8
+  },
+  "candidate_complete_by_source": {
+    "triton": 12,
+    "pytorch": 4,
+    "liger": 8,
+    "unsloth": 3
+  },
+  "checks": {
+    "phase6_current_and_go": true,
+    "e1_fingerprint_current": true,
+    "regression_and_legacy_isolation": true,
+    "development_rules_frozen_before_holdout": true,
+    "holdout_not_used_for_rule_development": true,
+    "full_positive_denominator_reported": true,
+    "supported_threshold": true,
+    "candidate_threshold": true,
+    "guard_threshold": true,
+    "fast_threshold": true,
+    "family_distribution": true,
+    "source_distribution": true,
+    "all_fast_smoke_current": true,
+    "unknown_preserved": true,
+    "no_online_or_e3_changes": true
+  },
+  "regression": {
+    "command": [
+      "python",
+      "test/run_tests.py",
+      "--quick",
+      "--output",
+      "/mnt/f/Project/Paper/Code/TritonPact/results/e2_regression_isolation.md"
+    ],
+    "exit_code": 0,
+    "pytest_summary": "127 passed in 69.78s (0:01:09)",
+    "legacy_isolation_passed": true,
+    "legacy_isolation_checks": {
+      "四个变体进入 Access IR": true,
+      "语义规格与逐谓词来源可追溯": true,
+      "A 两组转置尺寸均出现数值错误": true,
+      "A Guard 拦截并正确回退": true,
+      "A2 非连续输入正确直通且连续化会复制": true,
+      "B 非整除边界正确直通": true,
+      "未知类型安全回退": true,
+      "官方教程双输入契约阻止错读": true,
+      "关键输入重复稳定": true,
+      "经验观察与静态放行分开记录": true,
+      "单谓词补集触发候选修订并放行": true
+    },
+    "stdout_tail": "[1/2] 运行测试\n........................................................................ [ 56%]\n.......................................................                  [100%]\n127 passed in 69.78s (0:01:09)\n[2/2] 运行隔离案例\n通过：四个变体进入 Access IR\n通过：语义规格与逐谓词来源可追溯\n通过：A 两组转置尺寸均出现数值错误\n通过：A Guard 拦截并正确回退\n通过：A2 非连续输入正确直通且连续化会复制\n通过：B 非整除边界正确直通\n通过：未知类型安全回退\n通过：官方教程双输入契约阻止错读\n通过：关键输入重复稳定\n通过：经验观察与静态放行分开记录\n通过：单谓词补集触发候选修订并放行\n受限案例验收：通过\nA 模板内的动态候选修订：已验证\n结果文件：e2_regression_isolation.md\n",
+    "report": "results/e2_regression_isolation.md"
+  },
+  "rejections": [
+    {
+      "id": "flag_slice",
+      "split": "holdout",
+      "status": "Unknown",
+      "reason": "地址 tl.where 条件不是已绑定 constexpr"
+    }
+  ],
+  "reports": [
+    "results/e2_access_ir_coverage.md",
+    "results/e2_candidate_extraction.md",
+    "results/e2_guard_coverage.md",
+    "results/e2_regression.md"
+  ],
+  "scope": "e2 Fast 可行是冻结调用域的离线证据，未注册在线分派；reduction 仅证明访问域，数值正确性来自有限独立参考 smoke。",
+  "backlog": [
+    "TTIR 辅助解析",
+    "复杂静态循环",
+    "组合 reduction 数值证明",
+    "图级 Guard"
+  ]
+}

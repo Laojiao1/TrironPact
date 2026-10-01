@@ -1,0 +1,6464 @@
+{
+  "generated_at": "2026-10-01T12:13:03.724338+08:00",
+  "mode": "development_and_frozen_holdout",
+  "holdout_used_for_rule_development": false,
+  "fingerprint": "3d8758b5db0221c5a282f6bb22ebb6829a8301abe4d141a112d88bd02986ad20",
+  "counts": {
+    "total": 28,
+    "Supported": 27,
+    "Unknown": 1
+  },
+  "by_family": {
+    "elementwise_mapping": {
+      "Supported": 7
+    },
+    "feature_broadcast": {
+      "Supported": 7
+    },
+    "layout_2d": {
+      "Unknown": 1,
+      "Supported": 5
+    },
+    "row_reduction": {
+      "Supported": 8
+    }
+  },
+  "rows": [
+    {
+      "id": "triton_add",
+      "source": "triton",
+      "family": "elementwise_mapping",
+      "split": "development",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 3,
+      "load_count": 2,
+      "store_count": 1,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "x_ptr",
+          "tensor": "x",
+          "raw_address": "x_ptr + offsets",
+          "raw_offset": "x_ptr + offsets",
+          "expanded_offset": "x_ptr + (tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE))",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE) < n_elements",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "add",
+                "value": null,
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "op": "mul",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      },
+                      {
+                        "op": "pid",
+                        "value": 0,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 3,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/triton_add.py",
+          "line": 31,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        },
+        {
+          "kind": "load",
+          "pointer_param": "y_ptr",
+          "tensor": "y",
+          "raw_address": "y_ptr + offsets",
+          "raw_offset": "y_ptr + offsets",
+          "expanded_offset": "y_ptr + (tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE))",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE) < n_elements",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "add",
+                "value": null,
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "op": "mul",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      },
+                      {
+                        "op": "pid",
+                        "value": 0,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 3,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/triton_add.py",
+          "line": 32,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "output_ptr",
+          "tensor": "out",
+          "raw_address": "output_ptr + offsets",
+          "raw_offset": "output_ptr + offsets",
+          "expanded_offset": "output_ptr + (tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE))",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE) < n_elements",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "add",
+                "value": null,
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "op": "mul",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      },
+                      {
+                        "op": "pid",
+                        "value": 0,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 3,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/triton_add.py",
+          "line": 35,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "triton_where_zero",
+      "source": "triton",
+      "family": "elementwise_mapping",
+      "split": "development",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 2,
+      "load_count": 1,
+      "store_count": 1,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "a_ptr",
+          "tensor": "x",
+          "raw_address": "a_ptr + yoffsets + BLOCK_SIZE * xoffsets",
+          "raw_offset": "a_ptr + yoffsets + BLOCK_SIZE * xoffsets",
+          "expanded_offset": "a_ptr + tl.arange(0, BLOCK_SIZE)[None, :] + BLOCK_SIZE * tl.arange(0, BLOCK_SIZE)[:, None]",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "broadcast",
+                "value": "(None, :)",
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 32,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "broadcast",
+                    "value": "(:, None)",
+                    "args": [
+                      {
+                        "op": "lane",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 32,
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "op": "const",
+                    "value": 32,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_where_zero.py",
+          "line": 15,
+          "element_bytes": 4,
+          "index_calls": [],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "out_ptr",
+          "tensor": "out",
+          "raw_address": "out_ptr + yoffsets + BLOCK_SIZE * xoffsets",
+          "raw_offset": "out_ptr + yoffsets + BLOCK_SIZE * xoffsets",
+          "expanded_offset": "out_ptr + tl.arange(0, BLOCK_SIZE)[None, :] + BLOCK_SIZE * tl.arange(0, BLOCK_SIZE)[:, None]",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "broadcast",
+                "value": "(None, :)",
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 32,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "broadcast",
+                    "value": "(:, None)",
+                    "args": [
+                      {
+                        "op": "lane",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 32,
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "op": "const",
+                    "value": 32,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_where_zero.py",
+          "line": 17,
+          "element_bytes": 4,
+          "index_calls": [],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "triton_interleave",
+      "source": "triton",
+      "family": "elementwise_mapping",
+      "split": "holdout",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 1,
+      "load_count": 0,
+      "store_count": 1,
+      "accesses": [
+        {
+          "kind": "store",
+          "pointer_param": "Z",
+          "tensor": "out",
+          "raw_address": "Z + tl.arange(0, 2 * N)",
+          "raw_offset": "Z + tl.arange(0, 2 * N)",
+          "expanded_offset": "Z + tl.arange(0, 2 * N)",
+          "offset": {
+            "op": "lane",
+            "value": null,
+            "args": [
+              {
+                "op": "const",
+                "value": 256,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_interleave.py",
+          "line": 13,
+          "element_bytes": 4,
+          "index_calls": [
+            "arange"
+          ],
+          "constexpr": [
+            "N"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "triton_ravel",
+      "source": "triton",
+      "family": "elementwise_mapping",
+      "split": "development",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 1,
+      "load_count": 0,
+      "store_count": 1,
+      "accesses": [
+        {
+          "kind": "store",
+          "pointer_param": "out_ptr",
+          "tensor": "out",
+          "raw_address": "out_ptr + tl.arange(0, 256)",
+          "raw_offset": "out_ptr + tl.arange(0, 256)",
+          "expanded_offset": "out_ptr + tl.arange(0, 256)",
+          "offset": {
+            "op": "lane",
+            "value": null,
+            "args": [
+              {
+                "op": "const",
+                "value": 256,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_ravel.py",
+          "line": 15,
+          "element_bytes": 4,
+          "index_calls": [
+            "arange"
+          ],
+          "constexpr": [],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "pytorch_sub",
+      "source": "pytorch",
+      "family": "elementwise_mapping",
+      "split": "development",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 3,
+      "load_count": 2,
+      "store_count": 1,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "in_ptr0",
+          "tensor": "x",
+          "raw_address": "in_ptr0 + offsets",
+          "raw_offset": "in_ptr0 + offsets",
+          "expanded_offset": "in_ptr0 + (tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE))",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE) < n_elements",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "add",
+                "value": null,
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "op": "mul",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      },
+                      {
+                        "op": "pid",
+                        "value": 0,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 3,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/pytorch_sub.py",
+          "line": 22,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        },
+        {
+          "kind": "load",
+          "pointer_param": "in_ptr1",
+          "tensor": "y",
+          "raw_address": "in_ptr1 + offsets",
+          "raw_offset": "in_ptr1 + offsets",
+          "expanded_offset": "in_ptr1 + (tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE))",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE) < n_elements",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "add",
+                "value": null,
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "op": "mul",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      },
+                      {
+                        "op": "pid",
+                        "value": 0,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 3,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/pytorch_sub.py",
+          "line": 23,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "out_ptr",
+          "tensor": "out",
+          "raw_address": "out_ptr + offsets",
+          "raw_offset": "out_ptr + offsets",
+          "expanded_offset": "out_ptr + (tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE))",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE) < n_elements",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "add",
+                "value": null,
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "op": "mul",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      },
+                      {
+                        "op": "pid",
+                        "value": 0,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 3,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/pytorch_sub.py",
+          "line": 25,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "pytorch_double",
+      "source": "pytorch",
+      "family": "elementwise_mapping",
+      "split": "development",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 2,
+      "load_count": 1,
+      "store_count": 1,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "in_ptr0",
+          "tensor": "x",
+          "raw_address": "in_ptr0 + offsets",
+          "raw_offset": "in_ptr0 + offsets",
+          "expanded_offset": "in_ptr0 + (tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE))",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE) < n_elements",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "add",
+                "value": null,
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "op": "mul",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      },
+                      {
+                        "op": "pid",
+                        "value": 0,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 2,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/pytorch_double.py",
+          "line": 21,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "out_ptr",
+          "tensor": "out",
+          "raw_address": "out_ptr + offsets",
+          "raw_offset": "out_ptr + offsets",
+          "expanded_offset": "out_ptr + (tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE))",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE) < n_elements",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "add",
+                "value": null,
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "op": "mul",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      },
+                      {
+                        "op": "pid",
+                        "value": 0,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 2,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/pytorch_double.py",
+          "line": 23,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "pytorch_double_strided",
+      "source": "pytorch",
+      "family": "elementwise_mapping",
+      "split": "holdout",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 2,
+      "load_count": 1,
+      "store_count": 1,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "in_ptr",
+          "tensor": "x",
+          "raw_address": "in_ptr + src_offsets",
+          "raw_offset": "in_ptr + src_offsets",
+          "expanded_offset": "in_ptr + ((tl.program_id(axis=1) * Y_BLOCK_SIZE + tl.arange(0, Y_BLOCK_SIZE))[:, None] * in_y_stride + (tl.program_id(axis=0) * X_BLOCK_SIZE + tl.arange(0, X_BLOCK_SIZE))[None, :])",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "broadcast",
+                "value": "(None, :)",
+                "args": [
+                  {
+                    "op": "add",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "lane",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 8,
+                            "args": []
+                          }
+                        ]
+                      },
+                      {
+                        "op": "mul",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 8,
+                            "args": []
+                          },
+                          {
+                            "op": "pid",
+                            "value": 0,
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "broadcast",
+                    "value": "(:, None)",
+                    "args": [
+                      {
+                        "op": "add",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "lane",
+                            "value": null,
+                            "args": [
+                              {
+                                "op": "const",
+                                "value": 8,
+                                "args": []
+                              }
+                            ]
+                          },
+                          {
+                            "op": "mul",
+                            "value": null,
+                            "args": [
+                              {
+                                "op": "const",
+                                "value": 8,
+                                "args": []
+                              },
+                              {
+                                "op": "pid",
+                                "value": 1,
+                                "args": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "op": "param",
+                    "value": 2,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/pytorch_double_strided.py",
+          "line": 27,
+          "element_bytes": 4,
+          "index_calls": [],
+          "constexpr": [
+            "X_BLOCK_SIZE",
+            "Y_BLOCK_SIZE"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "out_ptr",
+          "tensor": "out",
+          "raw_address": "out_ptr + dst_offsets",
+          "raw_offset": "out_ptr + dst_offsets",
+          "expanded_offset": "out_ptr + ((tl.program_id(axis=1) * Y_BLOCK_SIZE + tl.arange(0, Y_BLOCK_SIZE))[:, None] * out_y_stride + (tl.program_id(axis=0) * X_BLOCK_SIZE + tl.arange(0, X_BLOCK_SIZE))[None, :])",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "broadcast",
+                "value": "(None, :)",
+                "args": [
+                  {
+                    "op": "add",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "lane",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 8,
+                            "args": []
+                          }
+                        ]
+                      },
+                      {
+                        "op": "mul",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 8,
+                            "args": []
+                          },
+                          {
+                            "op": "pid",
+                            "value": 0,
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "broadcast",
+                    "value": "(:, None)",
+                    "args": [
+                      {
+                        "op": "add",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "lane",
+                            "value": null,
+                            "args": [
+                              {
+                                "op": "const",
+                                "value": 8,
+                                "args": []
+                              }
+                            ]
+                          },
+                          {
+                            "op": "mul",
+                            "value": null,
+                            "args": [
+                              {
+                                "op": "const",
+                                "value": 8,
+                                "args": []
+                              },
+                              {
+                                "op": "pid",
+                                "value": 1,
+                                "args": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "op": "param",
+                    "value": 3,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/pytorch_double_strided.py",
+          "line": 28,
+          "element_bytes": 4,
+          "index_calls": [],
+          "constexpr": [
+            "X_BLOCK_SIZE",
+            "Y_BLOCK_SIZE"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "triton_broadcast",
+      "source": "triton",
+      "family": "feature_broadcast",
+      "split": "development",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 3,
+      "load_count": 2,
+      "store_count": 1,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "x_ptr",
+          "tensor": "x",
+          "raw_address": "x_ptr + N * offset1[:, None] + offset2[None, :]",
+          "raw_offset": "x_ptr + N * offset1[:, None] + offset2[None, :]",
+          "expanded_offset": "x_ptr + N * tl.arange(0, M)[:, None] + tl.arange(0, N)[None, :]",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "broadcast",
+                "value": "(None, :)",
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 64,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "broadcast",
+                    "value": "(:, None)",
+                    "args": [
+                      {
+                        "op": "lane",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 32,
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "op": "const",
+                    "value": 64,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_broadcast.py",
+          "line": 14,
+          "element_bytes": 4,
+          "index_calls": [],
+          "constexpr": [
+            "M",
+            "N"
+          ],
+          "value": null
+        },
+        {
+          "kind": "load",
+          "pointer_param": "y_ptr",
+          "tensor": "y",
+          "raw_address": "y_ptr + offset2",
+          "raw_offset": "y_ptr + offset2",
+          "expanded_offset": "y_ptr + tl.arange(0, N)",
+          "offset": {
+            "op": "lane",
+            "value": null,
+            "args": [
+              {
+                "op": "const",
+                "value": 64,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_broadcast.py",
+          "line": 15,
+          "element_bytes": 4,
+          "index_calls": [
+            "arange"
+          ],
+          "constexpr": [
+            "M",
+            "N"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "y_broadcasted_ptr",
+          "tensor": "out",
+          "raw_address": "y_broadcasted_ptr + N * offset1[:, None] + offset2[None, :]",
+          "raw_offset": "y_broadcasted_ptr + N * offset1[:, None] + offset2[None, :]",
+          "expanded_offset": "y_broadcasted_ptr + N * tl.arange(0, M)[:, None] + tl.arange(0, N)[None, :]",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "broadcast",
+                "value": "(None, :)",
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 64,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "broadcast",
+                    "value": "(:, None)",
+                    "args": [
+                      {
+                        "op": "lane",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 32,
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "op": "const",
+                    "value": 64,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_broadcast.py",
+          "line": 17,
+          "element_bytes": 4,
+          "index_calls": [],
+          "constexpr": [
+            "M",
+            "N"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "triton_where_broadcast",
+      "source": "triton",
+      "family": "feature_broadcast",
+      "split": "development",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 3,
+      "load_count": 2,
+      "store_count": 1,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "cond_ptr",
+          "tensor": "mask",
+          "raw_address": "cond_ptr + yoffsets",
+          "raw_offset": "cond_ptr + yoffsets",
+          "expanded_offset": "cond_ptr + tl.arange(0, BLOCK_SIZE)[None, :]",
+          "offset": {
+            "op": "broadcast",
+            "value": "(None, :)",
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 32,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_where_broadcast.py",
+          "line": 15,
+          "element_bytes": 1,
+          "index_calls": [],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        },
+        {
+          "kind": "load",
+          "pointer_param": "a_ptr",
+          "tensor": "x",
+          "raw_address": "a_ptr + yoffsets + BLOCK_SIZE * xoffsets",
+          "raw_offset": "a_ptr + yoffsets + BLOCK_SIZE * xoffsets",
+          "expanded_offset": "a_ptr + tl.arange(0, BLOCK_SIZE)[None, :] + BLOCK_SIZE * tl.arange(0, BLOCK_SIZE)[:, None]",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "broadcast",
+                "value": "(None, :)",
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 32,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "broadcast",
+                    "value": "(:, None)",
+                    "args": [
+                      {
+                        "op": "lane",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 32,
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "op": "const",
+                    "value": 32,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_where_broadcast.py",
+          "line": 16,
+          "element_bytes": 4,
+          "index_calls": [],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "out_ptr",
+          "tensor": "out",
+          "raw_address": "out_ptr + yoffsets + BLOCK_SIZE * xoffsets",
+          "raw_offset": "out_ptr + yoffsets + BLOCK_SIZE * xoffsets",
+          "expanded_offset": "out_ptr + tl.arange(0, BLOCK_SIZE)[None, :] + BLOCK_SIZE * tl.arange(0, BLOCK_SIZE)[:, None]",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "broadcast",
+                "value": "(None, :)",
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 32,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "broadcast",
+                    "value": "(:, None)",
+                    "args": [
+                      {
+                        "op": "lane",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 32,
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "op": "const",
+                    "value": 32,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_where_broadcast.py",
+          "line": 18,
+          "element_bytes": 4,
+          "index_calls": [],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "pytorch_masked_add",
+      "source": "pytorch",
+      "family": "feature_broadcast",
+      "split": "development",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 4,
+      "load_count": 3,
+      "store_count": 1,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "in_ptr0",
+          "tensor": "x",
+          "raw_address": "in_ptr0 + offsets",
+          "raw_offset": "in_ptr0 + offsets",
+          "expanded_offset": "in_ptr0 + (tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE))",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "valid",
+          "expanded_mask": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE) < n_elements",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "add",
+                "value": null,
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "op": "mul",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      },
+                      {
+                        "op": "pid",
+                        "value": 0,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 4,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/pytorch_masked_add.py",
+          "line": 24,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        },
+        {
+          "kind": "load",
+          "pointer_param": "in_ptr1",
+          "tensor": "y",
+          "raw_address": "in_ptr1 + offsets",
+          "raw_offset": "in_ptr1 + offsets",
+          "expanded_offset": "in_ptr1 + (tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE))",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "valid",
+          "expanded_mask": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE) < n_elements",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "add",
+                "value": null,
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "op": "mul",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      },
+                      {
+                        "op": "pid",
+                        "value": 0,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 4,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/pytorch_masked_add.py",
+          "line": 25,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        },
+        {
+          "kind": "load",
+          "pointer_param": "mask_ptr",
+          "tensor": "mask",
+          "raw_address": "mask_ptr + offsets",
+          "raw_offset": "mask_ptr + offsets",
+          "expanded_offset": "mask_ptr + (tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE))",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "valid",
+          "expanded_mask": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE) < n_elements",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "add",
+                "value": null,
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "op": "mul",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      },
+                      {
+                        "op": "pid",
+                        "value": 0,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 4,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/pytorch_masked_add.py",
+          "line": 26,
+          "element_bytes": 1,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "out_ptr",
+          "tensor": "out",
+          "raw_address": "out_ptr + offsets",
+          "raw_offset": "out_ptr + offsets",
+          "expanded_offset": "out_ptr + (tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE))",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "valid",
+          "expanded_mask": "tl.program_id(axis=0) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE) < n_elements",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "add",
+                "value": null,
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "op": "mul",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      },
+                      {
+                        "op": "pid",
+                        "value": 0,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 4,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/pytorch_masked_add.py",
+          "line": 28,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "liger_swiglu",
+      "source": "liger",
+      "family": "feature_broadcast",
+      "split": "holdout",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 3,
+      "load_count": 2,
+      "store_count": 1,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "a_ptr",
+          "tensor": "x",
+          "raw_address": "a_ptr + col_offsets",
+          "raw_offset": "a_ptr + col_offsets",
+          "expanded_offset": "a_ptr + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 3,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "const",
+                "value": 256,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_swiglu.py",
+          "line": 29,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "n_cols"
+          ],
+          "value": null
+        },
+        {
+          "kind": "load",
+          "pointer_param": "b_ptr",
+          "tensor": "y",
+          "raw_address": "b_ptr + col_offsets",
+          "raw_offset": "b_ptr + col_offsets",
+          "expanded_offset": "b_ptr + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 3,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "const",
+                "value": 256,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_swiglu.py",
+          "line": 30,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "n_cols"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "c_ptr",
+          "tensor": "out",
+          "raw_address": "c_ptr + col_offsets",
+          "raw_offset": "c_ptr + col_offsets",
+          "expanded_offset": "c_ptr + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 3,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "const",
+                "value": 256,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_swiglu.py",
+          "line": 32,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "n_cols"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "liger_swiglu_tiled",
+      "source": "liger",
+      "family": "feature_broadcast",
+      "split": "development",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 3,
+      "load_count": 2,
+      "store_count": 1,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "a_ptr",
+          "tensor": "x",
+          "raw_address": "a_ptr + col_offsets",
+          "raw_offset": "a_ptr + col_offsets",
+          "expanded_offset": "a_ptr + (tl.program_id(1) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE))",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 1,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 3,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.program_id(1) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "add",
+                "value": null,
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "op": "mul",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      },
+                      {
+                        "op": "pid",
+                        "value": 1,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 5,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_swiglu_tiled.py",
+          "line": 29,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "program_id(1)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        },
+        {
+          "kind": "load",
+          "pointer_param": "b_ptr",
+          "tensor": "y",
+          "raw_address": "b_ptr + col_offsets",
+          "raw_offset": "b_ptr + col_offsets",
+          "expanded_offset": "b_ptr + (tl.program_id(1) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE))",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 1,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 3,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.program_id(1) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "add",
+                "value": null,
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "op": "mul",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      },
+                      {
+                        "op": "pid",
+                        "value": 1,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 5,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_swiglu_tiled.py",
+          "line": 30,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "program_id(1)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "c_ptr",
+          "tensor": "out",
+          "raw_address": "c_ptr + col_offsets",
+          "raw_offset": "c_ptr + col_offsets",
+          "expanded_offset": "c_ptr + (tl.program_id(1) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE))",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 1,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 3,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.program_id(1) * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "add",
+                "value": null,
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "op": "mul",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      },
+                      {
+                        "op": "pid",
+                        "value": 1,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 5,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_swiglu_tiled.py",
+          "line": 32,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "program_id(1)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "liger_geglu",
+      "source": "liger",
+      "family": "feature_broadcast",
+      "split": "development",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 3,
+      "load_count": 2,
+      "store_count": 1,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "a",
+          "tensor": "x",
+          "raw_address": "a + col_offsets",
+          "raw_offset": "a + col_offsets",
+          "expanded_offset": "a + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 3,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "const",
+                "value": 256,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_geglu.py",
+          "line": 21,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "n_cols"
+          ],
+          "value": null
+        },
+        {
+          "kind": "load",
+          "pointer_param": "b",
+          "tensor": "y",
+          "raw_address": "b + col_offsets",
+          "raw_offset": "b + col_offsets",
+          "expanded_offset": "b + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 3,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "const",
+                "value": 256,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_geglu.py",
+          "line": 22,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "n_cols"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "c",
+          "tensor": "out",
+          "raw_address": "c + col_offsets",
+          "raw_offset": "c + col_offsets",
+          "expanded_offset": "c + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 3,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "const",
+                "value": 256,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_geglu.py",
+          "line": 32,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "n_cols"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "liger_fused_swiglu",
+      "source": "liger",
+      "family": "feature_broadcast",
+      "split": "development",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 3,
+      "load_count": 2,
+      "store_count": 1,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "y_ptr",
+          "tensor": "x",
+          "raw_address": "y_ptr + col_offsets",
+          "raw_offset": "y_ptr + col_offsets",
+          "expanded_offset": "y_ptr + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 2,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < ffn_size",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "const",
+                "value": 256,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_fused_swiglu.py",
+          "line": 27,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "ffn_size"
+          ],
+          "value": null
+        },
+        {
+          "kind": "load",
+          "pointer_param": "y_ptr",
+          "tensor": "x",
+          "raw_address": "y_ptr + ffn_size + col_offsets",
+          "raw_offset": "y_ptr + ffn_size + col_offsets",
+          "expanded_offset": "y_ptr + ffn_size + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "const",
+                "value": 256,
+                "args": []
+              },
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 2,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < ffn_size",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "const",
+                "value": 256,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_fused_swiglu.py",
+          "line": 28,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "ffn_size"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "c_ptr",
+          "tensor": "out",
+          "raw_address": "c_ptr + col_offsets",
+          "raw_offset": "c_ptr + col_offsets",
+          "expanded_offset": "c_ptr + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 3,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < ffn_size",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "const",
+                "value": 256,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_fused_swiglu.py",
+          "line": 29,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "ffn_size"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "flag_slice",
+      "source": "flag_gems",
+      "family": "layout_2d",
+      "split": "holdout",
+      "status": "Unknown",
+      "reason": "地址 tl.where 条件不是已绑定 constexpr",
+      "access_count": 0,
+      "load_count": 0,
+      "store_count": 0,
+      "accesses": [],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "triton_permute",
+      "source": "triton",
+      "family": "layout_2d",
+      "split": "development",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 2,
+      "load_count": 1,
+      "store_count": 1,
+      "accesses": [
+        {
+          "kind": "store",
+          "pointer_param": "Z",
+          "tensor": "out",
+          "raw_address": "Zs",
+          "raw_offset": "Zs",
+          "expanded_offset": "Zs",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "broadcast",
+                    "value": "(:, None)",
+                    "args": [
+                      {
+                        "op": "lane",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 64,
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "op": "param",
+                    "value": 4,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "broadcast",
+                    "value": "(None, :)",
+                    "args": [
+                      {
+                        "op": "lane",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 64,
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "op": "param",
+                    "value": 5,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_permute.py",
+          "line": 16,
+          "element_bytes": 4,
+          "index_calls": [],
+          "constexpr": [
+            "BLOCK_M",
+            "BLOCK_N"
+          ],
+          "value": null
+        },
+        {
+          "kind": "load",
+          "pointer_param": "X",
+          "tensor": "x",
+          "raw_address": "Xs",
+          "raw_offset": "Xs",
+          "expanded_offset": "Xs",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "broadcast",
+                    "value": "(:, None)",
+                    "args": [
+                      {
+                        "op": "lane",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 64,
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "op": "param",
+                    "value": 1,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "broadcast",
+                    "value": "(None, :)",
+                    "args": [
+                      {
+                        "op": "lane",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 64,
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "op": "param",
+                    "value": 2,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_permute.py",
+          "line": 16,
+          "element_bytes": 4,
+          "index_calls": [],
+          "constexpr": [
+            "BLOCK_M",
+            "BLOCK_N"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "triton_trans2d",
+      "source": "triton",
+      "family": "layout_2d",
+      "split": "development",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 2,
+      "load_count": 1,
+      "store_count": 1,
+      "accesses": [
+        {
+          "kind": "store",
+          "pointer_param": "Out",
+          "tensor": "out",
+          "raw_address": "Out + ou_offs",
+          "raw_offset": "Out + ou_offs",
+          "expanded_offset": "Out + (tl.arange(0, ou_shape1)[:, None] * ou_shape2 + tl.arange(0, ou_shape2)[None, :])",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "broadcast",
+                "value": "(None, :)",
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 16,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "broadcast",
+                    "value": "(:, None)",
+                    "args": [
+                      {
+                        "op": "lane",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 16,
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "op": "const",
+                    "value": 16,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_trans2d.py",
+          "line": 15,
+          "element_bytes": 4,
+          "index_calls": [],
+          "constexpr": [
+            "in_shape1",
+            "in_shape2",
+            "ou_shape1",
+            "ou_shape2",
+            "trans1",
+            "trans2"
+          ],
+          "value": null
+        },
+        {
+          "kind": "load",
+          "pointer_param": "In",
+          "tensor": "x",
+          "raw_address": "In + in_offs",
+          "raw_offset": "In + in_offs",
+          "expanded_offset": "In + (tl.arange(0, in_shape1)[:, None] * in_shape2 + tl.arange(0, in_shape2)[None, :])",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "broadcast",
+                "value": "(None, :)",
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 16,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "broadcast",
+                    "value": "(:, None)",
+                    "args": [
+                      {
+                        "op": "lane",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 16,
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "op": "const",
+                    "value": 16,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_trans2d.py",
+          "line": 15,
+          "element_bytes": 4,
+          "index_calls": [],
+          "constexpr": [
+            "in_shape1",
+            "in_shape2",
+            "ou_shape1",
+            "ou_shape2",
+            "trans1",
+            "trans2"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "triton_flip",
+      "source": "triton",
+      "family": "layout_2d",
+      "split": "development",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 2,
+      "load_count": 1,
+      "store_count": 1,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "X",
+          "tensor": "x",
+          "raw_address": "X + off3d",
+          "raw_offset": "X + off3d",
+          "expanded_offset": "X + ((tl.arange(0, M) * N * K)[:, None, None] + (tl.arange(0, N) * K)[None, :, None] + tl.arange(0, K)[None, None, :])",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "broadcast",
+                "value": "(:, None, None)",
+                "args": [
+                  {
+                    "op": "mul",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 2,
+                        "args": []
+                      },
+                      {
+                        "op": "const",
+                        "value": 256,
+                        "args": []
+                      },
+                      {
+                        "op": "lane",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 8,
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "broadcast",
+                "value": "(None, :, None)",
+                "args": [
+                  {
+                    "op": "mul",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 256,
+                        "args": []
+                      },
+                      {
+                        "op": "lane",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 2,
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "broadcast",
+                "value": "(None, None, :)",
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 256,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_flip.py",
+          "line": 16,
+          "element_bytes": 4,
+          "index_calls": [],
+          "constexpr": [
+            "K",
+            "M",
+            "N",
+            "dim"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "Z",
+          "tensor": "out",
+          "raw_address": "Z + off3d",
+          "raw_offset": "Z + off3d",
+          "expanded_offset": "Z + ((tl.arange(0, M) * N * K)[:, None, None] + (tl.arange(0, N) * K)[None, :, None] + tl.arange(0, K)[None, None, :])",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "broadcast",
+                "value": "(:, None, None)",
+                "args": [
+                  {
+                    "op": "mul",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 2,
+                        "args": []
+                      },
+                      {
+                        "op": "const",
+                        "value": 256,
+                        "args": []
+                      },
+                      {
+                        "op": "lane",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 8,
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "broadcast",
+                "value": "(None, :, None)",
+                "args": [
+                  {
+                    "op": "mul",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 256,
+                        "args": []
+                      },
+                      {
+                        "op": "lane",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 2,
+                            "args": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "broadcast",
+                "value": "(None, None, :)",
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 256,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_flip.py",
+          "line": 18,
+          "element_bytes": 4,
+          "index_calls": [],
+          "constexpr": [
+            "K",
+            "M",
+            "N",
+            "dim"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "triton_pair_flip",
+      "source": "triton",
+      "family": "layout_2d",
+      "split": "holdout",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 2,
+      "load_count": 1,
+      "store_count": 1,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "x_ptr",
+          "tensor": "x",
+          "raw_address": "x_ptr + pid * N + tl.arange(0, N)",
+          "raw_offset": "x_ptr + pid * N + tl.arange(0, N)",
+          "expanded_offset": "x_ptr + tl.program_id(0) * N + tl.arange(0, N)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 16,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 16,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_pair_flip.py",
+          "line": 13,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "N"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "out_ptr",
+          "tensor": "out",
+          "raw_address": "out_ptr + pid * N + tl.arange(0, N)",
+          "raw_offset": "out_ptr + pid * N + tl.arange(0, N)",
+          "expanded_offset": "out_ptr + tl.program_id(0) * N + tl.arange(0, N)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 16,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 16,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_pair_flip.py",
+          "line": 17,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "N"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "triton_split",
+      "source": "triton",
+      "family": "layout_2d",
+      "split": "development",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 3,
+      "load_count": 1,
+      "store_count": 2,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "X",
+          "tensor": "x",
+          "raw_address": "X + offs",
+          "raw_offset": "X + offs",
+          "expanded_offset": "X + tl.arange(0, N)",
+          "offset": {
+            "op": "lane",
+            "value": null,
+            "args": [
+              {
+                "op": "const",
+                "value": 256,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_split.py",
+          "line": 13,
+          "element_bytes": 4,
+          "index_calls": [
+            "arange"
+          ],
+          "constexpr": [
+            "N"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "Z1",
+          "tensor": "out",
+          "raw_address": "Z1 + tl.arange(0, N // 2)",
+          "raw_offset": "Z1 + tl.arange(0, N // 2)",
+          "expanded_offset": "Z1 + tl.arange(0, N // 2)",
+          "offset": {
+            "op": "lane",
+            "value": null,
+            "args": [
+              {
+                "op": "const",
+                "value": 128,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_split.py",
+          "line": 16,
+          "element_bytes": 4,
+          "index_calls": [
+            "arange"
+          ],
+          "constexpr": [
+            "N"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "Z2",
+          "tensor": "out2",
+          "raw_address": "Z2 + tl.arange(0, N // 2)",
+          "raw_offset": "Z2 + tl.arange(0, N // 2)",
+          "expanded_offset": "Z2 + tl.arange(0, N // 2)",
+          "offset": {
+            "op": "lane",
+            "value": null,
+            "args": [
+              {
+                "op": "const",
+                "value": 128,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_split.py",
+          "line": 17,
+          "element_bytes": 4,
+          "index_calls": [
+            "arange"
+          ],
+          "constexpr": [
+            "N"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "triton_softmax",
+      "source": "triton",
+      "family": "row_reduction",
+      "split": "development",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 2,
+      "load_count": 1,
+      "store_count": 1,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "X",
+          "tensor": "x",
+          "raw_address": "X + offs",
+          "raw_offset": "X + offs",
+          "expanded_offset": "X + tl.arange(0, numel).reshape(shape)",
+          "offset": {
+            "op": "lane",
+            "value": null,
+            "args": [
+              {
+                "op": "const",
+                "value": 128,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_softmax.py",
+          "line": 14,
+          "element_bytes": 4,
+          "index_calls": [
+            "arange"
+          ],
+          "constexpr": [
+            "dim",
+            "ieee_rounding",
+            "numel",
+            "shape"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "Z",
+          "tensor": "out",
+          "raw_address": "Z + offs",
+          "raw_offset": "Z + offs",
+          "expanded_offset": "Z + tl.arange(0, numel).reshape(shape)",
+          "offset": {
+            "op": "lane",
+            "value": null,
+            "args": [
+              {
+                "op": "const",
+                "value": 128,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/triton_softmax.py",
+          "line": 20,
+          "element_bytes": 4,
+          "index_calls": [
+            "arange"
+          ],
+          "constexpr": [
+            "dim",
+            "ieee_rounding",
+            "numel",
+            "shape"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "liger_softmax",
+      "source": "liger",
+      "family": "row_reduction",
+      "split": "development",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 2,
+      "load_count": 1,
+      "store_count": 1,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "X_ptr",
+          "tensor": "x",
+          "raw_address": "X_ptr + row_id * X_row_stride + offs",
+          "raw_offset": "X_ptr + row_id * X_row_stride + offs",
+          "expanded_offset": "X_ptr + tl.program_id(0) * X_row_stride + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 3,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 4,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_softmax.py",
+          "line": 23,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "Y_ptr",
+          "tensor": "out",
+          "raw_address": "Y_ptr + row_id * Y_row_stride + offs",
+          "raw_offset": "Y_ptr + row_id * Y_row_stride + offs",
+          "expanded_offset": "Y_ptr + tl.program_id(0) * Y_row_stride + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 1,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 256,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 4,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_softmax.py",
+          "line": 28,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "liger_layernorm",
+      "source": "liger",
+      "family": "row_reduction",
+      "split": "holdout",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 6,
+      "load_count": 3,
+      "store_count": 3,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "W_ptr",
+          "tensor": "w",
+          "raw_address": "W_ptr + col_offsets",
+          "raw_offset": "W_ptr + col_offsets",
+          "expanded_offset": "W_ptr + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "lane",
+            "value": null,
+            "args": [
+              {
+                "op": "const",
+                "value": 128,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 12,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_layernorm.py",
+          "line": 38,
+          "element_bytes": 4,
+          "index_calls": [
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        },
+        {
+          "kind": "load",
+          "pointer_param": "B_ptr",
+          "tensor": "b",
+          "raw_address": "B_ptr + col_offsets",
+          "raw_offset": "B_ptr + col_offsets",
+          "expanded_offset": "B_ptr + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "lane",
+            "value": null,
+            "args": [
+              {
+                "op": "const",
+                "value": 128,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 12,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_layernorm.py",
+          "line": 39,
+          "element_bytes": 4,
+          "index_calls": [
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        },
+        {
+          "kind": "load",
+          "pointer_param": "X_ptr",
+          "tensor": "x",
+          "raw_address": "row_X_ptr + col_offsets",
+          "raw_offset": "row_X_ptr + col_offsets",
+          "expanded_offset": "row_X_ptr + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 3,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 12,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_layernorm.py",
+          "line": 50,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "Mean_ptr",
+          "tensor": "mean",
+          "raw_address": "row_Mean_ptr",
+          "raw_offset": "row_Mean_ptr",
+          "expanded_offset": "row_Mean_ptr",
+          "offset": {
+            "op": "mul",
+            "value": null,
+            "args": [
+              {
+                "op": "param",
+                "value": 9,
+                "args": []
+              },
+              {
+                "op": "pid",
+                "value": 0,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/liger_layernorm.py",
+          "line": 62,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "RSTD_ptr",
+          "tensor": "rstd",
+          "raw_address": "row_RSTD_ptr",
+          "raw_offset": "row_RSTD_ptr",
+          "expanded_offset": "row_RSTD_ptr",
+          "offset": {
+            "op": "mul",
+            "value": null,
+            "args": [
+              {
+                "op": "param",
+                "value": 11,
+                "args": []
+              },
+              {
+                "op": "pid",
+                "value": 0,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/liger_layernorm.py",
+          "line": 63,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "Y_ptr",
+          "tensor": "out",
+          "raw_address": "row_Y_ptr + col_offsets",
+          "raw_offset": "row_Y_ptr + col_offsets",
+          "expanded_offset": "row_Y_ptr + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 1,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 12,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_layernorm.py",
+          "line": 70,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "unsloth_layernorm",
+      "source": "unsloth",
+      "family": "row_reduction",
+      "split": "development",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 6,
+      "load_count": 3,
+      "store_count": 3,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "X",
+          "tensor": "x",
+          "raw_address": "X + col_offsets",
+          "raw_offset": "X + col_offsets",
+          "expanded_offset": "X + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 3,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "const",
+                "value": 80,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/unsloth_layernorm.py",
+          "line": 34,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "eps",
+            "n_cols"
+          ],
+          "value": null
+        },
+        {
+          "kind": "load",
+          "pointer_param": "W",
+          "tensor": "w",
+          "raw_address": "W + col_offsets",
+          "raw_offset": "W + col_offsets",
+          "expanded_offset": "W + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "lane",
+            "value": null,
+            "args": [
+              {
+                "op": "const",
+                "value": 128,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "const",
+                "value": 80,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/unsloth_layernorm.py",
+          "line": 35,
+          "element_bytes": 4,
+          "index_calls": [
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "eps",
+            "n_cols"
+          ],
+          "value": null
+        },
+        {
+          "kind": "load",
+          "pointer_param": "b",
+          "tensor": "b",
+          "raw_address": "b + col_offsets",
+          "raw_offset": "b + col_offsets",
+          "expanded_offset": "b + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "lane",
+            "value": null,
+            "args": [
+              {
+                "op": "const",
+                "value": 128,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "const",
+                "value": 80,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/unsloth_layernorm.py",
+          "line": 36,
+          "element_bytes": 4,
+          "index_calls": [
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "eps",
+            "n_cols"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "r",
+          "tensor": "rstd",
+          "raw_address": "r",
+          "raw_offset": "r",
+          "expanded_offset": "r",
+          "offset": {
+            "op": "pid",
+            "value": 0,
+            "args": []
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/unsloth_layernorm.py",
+          "line": 45,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "eps",
+            "n_cols"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "mu",
+          "tensor": "mean",
+          "raw_address": "mu",
+          "raw_offset": "mu",
+          "expanded_offset": "mu",
+          "offset": {
+            "op": "pid",
+            "value": 0,
+            "args": []
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/unsloth_layernorm.py",
+          "line": 46,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "eps",
+            "n_cols"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "Y",
+          "tensor": "out",
+          "raw_address": "Y + col_offsets",
+          "raw_offset": "Y + col_offsets",
+          "expanded_offset": "Y + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 1,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "const",
+                "value": 80,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/unsloth_layernorm.py",
+          "line": 48,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "eps",
+            "n_cols"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "liger_rmsnorm",
+      "source": "liger",
+      "family": "row_reduction",
+      "split": "development",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 4,
+      "load_count": 2,
+      "store_count": 2,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "X_ptr",
+          "tensor": "x",
+          "raw_address": "x_base + col_offsets",
+          "raw_offset": "x_base + col_offsets",
+          "expanded_offset": "x_base + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 3,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 8,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_rmsnorm.py",
+          "line": 44,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "casting_mode",
+            "elementwise_affine"
+          ],
+          "value": null
+        },
+        {
+          "kind": "load",
+          "pointer_param": "W_ptr",
+          "tensor": "w",
+          "raw_address": "W_ptr + col_offsets",
+          "raw_offset": "W_ptr + col_offsets",
+          "expanded_offset": "W_ptr + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "lane",
+            "value": null,
+            "args": [
+              {
+                "op": "const",
+                "value": 128,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 8,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_rmsnorm.py",
+          "line": 47,
+          "element_bytes": 4,
+          "index_calls": [
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "casting_mode",
+            "elementwise_affine"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "RSTD_ptr",
+          "tensor": "rstd",
+          "raw_address": "rstd_base",
+          "raw_offset": "rstd_base",
+          "expanded_offset": "rstd_base",
+          "offset": {
+            "op": "mul",
+            "value": null,
+            "args": [
+              {
+                "op": "param",
+                "value": 7,
+                "args": []
+              },
+              {
+                "op": "pid",
+                "value": 0,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/liger_rmsnorm.py",
+          "line": 77,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "casting_mode",
+            "elementwise_affine"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "Y_ptr",
+          "tensor": "out",
+          "raw_address": "y_base + col_offsets",
+          "raw_offset": "y_base + col_offsets",
+          "expanded_offset": "y_base + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 1,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 8,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_rmsnorm.py",
+          "line": 93,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "casting_mode",
+            "elementwise_affine"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "liger_block_rmsnorm",
+      "source": "liger",
+      "family": "row_reduction",
+      "split": "development",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 4,
+      "load_count": 2,
+      "store_count": 2,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "X_ptr",
+          "tensor": "x",
+          "raw_address": "X_ptr + row_idx[:, None] * X_row_stride + col_offsets[None, :]",
+          "raw_offset": "X_ptr + row_idx[:, None] * X_row_stride + col_offsets[None, :]",
+          "expanded_offset": "X_ptr + (tl.program_id(0).to(tl.int64) * BLOCK_ROW + tl.arange(0, BLOCK_ROW))[:, None] * X_row_stride + tl.arange(0, BLOCK_SIZE)[None, :]",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "broadcast",
+                "value": "(None, :)",
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "broadcast",
+                    "value": "(:, None)",
+                    "args": [
+                      {
+                        "op": "add",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "lane",
+                            "value": null,
+                            "args": [
+                              {
+                                "op": "const",
+                                "value": 4,
+                                "args": []
+                              }
+                            ]
+                          },
+                          {
+                            "op": "mul",
+                            "value": null,
+                            "args": [
+                              {
+                                "op": "const",
+                                "value": 4,
+                                "args": []
+                              },
+                              {
+                                "op": "pid",
+                                "value": 0,
+                                "args": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "op": "param",
+                    "value": 3,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "row_mask[:, None] & col_mask[None, :]",
+          "expanded_mask": "(tl.program_id(0).to(tl.int64) * BLOCK_ROW + tl.arange(0, BLOCK_ROW) < n_rows)[:, None] & (tl.arange(0, BLOCK_SIZE) < n_cols)[None, :]",
+          "mask": {
+            "op": "and",
+            "value": null,
+            "args": [
+              {
+                "op": "broadcast",
+                "value": "(:, None)",
+                "args": [
+                  {
+                    "op": "lt",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "add",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "lane",
+                            "value": null,
+                            "args": [
+                              {
+                                "op": "const",
+                                "value": 4,
+                                "args": []
+                              }
+                            ]
+                          },
+                          {
+                            "op": "mul",
+                            "value": null,
+                            "args": [
+                              {
+                                "op": "const",
+                                "value": 4,
+                                "args": []
+                              },
+                              {
+                                "op": "pid",
+                                "value": 0,
+                                "args": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "op": "param",
+                        "value": 8,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "broadcast",
+                "value": "(None, :)",
+                "args": [
+                  {
+                    "op": "lt",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "lane",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 128,
+                            "args": []
+                          }
+                        ]
+                      },
+                      {
+                        "op": "param",
+                        "value": 9,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_block_rmsnorm.py",
+          "line": 43,
+          "element_bytes": 4,
+          "index_calls": [],
+          "constexpr": [
+            "BLOCK_ROW",
+            "BLOCK_SIZE",
+            "casting_mode",
+            "elementwise_affine"
+          ],
+          "value": null
+        },
+        {
+          "kind": "load",
+          "pointer_param": "W_ptr",
+          "tensor": "w",
+          "raw_address": "W_ptr + col_offsets",
+          "raw_offset": "W_ptr + col_offsets",
+          "expanded_offset": "W_ptr + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "lane",
+            "value": null,
+            "args": [
+              {
+                "op": "const",
+                "value": 128,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "col_mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 9,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_block_rmsnorm.py",
+          "line": 50,
+          "element_bytes": 4,
+          "index_calls": [
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_ROW",
+            "BLOCK_SIZE",
+            "casting_mode",
+            "elementwise_affine"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "RSTD_ptr",
+          "tensor": "rstd",
+          "raw_address": "RSTD_ptr + row_idx * RSTD_row_stride",
+          "raw_offset": "RSTD_ptr + row_idx * RSTD_row_stride",
+          "expanded_offset": "RSTD_ptr + (tl.program_id(0).to(tl.int64) * BLOCK_ROW + tl.arange(0, BLOCK_ROW)) * RSTD_row_stride",
+          "offset": {
+            "op": "mul",
+            "value": null,
+            "args": [
+              {
+                "op": "add",
+                "value": null,
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 4,
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "op": "mul",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 4,
+                        "args": []
+                      },
+                      {
+                        "op": "pid",
+                        "value": 0,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 7,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "row_mask",
+          "expanded_mask": "tl.program_id(0).to(tl.int64) * BLOCK_ROW + tl.arange(0, BLOCK_ROW) < n_rows",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "add",
+                "value": null,
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 4,
+                        "args": []
+                      }
+                    ]
+                  },
+                  {
+                    "op": "mul",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 4,
+                        "args": []
+                      },
+                      {
+                        "op": "pid",
+                        "value": 0,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "param",
+                "value": 8,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_block_rmsnorm.py",
+          "line": 76,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_ROW",
+            "BLOCK_SIZE",
+            "casting_mode",
+            "elementwise_affine"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "Y_ptr",
+          "tensor": "out",
+          "raw_address": "Y_ptr + row_idx[:, None] * Y_row_stride + col_offsets[None, :]",
+          "raw_offset": "Y_ptr + row_idx[:, None] * Y_row_stride + col_offsets[None, :]",
+          "expanded_offset": "Y_ptr + (tl.program_id(0).to(tl.int64) * BLOCK_ROW + tl.arange(0, BLOCK_ROW))[:, None] * Y_row_stride + tl.arange(0, BLOCK_SIZE)[None, :]",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "broadcast",
+                "value": "(None, :)",
+                "args": [
+                  {
+                    "op": "lane",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "const",
+                        "value": 128,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "broadcast",
+                    "value": "(:, None)",
+                    "args": [
+                      {
+                        "op": "add",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "lane",
+                            "value": null,
+                            "args": [
+                              {
+                                "op": "const",
+                                "value": 4,
+                                "args": []
+                              }
+                            ]
+                          },
+                          {
+                            "op": "mul",
+                            "value": null,
+                            "args": [
+                              {
+                                "op": "const",
+                                "value": 4,
+                                "args": []
+                              },
+                              {
+                                "op": "pid",
+                                "value": 0,
+                                "args": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "op": "param",
+                    "value": 1,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "row_mask[:, None] & col_mask[None, :]",
+          "expanded_mask": "(tl.program_id(0).to(tl.int64) * BLOCK_ROW + tl.arange(0, BLOCK_ROW) < n_rows)[:, None] & (tl.arange(0, BLOCK_SIZE) < n_cols)[None, :]",
+          "mask": {
+            "op": "and",
+            "value": null,
+            "args": [
+              {
+                "op": "broadcast",
+                "value": "(:, None)",
+                "args": [
+                  {
+                    "op": "lt",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "add",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "lane",
+                            "value": null,
+                            "args": [
+                              {
+                                "op": "const",
+                                "value": 4,
+                                "args": []
+                              }
+                            ]
+                          },
+                          {
+                            "op": "mul",
+                            "value": null,
+                            "args": [
+                              {
+                                "op": "const",
+                                "value": 4,
+                                "args": []
+                              },
+                              {
+                                "op": "pid",
+                                "value": 0,
+                                "args": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "op": "param",
+                        "value": 8,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "op": "broadcast",
+                "value": "(None, :)",
+                "args": [
+                  {
+                    "op": "lt",
+                    "value": null,
+                    "args": [
+                      {
+                        "op": "lane",
+                        "value": null,
+                        "args": [
+                          {
+                            "op": "const",
+                            "value": 128,
+                            "args": []
+                          }
+                        ]
+                      },
+                      {
+                        "op": "param",
+                        "value": 9,
+                        "args": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/liger_block_rmsnorm.py",
+          "line": 92,
+          "element_bytes": 4,
+          "index_calls": [],
+          "constexpr": [
+            "BLOCK_ROW",
+            "BLOCK_SIZE",
+            "casting_mode",
+            "elementwise_affine"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "unsloth_rmsnorm",
+      "source": "unsloth",
+      "family": "row_reduction",
+      "split": "holdout",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 4,
+      "load_count": 2,
+      "store_count": 2,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "X",
+          "tensor": "x",
+          "raw_address": "X + col_offsets",
+          "raw_offset": "X + col_offsets",
+          "expanded_offset": "X + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 3,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "const",
+                "value": 80,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/unsloth_rmsnorm.py",
+          "line": 37,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "W_row_stride",
+            "X_row_stride",
+            "Y_row_stride",
+            "eps",
+            "n_cols",
+            "r_row_stride"
+          ],
+          "value": null
+        },
+        {
+          "kind": "load",
+          "pointer_param": "W",
+          "tensor": "w",
+          "raw_address": "W + col_offsets",
+          "raw_offset": "W + col_offsets",
+          "expanded_offset": "W + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "lane",
+            "value": null,
+            "args": [
+              {
+                "op": "const",
+                "value": 128,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "const",
+                "value": 80,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/unsloth_rmsnorm.py",
+          "line": 38,
+          "element_bytes": 4,
+          "index_calls": [
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "W_row_stride",
+            "X_row_stride",
+            "Y_row_stride",
+            "eps",
+            "n_cols",
+            "r_row_stride"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "r",
+          "tensor": "rstd",
+          "raw_address": "r",
+          "raw_offset": "r",
+          "expanded_offset": "r",
+          "offset": {
+            "op": "mul",
+            "value": null,
+            "args": [
+              {
+                "op": "const",
+                "value": 1,
+                "args": []
+              },
+              {
+                "op": "pid",
+                "value": 0,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/unsloth_rmsnorm.py",
+          "line": 44,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "W_row_stride",
+            "X_row_stride",
+            "Y_row_stride",
+            "eps",
+            "n_cols",
+            "r_row_stride"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "Y",
+          "tensor": "out",
+          "raw_address": "Y + col_offsets",
+          "raw_offset": "Y + col_offsets",
+          "expanded_offset": "Y + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 1,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "const",
+                "value": 80,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/unsloth_rmsnorm.py",
+          "line": 48,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "W_row_stride",
+            "X_row_stride",
+            "Y_row_stride",
+            "eps",
+            "n_cols",
+            "r_row_stride"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    },
+    {
+      "id": "unsloth_gemma_rmsnorm",
+      "source": "unsloth",
+      "family": "row_reduction",
+      "split": "development",
+      "status": "Supported",
+      "reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "access_count": 4,
+      "load_count": 2,
+      "store_count": 2,
+      "accesses": [
+        {
+          "kind": "load",
+          "pointer_param": "X",
+          "tensor": "x",
+          "raw_address": "X + col_offsets",
+          "raw_offset": "X + col_offsets",
+          "expanded_offset": "X + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 3,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "const",
+                "value": 80,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/unsloth_gemma_rmsnorm.py",
+          "line": 34,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "W_row_stride",
+            "X_row_stride",
+            "Y_row_stride",
+            "eps",
+            "n_cols",
+            "r_row_stride"
+          ],
+          "value": null
+        },
+        {
+          "kind": "load",
+          "pointer_param": "W",
+          "tensor": "w",
+          "raw_address": "W + col_offsets",
+          "raw_offset": "W + col_offsets",
+          "expanded_offset": "W + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "lane",
+            "value": null,
+            "args": [
+              {
+                "op": "const",
+                "value": 128,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "const",
+                "value": 80,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/unsloth_gemma_rmsnorm.py",
+          "line": 35,
+          "element_bytes": 4,
+          "index_calls": [
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "W_row_stride",
+            "X_row_stride",
+            "Y_row_stride",
+            "eps",
+            "n_cols",
+            "r_row_stride"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "r",
+          "tensor": "rstd",
+          "raw_address": "r",
+          "raw_offset": "r",
+          "expanded_offset": "r",
+          "offset": {
+            "op": "mul",
+            "value": null,
+            "args": [
+              {
+                "op": "const",
+                "value": 1,
+                "args": []
+              },
+              {
+                "op": "pid",
+                "value": 0,
+                "args": []
+              }
+            ]
+          },
+          "raw_mask": "True",
+          "expanded_mask": "True",
+          "mask": {
+            "op": "true",
+            "value": null,
+            "args": []
+          },
+          "source_file": "bench/e1/kernels/unsloth_gemma_rmsnorm.py",
+          "line": 41,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "W_row_stride",
+            "X_row_stride",
+            "Y_row_stride",
+            "eps",
+            "n_cols",
+            "r_row_stride"
+          ],
+          "value": null
+        },
+        {
+          "kind": "store",
+          "pointer_param": "Y",
+          "tensor": "out",
+          "raw_address": "Y + col_offsets",
+          "raw_offset": "Y + col_offsets",
+          "expanded_offset": "Y + tl.arange(0, BLOCK_SIZE)",
+          "offset": {
+            "op": "add",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "mul",
+                "value": null,
+                "args": [
+                  {
+                    "op": "param",
+                    "value": 1,
+                    "args": []
+                  },
+                  {
+                    "op": "pid",
+                    "value": 0,
+                    "args": []
+                  }
+                ]
+              }
+            ]
+          },
+          "raw_mask": "mask",
+          "expanded_mask": "tl.arange(0, BLOCK_SIZE) < n_cols",
+          "mask": {
+            "op": "lt",
+            "value": null,
+            "args": [
+              {
+                "op": "lane",
+                "value": null,
+                "args": [
+                  {
+                    "op": "const",
+                    "value": 128,
+                    "args": []
+                  }
+                ]
+              },
+              {
+                "op": "const",
+                "value": 80,
+                "args": []
+              }
+            ]
+          },
+          "source_file": "bench/e1/kernels/unsloth_gemma_rmsnorm.py",
+          "line": 45,
+          "element_bytes": 4,
+          "index_calls": [
+            "program_id(0)",
+            "arange"
+          ],
+          "constexpr": [
+            "BLOCK_SIZE",
+            "W_row_stride",
+            "X_row_stride",
+            "Y_row_stride",
+            "eps",
+            "n_cols",
+            "r_row_stride"
+          ],
+          "value": null
+        }
+      ],
+      "scope": "访问地址与 mask；不证明普通算术或 reduction 数值语义"
+    }
+  ],
+  "scope": "Supported 仅表示绑定后的全部访存点进入统一 IR；候选、Guard 和 Fast 资格另行核验。"
+}

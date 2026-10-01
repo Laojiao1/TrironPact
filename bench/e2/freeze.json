@@ -1,0 +1,28 @@
+{
+  "frozen_at": "2026-10-01T12:12:48.712665+08:00",
+  "git_head": "4faf8fb8cd5e212f35997ea75e5ebb514ec6c472",
+  "rule_fingerprint": "30267fb24738b6b050acbe9925654ce58a12fb0b40a14b639272d75cdc45b6ee",
+  "paths": [
+    "pact/e2_access.py",
+    "pact/e2_contracts.py",
+    "pact/e2_guard.py",
+    "bench/e2/coverage.py",
+    "bench/e2/contracts.py",
+    "bench/e2/plans.py",
+    "bench/e2/worker.py",
+    "bench/e2/guards.py",
+    "test/test_e2_access_ir.py",
+    "test/test_e2_contracts.py",
+    "test/test_e2_guard.py",
+    "bench/e1/catalog.json"
+  ],
+  "development_counts": {
+    "supported": 21,
+    "candidate_complete": 21,
+    "guard_available": 21,
+    "fast_feasible": 21
+  },
+  "holdout_evaluated": true,
+  "holdout_evaluated_at": "2026-10-01T12:17:16.0342470+08:00",
+  "policy": "冻结后仅执行一次留出评估；不得按留出结果调规则。规则变化必须作废该留出结果并建立新版本。"
+}
