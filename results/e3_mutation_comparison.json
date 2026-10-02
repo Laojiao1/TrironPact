@@ -1,0 +1,2910 @@
+{
+  "generated_at": "2026-10-02T13:15:28.459681+08:00",
+  "protocol": {
+    "methods": [
+      "static_candidate",
+      "uniform_random",
+      "constrained_random",
+      "predicate_guided"
+    ],
+    "seeds": [
+      17,
+      42,
+      73,
+      101,
+      211
+    ],
+    "attempt_budget": 14,
+    "worker_budget": 4,
+    "wall_clock_budget_ms": 120000.0,
+    "oracle": "e3_real_risk_cases.json；每个唯一案例仅独立执行一次，比较阶段作不可变成本重放"
+  },
+  "domain": [
+    {
+      "id": "grid_edge",
+      "kernel_id": "pytorch_double_strided",
+      "source": "pytorch",
+      "family": "multi_axis_grid",
+      "label": "grid_axis1_last_program",
+      "changed_inputs": [
+        "x"
+      ],
+      "predicate_flips": 1,
+      "empirical_case": null,
+      "executable": true,
+      "unreachable_reason": null,
+      "fingerprint": "0e84986bd0de6977eb9f15ef0b248939e5019a3bad1d94b092d08313cf3b9d04"
+    },
+    {
+      "id": "grid_mixed",
+      "kernel_id": "pytorch_double_strided",
+      "source": "pytorch",
+      "family": "multi_axis_grid",
+      "label": "two_axes_changed",
+      "changed_inputs": [
+        "x",
+        "out"
+      ],
+      "predicate_flips": 2,
+      "empirical_case": null,
+      "executable": true,
+      "unreachable_reason": null,
+      "fingerprint": "936aed99d1a00cf88778b70eea820031b5d7f62c1e09c613ab5e3a71dc8887c6"
+    },
+    {
+      "id": "triton_x_stride",
+      "kernel_id": "triton_add",
+      "source": "triton",
+      "family": "separate_inputs",
+      "label": "x_stride_2",
+      "changed_inputs": [
+        "x"
+      ],
+      "predicate_flips": 1,
+      "empirical_case": "triton_add_x_stride",
+      "executable": true,
+      "unreachable_reason": null,
+      "fingerprint": "6c05a3d7989b3eda96444b7b2362f8049afcc91d21ad494e56c0b0833bb3df83"
+    },
+    {
+      "id": "triton_offset",
+      "kernel_id": "triton_add",
+      "source": "triton",
+      "family": "offset_alignment",
+      "label": "x_offset_1",
+      "changed_inputs": [
+        "x"
+      ],
+      "predicate_flips": 1,
+      "empirical_case": null,
+      "executable": true,
+      "unreachable_reason": null,
+      "fingerprint": "5f14c539fc586098333345ef170408026585d6df8026c25c9e9dcd63aa5da22f"
+    },
+    {
+      "id": "triton_two_inputs",
+      "kernel_id": "triton_add",
+      "source": "triton",
+      "family": "separate_inputs",
+      "label": "x_y_stride_2",
+      "changed_inputs": [
+        "x",
+        "y"
+      ],
+      "predicate_flips": 2,
+      "empirical_case": null,
+      "executable": true,
+      "unreachable_reason": null,
+      "fingerprint": "5e50abc517bd3e6b42a910c43f95be4924bec8cf4f4205614205cae30c2a07c5"
+    },
+    {
+      "id": "liger_row_padding",
+      "kernel_id": "liger_softmax",
+      "source": "liger",
+      "family": "stride_broadcast_2d",
+      "label": "row_padding",
+      "changed_inputs": [
+        "x"
+      ],
+      "predicate_flips": 1,
+      "empirical_case": null,
+      "executable": true,
+      "unreachable_reason": null,
+      "fingerprint": "e3e6616d9fb0d23fed2ff1da74853cd98266b45d58ff56dbc6a691a227c140b0"
+    },
+    {
+      "id": "liger_col_stride",
+      "kernel_id": "liger_softmax",
+      "source": "liger",
+      "family": "stride_broadcast_2d",
+      "label": "column_stride_2",
+      "changed_inputs": [
+        "x"
+      ],
+      "predicate_flips": 2,
+      "empirical_case": "liger_softmax_x_stride",
+      "executable": true,
+      "unreachable_reason": null,
+      "fingerprint": "c4cd61205e8c6ff29fefad0cb8f46de1e74beac3354d0bd98c25dc8a4cc687f2"
+    },
+    {
+      "id": "liger_row_minus",
+      "kernel_id": "liger_softmax",
+      "source": "liger",
+      "family": "reduction_row_length",
+      "label": "n_cols_minus_1",
+      "changed_inputs": [
+        "x",
+        "out"
+      ],
+      "predicate_flips": 3,
+      "empirical_case": null,
+      "executable": true,
+      "unreachable_reason": null,
+      "fingerprint": "76be9141beea4b677d1bf0950a085cdd0906045a0ee53fa64a686b212bf93788"
+    },
+    {
+      "id": "liger_row_plus",
+      "kernel_id": "liger_softmax",
+      "source": "liger",
+      "family": "reduction_row_length",
+      "label": "n_cols_plus_1",
+      "changed_inputs": [
+        "x",
+        "out"
+      ],
+      "predicate_flips": 3,
+      "empirical_case": null,
+      "executable": true,
+      "unreachable_reason": null,
+      "fingerprint": "eca1be74cc70961307ca6f642781430fe011085fb768d6a5efe5e82cd8280e7f"
+    },
+    {
+      "id": "unsloth_x_stride",
+      "kernel_id": "unsloth_layernorm",
+      "source": "unsloth",
+      "family": "stride_broadcast_2d",
+      "label": "x_column_stride_2",
+      "changed_inputs": [
+        "x"
+      ],
+      "predicate_flips": 2,
+      "empirical_case": "unsloth_layernorm_x_stride",
+      "executable": true,
+      "unreachable_reason": null,
+      "fingerprint": "a6633db42c51d5ce400985310091e2eb98ddd68cd67a51b56b8997e46fd618eb"
+    },
+    {
+      "id": "unsloth_affine_stride",
+      "kernel_id": "unsloth_layernorm",
+      "source": "unsloth",
+      "family": "separate_inputs",
+      "label": "w_b_stride_2",
+      "changed_inputs": [
+        "w",
+        "b"
+      ],
+      "predicate_flips": 4,
+      "empirical_case": "unsloth_layernorm_affine_stride",
+      "executable": true,
+      "unreachable_reason": null,
+      "fingerprint": "6c7a27673c8a4564fb5e85994260dbf955b367c18b11423095df40f05a1eca0d"
+    },
+    {
+      "id": "unsloth_mixed",
+      "kernel_id": "unsloth_layernorm",
+      "source": "unsloth",
+      "family": "separate_inputs",
+      "label": "x_w_b_stride_2",
+      "changed_inputs": [
+        "x",
+        "w",
+        "b"
+      ],
+      "predicate_flips": 6,
+      "empirical_case": null,
+      "executable": true,
+      "unreachable_reason": null,
+      "fingerprint": "8a97b86bdf9a363e9b328a799e3a9f2113297bfa1e2b16cd609d79bfe9635b10"
+    },
+    {
+      "id": "span_exact",
+      "kernel_id": "triton_add",
+      "source": "triton",
+      "family": "span_boundary",
+      "label": "last_enabled_element",
+      "changed_inputs": [
+        "x"
+      ],
+      "predicate_flips": 1,
+      "empirical_case": null,
+      "executable": true,
+      "unreachable_reason": null,
+      "fingerprint": "7f629cdcda4280303bd358604b5b793c89c662844fd973276b313c8c115742a7"
+    },
+    {
+      "id": "span_one_short",
+      "kernel_id": "triton_add",
+      "source": "triton",
+      "family": "span_boundary",
+      "label": "storage_one_element_short",
+      "changed_inputs": [
+        "x"
+      ],
+      "predicate_flips": 1,
+      "empirical_case": null,
+      "executable": false,
+      "unreachable_reason": "as_strided 要求的 storage 小于最大可访问元素，PyTorch 拒绝构造；仅作元数据反例",
+      "fingerprint": "f9a1df764afb8f97c606f6c2b205e42d1d6152c3cc1a8a0b5b1129dd183222d3"
+    }
+  ],
+  "trials": [
+    {
+      "method": "static_candidate",
+      "seed": 17,
+      "attempt_budget": 14,
+      "worker_budget": 4,
+      "wall_clock_budget_ms": 120000.0,
+      "attempts_used": 11,
+      "worker_calls": 4,
+      "worker_elapsed_ms": 26903.278777000014,
+      "first_witness": {
+        "attempt": 3,
+        "worker_call": 1,
+        "elapsed_ms": 7210.250600999999,
+        "case_id": "triton_add_x_stride"
+      },
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ],
+      "classifications": {
+        "metadata_boundary": 3,
+        "mixed_unattributed": 4,
+        "numeric_mismatch": 4
+      },
+      "selected": [
+        {
+          "probe": "grid_edge",
+          "fingerprint": "0e84986bd0de6977eb9f15ef0b248939e5019a3bad1d94b092d08313cf3b9d04",
+          "family": "multi_axis_grid",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "grid_mixed",
+          "fingerprint": "936aed99d1a00cf88778b70eea820031b5d7f62c1e09c613ab5e3a71dc8887c6",
+          "family": "multi_axis_grid",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "triton_x_stride",
+          "fingerprint": "6c05a3d7989b3eda96444b7b2362f8049afcc91d21ad494e56c0b0833bb3df83",
+          "family": "separate_inputs",
+          "predicate_flips": 1,
+          "worker": true,
+          "case_id": "triton_add_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "triton_offset",
+          "fingerprint": "5f14c539fc586098333345ef170408026585d6df8026c25c9e9dcd63aa5da22f",
+          "family": "offset_alignment",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "triton_two_inputs",
+          "fingerprint": "5e50abc517bd3e6b42a910c43f95be4924bec8cf4f4205614205cae30c2a07c5",
+          "family": "separate_inputs",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_padding",
+          "fingerprint": "e3e6616d9fb0d23fed2ff1da74853cd98266b45d58ff56dbc6a691a227c140b0",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_col_stride",
+          "fingerprint": "c4cd61205e8c6ff29fefad0cb8f46de1e74beac3354d0bd98c25dc8a4cc687f2",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "liger_softmax_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "liger_row_minus",
+          "fingerprint": "76be9141beea4b677d1bf0950a085cdd0906045a0ee53fa64a686b212bf93788",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_plus",
+          "fingerprint": "eca1be74cc70961307ca6f642781430fe011085fb768d6a5efe5e82cd8280e7f",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "unsloth_x_stride",
+          "fingerprint": "a6633db42c51d5ce400985310091e2eb98ddd68cd67a51b56b8997e46fd618eb",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "unsloth_layernorm_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "unsloth_affine_stride",
+          "fingerprint": "6c7a27673c8a4564fb5e85994260dbf955b367c18b11423095df40f05a1eca0d",
+          "family": "separate_inputs",
+          "predicate_flips": 4,
+          "worker": true,
+          "case_id": "unsloth_layernorm_affine_stride",
+          "classification": "numeric_mismatch"
+        }
+      ]
+    },
+    {
+      "method": "static_candidate",
+      "seed": 42,
+      "attempt_budget": 14,
+      "worker_budget": 4,
+      "wall_clock_budget_ms": 120000.0,
+      "attempts_used": 11,
+      "worker_calls": 4,
+      "worker_elapsed_ms": 26903.278777000014,
+      "first_witness": {
+        "attempt": 3,
+        "worker_call": 1,
+        "elapsed_ms": 7210.250600999999,
+        "case_id": "triton_add_x_stride"
+      },
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ],
+      "classifications": {
+        "metadata_boundary": 3,
+        "mixed_unattributed": 4,
+        "numeric_mismatch": 4
+      },
+      "selected": [
+        {
+          "probe": "grid_edge",
+          "fingerprint": "0e84986bd0de6977eb9f15ef0b248939e5019a3bad1d94b092d08313cf3b9d04",
+          "family": "multi_axis_grid",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "grid_mixed",
+          "fingerprint": "936aed99d1a00cf88778b70eea820031b5d7f62c1e09c613ab5e3a71dc8887c6",
+          "family": "multi_axis_grid",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "triton_x_stride",
+          "fingerprint": "6c05a3d7989b3eda96444b7b2362f8049afcc91d21ad494e56c0b0833bb3df83",
+          "family": "separate_inputs",
+          "predicate_flips": 1,
+          "worker": true,
+          "case_id": "triton_add_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "triton_offset",
+          "fingerprint": "5f14c539fc586098333345ef170408026585d6df8026c25c9e9dcd63aa5da22f",
+          "family": "offset_alignment",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "triton_two_inputs",
+          "fingerprint": "5e50abc517bd3e6b42a910c43f95be4924bec8cf4f4205614205cae30c2a07c5",
+          "family": "separate_inputs",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_padding",
+          "fingerprint": "e3e6616d9fb0d23fed2ff1da74853cd98266b45d58ff56dbc6a691a227c140b0",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_col_stride",
+          "fingerprint": "c4cd61205e8c6ff29fefad0cb8f46de1e74beac3354d0bd98c25dc8a4cc687f2",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "liger_softmax_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "liger_row_minus",
+          "fingerprint": "76be9141beea4b677d1bf0950a085cdd0906045a0ee53fa64a686b212bf93788",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_plus",
+          "fingerprint": "eca1be74cc70961307ca6f642781430fe011085fb768d6a5efe5e82cd8280e7f",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "unsloth_x_stride",
+          "fingerprint": "a6633db42c51d5ce400985310091e2eb98ddd68cd67a51b56b8997e46fd618eb",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "unsloth_layernorm_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "unsloth_affine_stride",
+          "fingerprint": "6c7a27673c8a4564fb5e85994260dbf955b367c18b11423095df40f05a1eca0d",
+          "family": "separate_inputs",
+          "predicate_flips": 4,
+          "worker": true,
+          "case_id": "unsloth_layernorm_affine_stride",
+          "classification": "numeric_mismatch"
+        }
+      ]
+    },
+    {
+      "method": "static_candidate",
+      "seed": 73,
+      "attempt_budget": 14,
+      "worker_budget": 4,
+      "wall_clock_budget_ms": 120000.0,
+      "attempts_used": 11,
+      "worker_calls": 4,
+      "worker_elapsed_ms": 26903.278777000014,
+      "first_witness": {
+        "attempt": 3,
+        "worker_call": 1,
+        "elapsed_ms": 7210.250600999999,
+        "case_id": "triton_add_x_stride"
+      },
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ],
+      "classifications": {
+        "metadata_boundary": 3,
+        "mixed_unattributed": 4,
+        "numeric_mismatch": 4
+      },
+      "selected": [
+        {
+          "probe": "grid_edge",
+          "fingerprint": "0e84986bd0de6977eb9f15ef0b248939e5019a3bad1d94b092d08313cf3b9d04",
+          "family": "multi_axis_grid",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "grid_mixed",
+          "fingerprint": "936aed99d1a00cf88778b70eea820031b5d7f62c1e09c613ab5e3a71dc8887c6",
+          "family": "multi_axis_grid",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "triton_x_stride",
+          "fingerprint": "6c05a3d7989b3eda96444b7b2362f8049afcc91d21ad494e56c0b0833bb3df83",
+          "family": "separate_inputs",
+          "predicate_flips": 1,
+          "worker": true,
+          "case_id": "triton_add_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "triton_offset",
+          "fingerprint": "5f14c539fc586098333345ef170408026585d6df8026c25c9e9dcd63aa5da22f",
+          "family": "offset_alignment",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "triton_two_inputs",
+          "fingerprint": "5e50abc517bd3e6b42a910c43f95be4924bec8cf4f4205614205cae30c2a07c5",
+          "family": "separate_inputs",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_padding",
+          "fingerprint": "e3e6616d9fb0d23fed2ff1da74853cd98266b45d58ff56dbc6a691a227c140b0",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_col_stride",
+          "fingerprint": "c4cd61205e8c6ff29fefad0cb8f46de1e74beac3354d0bd98c25dc8a4cc687f2",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "liger_softmax_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "liger_row_minus",
+          "fingerprint": "76be9141beea4b677d1bf0950a085cdd0906045a0ee53fa64a686b212bf93788",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_plus",
+          "fingerprint": "eca1be74cc70961307ca6f642781430fe011085fb768d6a5efe5e82cd8280e7f",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "unsloth_x_stride",
+          "fingerprint": "a6633db42c51d5ce400985310091e2eb98ddd68cd67a51b56b8997e46fd618eb",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "unsloth_layernorm_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "unsloth_affine_stride",
+          "fingerprint": "6c7a27673c8a4564fb5e85994260dbf955b367c18b11423095df40f05a1eca0d",
+          "family": "separate_inputs",
+          "predicate_flips": 4,
+          "worker": true,
+          "case_id": "unsloth_layernorm_affine_stride",
+          "classification": "numeric_mismatch"
+        }
+      ]
+    },
+    {
+      "method": "static_candidate",
+      "seed": 101,
+      "attempt_budget": 14,
+      "worker_budget": 4,
+      "wall_clock_budget_ms": 120000.0,
+      "attempts_used": 11,
+      "worker_calls": 4,
+      "worker_elapsed_ms": 26903.278777000014,
+      "first_witness": {
+        "attempt": 3,
+        "worker_call": 1,
+        "elapsed_ms": 7210.250600999999,
+        "case_id": "triton_add_x_stride"
+      },
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ],
+      "classifications": {
+        "metadata_boundary": 3,
+        "mixed_unattributed": 4,
+        "numeric_mismatch": 4
+      },
+      "selected": [
+        {
+          "probe": "grid_edge",
+          "fingerprint": "0e84986bd0de6977eb9f15ef0b248939e5019a3bad1d94b092d08313cf3b9d04",
+          "family": "multi_axis_grid",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "grid_mixed",
+          "fingerprint": "936aed99d1a00cf88778b70eea820031b5d7f62c1e09c613ab5e3a71dc8887c6",
+          "family": "multi_axis_grid",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "triton_x_stride",
+          "fingerprint": "6c05a3d7989b3eda96444b7b2362f8049afcc91d21ad494e56c0b0833bb3df83",
+          "family": "separate_inputs",
+          "predicate_flips": 1,
+          "worker": true,
+          "case_id": "triton_add_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "triton_offset",
+          "fingerprint": "5f14c539fc586098333345ef170408026585d6df8026c25c9e9dcd63aa5da22f",
+          "family": "offset_alignment",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "triton_two_inputs",
+          "fingerprint": "5e50abc517bd3e6b42a910c43f95be4924bec8cf4f4205614205cae30c2a07c5",
+          "family": "separate_inputs",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_padding",
+          "fingerprint": "e3e6616d9fb0d23fed2ff1da74853cd98266b45d58ff56dbc6a691a227c140b0",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_col_stride",
+          "fingerprint": "c4cd61205e8c6ff29fefad0cb8f46de1e74beac3354d0bd98c25dc8a4cc687f2",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "liger_softmax_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "liger_row_minus",
+          "fingerprint": "76be9141beea4b677d1bf0950a085cdd0906045a0ee53fa64a686b212bf93788",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_plus",
+          "fingerprint": "eca1be74cc70961307ca6f642781430fe011085fb768d6a5efe5e82cd8280e7f",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "unsloth_x_stride",
+          "fingerprint": "a6633db42c51d5ce400985310091e2eb98ddd68cd67a51b56b8997e46fd618eb",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "unsloth_layernorm_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "unsloth_affine_stride",
+          "fingerprint": "6c7a27673c8a4564fb5e85994260dbf955b367c18b11423095df40f05a1eca0d",
+          "family": "separate_inputs",
+          "predicate_flips": 4,
+          "worker": true,
+          "case_id": "unsloth_layernorm_affine_stride",
+          "classification": "numeric_mismatch"
+        }
+      ]
+    },
+    {
+      "method": "static_candidate",
+      "seed": 211,
+      "attempt_budget": 14,
+      "worker_budget": 4,
+      "wall_clock_budget_ms": 120000.0,
+      "attempts_used": 11,
+      "worker_calls": 4,
+      "worker_elapsed_ms": 26903.278777000014,
+      "first_witness": {
+        "attempt": 3,
+        "worker_call": 1,
+        "elapsed_ms": 7210.250600999999,
+        "case_id": "triton_add_x_stride"
+      },
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ],
+      "classifications": {
+        "metadata_boundary": 3,
+        "mixed_unattributed": 4,
+        "numeric_mismatch": 4
+      },
+      "selected": [
+        {
+          "probe": "grid_edge",
+          "fingerprint": "0e84986bd0de6977eb9f15ef0b248939e5019a3bad1d94b092d08313cf3b9d04",
+          "family": "multi_axis_grid",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "grid_mixed",
+          "fingerprint": "936aed99d1a00cf88778b70eea820031b5d7f62c1e09c613ab5e3a71dc8887c6",
+          "family": "multi_axis_grid",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "triton_x_stride",
+          "fingerprint": "6c05a3d7989b3eda96444b7b2362f8049afcc91d21ad494e56c0b0833bb3df83",
+          "family": "separate_inputs",
+          "predicate_flips": 1,
+          "worker": true,
+          "case_id": "triton_add_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "triton_offset",
+          "fingerprint": "5f14c539fc586098333345ef170408026585d6df8026c25c9e9dcd63aa5da22f",
+          "family": "offset_alignment",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "triton_two_inputs",
+          "fingerprint": "5e50abc517bd3e6b42a910c43f95be4924bec8cf4f4205614205cae30c2a07c5",
+          "family": "separate_inputs",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_padding",
+          "fingerprint": "e3e6616d9fb0d23fed2ff1da74853cd98266b45d58ff56dbc6a691a227c140b0",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_col_stride",
+          "fingerprint": "c4cd61205e8c6ff29fefad0cb8f46de1e74beac3354d0bd98c25dc8a4cc687f2",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "liger_softmax_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "liger_row_minus",
+          "fingerprint": "76be9141beea4b677d1bf0950a085cdd0906045a0ee53fa64a686b212bf93788",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_plus",
+          "fingerprint": "eca1be74cc70961307ca6f642781430fe011085fb768d6a5efe5e82cd8280e7f",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "unsloth_x_stride",
+          "fingerprint": "a6633db42c51d5ce400985310091e2eb98ddd68cd67a51b56b8997e46fd618eb",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "unsloth_layernorm_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "unsloth_affine_stride",
+          "fingerprint": "6c7a27673c8a4564fb5e85994260dbf955b367c18b11423095df40f05a1eca0d",
+          "family": "separate_inputs",
+          "predicate_flips": 4,
+          "worker": true,
+          "case_id": "unsloth_layernorm_affine_stride",
+          "classification": "numeric_mismatch"
+        }
+      ]
+    },
+    {
+      "method": "uniform_random",
+      "seed": 17,
+      "attempt_budget": 14,
+      "worker_budget": 4,
+      "wall_clock_budget_ms": 120000.0,
+      "attempts_used": 13,
+      "worker_calls": 4,
+      "worker_elapsed_ms": 26903.278777000014,
+      "first_witness": {
+        "attempt": 1,
+        "worker_call": 1,
+        "elapsed_ms": 6348.286799000008,
+        "case_id": "unsloth_layernorm_affine_stride"
+      },
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ],
+      "classifications": {
+        "numeric_mismatch": 4,
+        "mixed_unattributed": 4,
+        "unreachable": 1,
+        "metadata_boundary": 4
+      },
+      "selected": [
+        {
+          "probe": "unsloth_affine_stride",
+          "fingerprint": "6c7a27673c8a4564fb5e85994260dbf955b367c18b11423095df40f05a1eca0d",
+          "family": "separate_inputs",
+          "predicate_flips": 4,
+          "worker": true,
+          "case_id": "unsloth_layernorm_affine_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "liger_row_minus",
+          "fingerprint": "76be9141beea4b677d1bf0950a085cdd0906045a0ee53fa64a686b212bf93788",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "span_one_short",
+          "fingerprint": "f9a1df764afb8f97c606f6c2b205e42d1d6152c3cc1a8a0b5b1129dd183222d3",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "unreachable",
+          "reason": "as_strided 要求的 storage 小于最大可访问元素，PyTorch 拒绝构造；仅作元数据反例"
+        },
+        {
+          "probe": "triton_offset",
+          "fingerprint": "5f14c539fc586098333345ef170408026585d6df8026c25c9e9dcd63aa5da22f",
+          "family": "offset_alignment",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "grid_mixed",
+          "fingerprint": "936aed99d1a00cf88778b70eea820031b5d7f62c1e09c613ab5e3a71dc8887c6",
+          "family": "multi_axis_grid",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "span_exact",
+          "fingerprint": "7f629cdcda4280303bd358604b5b793c89c662844fd973276b313c8c115742a7",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "grid_edge",
+          "fingerprint": "0e84986bd0de6977eb9f15ef0b248939e5019a3bad1d94b092d08313cf3b9d04",
+          "family": "multi_axis_grid",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "unsloth_x_stride",
+          "fingerprint": "a6633db42c51d5ce400985310091e2eb98ddd68cd67a51b56b8997e46fd618eb",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "unsloth_layernorm_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "triton_x_stride",
+          "fingerprint": "6c05a3d7989b3eda96444b7b2362f8049afcc91d21ad494e56c0b0833bb3df83",
+          "family": "separate_inputs",
+          "predicate_flips": 1,
+          "worker": true,
+          "case_id": "triton_add_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "unsloth_mixed",
+          "fingerprint": "8a97b86bdf9a363e9b328a799e3a9f2113297bfa1e2b16cd609d79bfe9635b10",
+          "family": "separate_inputs",
+          "predicate_flips": 6,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_padding",
+          "fingerprint": "e3e6616d9fb0d23fed2ff1da74853cd98266b45d58ff56dbc6a691a227c140b0",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "triton_two_inputs",
+          "fingerprint": "5e50abc517bd3e6b42a910c43f95be4924bec8cf4f4205614205cae30c2a07c5",
+          "family": "separate_inputs",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_col_stride",
+          "fingerprint": "c4cd61205e8c6ff29fefad0cb8f46de1e74beac3354d0bd98c25dc8a4cc687f2",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "liger_softmax_x_stride",
+          "classification": "numeric_mismatch"
+        }
+      ]
+    },
+    {
+      "method": "uniform_random",
+      "seed": 42,
+      "attempt_budget": 14,
+      "worker_budget": 4,
+      "wall_clock_budget_ms": 120000.0,
+      "attempts_used": 14,
+      "worker_calls": 4,
+      "worker_elapsed_ms": 26903.278777000014,
+      "first_witness": {
+        "attempt": 4,
+        "worker_call": 1,
+        "elapsed_ms": 6578.1958550000045,
+        "case_id": "liger_softmax_x_stride"
+      },
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ],
+      "classifications": {
+        "mixed_unattributed": 5,
+        "metadata_boundary": 4,
+        "numeric_mismatch": 4,
+        "unreachable": 1
+      },
+      "selected": [
+        {
+          "probe": "liger_row_plus",
+          "fingerprint": "eca1be74cc70961307ca6f642781430fe011085fb768d6a5efe5e82cd8280e7f",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "span_exact",
+          "fingerprint": "7f629cdcda4280303bd358604b5b793c89c662844fd973276b313c8c115742a7",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_row_minus",
+          "fingerprint": "76be9141beea4b677d1bf0950a085cdd0906045a0ee53fa64a686b212bf93788",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_col_stride",
+          "fingerprint": "c4cd61205e8c6ff29fefad0cb8f46de1e74beac3354d0bd98c25dc8a4cc687f2",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "liger_softmax_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "span_one_short",
+          "fingerprint": "f9a1df764afb8f97c606f6c2b205e42d1d6152c3cc1a8a0b5b1129dd183222d3",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "unreachable",
+          "reason": "as_strided 要求的 storage 小于最大可访问元素，PyTorch 拒绝构造；仅作元数据反例"
+        },
+        {
+          "probe": "unsloth_mixed",
+          "fingerprint": "8a97b86bdf9a363e9b328a799e3a9f2113297bfa1e2b16cd609d79bfe9635b10",
+          "family": "separate_inputs",
+          "predicate_flips": 6,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_padding",
+          "fingerprint": "e3e6616d9fb0d23fed2ff1da74853cd98266b45d58ff56dbc6a691a227c140b0",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "triton_x_stride",
+          "fingerprint": "6c05a3d7989b3eda96444b7b2362f8049afcc91d21ad494e56c0b0833bb3df83",
+          "family": "separate_inputs",
+          "predicate_flips": 1,
+          "worker": true,
+          "case_id": "triton_add_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "unsloth_x_stride",
+          "fingerprint": "a6633db42c51d5ce400985310091e2eb98ddd68cd67a51b56b8997e46fd618eb",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "unsloth_layernorm_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "triton_offset",
+          "fingerprint": "5f14c539fc586098333345ef170408026585d6df8026c25c9e9dcd63aa5da22f",
+          "family": "offset_alignment",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "triton_two_inputs",
+          "fingerprint": "5e50abc517bd3e6b42a910c43f95be4924bec8cf4f4205614205cae30c2a07c5",
+          "family": "separate_inputs",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "grid_edge",
+          "fingerprint": "0e84986bd0de6977eb9f15ef0b248939e5019a3bad1d94b092d08313cf3b9d04",
+          "family": "multi_axis_grid",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "grid_mixed",
+          "fingerprint": "936aed99d1a00cf88778b70eea820031b5d7f62c1e09c613ab5e3a71dc8887c6",
+          "family": "multi_axis_grid",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "unsloth_affine_stride",
+          "fingerprint": "6c7a27673c8a4564fb5e85994260dbf955b367c18b11423095df40f05a1eca0d",
+          "family": "separate_inputs",
+          "predicate_flips": 4,
+          "worker": true,
+          "case_id": "unsloth_layernorm_affine_stride",
+          "classification": "numeric_mismatch"
+        }
+      ]
+    },
+    {
+      "method": "uniform_random",
+      "seed": 73,
+      "attempt_budget": 14,
+      "worker_budget": 4,
+      "wall_clock_budget_ms": 120000.0,
+      "attempts_used": 10,
+      "worker_calls": 4,
+      "worker_elapsed_ms": 26903.27877700001,
+      "first_witness": {
+        "attempt": 1,
+        "worker_call": 1,
+        "elapsed_ms": 6578.1958550000045,
+        "case_id": "liger_softmax_x_stride"
+      },
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ],
+      "classifications": {
+        "numeric_mismatch": 4,
+        "metadata_boundary": 4,
+        "unreachable": 1,
+        "mixed_unattributed": 1
+      },
+      "selected": [
+        {
+          "probe": "liger_col_stride",
+          "fingerprint": "c4cd61205e8c6ff29fefad0cb8f46de1e74beac3354d0bd98c25dc8a4cc687f2",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "liger_softmax_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "liger_row_padding",
+          "fingerprint": "e3e6616d9fb0d23fed2ff1da74853cd98266b45d58ff56dbc6a691a227c140b0",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "span_exact",
+          "fingerprint": "7f629cdcda4280303bd358604b5b793c89c662844fd973276b313c8c115742a7",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "triton_offset",
+          "fingerprint": "5f14c539fc586098333345ef170408026585d6df8026c25c9e9dcd63aa5da22f",
+          "family": "offset_alignment",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "grid_edge",
+          "fingerprint": "0e84986bd0de6977eb9f15ef0b248939e5019a3bad1d94b092d08313cf3b9d04",
+          "family": "multi_axis_grid",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "span_one_short",
+          "fingerprint": "f9a1df764afb8f97c606f6c2b205e42d1d6152c3cc1a8a0b5b1129dd183222d3",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "unreachable",
+          "reason": "as_strided 要求的 storage 小于最大可访问元素，PyTorch 拒绝构造；仅作元数据反例"
+        },
+        {
+          "probe": "unsloth_mixed",
+          "fingerprint": "8a97b86bdf9a363e9b328a799e3a9f2113297bfa1e2b16cd609d79bfe9635b10",
+          "family": "separate_inputs",
+          "predicate_flips": 6,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "unsloth_affine_stride",
+          "fingerprint": "6c7a27673c8a4564fb5e85994260dbf955b367c18b11423095df40f05a1eca0d",
+          "family": "separate_inputs",
+          "predicate_flips": 4,
+          "worker": true,
+          "case_id": "unsloth_layernorm_affine_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "triton_x_stride",
+          "fingerprint": "6c05a3d7989b3eda96444b7b2362f8049afcc91d21ad494e56c0b0833bb3df83",
+          "family": "separate_inputs",
+          "predicate_flips": 1,
+          "worker": true,
+          "case_id": "triton_add_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "unsloth_x_stride",
+          "fingerprint": "a6633db42c51d5ce400985310091e2eb98ddd68cd67a51b56b8997e46fd618eb",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "unsloth_layernorm_x_stride",
+          "classification": "numeric_mismatch"
+        }
+      ]
+    },
+    {
+      "method": "uniform_random",
+      "seed": 101,
+      "attempt_budget": 14,
+      "worker_budget": 4,
+      "wall_clock_budget_ms": 120000.0,
+      "attempts_used": 14,
+      "worker_calls": 4,
+      "worker_elapsed_ms": 26903.27877700001,
+      "first_witness": {
+        "attempt": 1,
+        "worker_call": 1,
+        "elapsed_ms": 6348.286799000008,
+        "case_id": "unsloth_layernorm_affine_stride"
+      },
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ],
+      "classifications": {
+        "numeric_mismatch": 4,
+        "mixed_unattributed": 5,
+        "unreachable": 1,
+        "metadata_boundary": 4
+      },
+      "selected": [
+        {
+          "probe": "unsloth_affine_stride",
+          "fingerprint": "6c7a27673c8a4564fb5e85994260dbf955b367c18b11423095df40f05a1eca0d",
+          "family": "separate_inputs",
+          "predicate_flips": 4,
+          "worker": true,
+          "case_id": "unsloth_layernorm_affine_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "unsloth_mixed",
+          "fingerprint": "8a97b86bdf9a363e9b328a799e3a9f2113297bfa1e2b16cd609d79bfe9635b10",
+          "family": "separate_inputs",
+          "predicate_flips": 6,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_col_stride",
+          "fingerprint": "c4cd61205e8c6ff29fefad0cb8f46de1e74beac3354d0bd98c25dc8a4cc687f2",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "liger_softmax_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "span_one_short",
+          "fingerprint": "f9a1df764afb8f97c606f6c2b205e42d1d6152c3cc1a8a0b5b1129dd183222d3",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "unreachable",
+          "reason": "as_strided 要求的 storage 小于最大可访问元素，PyTorch 拒绝构造；仅作元数据反例"
+        },
+        {
+          "probe": "triton_x_stride",
+          "fingerprint": "6c05a3d7989b3eda96444b7b2362f8049afcc91d21ad494e56c0b0833bb3df83",
+          "family": "separate_inputs",
+          "predicate_flips": 1,
+          "worker": true,
+          "case_id": "triton_add_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "grid_mixed",
+          "fingerprint": "936aed99d1a00cf88778b70eea820031b5d7f62c1e09c613ab5e3a71dc8887c6",
+          "family": "multi_axis_grid",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "triton_two_inputs",
+          "fingerprint": "5e50abc517bd3e6b42a910c43f95be4924bec8cf4f4205614205cae30c2a07c5",
+          "family": "separate_inputs",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "span_exact",
+          "fingerprint": "7f629cdcda4280303bd358604b5b793c89c662844fd973276b313c8c115742a7",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "grid_edge",
+          "fingerprint": "0e84986bd0de6977eb9f15ef0b248939e5019a3bad1d94b092d08313cf3b9d04",
+          "family": "multi_axis_grid",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_row_minus",
+          "fingerprint": "76be9141beea4b677d1bf0950a085cdd0906045a0ee53fa64a686b212bf93788",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_padding",
+          "fingerprint": "e3e6616d9fb0d23fed2ff1da74853cd98266b45d58ff56dbc6a691a227c140b0",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_row_plus",
+          "fingerprint": "eca1be74cc70961307ca6f642781430fe011085fb768d6a5efe5e82cd8280e7f",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "triton_offset",
+          "fingerprint": "5f14c539fc586098333345ef170408026585d6df8026c25c9e9dcd63aa5da22f",
+          "family": "offset_alignment",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "unsloth_x_stride",
+          "fingerprint": "a6633db42c51d5ce400985310091e2eb98ddd68cd67a51b56b8997e46fd618eb",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "unsloth_layernorm_x_stride",
+          "classification": "numeric_mismatch"
+        }
+      ]
+    },
+    {
+      "method": "uniform_random",
+      "seed": 211,
+      "attempt_budget": 14,
+      "worker_budget": 4,
+      "wall_clock_budget_ms": 120000.0,
+      "attempts_used": 14,
+      "worker_calls": 4,
+      "worker_elapsed_ms": 26903.27877700001,
+      "first_witness": {
+        "attempt": 3,
+        "worker_call": 1,
+        "elapsed_ms": 7210.250600999999,
+        "case_id": "triton_add_x_stride"
+      },
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ],
+      "classifications": {
+        "unreachable": 1,
+        "mixed_unattributed": 5,
+        "numeric_mismatch": 4,
+        "metadata_boundary": 4
+      },
+      "selected": [
+        {
+          "probe": "span_one_short",
+          "fingerprint": "f9a1df764afb8f97c606f6c2b205e42d1d6152c3cc1a8a0b5b1129dd183222d3",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "unreachable",
+          "reason": "as_strided 要求的 storage 小于最大可访问元素，PyTorch 拒绝构造；仅作元数据反例"
+        },
+        {
+          "probe": "liger_row_minus",
+          "fingerprint": "76be9141beea4b677d1bf0950a085cdd0906045a0ee53fa64a686b212bf93788",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "triton_x_stride",
+          "fingerprint": "6c05a3d7989b3eda96444b7b2362f8049afcc91d21ad494e56c0b0833bb3df83",
+          "family": "separate_inputs",
+          "predicate_flips": 1,
+          "worker": true,
+          "case_id": "triton_add_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "unsloth_affine_stride",
+          "fingerprint": "6c7a27673c8a4564fb5e85994260dbf955b367c18b11423095df40f05a1eca0d",
+          "family": "separate_inputs",
+          "predicate_flips": 4,
+          "worker": true,
+          "case_id": "unsloth_layernorm_affine_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "grid_mixed",
+          "fingerprint": "936aed99d1a00cf88778b70eea820031b5d7f62c1e09c613ab5e3a71dc8887c6",
+          "family": "multi_axis_grid",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_col_stride",
+          "fingerprint": "c4cd61205e8c6ff29fefad0cb8f46de1e74beac3354d0bd98c25dc8a4cc687f2",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "liger_softmax_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "triton_two_inputs",
+          "fingerprint": "5e50abc517bd3e6b42a910c43f95be4924bec8cf4f4205614205cae30c2a07c5",
+          "family": "separate_inputs",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_plus",
+          "fingerprint": "eca1be74cc70961307ca6f642781430fe011085fb768d6a5efe5e82cd8280e7f",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "span_exact",
+          "fingerprint": "7f629cdcda4280303bd358604b5b793c89c662844fd973276b313c8c115742a7",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "grid_edge",
+          "fingerprint": "0e84986bd0de6977eb9f15ef0b248939e5019a3bad1d94b092d08313cf3b9d04",
+          "family": "multi_axis_grid",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "triton_offset",
+          "fingerprint": "5f14c539fc586098333345ef170408026585d6df8026c25c9e9dcd63aa5da22f",
+          "family": "offset_alignment",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "unsloth_mixed",
+          "fingerprint": "8a97b86bdf9a363e9b328a799e3a9f2113297bfa1e2b16cd609d79bfe9635b10",
+          "family": "separate_inputs",
+          "predicate_flips": 6,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_padding",
+          "fingerprint": "e3e6616d9fb0d23fed2ff1da74853cd98266b45d58ff56dbc6a691a227c140b0",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "unsloth_x_stride",
+          "fingerprint": "a6633db42c51d5ce400985310091e2eb98ddd68cd67a51b56b8997e46fd618eb",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "unsloth_layernorm_x_stride",
+          "classification": "numeric_mismatch"
+        }
+      ]
+    },
+    {
+      "method": "constrained_random",
+      "seed": 17,
+      "attempt_budget": 14,
+      "worker_budget": 4,
+      "wall_clock_budget_ms": 120000.0,
+      "attempts_used": 14,
+      "worker_calls": 4,
+      "worker_elapsed_ms": 26903.278777000014,
+      "first_witness": {
+        "attempt": 4,
+        "worker_call": 1,
+        "elapsed_ms": 6348.286799000008,
+        "case_id": "unsloth_layernorm_affine_stride"
+      },
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ],
+      "classifications": {
+        "mixed_unattributed": 5,
+        "metadata_boundary": 4,
+        "numeric_mismatch": 4,
+        "unreachable": 1
+      },
+      "selected": [
+        {
+          "probe": "grid_mixed",
+          "fingerprint": "936aed99d1a00cf88778b70eea820031b5d7f62c1e09c613ab5e3a71dc8887c6",
+          "family": "multi_axis_grid",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "triton_offset",
+          "fingerprint": "5f14c539fc586098333345ef170408026585d6df8026c25c9e9dcd63aa5da22f",
+          "family": "offset_alignment",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_row_minus",
+          "fingerprint": "76be9141beea4b677d1bf0950a085cdd0906045a0ee53fa64a686b212bf93788",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "unsloth_affine_stride",
+          "fingerprint": "6c7a27673c8a4564fb5e85994260dbf955b367c18b11423095df40f05a1eca0d",
+          "family": "separate_inputs",
+          "predicate_flips": 4,
+          "worker": true,
+          "case_id": "unsloth_layernorm_affine_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "span_exact",
+          "fingerprint": "7f629cdcda4280303bd358604b5b793c89c662844fd973276b313c8c115742a7",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_row_padding",
+          "fingerprint": "e3e6616d9fb0d23fed2ff1da74853cd98266b45d58ff56dbc6a691a227c140b0",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "grid_edge",
+          "fingerprint": "0e84986bd0de6977eb9f15ef0b248939e5019a3bad1d94b092d08313cf3b9d04",
+          "family": "multi_axis_grid",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_row_plus",
+          "fingerprint": "eca1be74cc70961307ca6f642781430fe011085fb768d6a5efe5e82cd8280e7f",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "triton_two_inputs",
+          "fingerprint": "5e50abc517bd3e6b42a910c43f95be4924bec8cf4f4205614205cae30c2a07c5",
+          "family": "separate_inputs",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "span_one_short",
+          "fingerprint": "f9a1df764afb8f97c606f6c2b205e42d1d6152c3cc1a8a0b5b1129dd183222d3",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "unreachable",
+          "reason": "as_strided 要求的 storage 小于最大可访问元素，PyTorch 拒绝构造；仅作元数据反例"
+        },
+        {
+          "probe": "liger_col_stride",
+          "fingerprint": "c4cd61205e8c6ff29fefad0cb8f46de1e74beac3354d0bd98c25dc8a4cc687f2",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "liger_softmax_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "unsloth_mixed",
+          "fingerprint": "8a97b86bdf9a363e9b328a799e3a9f2113297bfa1e2b16cd609d79bfe9635b10",
+          "family": "separate_inputs",
+          "predicate_flips": 6,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "unsloth_x_stride",
+          "fingerprint": "a6633db42c51d5ce400985310091e2eb98ddd68cd67a51b56b8997e46fd618eb",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "unsloth_layernorm_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "triton_x_stride",
+          "fingerprint": "6c05a3d7989b3eda96444b7b2362f8049afcc91d21ad494e56c0b0833bb3df83",
+          "family": "separate_inputs",
+          "predicate_flips": 1,
+          "worker": true,
+          "case_id": "triton_add_x_stride",
+          "classification": "numeric_mismatch"
+        }
+      ]
+    },
+    {
+      "method": "constrained_random",
+      "seed": 42,
+      "attempt_budget": 14,
+      "worker_budget": 4,
+      "wall_clock_budget_ms": 120000.0,
+      "attempts_used": 13,
+      "worker_calls": 4,
+      "worker_elapsed_ms": 26903.278777000014,
+      "first_witness": {
+        "attempt": 4,
+        "worker_call": 1,
+        "elapsed_ms": 7210.250600999999,
+        "case_id": "triton_add_x_stride"
+      },
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ],
+      "classifications": {
+        "metadata_boundary": 4,
+        "mixed_unattributed": 4,
+        "numeric_mismatch": 4,
+        "unreachable": 1
+      },
+      "selected": [
+        {
+          "probe": "grid_edge",
+          "fingerprint": "0e84986bd0de6977eb9f15ef0b248939e5019a3bad1d94b092d08313cf3b9d04",
+          "family": "multi_axis_grid",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "triton_offset",
+          "fingerprint": "5f14c539fc586098333345ef170408026585d6df8026c25c9e9dcd63aa5da22f",
+          "family": "offset_alignment",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_row_minus",
+          "fingerprint": "76be9141beea4b677d1bf0950a085cdd0906045a0ee53fa64a686b212bf93788",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "triton_x_stride",
+          "fingerprint": "6c05a3d7989b3eda96444b7b2362f8049afcc91d21ad494e56c0b0833bb3df83",
+          "family": "separate_inputs",
+          "predicate_flips": 1,
+          "worker": true,
+          "case_id": "triton_add_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "span_exact",
+          "fingerprint": "7f629cdcda4280303bd358604b5b793c89c662844fd973276b313c8c115742a7",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_row_padding",
+          "fingerprint": "e3e6616d9fb0d23fed2ff1da74853cd98266b45d58ff56dbc6a691a227c140b0",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "grid_mixed",
+          "fingerprint": "936aed99d1a00cf88778b70eea820031b5d7f62c1e09c613ab5e3a71dc8887c6",
+          "family": "multi_axis_grid",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_plus",
+          "fingerprint": "eca1be74cc70961307ca6f642781430fe011085fb768d6a5efe5e82cd8280e7f",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "unsloth_affine_stride",
+          "fingerprint": "6c7a27673c8a4564fb5e85994260dbf955b367c18b11423095df40f05a1eca0d",
+          "family": "separate_inputs",
+          "predicate_flips": 4,
+          "worker": true,
+          "case_id": "unsloth_layernorm_affine_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "span_one_short",
+          "fingerprint": "f9a1df764afb8f97c606f6c2b205e42d1d6152c3cc1a8a0b5b1129dd183222d3",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "unreachable",
+          "reason": "as_strided 要求的 storage 小于最大可访问元素，PyTorch 拒绝构造；仅作元数据反例"
+        },
+        {
+          "probe": "unsloth_x_stride",
+          "fingerprint": "a6633db42c51d5ce400985310091e2eb98ddd68cd67a51b56b8997e46fd618eb",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "unsloth_layernorm_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "triton_two_inputs",
+          "fingerprint": "5e50abc517bd3e6b42a910c43f95be4924bec8cf4f4205614205cae30c2a07c5",
+          "family": "separate_inputs",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_col_stride",
+          "fingerprint": "c4cd61205e8c6ff29fefad0cb8f46de1e74beac3354d0bd98c25dc8a4cc687f2",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "liger_softmax_x_stride",
+          "classification": "numeric_mismatch"
+        }
+      ]
+    },
+    {
+      "method": "constrained_random",
+      "seed": 73,
+      "attempt_budget": 14,
+      "worker_budget": 4,
+      "wall_clock_budget_ms": 120000.0,
+      "attempts_used": 13,
+      "worker_calls": 4,
+      "worker_elapsed_ms": 26903.278777000014,
+      "first_witness": {
+        "attempt": 4,
+        "worker_call": 1,
+        "elapsed_ms": 7210.250600999999,
+        "case_id": "triton_add_x_stride"
+      },
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ],
+      "classifications": {
+        "mixed_unattributed": 4,
+        "metadata_boundary": 4,
+        "numeric_mismatch": 4,
+        "unreachable": 1
+      },
+      "selected": [
+        {
+          "probe": "grid_mixed",
+          "fingerprint": "936aed99d1a00cf88778b70eea820031b5d7f62c1e09c613ab5e3a71dc8887c6",
+          "family": "multi_axis_grid",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "triton_offset",
+          "fingerprint": "5f14c539fc586098333345ef170408026585d6df8026c25c9e9dcd63aa5da22f",
+          "family": "offset_alignment",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_row_plus",
+          "fingerprint": "eca1be74cc70961307ca6f642781430fe011085fb768d6a5efe5e82cd8280e7f",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "triton_x_stride",
+          "fingerprint": "6c05a3d7989b3eda96444b7b2362f8049afcc91d21ad494e56c0b0833bb3df83",
+          "family": "separate_inputs",
+          "predicate_flips": 1,
+          "worker": true,
+          "case_id": "triton_add_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "span_one_short",
+          "fingerprint": "f9a1df764afb8f97c606f6c2b205e42d1d6152c3cc1a8a0b5b1129dd183222d3",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "unreachable",
+          "reason": "as_strided 要求的 storage 小于最大可访问元素，PyTorch 拒绝构造；仅作元数据反例"
+        },
+        {
+          "probe": "unsloth_x_stride",
+          "fingerprint": "a6633db42c51d5ce400985310091e2eb98ddd68cd67a51b56b8997e46fd618eb",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "unsloth_layernorm_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "grid_edge",
+          "fingerprint": "0e84986bd0de6977eb9f15ef0b248939e5019a3bad1d94b092d08313cf3b9d04",
+          "family": "multi_axis_grid",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_row_minus",
+          "fingerprint": "76be9141beea4b677d1bf0950a085cdd0906045a0ee53fa64a686b212bf93788",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "unsloth_affine_stride",
+          "fingerprint": "6c7a27673c8a4564fb5e85994260dbf955b367c18b11423095df40f05a1eca0d",
+          "family": "separate_inputs",
+          "predicate_flips": 4,
+          "worker": true,
+          "case_id": "unsloth_layernorm_affine_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "span_exact",
+          "fingerprint": "7f629cdcda4280303bd358604b5b793c89c662844fd973276b313c8c115742a7",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_row_padding",
+          "fingerprint": "e3e6616d9fb0d23fed2ff1da74853cd98266b45d58ff56dbc6a691a227c140b0",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "triton_two_inputs",
+          "fingerprint": "5e50abc517bd3e6b42a910c43f95be4924bec8cf4f4205614205cae30c2a07c5",
+          "family": "separate_inputs",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_col_stride",
+          "fingerprint": "c4cd61205e8c6ff29fefad0cb8f46de1e74beac3354d0bd98c25dc8a4cc687f2",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "liger_softmax_x_stride",
+          "classification": "numeric_mismatch"
+        }
+      ]
+    },
+    {
+      "method": "constrained_random",
+      "seed": 101,
+      "attempt_budget": 14,
+      "worker_budget": 4,
+      "wall_clock_budget_ms": 120000.0,
+      "attempts_used": 13,
+      "worker_calls": 4,
+      "worker_elapsed_ms": 26903.278777000014,
+      "first_witness": {
+        "attempt": 4,
+        "worker_call": 1,
+        "elapsed_ms": 6348.286799000008,
+        "case_id": "unsloth_layernorm_affine_stride"
+      },
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ],
+      "classifications": {
+        "metadata_boundary": 4,
+        "mixed_unattributed": 4,
+        "numeric_mismatch": 4,
+        "unreachable": 1
+      },
+      "selected": [
+        {
+          "probe": "grid_edge",
+          "fingerprint": "0e84986bd0de6977eb9f15ef0b248939e5019a3bad1d94b092d08313cf3b9d04",
+          "family": "multi_axis_grid",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "triton_offset",
+          "fingerprint": "5f14c539fc586098333345ef170408026585d6df8026c25c9e9dcd63aa5da22f",
+          "family": "offset_alignment",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_row_minus",
+          "fingerprint": "76be9141beea4b677d1bf0950a085cdd0906045a0ee53fa64a686b212bf93788",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "unsloth_affine_stride",
+          "fingerprint": "6c7a27673c8a4564fb5e85994260dbf955b367c18b11423095df40f05a1eca0d",
+          "family": "separate_inputs",
+          "predicate_flips": 4,
+          "worker": true,
+          "case_id": "unsloth_layernorm_affine_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "span_one_short",
+          "fingerprint": "f9a1df764afb8f97c606f6c2b205e42d1d6152c3cc1a8a0b5b1129dd183222d3",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "unreachable",
+          "reason": "as_strided 要求的 storage 小于最大可访问元素，PyTorch 拒绝构造；仅作元数据反例"
+        },
+        {
+          "probe": "unsloth_x_stride",
+          "fingerprint": "a6633db42c51d5ce400985310091e2eb98ddd68cd67a51b56b8997e46fd618eb",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "unsloth_layernorm_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "grid_mixed",
+          "fingerprint": "936aed99d1a00cf88778b70eea820031b5d7f62c1e09c613ab5e3a71dc8887c6",
+          "family": "multi_axis_grid",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_plus",
+          "fingerprint": "eca1be74cc70961307ca6f642781430fe011085fb768d6a5efe5e82cd8280e7f",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "triton_two_inputs",
+          "fingerprint": "5e50abc517bd3e6b42a910c43f95be4924bec8cf4f4205614205cae30c2a07c5",
+          "family": "separate_inputs",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "span_exact",
+          "fingerprint": "7f629cdcda4280303bd358604b5b793c89c662844fd973276b313c8c115742a7",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_row_padding",
+          "fingerprint": "e3e6616d9fb0d23fed2ff1da74853cd98266b45d58ff56dbc6a691a227c140b0",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "triton_x_stride",
+          "fingerprint": "6c05a3d7989b3eda96444b7b2362f8049afcc91d21ad494e56c0b0833bb3df83",
+          "family": "separate_inputs",
+          "predicate_flips": 1,
+          "worker": true,
+          "case_id": "triton_add_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "liger_col_stride",
+          "fingerprint": "c4cd61205e8c6ff29fefad0cb8f46de1e74beac3354d0bd98c25dc8a4cc687f2",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "liger_softmax_x_stride",
+          "classification": "numeric_mismatch"
+        }
+      ]
+    },
+    {
+      "method": "constrained_random",
+      "seed": 211,
+      "attempt_budget": 14,
+      "worker_budget": 4,
+      "wall_clock_budget_ms": 120000.0,
+      "attempts_used": 14,
+      "worker_calls": 4,
+      "worker_elapsed_ms": 26903.278777000014,
+      "first_witness": {
+        "attempt": 6,
+        "worker_call": 1,
+        "elapsed_ms": 6766.545522000001,
+        "case_id": "unsloth_layernorm_x_stride"
+      },
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ],
+      "classifications": {
+        "mixed_unattributed": 5,
+        "metadata_boundary": 4,
+        "unreachable": 1,
+        "numeric_mismatch": 4
+      },
+      "selected": [
+        {
+          "probe": "grid_mixed",
+          "fingerprint": "936aed99d1a00cf88778b70eea820031b5d7f62c1e09c613ab5e3a71dc8887c6",
+          "family": "multi_axis_grid",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "triton_offset",
+          "fingerprint": "5f14c539fc586098333345ef170408026585d6df8026c25c9e9dcd63aa5da22f",
+          "family": "offset_alignment",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_row_minus",
+          "fingerprint": "76be9141beea4b677d1bf0950a085cdd0906045a0ee53fa64a686b212bf93788",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "triton_two_inputs",
+          "fingerprint": "5e50abc517bd3e6b42a910c43f95be4924bec8cf4f4205614205cae30c2a07c5",
+          "family": "separate_inputs",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "span_one_short",
+          "fingerprint": "f9a1df764afb8f97c606f6c2b205e42d1d6152c3cc1a8a0b5b1129dd183222d3",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "unreachable",
+          "reason": "as_strided 要求的 storage 小于最大可访问元素，PyTorch 拒绝构造；仅作元数据反例"
+        },
+        {
+          "probe": "unsloth_x_stride",
+          "fingerprint": "a6633db42c51d5ce400985310091e2eb98ddd68cd67a51b56b8997e46fd618eb",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "unsloth_layernorm_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "grid_edge",
+          "fingerprint": "0e84986bd0de6977eb9f15ef0b248939e5019a3bad1d94b092d08313cf3b9d04",
+          "family": "multi_axis_grid",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_row_plus",
+          "fingerprint": "eca1be74cc70961307ca6f642781430fe011085fb768d6a5efe5e82cd8280e7f",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "triton_x_stride",
+          "fingerprint": "6c05a3d7989b3eda96444b7b2362f8049afcc91d21ad494e56c0b0833bb3df83",
+          "family": "separate_inputs",
+          "predicate_flips": 1,
+          "worker": true,
+          "case_id": "triton_add_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "span_exact",
+          "fingerprint": "7f629cdcda4280303bd358604b5b793c89c662844fd973276b313c8c115742a7",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_col_stride",
+          "fingerprint": "c4cd61205e8c6ff29fefad0cb8f46de1e74beac3354d0bd98c25dc8a4cc687f2",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "liger_softmax_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "unsloth_mixed",
+          "fingerprint": "8a97b86bdf9a363e9b328a799e3a9f2113297bfa1e2b16cd609d79bfe9635b10",
+          "family": "separate_inputs",
+          "predicate_flips": 6,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_padding",
+          "fingerprint": "e3e6616d9fb0d23fed2ff1da74853cd98266b45d58ff56dbc6a691a227c140b0",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "unsloth_affine_stride",
+          "fingerprint": "6c7a27673c8a4564fb5e85994260dbf955b367c18b11423095df40f05a1eca0d",
+          "family": "separate_inputs",
+          "predicate_flips": 4,
+          "worker": true,
+          "case_id": "unsloth_layernorm_affine_stride",
+          "classification": "numeric_mismatch"
+        }
+      ]
+    },
+    {
+      "method": "predicate_guided",
+      "seed": 17,
+      "attempt_budget": 14,
+      "worker_budget": 4,
+      "wall_clock_budget_ms": 120000.0,
+      "attempts_used": 12,
+      "worker_calls": 4,
+      "worker_elapsed_ms": 26903.278777000014,
+      "first_witness": {
+        "attempt": 2,
+        "worker_call": 1,
+        "elapsed_ms": 6348.286799000008,
+        "case_id": "unsloth_layernorm_affine_stride"
+      },
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ],
+      "classifications": {
+        "mixed_unattributed": 5,
+        "numeric_mismatch": 4,
+        "metadata_boundary": 3
+      },
+      "selected": [
+        {
+          "probe": "unsloth_mixed",
+          "fingerprint": "8a97b86bdf9a363e9b328a799e3a9f2113297bfa1e2b16cd609d79bfe9635b10",
+          "family": "separate_inputs",
+          "predicate_flips": 6,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "unsloth_affine_stride",
+          "fingerprint": "6c7a27673c8a4564fb5e85994260dbf955b367c18b11423095df40f05a1eca0d",
+          "family": "separate_inputs",
+          "predicate_flips": 4,
+          "worker": true,
+          "case_id": "unsloth_layernorm_affine_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "liger_row_minus",
+          "fingerprint": "76be9141beea4b677d1bf0950a085cdd0906045a0ee53fa64a686b212bf93788",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_plus",
+          "fingerprint": "eca1be74cc70961307ca6f642781430fe011085fb768d6a5efe5e82cd8280e7f",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "grid_mixed",
+          "fingerprint": "936aed99d1a00cf88778b70eea820031b5d7f62c1e09c613ab5e3a71dc8887c6",
+          "family": "multi_axis_grid",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "unsloth_x_stride",
+          "fingerprint": "a6633db42c51d5ce400985310091e2eb98ddd68cd67a51b56b8997e46fd618eb",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "unsloth_layernorm_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "triton_two_inputs",
+          "fingerprint": "5e50abc517bd3e6b42a910c43f95be4924bec8cf4f4205614205cae30c2a07c5",
+          "family": "separate_inputs",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_col_stride",
+          "fingerprint": "c4cd61205e8c6ff29fefad0cb8f46de1e74beac3354d0bd98c25dc8a4cc687f2",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "liger_softmax_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "triton_offset",
+          "fingerprint": "5f14c539fc586098333345ef170408026585d6df8026c25c9e9dcd63aa5da22f",
+          "family": "offset_alignment",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "span_exact",
+          "fingerprint": "7f629cdcda4280303bd358604b5b793c89c662844fd973276b313c8c115742a7",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "grid_edge",
+          "fingerprint": "0e84986bd0de6977eb9f15ef0b248939e5019a3bad1d94b092d08313cf3b9d04",
+          "family": "multi_axis_grid",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "triton_x_stride",
+          "fingerprint": "6c05a3d7989b3eda96444b7b2362f8049afcc91d21ad494e56c0b0833bb3df83",
+          "family": "separate_inputs",
+          "predicate_flips": 1,
+          "worker": true,
+          "case_id": "triton_add_x_stride",
+          "classification": "numeric_mismatch"
+        }
+      ]
+    },
+    {
+      "method": "predicate_guided",
+      "seed": 42,
+      "attempt_budget": 14,
+      "worker_budget": 4,
+      "wall_clock_budget_ms": 120000.0,
+      "attempts_used": 11,
+      "worker_calls": 4,
+      "worker_elapsed_ms": 26903.278777000014,
+      "first_witness": {
+        "attempt": 2,
+        "worker_call": 1,
+        "elapsed_ms": 6348.286799000008,
+        "case_id": "unsloth_layernorm_affine_stride"
+      },
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ],
+      "classifications": {
+        "mixed_unattributed": 5,
+        "numeric_mismatch": 4,
+        "metadata_boundary": 2
+      },
+      "selected": [
+        {
+          "probe": "unsloth_mixed",
+          "fingerprint": "8a97b86bdf9a363e9b328a799e3a9f2113297bfa1e2b16cd609d79bfe9635b10",
+          "family": "separate_inputs",
+          "predicate_flips": 6,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "unsloth_affine_stride",
+          "fingerprint": "6c7a27673c8a4564fb5e85994260dbf955b367c18b11423095df40f05a1eca0d",
+          "family": "separate_inputs",
+          "predicate_flips": 4,
+          "worker": true,
+          "case_id": "unsloth_layernorm_affine_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "liger_row_plus",
+          "fingerprint": "eca1be74cc70961307ca6f642781430fe011085fb768d6a5efe5e82cd8280e7f",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_minus",
+          "fingerprint": "76be9141beea4b677d1bf0950a085cdd0906045a0ee53fa64a686b212bf93788",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_col_stride",
+          "fingerprint": "c4cd61205e8c6ff29fefad0cb8f46de1e74beac3354d0bd98c25dc8a4cc687f2",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "liger_softmax_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "unsloth_x_stride",
+          "fingerprint": "a6633db42c51d5ce400985310091e2eb98ddd68cd67a51b56b8997e46fd618eb",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "unsloth_layernorm_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "triton_two_inputs",
+          "fingerprint": "5e50abc517bd3e6b42a910c43f95be4924bec8cf4f4205614205cae30c2a07c5",
+          "family": "separate_inputs",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "grid_mixed",
+          "fingerprint": "936aed99d1a00cf88778b70eea820031b5d7f62c1e09c613ab5e3a71dc8887c6",
+          "family": "multi_axis_grid",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "span_exact",
+          "fingerprint": "7f629cdcda4280303bd358604b5b793c89c662844fd973276b313c8c115742a7",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "liger_row_padding",
+          "fingerprint": "e3e6616d9fb0d23fed2ff1da74853cd98266b45d58ff56dbc6a691a227c140b0",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "triton_x_stride",
+          "fingerprint": "6c05a3d7989b3eda96444b7b2362f8049afcc91d21ad494e56c0b0833bb3df83",
+          "family": "separate_inputs",
+          "predicate_flips": 1,
+          "worker": true,
+          "case_id": "triton_add_x_stride",
+          "classification": "numeric_mismatch"
+        }
+      ]
+    },
+    {
+      "method": "predicate_guided",
+      "seed": 73,
+      "attempt_budget": 14,
+      "worker_budget": 4,
+      "wall_clock_budget_ms": 120000.0,
+      "attempts_used": 13,
+      "worker_calls": 4,
+      "worker_elapsed_ms": 26903.278777000014,
+      "first_witness": {
+        "attempt": 2,
+        "worker_call": 1,
+        "elapsed_ms": 6348.286799000008,
+        "case_id": "unsloth_layernorm_affine_stride"
+      },
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ],
+      "classifications": {
+        "mixed_unattributed": 5,
+        "numeric_mismatch": 4,
+        "metadata_boundary": 4
+      },
+      "selected": [
+        {
+          "probe": "unsloth_mixed",
+          "fingerprint": "8a97b86bdf9a363e9b328a799e3a9f2113297bfa1e2b16cd609d79bfe9635b10",
+          "family": "separate_inputs",
+          "predicate_flips": 6,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "unsloth_affine_stride",
+          "fingerprint": "6c7a27673c8a4564fb5e85994260dbf955b367c18b11423095df40f05a1eca0d",
+          "family": "separate_inputs",
+          "predicate_flips": 4,
+          "worker": true,
+          "case_id": "unsloth_layernorm_affine_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "liger_row_minus",
+          "fingerprint": "76be9141beea4b677d1bf0950a085cdd0906045a0ee53fa64a686b212bf93788",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_plus",
+          "fingerprint": "eca1be74cc70961307ca6f642781430fe011085fb768d6a5efe5e82cd8280e7f",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_col_stride",
+          "fingerprint": "c4cd61205e8c6ff29fefad0cb8f46de1e74beac3354d0bd98c25dc8a4cc687f2",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "liger_softmax_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "unsloth_x_stride",
+          "fingerprint": "a6633db42c51d5ce400985310091e2eb98ddd68cd67a51b56b8997e46fd618eb",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "unsloth_layernorm_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "grid_mixed",
+          "fingerprint": "936aed99d1a00cf88778b70eea820031b5d7f62c1e09c613ab5e3a71dc8887c6",
+          "family": "multi_axis_grid",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "triton_two_inputs",
+          "fingerprint": "5e50abc517bd3e6b42a910c43f95be4924bec8cf4f4205614205cae30c2a07c5",
+          "family": "separate_inputs",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_padding",
+          "fingerprint": "e3e6616d9fb0d23fed2ff1da74853cd98266b45d58ff56dbc6a691a227c140b0",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "span_exact",
+          "fingerprint": "7f629cdcda4280303bd358604b5b793c89c662844fd973276b313c8c115742a7",
+          "family": "span_boundary",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "triton_offset",
+          "fingerprint": "5f14c539fc586098333345ef170408026585d6df8026c25c9e9dcd63aa5da22f",
+          "family": "offset_alignment",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "grid_edge",
+          "fingerprint": "0e84986bd0de6977eb9f15ef0b248939e5019a3bad1d94b092d08313cf3b9d04",
+          "family": "multi_axis_grid",
+          "predicate_flips": 1,
+          "worker": false,
+          "classification": "metadata_boundary"
+        },
+        {
+          "probe": "triton_x_stride",
+          "fingerprint": "6c05a3d7989b3eda96444b7b2362f8049afcc91d21ad494e56c0b0833bb3df83",
+          "family": "separate_inputs",
+          "predicate_flips": 1,
+          "worker": true,
+          "case_id": "triton_add_x_stride",
+          "classification": "numeric_mismatch"
+        }
+      ]
+    },
+    {
+      "method": "predicate_guided",
+      "seed": 101,
+      "attempt_budget": 14,
+      "worker_budget": 4,
+      "wall_clock_budget_ms": 120000.0,
+      "attempts_used": 9,
+      "worker_calls": 4,
+      "worker_elapsed_ms": 26903.278777000014,
+      "first_witness": {
+        "attempt": 2,
+        "worker_call": 1,
+        "elapsed_ms": 6348.286799000008,
+        "case_id": "unsloth_layernorm_affine_stride"
+      },
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ],
+      "classifications": {
+        "mixed_unattributed": 5,
+        "numeric_mismatch": 4
+      },
+      "selected": [
+        {
+          "probe": "unsloth_mixed",
+          "fingerprint": "8a97b86bdf9a363e9b328a799e3a9f2113297bfa1e2b16cd609d79bfe9635b10",
+          "family": "separate_inputs",
+          "predicate_flips": 6,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "unsloth_affine_stride",
+          "fingerprint": "6c7a27673c8a4564fb5e85994260dbf955b367c18b11423095df40f05a1eca0d",
+          "family": "separate_inputs",
+          "predicate_flips": 4,
+          "worker": true,
+          "case_id": "unsloth_layernorm_affine_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "liger_row_minus",
+          "fingerprint": "76be9141beea4b677d1bf0950a085cdd0906045a0ee53fa64a686b212bf93788",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_plus",
+          "fingerprint": "eca1be74cc70961307ca6f642781430fe011085fb768d6a5efe5e82cd8280e7f",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_col_stride",
+          "fingerprint": "c4cd61205e8c6ff29fefad0cb8f46de1e74beac3354d0bd98c25dc8a4cc687f2",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "liger_softmax_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "grid_mixed",
+          "fingerprint": "936aed99d1a00cf88778b70eea820031b5d7f62c1e09c613ab5e3a71dc8887c6",
+          "family": "multi_axis_grid",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "triton_two_inputs",
+          "fingerprint": "5e50abc517bd3e6b42a910c43f95be4924bec8cf4f4205614205cae30c2a07c5",
+          "family": "separate_inputs",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "unsloth_x_stride",
+          "fingerprint": "a6633db42c51d5ce400985310091e2eb98ddd68cd67a51b56b8997e46fd618eb",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "unsloth_layernorm_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "triton_x_stride",
+          "fingerprint": "6c05a3d7989b3eda96444b7b2362f8049afcc91d21ad494e56c0b0833bb3df83",
+          "family": "separate_inputs",
+          "predicate_flips": 1,
+          "worker": true,
+          "case_id": "triton_add_x_stride",
+          "classification": "numeric_mismatch"
+        }
+      ]
+    },
+    {
+      "method": "predicate_guided",
+      "seed": 211,
+      "attempt_budget": 14,
+      "worker_budget": 4,
+      "wall_clock_budget_ms": 120000.0,
+      "attempts_used": 9,
+      "worker_calls": 4,
+      "worker_elapsed_ms": 26903.278777000014,
+      "first_witness": {
+        "attempt": 2,
+        "worker_call": 1,
+        "elapsed_ms": 6348.286799000008,
+        "case_id": "unsloth_layernorm_affine_stride"
+      },
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ],
+      "classifications": {
+        "mixed_unattributed": 5,
+        "numeric_mismatch": 4
+      },
+      "selected": [
+        {
+          "probe": "unsloth_mixed",
+          "fingerprint": "8a97b86bdf9a363e9b328a799e3a9f2113297bfa1e2b16cd609d79bfe9635b10",
+          "family": "separate_inputs",
+          "predicate_flips": 6,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "unsloth_affine_stride",
+          "fingerprint": "6c7a27673c8a4564fb5e85994260dbf955b367c18b11423095df40f05a1eca0d",
+          "family": "separate_inputs",
+          "predicate_flips": 4,
+          "worker": true,
+          "case_id": "unsloth_layernorm_affine_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "liger_row_minus",
+          "fingerprint": "76be9141beea4b677d1bf0950a085cdd0906045a0ee53fa64a686b212bf93788",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_row_plus",
+          "fingerprint": "eca1be74cc70961307ca6f642781430fe011085fb768d6a5efe5e82cd8280e7f",
+          "family": "reduction_row_length",
+          "predicate_flips": 3,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "grid_mixed",
+          "fingerprint": "936aed99d1a00cf88778b70eea820031b5d7f62c1e09c613ab5e3a71dc8887c6",
+          "family": "multi_axis_grid",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "liger_col_stride",
+          "fingerprint": "c4cd61205e8c6ff29fefad0cb8f46de1e74beac3354d0bd98c25dc8a4cc687f2",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "liger_softmax_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "triton_two_inputs",
+          "fingerprint": "5e50abc517bd3e6b42a910c43f95be4924bec8cf4f4205614205cae30c2a07c5",
+          "family": "separate_inputs",
+          "predicate_flips": 2,
+          "worker": false,
+          "classification": "mixed_unattributed"
+        },
+        {
+          "probe": "unsloth_x_stride",
+          "fingerprint": "a6633db42c51d5ce400985310091e2eb98ddd68cd67a51b56b8997e46fd618eb",
+          "family": "stride_broadcast_2d",
+          "predicate_flips": 2,
+          "worker": true,
+          "case_id": "unsloth_layernorm_x_stride",
+          "classification": "numeric_mismatch"
+        },
+        {
+          "probe": "triton_x_stride",
+          "fingerprint": "6c05a3d7989b3eda96444b7b2362f8049afcc91d21ad494e56c0b0833bb3df83",
+          "family": "separate_inputs",
+          "predicate_flips": 1,
+          "worker": true,
+          "case_id": "triton_add_x_stride",
+          "classification": "numeric_mismatch"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "static_candidate": {
+      "trials": 5,
+      "first_witness_successes": 5,
+      "median_attempts_to_first": 3,
+      "median_worker_ms_to_first": 7210.250600999999,
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ]
+    },
+    "uniform_random": {
+      "trials": 5,
+      "first_witness_successes": 5,
+      "median_attempts_to_first": 1,
+      "median_worker_ms_to_first": 6578.1958550000045,
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ]
+    },
+    "constrained_random": {
+      "trials": 5,
+      "first_witness_successes": 5,
+      "median_attempts_to_first": 4,
+      "median_worker_ms_to_first": 6766.545522000001,
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ]
+    },
+    "predicate_guided": {
+      "trials": 5,
+      "first_witness_successes": 5,
+      "median_attempts_to_first": 2,
+      "median_worker_ms_to_first": 6348.286799000008,
+      "unique_witnesses": [
+        "liger_softmax_x_stride",
+        "triton_add_x_stride",
+        "unsloth_layernorm_affine_stride",
+        "unsloth_layernorm_x_stride"
+      ]
+    }
+  },
+  "guided_advantage": true,
+  "claim": "谓词引导在多数基线的首次见证尝试数上更少",
+  "checks": {
+    "same_domain_and_budgets": true,
+    "same_seed_pool": true,
+    "all_condition_families_covered": true,
+    "unreachable_reasons_complete": true,
+    "oracle_identity_complete": true,
+    "every_method_finds_witness": true
+  },
+  "go_mutation": true
+}

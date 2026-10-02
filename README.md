@@ -15,6 +15,7 @@ TritonPact 研究 PyTorch Tensor 的物理布局与 Triton Kernel 访存之间�
 | 第五阶段：Guard 与分派 | 当前源码重新生成有类型 Guard；真实输入与输出复验；显式复制修复；隔离路径报告与离线同步成本表；旧 `runtime.py` 保留 | [Guard 隔离报告](results/guard_dispatch_report.md)、[成本标定](results/cost_calibration.md)、[第五阶段回归](results/guard_regression.md)及同名 JSON；[开发记录](../../docs/开发路线/TritonPact%20第五阶段%20Guard%20与分派开发方案.md) |
 | 增强阶段一：真实语料与证据冻结 | 40 个固定开源函数体、28 个带独立参考的正向候选、12 个挑战；开发/留出/挑战划分、来源/许可/绑定/语义审计、能力缺口与最近邻基线 | [语料清单](results/e1_corpus_inventory.md)、[语义审计](results/e1_semantic_audit.md)、[能力缺口](results/e1_capability_gap.md)、[阶段状态](results/e1_regression.md)及同名 JSON |
 | 增强阶段二：真实语料契约恢复 | 冻结规则下 28 个正向 Kernel 中 27 个 Access IR Supported、27 个候选完整、27 个 Guard 可用、27 个冻结输入 Fast 可行；1 个留出样例保持 Unknown，未接入在线 Fast | [Access IR 覆盖](results/e2_access_ir_coverage.md)、[候选提取](results/e2_candidate_extraction.md)、[Guard 覆盖](results/e2_guard_coverage.md)、[阶段状态](results/e2_regression.md)及同名 JSON |
+| 增强阶段三：真实边界与外部问题验证 | 共享冻结域上的四方法变异对照；Triton、Liger、Unsloth 共 4 个 L1 风险见证、3 个 L2 wrapper 防御和 1 个公开 L3 条目；158 个真实候选的 SMT/精化审计 | [变异对照](results/e3_mutation_comparison.md)、[风险分层](results/e3_real_risk_cases.md)、[精化审计](results/e3_refinement_audit.md)、[SMT 审计](results/e3_smt_audit.md)、[阶段状态](results/e3_regression.md)及同名 JSON |
 
 第二阶段的 `Supported` 只表示受限访存语法可解释。旧 `pact/runtime.py` 的 Guard 仍执行经独立语义核对的 **PoC 兼容谓词**；第五阶段的 `pact/dispatch.py` 独立构造新 Guard。
 

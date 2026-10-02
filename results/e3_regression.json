@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-10-02T14:52:47.870071+08:00",
+  "status": "go",
+  "go_e3": true,
+  "source_fingerprint": "3355bf7160f330772f04cb4ba4b20e8ffe9802e73fc89f0033b4ef26b7ed3fdc",
+  "git": {
+    "start_head": "dd0dd74b6912a217c7388a79b811effdbf303698",
+    "current_head": "dd0dd74b6912a217c7388a79b811effdbf303698",
+    "branch": "eval",
+    "worktree_status": " M README.md\n M bench/catalog.json\n?? bench/e3/\n?? pact/e3_mutation.py\n?? results/e3_development_record.json\n?? results/e3_development_record.md\n?? results/e3_mutation_comparison.json\n?? results/e3_mutation_comparison.md\n?? results/e3_real_risk_cases.json\n?? results/e3_real_risk_cases.md\n?? results/e3_refinement_audit.json\n?? results/e3_refinement_audit.md\n?? results/e3_regression.json\n?? results/e3_regression.md\n?? results/e3_regression_isolation.json\n?? results/e3_regression_isolation.md\n?? results/e3_smt_audit.json\n?? results/e3_smt_audit.md\n?? test/test_e3_invariants.py\n?? test/test_e3_mutation.py\n?? test/test_e3_risk.py\n?? test/test_e3_smt.py",
+    "unexpected_paths": []
+  },
+  "environment": {
+    "system": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31",
+    "python": "3.10.20",
+    "torch": "2.11.0+cu128",
+    "triton": "3.6.0",
+    "cuda": "12.8",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+  },
+  "counts": {
+    "mutation_probes": 14,
+    "mutation_trials": 20,
+    "registered": 4,
+    "complete": 4,
+    "l1_witnesses": 4,
+    "l2_wrapper_defenses": 3,
+    "l3_public_items": 1,
+    "by_source": {
+      "triton": 1,
+      "liger": 1,
+      "unsloth": 2
+    },
+    "smt_real_candidates": 158,
+    "smt_real_deletions": 1,
+    "actual_revisions": 0,
+    "fast_revocations": 0
+  },
+  "checks": {
+    "e1_fingerprint_current": true,
+    "e2_go_and_rule_fingerprint_current": true,
+    "full_regression_and_legacy_isolation": true,
+    "mutation_protocol_frozen_and_fair": true,
+    "real_risk_minimum": true,
+    "risk_layers_separated": true,
+    "smt_real_candidates_audited": true,
+    "refutation_and_revision_closed": true,
+    "no_e4_or_online_changes": true
+  },
+  "regression": {
+    "command": [
+      "python",
+      "test/run_tests.py",
+      "--quick",
+      "--output",
+      "/mnt/f/Project/Paper/Code/TritonPact/results/e3_regression_isolation.md"
+    ],
+    "exit_code": 0,
+    "pytest_summary": "134 passed in 78.94s (0:01:18)",
+    "legacy_isolation_passed": true,
+    "legacy_checks": {
+      "四个变体进入 Access IR": true,
+      "语义规格与逐谓词来源可追溯": true,
+      "A 两组转置尺寸均出现数值错误": true,
+      "A Guard 拦截并正确回退": true,
+      "A2 非连续输入正确直通且连续化会复制": true,
+      "B 非整除边界正确直通": true,
+      "未知类型安全回退": true,
+      "官方教程双输入契约阻止错读": true,
+      "关键输入重复稳定": true,
+      "经验观察与静态放行分开记录": true,
+      "单谓词补集触发候选修订并放行": true
+    },
+    "stdout_tail": "[1/2] 运行测试\n........................................................................ [ 53%]\n..............................................................           [100%]\n134 passed in 78.94s (0:01:18)\n[2/2] 运行隔离案例\n通过：四个变体进入 Access IR\n通过：语义规格与逐谓词来源可追溯\n通过：A 两组转置尺寸均出现数值错误\n通过：A Guard 拦截并正确回退\n通过：A2 非连续输入正确直通且连续化会复制\n通过：B 非整除边界正确直通\n通过：未知类型安全回退\n通过：官方教程双输入契约阻止错读\n通过：关键输入重复稳定\n通过：经验观察与静态放行分开记录\n通过：单谓词补集触发候选修订并放行\n受限案例验收：通过\nA 模板内的动态候选修订：已验证\n结果文件：e3_regression_isolation.md\n",
+    "report": "results/e3_regression_isolation.md"
+  },
+  "claims": {
+    "mutation": "谓词引导在多数基线的首次见证尝试数上更少",
+    "smt": "真实候选存在可删除的同域等价重复",
+    "risk": "4 个 L1、3 个 L2、1 个公开 L3 条目；L1 未冒充上游漏洞",
+    "performance": "复制耗时仅为 WSL2 诊断，未提前运行 e4 正式实验"
+  },
+  "reports": [
+    "results/e3_mutation_comparison.md",
+    "results/e3_real_risk_cases.md",
+    "results/e3_refinement_audit.md",
+    "results/e3_smt_audit.md",
+    "results/e3_regression.md"
+  ]
+}

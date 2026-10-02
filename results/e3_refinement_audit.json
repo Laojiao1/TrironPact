@@ -1,0 +1,35 @@
+{
+  "generated_at": "2026-10-02T13:18:23.108104+08:00",
+  "witness_classification": {
+    "expected_rejection": [
+      "triton_add_x_stride",
+      "liger_softmax_x_stride",
+      "unsloth_layernorm_x_stride",
+      "unsloth_layernorm_affine_stride"
+    ],
+    "understrong": [],
+    "overstrong": [],
+    "mixed_unattributed": [
+      "grid_mixed",
+      "triton_two_inputs",
+      "unsloth_mixed"
+    ],
+    "unreachable": [
+      "span_one_short"
+    ],
+    "unknown": []
+  },
+  "candidate_revisions": [],
+  "actual_revision_count": 0,
+  "fast_revocations": [],
+  "checks": {
+    "all_numeric_witnesses_blocked": true,
+    "no_static_sufficient_condition_refuted": true,
+    "revisions_have_complete_provenance": true,
+    "revocations_match_refutations": true,
+    "mixed_mutations_not_attributed": true,
+    "smt_result_carried_forward": true
+  },
+  "go_refinement": true,
+  "scope": "e2 Guard 只承诺冻结调用域；域外正确样例不标为过强。若未来出现 Guard=True 的确定错读，必须先撤销 Fast 再继续。"
+}

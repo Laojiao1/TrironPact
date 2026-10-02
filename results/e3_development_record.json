@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-02",
+  "start_head": "dd0dd74b6912a217c7388a79b811effdbf303698",
+  "branch": "eval",
+  "status": "go",
+  "go_e3": true,
+  "work_blocks": [
+    {
+      "name": "risk_layers",
+      "command": "python -m bench.e3.risk --seed 17 --timeout 180",
+      "exit_code": 0,
+      "result": "4/4 complete; L1=4; L2=3; L3=1",
+      "report": "results/e3_real_risk_cases.json"
+    },
+    {
+      "name": "mutation_comparison",
+      "command": "python -m bench.e3.mutations",
+      "exit_code": 0,
+      "result": "14 probes; 20 trials; frozen equal budgets",
+      "report": "results/e3_mutation_comparison.json"
+    },
+    {
+      "name": "real_candidate_smt",
+      "command": "python -m bench.e3.smt --timeout-ms 2000",
+      "exit_code": 0,
+      "result": "158 real candidates; 1 equivalent deletion; 0 conflicts; synthetic deletions=0",
+      "report": "results/e3_smt_audit.json"
+    },
+    {
+      "name": "refinement",
+      "command": "python -m bench.e3.refinement",
+      "exit_code": 0,
+      "result": "0 understrong witnesses; 0 revisions; 0 Fast revocations",
+      "report": "results/e3_refinement_audit.json"
+    },
+    {
+      "name": "final_validation",
+      "command": "python -m bench.e3.validate",
+      "exit_code": 0,
+      "result": "134 passed; legacy isolation 11/11; go_e3=true",
+      "report": "results/e3_regression.json"
+    }
+  ],
+  "scope": {
+    "online_fast_changed": false,
+    "e4_started": false,
+    "cross_hardware_experiment_run": false,
+    "l1_called_upstream_bug_without_contract": false
+  }
+}

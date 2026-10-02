@@ -1,0 +1,639 @@
+{
+  "generated_at": "2026-10-02T13:13:24.781333+08:00",
+  "seed": 17,
+  "worker_timeout_seconds": 180,
+  "rows": [
+    {
+      "case_id": "triton_add_x_stride",
+      "status": "complete",
+      "exit_code": 0,
+      "detail": {
+        "case": {
+          "id": "triton_add_x_stride",
+          "kernel_id": "triton_add",
+          "source": "triton",
+          "problem": "一维输入列步长未进入地址表达式",
+          "mutated_inputs": [
+            "x"
+          ],
+          "mutation": "column_stride_2",
+          "wrapper_defense": null,
+          "wrapper_source": null,
+          "l3_url": null,
+          "l3_status": null,
+          "l3_commit": null
+        },
+        "seed": 17,
+        "raw": {
+          "checks": [
+            {
+              "output": "out",
+              "correct": false,
+              "mismatch_count": 128,
+              "max_abs_error": 3.032834529876709
+            }
+          ],
+          "metadata": {
+            "x": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                2
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161243136,
+              "storage_nbytes": 1032
+            },
+            "y": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161241088,
+              "storage_nbytes": 516
+            },
+            "out": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161242112,
+              "storage_nbytes": 516
+            }
+          }
+        },
+        "guard": {
+          "status": "False",
+          "allowed": false,
+          "reason": "x shape/stride 与冻结规格不一致",
+          "trace": []
+        },
+        "upstream_check": {
+          "present": false,
+          "expression": null,
+          "source": null
+        },
+        "relayout": {
+          "guard_status": "True",
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0,
+              "max_abs_error": 0.0
+            }
+          ],
+          "copies": [
+            {
+              "tensor": "x",
+              "bytes": 516
+            }
+          ],
+          "copy_bytes": 516,
+          "timing": {
+            "repeats": 12,
+            "copy_median_ms": 0.0400799997150898,
+            "copy_plus_kernel_median_ms": 0.13553600013256073,
+            "scope": "WSL2 单机诊断；不属于 e4 稳定性能证据"
+          }
+        },
+        "fallback": {
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "reference": "output_torch = x + y"
+        },
+        "classification": "numeric_mismatch",
+        "worker_elapsed_ms": 7210.250600999999,
+        "evidence_boundary": "合法 PyTorch 视图上的底层 Kernel 前置条件敏感性；接口承诺需由 L2/L3 单独证明"
+      }
+    },
+    {
+      "case_id": "liger_softmax_x_stride",
+      "status": "complete",
+      "exit_code": 0,
+      "detail": {
+        "case": {
+          "id": "liger_softmax_x_stride",
+          "kernel_id": "liger_softmax",
+          "source": "liger",
+          "problem": "二维输入只传行步长，Kernel 假设列步长为 1",
+          "mutated_inputs": [
+            "x"
+          ],
+          "mutation": "column_stride_2",
+          "wrapper_defense": "x.contiguous().view(-1, n_cols)",
+          "wrapper_source": "bench/e1/upstream/liger/src/liger_kernel/ops/softmax.py:118",
+          "l3_url": null,
+          "l3_status": null,
+          "l3_commit": null
+        },
+        "seed": 17,
+        "raw": {
+          "checks": [
+            {
+              "output": "out",
+              "correct": false,
+              "mismatch_count": 8174,
+              "max_abs_error": 0.09770797938108444
+            }
+          ],
+          "metadata": {
+            "x": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                512,
+                2
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161305600,
+              "storage_nbytes": 65536
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161272832,
+              "storage_nbytes": 32768
+            }
+          }
+        },
+        "guard": {
+          "status": "False",
+          "allowed": false,
+          "reason": "x shape/stride 与冻结规格不一致",
+          "trace": []
+        },
+        "upstream_check": {
+          "present": true,
+          "expression": "x.contiguous().view(-1, n_cols)",
+          "source": "bench/e1/upstream/liger/src/liger_kernel/ops/softmax.py:118"
+        },
+        "relayout": {
+          "guard_status": "True",
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0,
+              "max_abs_error": 7.450580596923828e-09
+            }
+          ],
+          "copies": [
+            {
+              "tensor": "x",
+              "bytes": 32768
+            }
+          ],
+          "copy_bytes": 32768,
+          "timing": {
+            "repeats": 12,
+            "copy_median_ms": 0.01348799979314208,
+            "copy_plus_kernel_median_ms": 0.09099199995398521,
+            "scope": "WSL2 单机诊断；不属于 e4 稳定性能证据"
+          }
+        },
+        "fallback": {
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "reference": "_softmax_ref"
+        },
+        "classification": "numeric_mismatch",
+        "worker_elapsed_ms": 6578.1958550000045,
+        "evidence_boundary": "合法 PyTorch 视图上的底层 Kernel 前置条件敏感性；接口承诺需由 L2/L3 单独证明"
+      }
+    },
+    {
+      "case_id": "unsloth_layernorm_x_stride",
+      "status": "complete",
+      "exit_code": 0,
+      "detail": {
+        "case": {
+          "id": "unsloth_layernorm_x_stride",
+          "kernel_id": "unsloth_layernorm",
+          "source": "unsloth",
+          "problem": "LayerNorm 输入列步长未传入 Kernel",
+          "mutated_inputs": [
+            "x"
+          ],
+          "mutation": "column_stride_2",
+          "wrapper_defense": "X.reshape(-1, dim).contiguous()",
+          "wrapper_source": "bench/e1/upstream/unsloth/unsloth/kernels/layernorm.py:107",
+          "l3_url": "https://github.com/unslothai/unsloth/pull/10675",
+          "l3_status": "open_at_2026-10-02",
+          "l3_commit": "1d254f8c54"
+        },
+        "seed": 17,
+        "raw": {
+          "checks": [
+            {
+              "output": "out",
+              "correct": false,
+              "mismatch_count": 620,
+              "max_abs_error": 9.326366424560547
+            },
+            {
+              "output": "rstd",
+              "correct": false,
+              "mismatch_count": 8,
+              "max_abs_error": 0.6144492626190186
+            },
+            {
+              "output": "mean",
+              "correct": false,
+              "mismatch_count": 8,
+              "max_abs_error": 0.08570104837417603
+            }
+          ],
+          "metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                160,
+                2
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161247232,
+              "storage_nbytes": 5120
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161242624,
+              "storage_nbytes": 320
+            },
+            "b": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161243136,
+              "storage_nbytes": 320
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161243648,
+              "storage_nbytes": 2560
+            },
+            "mean": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161246208,
+              "storage_nbytes": 32
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161246720,
+              "storage_nbytes": 32
+            }
+          }
+        },
+        "guard": {
+          "status": "False",
+          "allowed": false,
+          "reason": "x shape/stride 与冻结规格不一致",
+          "trace": []
+        },
+        "upstream_check": {
+          "present": true,
+          "expression": "X.reshape(-1, dim).contiguous()",
+          "source": "bench/e1/upstream/unsloth/unsloth/kernels/layernorm.py:107"
+        },
+        "relayout": {
+          "guard_status": "True",
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0,
+              "max_abs_error": 4.76837158203125e-07
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0,
+              "max_abs_error": 1.1920928955078125e-07
+            },
+            {
+              "output": "mean",
+              "correct": true,
+              "mismatch_count": 0,
+              "max_abs_error": 2.9802322387695312e-08
+            }
+          ],
+          "copies": [
+            {
+              "tensor": "x",
+              "bytes": 2560
+            }
+          ],
+          "copy_bytes": 2560,
+          "timing": {
+            "repeats": 12,
+            "copy_median_ms": 0.018175999633967876,
+            "copy_plus_kernel_median_ms": 0.13396799564361572,
+            "scope": "WSL2 单机诊断；不属于 e4 稳定性能证据"
+          }
+        },
+        "fallback": {
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "mean",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "reference": "expected = torch.nn.functional.layer_norm"
+        },
+        "classification": "numeric_mismatch",
+        "worker_elapsed_ms": 6766.545522000001,
+        "evidence_boundary": "合法 PyTorch 视图上的底层 Kernel 前置条件敏感性；接口承诺需由 L2/L3 单独证明"
+      }
+    },
+    {
+      "case_id": "unsloth_layernorm_affine_stride",
+      "status": "complete",
+      "exit_code": 0,
+      "detail": {
+        "case": {
+          "id": "unsloth_layernorm_affine_stride",
+          "kernel_id": "unsloth_layernorm",
+          "source": "unsloth",
+          "problem": "LayerNorm W/b 使用单位列偏移且没有 stride 参数",
+          "mutated_inputs": [
+            "w",
+            "b"
+          ],
+          "mutation": "column_stride_2",
+          "wrapper_defense": "W.contiguous(); b.contiguous()",
+          "wrapper_source": "bench/e1/upstream/unsloth/unsloth/kernels/layernorm.py:109-110",
+          "l3_url": "https://github.com/unslothai/unsloth/pull/10675",
+          "l3_status": "open_at_2026-10-02",
+          "l3_commit": "624d9b86d"
+        },
+        "seed": 17,
+        "raw": {
+          "checks": [
+            {
+              "output": "out",
+              "correct": false,
+              "mismatch_count": 632,
+              "max_abs_error": 7.350895881652832
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0,
+              "max_abs_error": 1.1920928955078125e-07
+            },
+            {
+              "output": "mean",
+              "correct": true,
+              "mismatch_count": 0,
+              "max_abs_error": 2.9802322387695312e-08
+            }
+          ],
+          "metadata": {
+            "x": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161240064,
+              "storage_nbytes": 2560
+            },
+            "w": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                2
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161247232,
+              "storage_nbytes": 640
+            },
+            "b": {
+              "shape": [
+                80
+              ],
+              "stride_elements": [
+                2
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161248256,
+              "storage_nbytes": 640
+            },
+            "out": {
+              "shape": [
+                8,
+                80
+              ],
+              "stride_elements": [
+                80,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161243648,
+              "storage_nbytes": 2560
+            },
+            "mean": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161246208,
+              "storage_nbytes": 32
+            },
+            "rstd": {
+              "shape": [
+                8
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161246720,
+              "storage_nbytes": 32
+            }
+          }
+        },
+        "guard": {
+          "status": "False",
+          "allowed": false,
+          "reason": "w shape/stride 与冻结规格不一致",
+          "trace": []
+        },
+        "upstream_check": {
+          "present": true,
+          "expression": "W.contiguous(); b.contiguous()",
+          "source": "bench/e1/upstream/unsloth/unsloth/kernels/layernorm.py:109-110"
+        },
+        "relayout": {
+          "guard_status": "True",
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0,
+              "max_abs_error": 4.76837158203125e-07
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0,
+              "max_abs_error": 1.1920928955078125e-07
+            },
+            {
+              "output": "mean",
+              "correct": true,
+              "mismatch_count": 0,
+              "max_abs_error": 2.9802322387695312e-08
+            }
+          ],
+          "copies": [
+            {
+              "tensor": "w",
+              "bytes": 320
+            },
+            {
+              "tensor": "b",
+              "bytes": 320
+            }
+          ],
+          "copy_bytes": 640,
+          "timing": {
+            "repeats": 12,
+            "copy_median_ms": 0.024783999659121037,
+            "copy_plus_kernel_median_ms": 0.10321599990129471,
+            "scope": "WSL2 单机诊断；不属于 e4 稳定性能证据"
+          }
+        },
+        "fallback": {
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "rstd",
+              "correct": true,
+              "mismatch_count": 0
+            },
+            {
+              "output": "mean",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "reference": "expected = torch.nn.functional.layer_norm"
+        },
+        "classification": "numeric_mismatch",
+        "worker_elapsed_ms": 6348.286799000008,
+        "evidence_boundary": "合法 PyTorch 视图上的底层 Kernel 前置条件敏感性；接口承诺需由 L2/L3 单独证明"
+      }
+    }
+  ],
+  "counts": {
+    "registered": 4,
+    "complete": 4,
+    "l1_witnesses": 4,
+    "l2_wrapper_defenses": 3,
+    "l3_public_items": 1,
+    "by_source": {
+      "triton": 1,
+      "liger": 1,
+      "unsloth": 2
+    }
+  },
+  "checks": {
+    "all_workers_complete": true,
+    "independent_reference_for_every_case": true,
+    "raw_risk_reproduced": true,
+    "two_sources_three_patterns": true,
+    "guard_blocks_every_witness": true,
+    "relayout_and_fallback_correct": true,
+    "l2_requires_fixed_wrapper_source": true,
+    "l3_requires_public_url_and_status": true
+  },
+  "go_risk": true,
+  "scope": {
+    "l1": "底层 Kernel 对合法 PyTorch 物理布局的前置条件敏感性；没有接口承诺时不称为上游漏洞",
+    "l2": "固定源码中真实存在的 contiguous 防御、复制字节与 WSL2 诊断耗时",
+    "l3": "截至 2026-10-02 可公开核对的 Issue/PR；只登记与本地问题模式语义对应的项目"
+  }
+}
