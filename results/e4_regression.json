@@ -1,0 +1,99 @@
+{
+  "generated_at": "2026-10-06T13:00:03.192413+08:00",
+  "status": "integration_go_cross_hardware_pending",
+  "go_e4_integration": true,
+  "go_e4_cross_hardware": false,
+  "go_e4": false,
+  "source_fingerprint": "1553de651bce580f2821e641fde905b9c2f58a9f26c46c123b4b7b994289e5e0",
+  "git": {
+    "start_head": "763926519269325c1af8c39a892b6823d28b3b9f",
+    "current_head": "763926519269325c1af8c39a892b6823d28b3b9f",
+    "branch": "eval",
+    "worktree_status": " M README.md\n M bench/catalog.json\n?? bench/e4/\n?? integration/\n?? results/e4_cross_hardware_performance.json\n?? results/e4_cross_hardware_performance.md\n?? results/e4_development_record.json\n?? results/e4_development_record.md\n?? results/e4_dispatch_baselines.json\n?? results/e4_dispatch_baselines.md\n?? results/e4_regression.json\n?? results/e4_regression.md\n?? results/e4_regression_isolation.json\n?? results/e4_regression_isolation.md\n?? results/e4_workload_correctness.json\n?? results/e4_workload_correctness.md\n?? results/e4_workload_manifest.json\n?? results/e4_workload_manifest.md\n?? results/e4_wsl_diagnostics.json\n?? results/e4_wsl_diagnostics.md\n?? test/test_e4_baselines.py\n?? test/test_e4_correctness.py\n?? test/test_e4_diagnostics.py\n?? test/test_e4_manifest.py\n?? test/test_e4_validate.py\n?? test/test_e4_workloads.py",
+    "unexpected_paths": []
+  },
+  "environment": {
+    "system": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31",
+    "python": "3.10.20",
+    "torch": "2.11.0+cu128",
+    "triton": "3.6.0",
+    "cuda": "12.8",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+  },
+  "counts": {
+    "workloads": 2,
+    "integration_steps": 14,
+    "distinct_kernels": 14,
+    "by_source": {
+      "pytorch": 4,
+      "triton": 1,
+      "liger": 7,
+      "unsloth": 2
+    },
+    "holdout_kernels": 4,
+    "workloads_complete": 2,
+    "distinct_kernels_executed": 14,
+    "fast_paths": 14,
+    "known_false_allows": 0,
+    "blocked_numeric_mismatches": 2,
+    "safe_nonstandard_fast_paths": 1,
+    "safe_outside_frozen_domain_rejections": 1,
+    "baseline_policies": 7,
+    "native_linux_environments": 0
+  },
+  "checks": {
+    "e1_fingerprint_current": true,
+    "e2_go_and_rule_fingerprint_current": true,
+    "e3_go_and_source_fingerprint_current": true,
+    "two_traceable_workloads_and_ten_kernels": true,
+    "workload_correctness_and_zero_known_false_allows": true,
+    "safe_nonstandard_and_blocked_violation": true,
+    "fair_system_baselines": true,
+    "wsl_diagnostics_complete_and_scoped": true,
+    "full_regression_and_legacy_isolation": true,
+    "no_e2_e3_or_online_fast_changes": true,
+    "e4b_explicitly_pending": true
+  },
+  "regression": {
+    "command": [
+      "python",
+      "test/run_tests.py",
+      "--quick",
+      "--output",
+      "/mnt/f/Project/Paper/Code/TritonPact/results/e4_regression_isolation.md"
+    ],
+    "exit_code": 0,
+    "pytest_summary": "144 passed in 107.90s (0:01:47)",
+    "legacy_isolation_passed": true,
+    "legacy_checks": {
+      "四个变体进入 Access IR": true,
+      "语义规格与逐谓词来源可追溯": true,
+      "A 两组转置尺寸均出现数值错误": true,
+      "A Guard 拦截并正确回退": true,
+      "A2 非连续输入正确直通且连续化会复制": true,
+      "B 非整除边界正确直通": true,
+      "未知类型安全回退": true,
+      "官方教程双输入契约阻止错读": true,
+      "关键输入重复稳定": true,
+      "经验观察与静态放行分开记录": true,
+      "单谓词补集触发候选修订并放行": true
+    },
+    "stdout_tail": "[1/2] 运行测试\n........................................................................ [ 50%]\n........................................................................ [100%]\n144 passed in 107.90s (0:01:47)\n[2/2] 运行隔离案例\n通过：四个变体进入 Access IR\n通过：语义规格与逐谓词来源可追溯\n通过：A 两组转置尺寸均出现数值错误\n通过：A Guard 拦截并正确回退\n通过：A2 非连续输入正确直通且连续化会复制\n通过：B 非整除边界正确直通\n通过：未知类型安全回退\n通过：官方教程双输入契约阻止错读\n通过：关键输入重复稳定\n通过：经验观察与静态放行分开记录\n通过：单谓词补集触发候选修订并放行\n受限案例验收：通过\nA 模板内的动态候选修订：已验证\n结果文件：e4_regression_isolation.md\n",
+    "report": "results/e4_regression_isolation.md"
+  },
+  "claims": {
+    "integration": "两个真实轨迹和 14 个不同冻结函数体完成可追溯接入。",
+    "safety": "固定案例中已知误放行 0；2 个数值错读布局被阻止，Fallback 正确。",
+    "nonstandard": "项目 A2 padded-row 安全直通；Liger row-padding 因 e2 exact-stride 域被保守拒绝并单列缺口。",
+    "performance": "WSL2 单机诊断；无论区间方向如何，均不形成稳定加速、原生 Linux 或跨硬件结论。",
+    "overall": "e4a 完成不等于 e4 完成；e4b 和 go_e4 仍为 false。"
+  },
+  "reports": [
+    "results/e4_workload_manifest.md",
+    "results/e4_workload_correctness.md",
+    "results/e4_dispatch_baselines.md",
+    "results/e4_wsl_diagnostics.md",
+    "results/e4_cross_hardware_performance.md",
+    "results/e4_regression_isolation.md"
+  ]
+}

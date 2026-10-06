@@ -1,0 +1,94 @@
+{
+  "generated_at": "2026-10-06T12:46:49.889453+08:00",
+  "case_domain": {
+    "valid_registered_kernels": 14,
+    "numeric_mismatch_violations": 2,
+    "safe_project_nonstandard": 1,
+    "safe_upstream_outside_frozen_domain": 1,
+    "total": 18
+  },
+  "rows": [
+    {
+      "policy": "upstream",
+      "correct": 17,
+      "errors": 1,
+      "fast_or_raw": 15,
+      "fallback": 0,
+      "copy_count": 2,
+      "copy_bytes": 65536,
+      "selection": "固定上游 wrapper；Liger 防御复制，Triton 教程调用无同等布局防御"
+    },
+    {
+      "policy": "handwritten_guard",
+      "correct": 18,
+      "errors": 0,
+      "fast_or_raw": 16,
+      "fallback": 2,
+      "copy_count": 0,
+      "copy_bytes": 0,
+      "selection": "人工检查所有输入最后一维步长为 1；违约时使用同一 PyTorch reference"
+    },
+    {
+      "policy": "always_copy",
+      "correct": 18,
+      "errors": 0,
+      "fast_or_raw": 18,
+      "fallback": 0,
+      "copy_count": 18,
+      "copy_bytes": 378197,
+      "selection": "每个案例显式 clone/物化后执行；所有输入字节均计入"
+    },
+    {
+      "policy": "always_fallback",
+      "correct": 18,
+      "errors": 0,
+      "fast_or_raw": 0,
+      "fallback": 18,
+      "copy_count": 0,
+      "copy_bytes": 0,
+      "selection": "全部执行登记的独立 PyTorch reference"
+    },
+    {
+      "policy": "static_no_refinement",
+      "correct": 16,
+      "errors": 2,
+      "fast_or_raw": 18,
+      "fallback": 0,
+      "copy_count": 0,
+      "copy_bytes": 0,
+      "selection": "只核对 shape/dtype，不核对物理 stride；两个实际 raw mismatch 均保留"
+    },
+    {
+      "policy": "tritonpact",
+      "correct": 18,
+      "errors": 0,
+      "fast_or_raw": 15,
+      "fallback": 3,
+      "copy_count": 0,
+      "copy_bytes": 0,
+      "selection": "冻结 Guard；False/Unknown 使用 reference，未在线标定成本表"
+    },
+    {
+      "policy": "deterministic_no_cost",
+      "correct": 18,
+      "errors": 0,
+      "fast_or_raw": 15,
+      "fallback": 3,
+      "copy_count": 0,
+      "copy_bytes": 0,
+      "selection": "关闭成本表后的确定性安全策略；本阶段与 TritonPact 选择一致"
+    }
+  ],
+  "checks": {
+    "all_required_policies_present": true,
+    "same_case_denominator": true,
+    "same_reference_semantics": true,
+    "copy_bytes_and_counts_included": true,
+    "fallback_counts_included": true,
+    "unsafe_baselines_disclose_errors": true,
+    "tritonpact_zero_known_errors": true,
+    "no_online_holdout_calibration": true
+  },
+  "go_baselines": true,
+  "scope": "路径与复制账本来自 e4_workload_correctness 的实际执行；性能比较只允许使用全部正确且同语义的策略。"
+}

@@ -1,0 +1,589 @@
+{
+  "generated_at": "2026-10-06T12:49:35.058789+08:00",
+  "environment": {
+    "system": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31",
+    "python": "3.10.20",
+    "torch": "2.11.0+cu128",
+    "triton": "3.6.0",
+    "cuda": "12.8",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "wsl_interop": true,
+    "nvcc": "/usr/local/cuda/bin/nvcc",
+    "nvcc_version": "Build cuda_12.8.r12.8/compiler.35404655_0",
+    "path_rule": "e4a 命令显式把 /usr/local/cuda/bin 放在 Windows PATH 之前"
+  },
+  "protocol": {
+    "workload": "inductor_custom_kernel_graph",
+    "warmup": 3,
+    "rounds": 20,
+    "order": "fixed-seed randomized interleaving",
+    "synchronization": "torch.cuda.synchronize before and after every timed call",
+    "gc": "disabled during measured rounds",
+    "units": "milliseconds",
+    "timing": "host wall clock includes Guard/copy/dispatch preparation and synchronized GPU completion"
+  },
+  "first_run_including_compile_ms": 3001.3773720000004,
+  "components": {
+    "guard_only": {
+      "p50_ms": 0.08249200000000001,
+      "p95_ms": 0.1340639,
+      "samples_ms": [
+        0.124425,
+        0.091093,
+        0.086384,
+        0.087125,
+        0.082898,
+        0.083448,
+        0.082086,
+        0.082076,
+        0.083127,
+        0.082917,
+        0.080984,
+        0.080022,
+        0.080543,
+        0.079551,
+        0.07904,
+        0.081314,
+        0.080643,
+        0.07949,
+        0.133052,
+        0.15329
+      ]
+    },
+    "copy_only": {
+      "p50_ms": 0.0523395,
+      "p95_ms": 0.09585560000000004,
+      "samples_ms": [
+        0.13153,
+        0.06306,
+        0.093978,
+        0.055926,
+        0.054152,
+        0.054674,
+        0.054003,
+        0.054102,
+        0.050676,
+        0.043602,
+        0.042801,
+        0.040867,
+        0.044945,
+        0.047901,
+        0.044645,
+        0.05809,
+        0.044895,
+        0.081795,
+        0.038663,
+        0.037792
+      ]
+    },
+    "kernel_graph": {
+      "p50_ms": 0.08296200000000001,
+      "p95_ms": 0.1564105,
+      "samples_ms": [
+        0.120328,
+        0.118404,
+        0.0895,
+        0.072998,
+        0.073349,
+        0.139023,
+        0.077848,
+        0.068059,
+        0.080683,
+        0.073349,
+        0.176674,
+        0.078138,
+        0.155344,
+        0.137951,
+        0.074351,
+        0.086173,
+        0.085021,
+        0.081765,
+        0.084159,
+        0.073739
+      ],
+      "paired_to_upstream": {
+        "median_ratio": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "stable_direction": "uncertain"
+      }
+    },
+    "fallback": {
+      "p50_ms": 0.0945195,
+      "p95_ms": 0.13716225,
+      "samples_ms": [
+        0.097104,
+        0.109808,
+        0.081915,
+        0.134896,
+        0.081204,
+        0.09454,
+        0.082506,
+        0.062449,
+        0.08451,
+        0.097585,
+        0.090963,
+        0.180221,
+        0.084631,
+        0.111391,
+        0.094499,
+        0.114467,
+        0.102454,
+        0.090953,
+        0.104538,
+        0.065755
+      ],
+      "paired_to_upstream": {
+        "median_ratio": 1.053633547014163,
+        "ci95": [
+          0.903488810110187,
+          1.2235961248209244
+        ],
+        "stable_direction": "uncertain"
+      }
+    }
+  },
+  "policies": {
+    "upstream": {
+      "p50_ms": 0.08296200000000001,
+      "p95_ms": 0.1564105,
+      "samples_ms": [
+        0.120328,
+        0.118404,
+        0.0895,
+        0.072998,
+        0.073349,
+        0.139023,
+        0.077848,
+        0.068059,
+        0.080683,
+        0.073349,
+        0.176674,
+        0.078138,
+        0.155344,
+        0.137951,
+        0.074351,
+        0.086173,
+        0.085021,
+        0.081765,
+        0.084159,
+        0.073739
+      ],
+      "paired_to_upstream": {
+        "median_ratio": 1.0,
+        "ci95": [
+          1.0,
+          1.0
+        ],
+        "stable_direction": "uncertain"
+      }
+    },
+    "handwritten_guard": {
+      "p50_ms": 0.08208099999999999,
+      "p95_ms": 0.11040975000000003,
+      "samples_ms": [
+        0.090512,
+        0.093007,
+        0.082296,
+        0.157829,
+        0.076705,
+        0.07892,
+        0.074391,
+        0.075654,
+        0.081445,
+        0.072547,
+        0.078209,
+        0.104889,
+        0.078559,
+        0.091644,
+        0.081866,
+        0.090171,
+        0.107914,
+        0.08444,
+        0.081464,
+        0.093046
+      ],
+      "paired_to_upstream": {
+        "median_ratio": 0.9992551704858827,
+        "ci95": [
+          0.8525069685664779,
+          1.0737348375085862
+        ],
+        "stable_direction": "uncertain"
+      }
+    },
+    "always_copy": {
+      "p50_ms": 0.12664999999999998,
+      "p95_ms": 0.20832770000000003,
+      "samples_ms": [
+        0.132682,
+        0.210469,
+        0.111391,
+        0.101863,
+        0.122452,
+        0.206912,
+        0.123003,
+        0.10578,
+        0.112483,
+        0.115599,
+        0.132131,
+        0.130297,
+        0.122793,
+        0.143021,
+        0.112063,
+        0.208215,
+        0.164762,
+        0.195721,
+        0.132591,
+        0.097074
+      ],
+      "paired_to_upstream": {
+        "median_ratio": 1.5307277388079794,
+        "ci95": [
+          1.3552945257004574,
+          1.623782357954245
+        ],
+        "stable_direction": "higher"
+      }
+    },
+    "always_fallback": {
+      "p50_ms": 0.0945195,
+      "p95_ms": 0.13716225,
+      "samples_ms": [
+        0.097104,
+        0.109808,
+        0.081915,
+        0.134896,
+        0.081204,
+        0.09454,
+        0.082506,
+        0.062449,
+        0.08451,
+        0.097585,
+        0.090963,
+        0.180221,
+        0.084631,
+        0.111391,
+        0.094499,
+        0.114467,
+        0.102454,
+        0.090953,
+        0.104538,
+        0.065755
+      ],
+      "paired_to_upstream": {
+        "median_ratio": 1.053633547014163,
+        "ci95": [
+          0.903488810110187,
+          1.2235961248209244
+        ],
+        "stable_direction": "uncertain"
+      }
+    },
+    "static_no_refinement": {
+      "p50_ms": 0.085988,
+      "p95_ms": 0.1468696,
+      "samples_ms": [
+        0.092495,
+        0.091743,
+        0.082747,
+        0.078288,
+        0.079962,
+        0.08433,
+        0.088367,
+        0.145997,
+        0.085002,
+        0.086043,
+        0.084861,
+        0.163449,
+        0.085933,
+        0.091252,
+        0.072838,
+        0.073459,
+        0.100751,
+        0.084561,
+        0.104298,
+        0.087836
+      ],
+      "paired_to_upstream": {
+        "median_ratio": 1.0438630219723837,
+        "ci95": [
+          0.8136449146655991,
+          1.1540926585170537
+        ],
+        "stable_direction": "uncertain"
+      }
+    },
+    "tritonpact": {
+      "p50_ms": 0.1907665,
+      "p95_ms": 0.3118007,
+      "samples_ms": [
+        0.321124,
+        0.20046,
+        0.183207,
+        0.193467,
+        0.178428,
+        0.171705,
+        0.19527,
+        0.190211,
+        0.171245,
+        0.170333,
+        0.293536,
+        0.20604,
+        0.189719,
+        0.219797,
+        0.31131,
+        0.184279,
+        0.203325,
+        0.183708,
+        0.190591,
+        0.190942
+      ],
+      "paired_to_upstream": {
+        "median_ratio": 2.2934402126365683,
+        "ci95": [
+          2.084723868367666,
+          2.548889946132279
+        ],
+        "stable_direction": "higher"
+      }
+    },
+    "deterministic_no_cost": {
+      "p50_ms": 0.19795000000000001,
+      "p95_ms": 0.2395428,
+      "samples_ms": [
+        0.220618,
+        0.177647,
+        0.177817,
+        0.247519,
+        0.1789,
+        0.209196,
+        0.191823,
+        0.208776,
+        0.189459,
+        0.183708,
+        0.210208,
+        0.239123,
+        0.190671,
+        0.238933,
+        0.197044,
+        0.197594,
+        0.205029,
+        0.203515,
+        0.16896,
+        0.198306
+      ],
+      "paired_to_upstream": {
+        "median_ratio": 2.3798499634186996,
+        "ci95": [
+          1.8334718436274184,
+          2.4967987218007295
+        ],
+        "stable_direction": "higher"
+      }
+    }
+  },
+  "interleaved_orders": [
+    [
+      "tritonpact",
+      "upstream",
+      "handwritten_guard",
+      "deterministic_no_cost",
+      "always_copy",
+      "always_fallback",
+      "static_no_refinement"
+    ],
+    [
+      "handwritten_guard",
+      "always_fallback",
+      "upstream",
+      "always_copy",
+      "static_no_refinement",
+      "tritonpact",
+      "deterministic_no_cost"
+    ],
+    [
+      "upstream",
+      "deterministic_no_cost",
+      "static_no_refinement",
+      "always_copy",
+      "tritonpact",
+      "always_fallback",
+      "handwritten_guard"
+    ],
+    [
+      "static_no_refinement",
+      "upstream",
+      "always_copy",
+      "handwritten_guard",
+      "always_fallback",
+      "deterministic_no_cost",
+      "tritonpact"
+    ],
+    [
+      "always_copy",
+      "upstream",
+      "always_fallback",
+      "static_no_refinement",
+      "tritonpact",
+      "deterministic_no_cost",
+      "handwritten_guard"
+    ],
+    [
+      "always_fallback",
+      "static_no_refinement",
+      "handwritten_guard",
+      "always_copy",
+      "upstream",
+      "deterministic_no_cost",
+      "tritonpact"
+    ],
+    [
+      "upstream",
+      "tritonpact",
+      "always_copy",
+      "handwritten_guard",
+      "deterministic_no_cost",
+      "always_fallback",
+      "static_no_refinement"
+    ],
+    [
+      "always_fallback",
+      "tritonpact",
+      "handwritten_guard",
+      "upstream",
+      "always_copy",
+      "static_no_refinement",
+      "deterministic_no_cost"
+    ],
+    [
+      "always_fallback",
+      "deterministic_no_cost",
+      "handwritten_guard",
+      "tritonpact",
+      "always_copy",
+      "upstream",
+      "static_no_refinement"
+    ],
+    [
+      "deterministic_no_cost",
+      "always_copy",
+      "tritonpact",
+      "handwritten_guard",
+      "always_fallback",
+      "upstream",
+      "static_no_refinement"
+    ],
+    [
+      "tritonpact",
+      "always_fallback",
+      "deterministic_no_cost",
+      "upstream",
+      "always_copy",
+      "static_no_refinement",
+      "handwritten_guard"
+    ],
+    [
+      "upstream",
+      "tritonpact",
+      "always_fallback",
+      "static_no_refinement",
+      "handwritten_guard",
+      "always_copy",
+      "deterministic_no_cost"
+    ],
+    [
+      "always_fallback",
+      "static_no_refinement",
+      "upstream",
+      "tritonpact",
+      "handwritten_guard",
+      "deterministic_no_cost",
+      "always_copy"
+    ],
+    [
+      "always_fallback",
+      "handwritten_guard",
+      "static_no_refinement",
+      "deterministic_no_cost",
+      "tritonpact",
+      "upstream",
+      "always_copy"
+    ],
+    [
+      "handwritten_guard",
+      "static_no_refinement",
+      "deterministic_no_cost",
+      "upstream",
+      "always_fallback",
+      "always_copy",
+      "tritonpact"
+    ],
+    [
+      "handwritten_guard",
+      "tritonpact",
+      "static_no_refinement",
+      "always_fallback",
+      "upstream",
+      "deterministic_no_cost",
+      "always_copy"
+    ],
+    [
+      "handwritten_guard",
+      "always_copy",
+      "upstream",
+      "tritonpact",
+      "static_no_refinement",
+      "deterministic_no_cost",
+      "always_fallback"
+    ],
+    [
+      "deterministic_no_cost",
+      "always_fallback",
+      "static_no_refinement",
+      "tritonpact",
+      "upstream",
+      "handwritten_guard",
+      "always_copy"
+    ],
+    [
+      "static_no_refinement",
+      "handwritten_guard",
+      "always_fallback",
+      "upstream",
+      "tritonpact",
+      "always_copy",
+      "deterministic_no_cost"
+    ],
+    [
+      "deterministic_no_cost",
+      "handwritten_guard",
+      "always_fallback",
+      "static_no_refinement",
+      "always_copy",
+      "tritonpact",
+      "upstream"
+    ]
+  ],
+  "gpu_state_before": {
+    "status": "Unknown",
+    "reason": "FileNotFoundError"
+  },
+  "gpu_state_after": {
+    "status": "Unknown",
+    "reason": "FileNotFoundError"
+  },
+  "checks": {
+    "native_wsl_cuda_toolchain_selected": true,
+    "warmup_and_interleaving_recorded": true,
+    "raw_samples_complete": true,
+    "guard_copy_kernel_fallback_components_present": true,
+    "first_run_separated": true,
+    "no_online_cost_calibration": true,
+    "diagnostic_scope_only": true
+  },
+  "go_diagnostics": true,
+  "conclusion": "WSL2 单机诊断；无论区间方向如何，均不形成稳定加速、原生 Linux 或跨硬件结论。"
+}

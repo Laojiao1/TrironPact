@@ -1,0 +1,440 @@
+{
+  "generated_at": "2026-10-06T12:38:17.950923+08:00",
+  "workloads": [
+    {
+      "id": "inductor_custom_kernel_graph",
+      "title": "PyTorch Inductor 自定义 Triton Kernel 图",
+      "kind": "compiler_graph_trace",
+      "entrypoint": "integration.worker.run_inductor_workload",
+      "input_domain": "固定 129 元素 pointwise 分支与 16x16 stride-aware 分支，float32 CUDA 张量",
+      "provenance": "PyTorch test/inductor/test_triton_kernels.py 的 view、strided input 与多 Kernel 调用模式",
+      "steps": [
+        {
+          "kernel_id": "pytorch_sub",
+          "call_site": "pointwise.sub",
+          "upstream_role": "PyTorch 自定义 Triton 二元算子"
+        },
+        {
+          "kernel_id": "pytorch_double",
+          "call_site": "pointwise.double",
+          "upstream_role": "PyTorch view/functionalization 测试 Kernel"
+        },
+        {
+          "kernel_id": "pytorch_masked_add",
+          "call_site": "pointwise.masked_add",
+          "upstream_role": "PyTorch bool mask 自定义 Kernel"
+        },
+        {
+          "kernel_id": "triton_add",
+          "call_site": "pointwise.add",
+          "upstream_role": "Triton 官方 vector-add Kernel 作为用户 Kernel 节点"
+        },
+        {
+          "kernel_id": "pytorch_double_strided",
+          "call_site": "layout.double_strided",
+          "upstream_role": "PyTorch stride-aware 二维 Kernel"
+        }
+      ]
+    },
+    {
+      "id": "transformer_layer_trace",
+      "title": "Transformer 层归一化与门控激活轨迹",
+      "kind": "model_layer_trace",
+      "entrypoint": "integration.worker.run_transformer_workload",
+      "input_domain": "固定小规模随机参数；8x80 归一化分支与 32x256 门控激活分支，float32 CUDA 张量",
+      "provenance": "Liger/Unsloth 固定提交中的公开 wrapper、算子测试和独立 PyTorch reference",
+      "steps": [
+        {
+          "kernel_id": "liger_rmsnorm",
+          "call_site": "norm.liger_rmsnorm",
+          "upstream_role": "Transformer RMSNorm"
+        },
+        {
+          "kernel_id": "unsloth_rmsnorm",
+          "call_site": "norm.unsloth_rmsnorm",
+          "upstream_role": "Llama RMSNorm wrapper"
+        },
+        {
+          "kernel_id": "liger_layernorm",
+          "call_site": "norm.liger_layernorm",
+          "upstream_role": "Transformer LayerNorm"
+        },
+        {
+          "kernel_id": "unsloth_layernorm",
+          "call_site": "norm.unsloth_layernorm",
+          "upstream_role": "Unsloth LayerNorm wrapper"
+        },
+        {
+          "kernel_id": "liger_swiglu",
+          "call_site": "activation.swiglu",
+          "upstream_role": "Transformer FFN SwiGLU"
+        },
+        {
+          "kernel_id": "liger_swiglu_tiled",
+          "call_site": "activation.swiglu_tiled",
+          "upstream_role": "宽行 SwiGLU 变体"
+        },
+        {
+          "kernel_id": "liger_geglu",
+          "call_site": "activation.geglu",
+          "upstream_role": "Transformer FFN GeGLU"
+        },
+        {
+          "kernel_id": "liger_fused_swiglu",
+          "call_site": "activation.fused_swiglu",
+          "upstream_role": "融合 gate/up SwiGLU"
+        },
+        {
+          "kernel_id": "liger_softmax",
+          "call_site": "activation.softmax",
+          "upstream_role": "行归约 softmax"
+        }
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "kernel_id": "pytorch_sub",
+      "call_site": "pointwise.sub",
+      "upstream_role": "PyTorch 自定义 Triton 二元算子",
+      "workload": "inductor_custom_kernel_graph",
+      "status": "traceable",
+      "source": "pytorch",
+      "repository": "pytorch/pytorch",
+      "revision": "a6b28b689562679531a842f27d4e39ba50bb34f1",
+      "license_id": "PyTorch BSD-style",
+      "source_file": "torch/testing/_internal/triton_utils.py",
+      "source_line": 106,
+      "test_file": "test/inductor/test_triton_kernels.py",
+      "function": "sub_kernel",
+      "function_sha256": "60d2fc532770c8682196284f048eb32ff10ca1faa5992cd225d0850ccfb5b839",
+      "split": "development",
+      "reference_anchor": "shared sub_kernel; independent torch.sub mathematical specification",
+      "tolerance": {
+        "rtol": 1e-05,
+        "atol": 1e-06,
+        "provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+      }
+    },
+    {
+      "kernel_id": "pytorch_double",
+      "call_site": "pointwise.double",
+      "upstream_role": "PyTorch view/functionalization 测试 Kernel",
+      "workload": "inductor_custom_kernel_graph",
+      "status": "traceable",
+      "source": "pytorch",
+      "repository": "pytorch/pytorch",
+      "revision": "a6b28b689562679531a842f27d4e39ba50bb34f1",
+      "license_id": "PyTorch BSD-style",
+      "source_file": "torch/testing/_internal/triton_utils.py",
+      "source_line": 576,
+      "test_file": "test/inductor/test_triton_kernels.py",
+      "function": "mul2_kernel",
+      "function_sha256": "c1f9f9dedb128a9405955f442e05522012a7273dfa6e337c4d568caf31a30c7f",
+      "split": "development",
+      "reference_anchor": "test_triton_kernel_with_views",
+      "tolerance": {
+        "rtol": 1e-05,
+        "atol": 1e-06,
+        "provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+      }
+    },
+    {
+      "kernel_id": "pytorch_masked_add",
+      "call_site": "pointwise.masked_add",
+      "upstream_role": "PyTorch bool mask 自定义 Kernel",
+      "workload": "inductor_custom_kernel_graph",
+      "status": "traceable",
+      "source": "pytorch",
+      "repository": "pytorch/pytorch",
+      "revision": "a6b28b689562679531a842f27d4e39ba50bb34f1",
+      "license_id": "PyTorch BSD-style",
+      "source_file": "torch/testing/_internal/triton_utils.py",
+      "source_line": 1072,
+      "test_file": "test/inductor/test_triton_kernels.py",
+      "function": "masked_add_kernel_with_bool_tensor",
+      "function_sha256": "99508fa84c44469dc750fcbce33ed3a3b019e7a97d7bf6453be79dfb4603378d",
+      "split": "development",
+      "reference_anchor": "masked_add_kernel_with_bool_tensor; independent torch.where(mask, x+y, x)",
+      "tolerance": {
+        "rtol": 1e-05,
+        "atol": 1e-06,
+        "provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+      }
+    },
+    {
+      "kernel_id": "triton_add",
+      "call_site": "pointwise.add",
+      "upstream_role": "Triton 官方 vector-add Kernel 作为用户 Kernel 节点",
+      "workload": "inductor_custom_kernel_graph",
+      "status": "traceable",
+      "source": "triton",
+      "repository": "triton-lang/triton",
+      "revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "license_id": "MIT",
+      "source_file": "python/tutorials/01-vector-add.py",
+      "source_line": 29,
+      "test_file": "python/tutorials/01-vector-add.py",
+      "function": "add_kernel",
+      "function_sha256": "4367cce6ad76d1b1479d5e7a5302474929bb296393966d3bda317d73ba294650",
+      "split": "development",
+      "reference_anchor": "output_torch = x + y",
+      "tolerance": {
+        "rtol": 1e-05,
+        "atol": 1e-06,
+        "provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+      }
+    },
+    {
+      "kernel_id": "pytorch_double_strided",
+      "call_site": "layout.double_strided",
+      "upstream_role": "PyTorch stride-aware 二维 Kernel",
+      "workload": "inductor_custom_kernel_graph",
+      "status": "traceable",
+      "source": "pytorch",
+      "repository": "pytorch/pytorch",
+      "revision": "a6b28b689562679531a842f27d4e39ba50bb34f1",
+      "license_id": "PyTorch BSD-style",
+      "source_file": "torch/testing/_internal/triton_utils.py",
+      "source_line": 628,
+      "test_file": "test/inductor/test_triton_kernels.py",
+      "function": "double_strided_kernel",
+      "function_sha256": "e4f868de1c6e7e53cd1c83f548cf8ad7a615063b308e331e2c348859c9f6927a",
+      "split": "holdout",
+      "reference_anchor": "test_triton_kernel_strided_input",
+      "tolerance": {
+        "rtol": 1e-05,
+        "atol": 1e-06,
+        "provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+      }
+    },
+    {
+      "kernel_id": "liger_rmsnorm",
+      "call_site": "norm.liger_rmsnorm",
+      "upstream_role": "Transformer RMSNorm",
+      "workload": "transformer_layer_trace",
+      "status": "traceable",
+      "source": "liger",
+      "repository": "linkedin/Liger-Kernel",
+      "revision": "40a9d8a61bdc546f4e70220619d4db9760fa80b1",
+      "license_id": "BSD-2-Clause",
+      "source_file": "src/liger_kernel/ops/rms_norm.py",
+      "source_line": 67,
+      "test_file": "test/ops/test_rms_norm.py",
+      "function": "_rms_norm_forward_kernel",
+      "function_sha256": "a808d7b37981aa1819a40f830861327f41874c1384bb1e59caaae0ed72902a48",
+      "split": "development",
+      "reference_anchor": "pytorch_reference_rms_norm",
+      "tolerance": {
+        "rtol": 0.0001,
+        "atol": 0.0001,
+        "provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+      }
+    },
+    {
+      "kernel_id": "unsloth_rmsnorm",
+      "call_site": "norm.unsloth_rmsnorm",
+      "upstream_role": "Llama RMSNorm wrapper",
+      "workload": "transformer_layer_trace",
+      "status": "traceable",
+      "source": "unsloth",
+      "repository": "unslothai/unsloth",
+      "revision": "7ebf192674a217faa15891de3e95a517fb5d890e",
+      "license_id": "Apache-2.0; selected test files carry AGPL-3.0-only SPDX",
+      "source_file": "unsloth/kernels/rms_layernorm.py",
+      "source_line": 18,
+      "test_file": "tests/test_rmsnorm_gradient_layout.py",
+      "function": "_rms_layernorm_forward",
+      "function_sha256": "541af9b6fc741ee7cba0fab2fbc5f3b2cd61f4d45258b03d40783d7c58926eff",
+      "split": "holdout",
+      "reference_anchor": "torch.nn.functional.rms_norm / Gemma weight offset",
+      "tolerance": {
+        "rtol": 0.01,
+        "atol": 0.001,
+        "provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+      }
+    },
+    {
+      "kernel_id": "liger_layernorm",
+      "call_site": "norm.liger_layernorm",
+      "upstream_role": "Transformer LayerNorm",
+      "workload": "transformer_layer_trace",
+      "status": "traceable",
+      "source": "liger",
+      "repository": "linkedin/Liger-Kernel",
+      "revision": "40a9d8a61bdc546f4e70220619d4db9760fa80b1",
+      "license_id": "BSD-2-Clause",
+      "source_file": "src/liger_kernel/ops/layer_norm.py",
+      "source_line": 26,
+      "test_file": "test/ops/test_layer_norm.py",
+      "function": "_layer_norm_forward_kernel",
+      "function_sha256": "f3f564de25c44873c0ee44017a470829055c3f10279f06c484433383f0a8ea74",
+      "split": "holdout",
+      "reference_anchor": "pytorch_reference_layer_norm",
+      "tolerance": {
+        "rtol": 0.0001,
+        "atol": 1e-05,
+        "provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+      }
+    },
+    {
+      "kernel_id": "unsloth_layernorm",
+      "call_site": "norm.unsloth_layernorm",
+      "upstream_role": "Unsloth LayerNorm wrapper",
+      "workload": "transformer_layer_trace",
+      "status": "traceable",
+      "source": "unsloth",
+      "repository": "unslothai/unsloth",
+      "revision": "7ebf192674a217faa15891de3e95a517fb5d890e",
+      "license_id": "Apache-2.0; selected test files carry AGPL-3.0-only SPDX",
+      "source_file": "unsloth/kernels/layernorm.py",
+      "source_line": 22,
+      "test_file": "tests/test_layernorm_gradient_layout.py",
+      "function": "layernorm_forward",
+      "function_sha256": "5c806a7a39902491877dffb72140401ad0a161873483ccb4d706af0113e3af12",
+      "split": "development",
+      "reference_anchor": "expected = torch.nn.functional.layer_norm",
+      "tolerance": {
+        "rtol": 0.01,
+        "atol": 0.001,
+        "provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+      }
+    },
+    {
+      "kernel_id": "liger_swiglu",
+      "call_site": "activation.swiglu",
+      "upstream_role": "Transformer FFN SwiGLU",
+      "workload": "transformer_layer_trace",
+      "status": "traceable",
+      "source": "liger",
+      "repository": "linkedin/Liger-Kernel",
+      "revision": "40a9d8a61bdc546f4e70220619d4db9760fa80b1",
+      "license_id": "BSD-2-Clause",
+      "source_file": "src/liger_kernel/ops/swiglu.py",
+      "source_line": 57,
+      "test_file": "test/ops/test_swiglu.py",
+      "function": "_swiglu_forward_kernel",
+      "function_sha256": "021883fbe4e673a3845a84ff4d686905bd8850c7fb38815d407ef4f425d6685f",
+      "split": "holdout",
+      "reference_anchor": "_swiglu_ref",
+      "tolerance": {
+        "rtol": 1e-05,
+        "atol": 1e-05,
+        "provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+      }
+    },
+    {
+      "kernel_id": "liger_swiglu_tiled",
+      "call_site": "activation.swiglu_tiled",
+      "upstream_role": "宽行 SwiGLU 变体",
+      "workload": "transformer_layer_trace",
+      "status": "traceable",
+      "source": "liger",
+      "repository": "linkedin/Liger-Kernel",
+      "revision": "40a9d8a61bdc546f4e70220619d4db9760fa80b1",
+      "license_id": "BSD-2-Clause",
+      "source_file": "src/liger_kernel/ops/swiglu.py",
+      "source_line": 108,
+      "test_file": "test/ops/test_swiglu.py",
+      "function": "_swiglu_forward_kernel_tiled",
+      "function_sha256": "0a0d3335d5821dc65bb0f22f47e04be98921a6f954dfca7e7536a81e9d5a7d6f",
+      "split": "development",
+      "reference_anchor": "_swiglu_ref",
+      "tolerance": {
+        "rtol": 1e-05,
+        "atol": 1e-05,
+        "provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+      }
+    },
+    {
+      "kernel_id": "liger_geglu",
+      "call_site": "activation.geglu",
+      "upstream_role": "Transformer FFN GeGLU",
+      "workload": "transformer_layer_trace",
+      "status": "traceable",
+      "source": "liger",
+      "repository": "linkedin/Liger-Kernel",
+      "revision": "40a9d8a61bdc546f4e70220619d4db9760fa80b1",
+      "license_id": "BSD-2-Clause",
+      "source_file": "src/liger_kernel/ops/geglu.py",
+      "source_line": 24,
+      "test_file": "test/ops/test_geglu.py",
+      "function": "_geglu_tanh_forward_kernel",
+      "function_sha256": "95b9ec8d6ab47c4e06ae9a9456c8effcaefa42104357ec71d0a8335432af19df",
+      "split": "development",
+      "reference_anchor": "_geglu_ref",
+      "tolerance": {
+        "rtol": 1e-05,
+        "atol": 1e-05,
+        "provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+      }
+    },
+    {
+      "kernel_id": "liger_fused_swiglu",
+      "call_site": "activation.fused_swiglu",
+      "upstream_role": "融合 gate/up SwiGLU",
+      "workload": "transformer_layer_trace",
+      "status": "traceable",
+      "source": "liger",
+      "repository": "linkedin/Liger-Kernel",
+      "revision": "40a9d8a61bdc546f4e70220619d4db9760fa80b1",
+      "license_id": "BSD-2-Clause",
+      "source_file": "src/liger_kernel/ops/swiglu.py",
+      "source_line": 317,
+      "test_file": "test/ops/test_swiglu.py",
+      "function": "_swiglu_fused_gate_up_forward_kernel",
+      "function_sha256": "0968facd43e28da6fbaad1a15b66bef498d3df2ef0020dbef33adefd8627a3ec",
+      "split": "development",
+      "reference_anchor": "_swiglu_ref applied to gate/up halves",
+      "tolerance": {
+        "rtol": 1e-05,
+        "atol": 1e-05,
+        "provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+      }
+    },
+    {
+      "kernel_id": "liger_softmax",
+      "call_site": "activation.softmax",
+      "upstream_role": "行归约 softmax",
+      "workload": "transformer_layer_trace",
+      "status": "traceable",
+      "source": "liger",
+      "repository": "linkedin/Liger-Kernel",
+      "revision": "40a9d8a61bdc546f4e70220619d4db9760fa80b1",
+      "license_id": "BSD-2-Clause",
+      "source_file": "src/liger_kernel/ops/softmax.py",
+      "source_line": 11,
+      "test_file": "test/ops/test_softmax.py",
+      "function": "_softmax_single_block_forward_kernel",
+      "function_sha256": "96ab0df8b4a130346f53ae8278b7f7ef68fc2b63fe84d76a69a816e109a22546",
+      "split": "development",
+      "reference_anchor": "_softmax_ref",
+      "tolerance": {
+        "rtol": 1e-05,
+        "atol": 1e-05,
+        "provenance": "上游精度域/参考公式固定；缓存统计量独立核对；未放宽失败容差"
+      }
+    }
+  ],
+  "counts": {
+    "workloads": 2,
+    "integration_steps": 14,
+    "distinct_kernels": 14,
+    "by_source": {
+      "pytorch": 4,
+      "triton": 1,
+      "liger": 7,
+      "unsloth": 2
+    },
+    "holdout_kernels": 4
+  },
+  "checks": {
+    "two_workloads": true,
+    "ten_distinct_function_bodies": true,
+    "all_steps_traceable": true,
+    "all_guards_frozen_supported": true,
+    "holdout_not_used_for_rule_changes": true
+  },
+  "go_manifest": true,
+  "scope": "函数体按 function_sha256 去重；留出条目只执行冻结评估，不反馈修改 e2 规则。"
+}

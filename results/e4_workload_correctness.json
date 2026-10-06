@@ -1,0 +1,1670 @@
+{
+  "generated_at": "2026-10-06T12:44:08.086723+08:00",
+  "workloads": [
+    {
+      "status": "complete",
+      "command": [
+        "python",
+        "-m",
+        "integration.worker",
+        "inductor_custom_kernel_graph"
+      ],
+      "exit_code": 0,
+      "detail": {
+        "workload": "inductor_custom_kernel_graph",
+        "status": "passed",
+        "execution": "torch.compile(fullgraph=True, backend='inductor')",
+        "first_run_including_compile_ms": 3241.8428169999984,
+        "guards": [
+          {
+            "kernel_id": "pytorch_sub",
+            "status": "True",
+            "allowed": true,
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "in_ptr0",
+                "line": 22
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "in_ptr0",
+                "line": 22
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "in_ptr1",
+                "line": 23
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "in_ptr1",
+                "line": 23
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "out_ptr",
+                "line": 25
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "out_ptr",
+                "line": 25
+              }
+            ]
+          },
+          {
+            "kernel_id": "pytorch_double",
+            "status": "True",
+            "allowed": true,
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "in_ptr0",
+                "line": 21
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "in_ptr0",
+                "line": 21
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "out_ptr",
+                "line": 23
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "out_ptr",
+                "line": 23
+              }
+            ]
+          },
+          {
+            "kernel_id": "pytorch_masked_add",
+            "status": "True",
+            "allowed": true,
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "in_ptr0",
+                "line": 24
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "in_ptr0",
+                "line": 24
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "in_ptr1",
+                "line": 25
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "in_ptr1",
+                "line": 25
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "mask_ptr",
+                "line": 26
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "mask_ptr",
+                "line": 26
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "out_ptr",
+                "line": 28
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "out_ptr",
+                "line": 28
+              }
+            ]
+          },
+          {
+            "kernel_id": "triton_add",
+            "status": "True",
+            "allowed": true,
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "x_ptr",
+                "line": 31
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "x_ptr",
+                "line": 31
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "y_ptr",
+                "line": 32
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "y_ptr",
+                "line": 32
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "output_ptr",
+                "line": 35
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "output_ptr",
+                "line": 35
+              }
+            ]
+          },
+          {
+            "kernel_id": "pytorch_double_strided",
+            "status": "True",
+            "allowed": true,
+            "reason": "冻结调用域的全部访存义务本次为真",
+            "trace": [
+              {
+                "stage": "metadata",
+                "value": true
+              },
+              {
+                "stage": "alias",
+                "value": true
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "in_ptr",
+                "line": 27
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "in_ptr",
+                "line": 27
+              },
+              {
+                "stage": "span",
+                "value": true,
+                "rule": "bounded_enabled_access_span",
+                "pointer": "out_ptr",
+                "line": 28
+              },
+              {
+                "stage": "metadata",
+                "value": true,
+                "rule": "frozen_physical_mapping",
+                "pointer": "out_ptr",
+                "line": 28
+              }
+            ]
+          }
+        ],
+        "checks": [
+          {
+            "output": "vector",
+            "correct": true,
+            "max_abs_error": 0.0
+          },
+          {
+            "output": "matrix",
+            "correct": true,
+            "max_abs_error": 0.0
+          }
+        ],
+        "kernel_ids": [
+          "pytorch_sub",
+          "pytorch_double",
+          "pytorch_masked_add",
+          "triton_add",
+          "pytorch_double_strided"
+        ],
+        "evidence": "真实 Inductor 自定义 Triton 图的冻结输入经验核对；不证明域外布局安全。"
+      }
+    },
+    {
+      "status": "complete",
+      "command": [
+        "python",
+        "-m",
+        "integration.worker",
+        "transformer_layer_trace"
+      ],
+      "exit_code": 0,
+      "detail": {
+        "workload": "transformer_layer_trace",
+        "status": "passed",
+        "execution": "固定模型层数据流加官方算子变体；随机参数，无预训练权重",
+        "steps": [
+          {
+            "kernel_id": "liger_rmsnorm",
+            "path": "Fast",
+            "guard": {
+              "status": "True",
+              "allowed": true,
+              "reason": "冻结调用域的全部访存义务本次为真",
+              "trace": [
+                {
+                  "stage": "metadata",
+                  "value": true
+                },
+                {
+                  "stage": "alias",
+                  "value": true
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "X_ptr",
+                  "line": 44
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "X_ptr",
+                  "line": 44
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "W_ptr",
+                  "line": 47
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "W_ptr",
+                  "line": 47
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "RSTD_ptr",
+                  "line": 77
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "RSTD_ptr",
+                  "line": 77
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "Y_ptr",
+                  "line": 93
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "Y_ptr",
+                  "line": 93
+                }
+              ]
+            },
+            "checks": [
+              {
+                "output": "out",
+                "correct": true,
+                "mismatch_count": 0,
+                "max_abs_error": 4.76837158203125e-07
+              },
+              {
+                "output": "rstd",
+                "correct": true,
+                "mismatch_count": 0,
+                "max_abs_error": 1.1920928955078125e-07
+              }
+            ],
+            "input_metadata": {
+              "x": {
+                "shape": [
+                  8,
+                  80
+                ],
+                "stride_elements": [
+                  80,
+                  1
+                ],
+                "storage_offset_elements": 0
+              },
+              "w": {
+                "shape": [
+                  80
+                ],
+                "stride_elements": [
+                  1
+                ],
+                "storage_offset_elements": 0
+              }
+            }
+          },
+          {
+            "kernel_id": "unsloth_rmsnorm",
+            "path": "Fast",
+            "guard": {
+              "status": "True",
+              "allowed": true,
+              "reason": "冻结调用域的全部访存义务本次为真",
+              "trace": [
+                {
+                  "stage": "metadata",
+                  "value": true
+                },
+                {
+                  "stage": "alias",
+                  "value": true
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "X",
+                  "line": 37
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "X",
+                  "line": 37
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "W",
+                  "line": 38
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "W",
+                  "line": 38
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "r",
+                  "line": 44
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "r",
+                  "line": 44
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "Y",
+                  "line": 48
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "Y",
+                  "line": 48
+                }
+              ]
+            },
+            "checks": [
+              {
+                "output": "out",
+                "correct": true,
+                "mismatch_count": 0,
+                "max_abs_error": 4.76837158203125e-07
+              },
+              {
+                "output": "rstd",
+                "correct": true,
+                "mismatch_count": 0,
+                "max_abs_error": 1.1920928955078125e-07
+              }
+            ],
+            "input_metadata": {
+              "x": {
+                "shape": [
+                  8,
+                  80
+                ],
+                "stride_elements": [
+                  80,
+                  1
+                ],
+                "storage_offset_elements": 0
+              },
+              "w": {
+                "shape": [
+                  80
+                ],
+                "stride_elements": [
+                  1
+                ],
+                "storage_offset_elements": 0
+              }
+            }
+          },
+          {
+            "kernel_id": "liger_layernorm",
+            "path": "Fast",
+            "guard": {
+              "status": "True",
+              "allowed": true,
+              "reason": "冻结调用域的全部访存义务本次为真",
+              "trace": [
+                {
+                  "stage": "metadata",
+                  "value": true
+                },
+                {
+                  "stage": "alias",
+                  "value": true
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "W_ptr",
+                  "line": 38
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "W_ptr",
+                  "line": 38
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "B_ptr",
+                  "line": 39
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "B_ptr",
+                  "line": 39
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "X_ptr",
+                  "line": 50
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "X_ptr",
+                  "line": 50
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "Mean_ptr",
+                  "line": 62
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "Mean_ptr",
+                  "line": 62
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "RSTD_ptr",
+                  "line": 63
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "RSTD_ptr",
+                  "line": 63
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "Y_ptr",
+                  "line": 70
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "Y_ptr",
+                  "line": 70
+                }
+              ]
+            },
+            "checks": [
+              {
+                "output": "out",
+                "correct": true,
+                "mismatch_count": 0,
+                "max_abs_error": 4.76837158203125e-07
+              },
+              {
+                "output": "mean",
+                "correct": true,
+                "mismatch_count": 0,
+                "max_abs_error": 1.4901161193847656e-08
+              },
+              {
+                "output": "rstd",
+                "correct": true,
+                "mismatch_count": 0,
+                "max_abs_error": 1.1920928955078125e-07
+              }
+            ],
+            "input_metadata": {
+              "x": {
+                "shape": [
+                  8,
+                  80
+                ],
+                "stride_elements": [
+                  80,
+                  1
+                ],
+                "storage_offset_elements": 0
+              },
+              "w": {
+                "shape": [
+                  80
+                ],
+                "stride_elements": [
+                  1
+                ],
+                "storage_offset_elements": 0
+              },
+              "b": {
+                "shape": [
+                  80
+                ],
+                "stride_elements": [
+                  1
+                ],
+                "storage_offset_elements": 0
+              }
+            }
+          },
+          {
+            "kernel_id": "unsloth_layernorm",
+            "path": "Fast",
+            "guard": {
+              "status": "True",
+              "allowed": true,
+              "reason": "冻结调用域的全部访存义务本次为真",
+              "trace": [
+                {
+                  "stage": "metadata",
+                  "value": true
+                },
+                {
+                  "stage": "alias",
+                  "value": true
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "X",
+                  "line": 34
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "X",
+                  "line": 34
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "W",
+                  "line": 35
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "W",
+                  "line": 35
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "b",
+                  "line": 36
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "b",
+                  "line": 36
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "r",
+                  "line": 45
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "r",
+                  "line": 45
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "mu",
+                  "line": 46
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "mu",
+                  "line": 46
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "Y",
+                  "line": 48
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "Y",
+                  "line": 48
+                }
+              ]
+            },
+            "checks": [
+              {
+                "output": "out",
+                "correct": true,
+                "mismatch_count": 0,
+                "max_abs_error": 4.76837158203125e-07
+              },
+              {
+                "output": "rstd",
+                "correct": true,
+                "mismatch_count": 0,
+                "max_abs_error": 5.960464477539063e-08
+              },
+              {
+                "output": "mean",
+                "correct": true,
+                "mismatch_count": 0,
+                "max_abs_error": 2.9802322387695312e-08
+              }
+            ],
+            "input_metadata": {
+              "x": {
+                "shape": [
+                  8,
+                  80
+                ],
+                "stride_elements": [
+                  80,
+                  1
+                ],
+                "storage_offset_elements": 0
+              },
+              "w": {
+                "shape": [
+                  80
+                ],
+                "stride_elements": [
+                  1
+                ],
+                "storage_offset_elements": 0
+              },
+              "b": {
+                "shape": [
+                  80
+                ],
+                "stride_elements": [
+                  1
+                ],
+                "storage_offset_elements": 0
+              }
+            }
+          },
+          {
+            "kernel_id": "liger_swiglu",
+            "path": "Fast",
+            "guard": {
+              "status": "True",
+              "allowed": true,
+              "reason": "冻结调用域的全部访存义务本次为真",
+              "trace": [
+                {
+                  "stage": "metadata",
+                  "value": true
+                },
+                {
+                  "stage": "alias",
+                  "value": true
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "a_ptr",
+                  "line": 29
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "a_ptr",
+                  "line": 29
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "b_ptr",
+                  "line": 30
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "b_ptr",
+                  "line": 30
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "c_ptr",
+                  "line": 32
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "c_ptr",
+                  "line": 32
+                }
+              ]
+            },
+            "checks": [
+              {
+                "output": "out",
+                "correct": true,
+                "mismatch_count": 0,
+                "max_abs_error": 4.76837158203125e-07
+              }
+            ],
+            "input_metadata": {
+              "x": {
+                "shape": [
+                  32,
+                  256
+                ],
+                "stride_elements": [
+                  256,
+                  1
+                ],
+                "storage_offset_elements": 0
+              },
+              "y": {
+                "shape": [
+                  32,
+                  256
+                ],
+                "stride_elements": [
+                  256,
+                  1
+                ],
+                "storage_offset_elements": 0
+              }
+            }
+          },
+          {
+            "kernel_id": "liger_softmax",
+            "path": "Fast",
+            "guard": {
+              "status": "True",
+              "allowed": true,
+              "reason": "冻结调用域的全部访存义务本次为真",
+              "trace": [
+                {
+                  "stage": "metadata",
+                  "value": true
+                },
+                {
+                  "stage": "alias",
+                  "value": true
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "X_ptr",
+                  "line": 23
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "X_ptr",
+                  "line": 23
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "Y_ptr",
+                  "line": 28
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "Y_ptr",
+                  "line": 28
+                }
+              ]
+            },
+            "checks": [
+              {
+                "output": "out",
+                "correct": true,
+                "mismatch_count": 0,
+                "max_abs_error": 1.1920928955078125e-07
+              }
+            ],
+            "input_metadata": {
+              "x": {
+                "shape": [
+                  32,
+                  256
+                ],
+                "stride_elements": [
+                  256,
+                  1
+                ],
+                "storage_offset_elements": 0
+              }
+            }
+          },
+          {
+            "kernel_id": "liger_swiglu_tiled",
+            "path": "Fast",
+            "guard": {
+              "status": "True",
+              "allowed": true,
+              "reason": "冻结调用域的全部访存义务本次为真",
+              "trace": [
+                {
+                  "stage": "metadata",
+                  "value": true
+                },
+                {
+                  "stage": "alias",
+                  "value": true
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "a_ptr",
+                  "line": 29
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "a_ptr",
+                  "line": 29
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "b_ptr",
+                  "line": 30
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "b_ptr",
+                  "line": 30
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "c_ptr",
+                  "line": 32
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "c_ptr",
+                  "line": 32
+                }
+              ]
+            },
+            "checks": [
+              {
+                "output": "out",
+                "correct": true,
+                "mismatch_count": 0,
+                "max_abs_error": 9.5367431640625e-07
+              }
+            ],
+            "input_metadata": {
+              "x": {
+                "shape": [
+                  32,
+                  256
+                ],
+                "stride_elements": [
+                  256,
+                  1
+                ],
+                "storage_offset_elements": 0
+              },
+              "y": {
+                "shape": [
+                  32,
+                  256
+                ],
+                "stride_elements": [
+                  256,
+                  1
+                ],
+                "storage_offset_elements": 0
+              }
+            }
+          },
+          {
+            "kernel_id": "liger_geglu",
+            "path": "Fast",
+            "guard": {
+              "status": "True",
+              "allowed": true,
+              "reason": "冻结调用域的全部访存义务本次为真",
+              "trace": [
+                {
+                  "stage": "metadata",
+                  "value": true
+                },
+                {
+                  "stage": "alias",
+                  "value": true
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "a",
+                  "line": 21
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "a",
+                  "line": 21
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "b",
+                  "line": 22
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "b",
+                  "line": 22
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "c",
+                  "line": 32
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "c",
+                  "line": 32
+                }
+              ]
+            },
+            "checks": [
+              {
+                "output": "out",
+                "correct": true,
+                "mismatch_count": 0,
+                "max_abs_error": 0.0
+              }
+            ],
+            "input_metadata": {
+              "x": {
+                "shape": [
+                  32,
+                  256
+                ],
+                "stride_elements": [
+                  256,
+                  1
+                ],
+                "storage_offset_elements": 0
+              },
+              "y": {
+                "shape": [
+                  32,
+                  256
+                ],
+                "stride_elements": [
+                  256,
+                  1
+                ],
+                "storage_offset_elements": 0
+              }
+            }
+          },
+          {
+            "kernel_id": "liger_fused_swiglu",
+            "path": "Fast",
+            "guard": {
+              "status": "True",
+              "allowed": true,
+              "reason": "冻结调用域的全部访存义务本次为真",
+              "trace": [
+                {
+                  "stage": "metadata",
+                  "value": true
+                },
+                {
+                  "stage": "alias",
+                  "value": true
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "y_ptr",
+                  "line": 27
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "y_ptr",
+                  "line": 27
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "y_ptr",
+                  "line": 28
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "y_ptr",
+                  "line": 28
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "c_ptr",
+                  "line": 29
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "c_ptr",
+                  "line": 29
+                }
+              ]
+            },
+            "checks": [
+              {
+                "output": "out",
+                "correct": true,
+                "mismatch_count": 0,
+                "max_abs_error": 9.5367431640625e-07
+              }
+            ],
+            "input_metadata": {
+              "x": {
+                "shape": [
+                  32,
+                  512
+                ],
+                "stride_elements": [
+                  512,
+                  1
+                ],
+                "storage_offset_elements": 0
+              }
+            }
+          }
+        ],
+        "kernel_ids": [
+          "liger_rmsnorm",
+          "unsloth_rmsnorm",
+          "liger_layernorm",
+          "unsloth_layernorm",
+          "liger_swiglu",
+          "liger_softmax",
+          "liger_swiglu_tiled",
+          "liger_geglu",
+          "liger_fused_swiglu"
+        ],
+        "evidence": "真实 wrapper 语义与模型层形状的冻结轨迹回放；不代表完整模型训练吞吐。"
+      }
+    }
+  ],
+  "violations": [
+    {
+      "status": "complete",
+      "command": [
+        "python",
+        "-m",
+        "bench.e3.worker",
+        "triton_add_x_stride"
+      ],
+      "exit_code": 0,
+      "detail": {
+        "case": {
+          "id": "triton_add_x_stride",
+          "kernel_id": "triton_add",
+          "source": "triton",
+          "problem": "一维输入列步长未进入地址表达式",
+          "mutated_inputs": [
+            "x"
+          ],
+          "mutation": "column_stride_2",
+          "wrapper_defense": null,
+          "wrapper_source": null,
+          "l3_url": null,
+          "l3_status": null,
+          "l3_commit": null
+        },
+        "seed": 17,
+        "raw": {
+          "checks": [
+            {
+              "output": "out",
+              "correct": false,
+              "mismatch_count": 128,
+              "max_abs_error": 3.032834529876709
+            }
+          ],
+          "metadata": {
+            "x": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                2
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161243136,
+              "storage_nbytes": 1032
+            },
+            "y": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161241088,
+              "storage_nbytes": 516
+            },
+            "out": {
+              "shape": [
+                129
+              ],
+              "stride_elements": [
+                1
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161242112,
+              "storage_nbytes": 516
+            }
+          }
+        },
+        "guard": {
+          "status": "False",
+          "allowed": false,
+          "reason": "x shape/stride 与冻结规格不一致",
+          "trace": []
+        },
+        "upstream_check": {
+          "present": false,
+          "expression": null,
+          "source": null
+        },
+        "relayout": {
+          "guard_status": "True",
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0,
+              "max_abs_error": 0.0
+            }
+          ],
+          "copies": [
+            {
+              "tensor": "x",
+              "bytes": 516
+            }
+          ],
+          "copy_bytes": 516,
+          "timing": {
+            "repeats": 12,
+            "copy_median_ms": 0.0262079993262887,
+            "copy_plus_kernel_median_ms": 0.08953600004315376,
+            "scope": "WSL2 单机诊断；不属于 e4 稳定性能证据"
+          }
+        },
+        "fallback": {
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "reference": "output_torch = x + y"
+        },
+        "classification": "numeric_mismatch",
+        "worker_elapsed_ms": 5683.088644000001,
+        "evidence_boundary": "合法 PyTorch 视图上的底层 Kernel 前置条件敏感性；接口承诺需由 L2/L3 单独证明"
+      }
+    },
+    {
+      "status": "complete",
+      "command": [
+        "python",
+        "-m",
+        "bench.e3.worker",
+        "liger_softmax_x_stride"
+      ],
+      "exit_code": 0,
+      "detail": {
+        "case": {
+          "id": "liger_softmax_x_stride",
+          "kernel_id": "liger_softmax",
+          "source": "liger",
+          "problem": "二维输入只传行步长，Kernel 假设列步长为 1",
+          "mutated_inputs": [
+            "x"
+          ],
+          "mutation": "column_stride_2",
+          "wrapper_defense": "x.contiguous().view(-1, n_cols)",
+          "wrapper_source": "bench/e1/upstream/liger/src/liger_kernel/ops/softmax.py:118",
+          "l3_url": null,
+          "l3_status": null,
+          "l3_commit": null
+        },
+        "seed": 17,
+        "raw": {
+          "checks": [
+            {
+              "output": "out",
+              "correct": false,
+              "mismatch_count": 8174,
+              "max_abs_error": 0.09770797938108444
+            }
+          ],
+          "metadata": {
+            "x": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                512,
+                2
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161305600,
+              "storage_nbytes": 65536
+            },
+            "out": {
+              "shape": [
+                32,
+                256
+              ],
+              "stride_elements": [
+                256,
+                1
+              ],
+              "storage_offset_elements": 0,
+              "data_ptr": 30161272832,
+              "storage_nbytes": 32768
+            }
+          }
+        },
+        "guard": {
+          "status": "False",
+          "allowed": false,
+          "reason": "x shape/stride 与冻结规格不一致",
+          "trace": []
+        },
+        "upstream_check": {
+          "present": true,
+          "expression": "x.contiguous().view(-1, n_cols)",
+          "source": "bench/e1/upstream/liger/src/liger_kernel/ops/softmax.py:118"
+        },
+        "relayout": {
+          "guard_status": "True",
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0,
+              "max_abs_error": 7.450580596923828e-09
+            }
+          ],
+          "copies": [
+            {
+              "tensor": "x",
+              "bytes": 32768
+            }
+          ],
+          "copy_bytes": 32768,
+          "timing": {
+            "repeats": 12,
+            "copy_median_ms": 0.022896000184118748,
+            "copy_plus_kernel_median_ms": 0.09254399687051773,
+            "scope": "WSL2 单机诊断；不属于 e4 稳定性能证据"
+          }
+        },
+        "fallback": {
+          "checks": [
+            {
+              "output": "out",
+              "correct": true,
+              "mismatch_count": 0
+            }
+          ],
+          "reference": "_softmax_ref"
+        },
+        "classification": "numeric_mismatch",
+        "worker_elapsed_ms": 6054.630418999998,
+        "evidence_boundary": "合法 PyTorch 视图上的底层 Kernel 前置条件敏感性；接口承诺需由 L2/L3 单独证明"
+      }
+    }
+  ],
+  "safe_nonstandard_project_path": {
+    "category": "correct",
+    "detail": {
+      "case": "A2",
+      "layout": "padded",
+      "mode": "dispatch",
+      "refined_contract": false,
+      "shape": [
+        7,
+        11
+      ],
+      "stride": [
+        14,
+        1
+      ],
+      "second_stride": null,
+      "storage_offset": 0,
+      "effective_ptr_mod_16": 0,
+      "input_ptr_unchanged": true,
+      "is_contiguous": false,
+      "contiguous_copied": true,
+      "path": "Fast",
+      "guard": {
+        "allowed": true,
+        "reason": "在声明语义和有限模板内满足静态条件",
+        "evidence": "Statically-Proven",
+        "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "checks": [
+          "X.stride(1) == 1: True"
+        ]
+      },
+      "expected_shape": [
+        7,
+        11
+      ],
+      "actual_shape": [
+        7,
+        11
+      ],
+      "expected_dtype": "torch.float32",
+      "actual_dtype": "torch.float32",
+      "tolerance": {
+        "rtol": 0.0,
+        "atol": 0.0
+      },
+      "max_abs_error": 0.0,
+      "correct": true,
+      "kind": "correct"
+    },
+    "exit_code": 0,
+    "stderr": "",
+    "evidence": {
+      "guard_basis": "Statically-Proven",
+      "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+      "fast_eligible": true,
+      "observation_level": "Empirically-Validated",
+      "observation_claim": "此输入的输出与参考实现一致",
+      "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+    }
+  },
+  "upstream_safe_layout_gap": {
+    "status": "complete",
+    "command": [
+      "python",
+      "-m",
+      "bench.e4.layout_worker"
+    ],
+    "exit_code": 0,
+    "detail": {
+      "case": "liger_softmax_row_padding",
+      "kernel_id": "liger_softmax",
+      "classification": "correct_outside_frozen_guard_domain",
+      "guard": {
+        "status": "False",
+        "allowed": false,
+        "reason": "x shape/stride 与冻结规格不一致",
+        "trace": []
+      },
+      "checks": [
+        {
+          "output": "out",
+          "correct": true,
+          "mismatch_count": 0,
+          "max_abs_error": 7.450580596923828e-09
+        }
+      ],
+      "layout": {
+        "shape": [
+          32,
+          256
+        ],
+        "stride_elements": [
+          269,
+          1
+        ],
+        "storage_offset_elements": 0,
+        "is_contiguous": false
+      },
+      "upstream_contiguous_copy_bytes": 32768,
+      "scope": "e2 Guard 的声明域冻结 exact shape/stride；本例是能力缺口，不是可在线放行路径。"
+    }
+  },
+  "counts": {
+    "workloads_complete": 2,
+    "distinct_kernels_executed": 14,
+    "fast_paths": 14,
+    "known_false_allows": 0,
+    "blocked_numeric_mismatches": 2,
+    "safe_nonstandard_fast_paths": 1,
+    "safe_outside_frozen_domain_rejections": 1
+  },
+  "checks": {
+    "two_workloads_complete": true,
+    "ten_distinct_kernels_executed": true,
+    "all_registered_fast_paths_correct": true,
+    "violations_blocked_and_fallback_correct": true,
+    "project_safe_nonstandard_fast_without_copy": true,
+    "upstream_row_padding_gap_disclosed": true,
+    "zero_known_false_allows": true
+  },
+  "go_correctness": true,
+  "scope": {
+    "workloads": "两个真实调用轨迹的冻结输入经验核对；14 个不同函数体实际执行。",
+    "safe_nonstandard": "安全直通来自历史项目 A2 padded-row 路径，不计入 14 个上游函数体。",
+    "gap": "Liger row-padding 数值正确但 e2 exact-stride Guard 保守拒绝；不授予 Fast，也不隐去复制机会缺口。"
+  }
+}

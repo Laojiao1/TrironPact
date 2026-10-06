@@ -16,6 +16,7 @@ TritonPact 研究 PyTorch Tensor 的物理布局与 Triton Kernel 访存之间�
 | 增强阶段一：真实语料与证据冻结 | 40 个固定开源函数体、28 个带独立参考的正向候选、12 个挑战；开发/留出/挑战划分、来源/许可/绑定/语义审计、能力缺口与最近邻基线 | [语料清单](results/e1_corpus_inventory.md)、[语义审计](results/e1_semantic_audit.md)、[能力缺口](results/e1_capability_gap.md)、[阶段状态](results/e1_regression.md)及同名 JSON |
 | 增强阶段二：真实语料契约恢复 | 冻结规则下 28 个正向 Kernel 中 27 个 Access IR Supported、27 个候选完整、27 个 Guard 可用、27 个冻结输入 Fast 可行；1 个留出样例保持 Unknown，未接入在线 Fast | [Access IR 覆盖](results/e2_access_ir_coverage.md)、[候选提取](results/e2_candidate_extraction.md)、[Guard 覆盖](results/e2_guard_coverage.md)、[阶段状态](results/e2_regression.md)及同名 JSON |
 | 增强阶段三：真实边界与外部问题验证 | 共享冻结域上的四方法变异对照；Triton、Liger、Unsloth 共 4 个 L1 风险见证、3 个 L2 wrapper 防御和 1 个公开 L3 条目；158 个真实候选的 SMT/精化审计 | [变异对照](results/e3_mutation_comparison.md)、[风险分层](results/e3_real_risk_cases.md)、[精化审计](results/e3_refinement_audit.md)、[SMT 审计](results/e3_smt_audit.md)、[阶段状态](results/e3_regression.md)及同名 JSON |
+| 增强阶段四 a：真实工作负载集成 | PyTorch Inductor 自定义 Triton 图与 Transformer 层轨迹，共 14 个不同冻结函数体；同语义系统基线、违约阻止、路径/复制账本和 WSL2 单机诊断 | [工作负载清单](results/e4_workload_manifest.md)、[正确性与路径](results/e4_workload_correctness.md)、[系统基线](results/e4_dispatch_baselines.md)、[WSL2 诊断](results/e4_wsl_diagnostics.md)及同名 JSON；原生 Linux 跨硬件 e4b 仍未完成 |
 
 第二阶段的 `Supported` 只表示受限访存语法可解释。旧 `pact/runtime.py` 的 Guard 仍执行经独立语义核对的 **PoC 兼容谓词**；第五阶段的 `pact/dispatch.py` 独立构造新 Guard。
 
@@ -50,6 +51,7 @@ A 的初始候选为 `stride(0)==size(1)` 与 `stride(1)==1`。单行、单列�
 | `pact/refine.py` | 根据 A 的单谓词边界证据与有限索引推导修订候选。 |
 | `pact/runtime.py` | 检查 dtype、shape、storage span 与生成的谓词，执行 Fast 或 PyTorch Fallback。 |
 | `pact/oracle.py`、`scenarios/worker.py` | 在独立子进程中执行用例并分类数值错误、异常、超时与未知结果。 |
+| `integration/`、`bench/e4/` | e4a 两个冻结工作负载、真实 Inductor 图、Transformer 层轨迹、布局隔离、系统基线和单机诊断；不修改 e2 Guard 或在线 Fast。 |
 | `scenarios/kernels.py`、`scenarios/external_add.py`、`scenarios/cases.py` | 保存 Kernel、输入布局构造和 PyTorch 参考计算。 |
 | `scenarios/holdouts.py`、`scenarios/alignment_fixtures.py` | 保存两个独立语义留出 Kernel 与指针/索引提示成对样例。 |
 | `pact/stage_report.py` | 生成第二阶段的 IR 与拒绝边界报告。 |
@@ -125,6 +127,23 @@ python -m bench.validate --output results/phase6_stage_status.md
 ```
 
 `bench/catalog.json` 区分正向集、挑战集与待核查来源。当前登记 15 个不同函数体：14 个 AST `Supported` 正向样本、1 个原样保留且明确 `Unsupported` 的 vLLM 挑战样本；覆盖 elementwise/mapping、2D layout、feature broadcast 三类，并固定 Triton 与 vLLM 两个开源来源。清单与 `bench/specs.py` 共同记录 wrapper、独立参考、参数绑定、dtype/输入域、核心契约、允许路径和排除理由。五层分母为登记 15、可解析 14、候选完整 14、Guard 可用 8、Fast 可行 8。新增六个项目内 Kernel 只进入离线影子报告，没有注册 GuardPlan 或扩大 Fast。边界随机对照与谓词引导对照采用相同 GPU worker 预算，当前有限样例不支持“谓词引导总是更好”的结论。性能报告分别保存单次同步完成延迟和批量摊销吞吐，后者不等于单次调用延迟。
+
+## 增强阶段四 a 入口
+
+e4a 命令必须优先使用 WSL 内 `/usr/local/cuda/bin`，避免 WSL PATH 误选 Windows `nvcc.exe`：
+
+```bash
+export PATH=/usr/local/cuda/bin:/home/laojiao/miniconda3/envs/triton/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+python -m bench.e4.manifest
+python -m bench.e4.correctness
+python -m bench.e4.baselines
+python -m bench.e4.diagnostics
+python -m bench.e4.validate
+```
+
+工作负载计数按不同 `function_sha256` 去重，同一 Kernel 的重复调用不增加分母。Inductor 工作负载使用 `torch.compile(fullgraph=True, backend="inductor")` 实际编译执行；Transformer 工作负载是固定模型层数据流和上游算子变体，不下载预训练权重，也不代表完整模型训练吞吐。
+
+e4a 的计时仅来自 WSL2 RTX 5060 Laptop GPU。当前极小 Inductor 图上完整 TritonPact 显示显著相对开销，而不是加速；原始样本、配对区间和 GPU 状态保存在 `e4_wsl_diagnostics.json`。两套原生 Linux GPU 未取得，`go_e4_cross_hardware=false`，因此 e4a 完成后仍不能写 `go_e4=true`，也不能形成跨硬件性能结论。
 
 ## 验收结果与证据边界
 

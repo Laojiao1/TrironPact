@@ -1,0 +1,72 @@
+{
+  "stage": "e4a",
+  "go_e4_integration": true,
+  "go_e4_cross_hardware": false,
+  "go_e4": false,
+  "blocks": [
+    {
+      "id": "workload_manifest",
+      "commands": [
+        "python -m pytest test/test_e4_manifest.py -q",
+        "python -m bench.e4.manifest"
+      ],
+      "exit_codes": [0, 0],
+      "result": "2 passed; go_manifest=true; workloads=2; distinct_kernels=14",
+      "reports": [
+        "results/e4_workload_manifest.md",
+        "results/e4_workload_manifest.json"
+      ]
+    },
+    {
+      "id": "workload_correctness",
+      "commands": [
+        "python -m pytest test/test_e4_manifest.py test/test_e4_workloads.py test/test_e4_correctness.py -q",
+        "python -m bench.e4.correctness"
+      ],
+      "exit_codes": [0, 0],
+      "result": "6 passed; go_correctness=true; distinct_kernels=14; fast_paths=14; known_false_allows=0; blocked_numeric_mismatches=2",
+      "reports": [
+        "results/e4_workload_correctness.md",
+        "results/e4_workload_correctness.json"
+      ]
+    },
+    {
+      "id": "baselines_and_wsl_diagnostics",
+      "commands": [
+        "python -m pytest test/test_e4_baselines.py -q",
+        "python -m bench.e4.baselines",
+        "python -m pytest test/test_e4_diagnostics.py -q",
+        "python -m bench.e4.diagnostics"
+      ],
+      "exit_codes": [0, 0, 0, 0],
+      "result": "1 passed; go_baselines=true; 2 passed; go_diagnostics=true; TritonPact diagnostic paired median ratio about 2.29 with CI about [2.08, 2.55]",
+      "reports": [
+        "results/e4_dispatch_baselines.md",
+        "results/e4_dispatch_baselines.json",
+        "results/e4_wsl_diagnostics.md",
+        "results/e4_wsl_diagnostics.json"
+      ]
+    },
+    {
+      "id": "e4a_validation",
+      "commands": [
+        "python -m pytest test/test_e4_*.py -q",
+        "python -m bench.e4.validate"
+      ],
+      "exit_codes": [0, 0],
+      "result": "10 passed; 144 passed; legacy isolation 11/11; go_e4_integration=true; go_e4_cross_hardware=false; go_e4=false",
+      "source_fingerprint": "1553de651bce580f2821e641fde905b9c2f58a9f26c46c123b4b7b994289e5e0",
+      "reports": [
+        "results/e4_regression.md",
+        "results/e4_regression.json",
+        "results/e4_regression_isolation.md",
+        "results/e4_regression_isolation.json",
+        "results/e4_cross_hardware_performance.md",
+        "results/e4_cross_hardware_performance.json"
+      ]
+    }
+  ],
+  "pending": [
+    "e4b two native Linux GPU environments"
+  ]
+}
