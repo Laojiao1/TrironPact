@@ -1,0 +1,247 @@
+{
+  "schema_version": 1,
+  "status": "template_unfilled",
+  "frozen_git_head": "bd5fa3e3376e2dacffc2671ee52f3cbea1589a10",
+  "review_manifest_sha256": "3b30ac286c00b5c7badb14ed93eb476d02713511215713cc59f04c381652a928",
+  "reviewer": {
+    "reviewer_id": "",
+    "independent": null,
+    "no_prior_rule_or_label_involvement": null,
+    "independence_declaration": "",
+    "started_at": null,
+    "completed_at": null
+  },
+  "formal_kernel_denominator": 28,
+  "reviewed_kernel_count": 0,
+  "reviewed_risk_case_ids": [],
+  "review_records": [
+    {
+      "kernel_id": "triton_add",
+      "initial_assessment": {
+        "semantic_correspondence": null,
+        "wrapper_binding": null,
+        "reference_truth": null,
+        "access_label": null,
+        "evidence": [],
+        "notes": "",
+        "completed_at": null,
+        "frozen_before_reconciliation": false
+      },
+      "reconciliation": {
+        "project_label_revealed_after_initial": false,
+        "agrees_with_project": null,
+        "final_status": null,
+        "resolution_status": null,
+        "resolution_evidence": []
+      }
+    },
+    {
+      "kernel_id": "pytorch_double_strided",
+      "initial_assessment": {
+        "semantic_correspondence": null,
+        "wrapper_binding": null,
+        "reference_truth": null,
+        "access_label": null,
+        "evidence": [],
+        "notes": "",
+        "completed_at": null,
+        "frozen_before_reconciliation": false
+      },
+      "reconciliation": {
+        "project_label_revealed_after_initial": false,
+        "agrees_with_project": null,
+        "final_status": null,
+        "resolution_status": null,
+        "resolution_evidence": []
+      }
+    },
+    {
+      "kernel_id": "liger_swiglu",
+      "initial_assessment": {
+        "semantic_correspondence": null,
+        "wrapper_binding": null,
+        "reference_truth": null,
+        "access_label": null,
+        "evidence": [],
+        "notes": "",
+        "completed_at": null,
+        "frozen_before_reconciliation": false
+      },
+      "reconciliation": {
+        "project_label_revealed_after_initial": false,
+        "agrees_with_project": null,
+        "final_status": null,
+        "resolution_status": null,
+        "resolution_evidence": []
+      }
+    },
+    {
+      "kernel_id": "flag_slice",
+      "initial_assessment": {
+        "semantic_correspondence": null,
+        "wrapper_binding": null,
+        "reference_truth": null,
+        "access_label": null,
+        "evidence": [],
+        "notes": "",
+        "completed_at": null,
+        "frozen_before_reconciliation": false
+      },
+      "reconciliation": {
+        "project_label_revealed_after_initial": false,
+        "agrees_with_project": null,
+        "final_status": null,
+        "resolution_status": null,
+        "resolution_evidence": []
+      }
+    },
+    {
+      "kernel_id": "liger_softmax",
+      "initial_assessment": {
+        "semantic_correspondence": null,
+        "wrapper_binding": null,
+        "reference_truth": null,
+        "access_label": null,
+        "evidence": [],
+        "notes": "",
+        "completed_at": null,
+        "frozen_before_reconciliation": false
+      },
+      "reconciliation": {
+        "project_label_revealed_after_initial": false,
+        "agrees_with_project": null,
+        "final_status": null,
+        "resolution_status": null,
+        "resolution_evidence": []
+      }
+    },
+    {
+      "kernel_id": "unsloth_layernorm",
+      "initial_assessment": {
+        "semantic_correspondence": null,
+        "wrapper_binding": null,
+        "reference_truth": null,
+        "access_label": null,
+        "evidence": [],
+        "notes": "",
+        "completed_at": null,
+        "frozen_before_reconciliation": false
+      },
+      "reconciliation": {
+        "project_label_revealed_after_initial": false,
+        "agrees_with_project": null,
+        "final_status": null,
+        "resolution_status": null,
+        "resolution_evidence": []
+      }
+    },
+    {
+      "kernel_id": "unsloth_rmsnorm",
+      "initial_assessment": {
+        "semantic_correspondence": null,
+        "wrapper_binding": null,
+        "reference_truth": null,
+        "access_label": null,
+        "evidence": [],
+        "notes": "",
+        "completed_at": null,
+        "frozen_before_reconciliation": false
+      },
+      "reconciliation": {
+        "project_label_revealed_after_initial": false,
+        "agrees_with_project": null,
+        "final_status": null,
+        "resolution_status": null,
+        "resolution_evidence": []
+      }
+    }
+  ],
+  "risk_review_records": [
+    {
+      "case_id": "triton_add_x_stride",
+      "initial_assessment": {
+        "observed_behavior": null,
+        "reference_truth": null,
+        "guard_behavior": null,
+        "risk_levels": [],
+        "upstream_vulnerability_claim": null,
+        "evidence": [],
+        "notes": "",
+        "completed_at": null,
+        "frozen_before_reconciliation": false
+      },
+      "reconciliation": {
+        "project_label_revealed_after_initial": false,
+        "agrees_with_project": null,
+        "final_status": null,
+        "resolution_status": null,
+        "resolution_evidence": []
+      }
+    },
+    {
+      "case_id": "liger_softmax_x_stride",
+      "initial_assessment": {
+        "observed_behavior": null,
+        "reference_truth": null,
+        "guard_behavior": null,
+        "risk_levels": [],
+        "upstream_vulnerability_claim": null,
+        "evidence": [],
+        "notes": "",
+        "completed_at": null,
+        "frozen_before_reconciliation": false
+      },
+      "reconciliation": {
+        "project_label_revealed_after_initial": false,
+        "agrees_with_project": null,
+        "final_status": null,
+        "resolution_status": null,
+        "resolution_evidence": []
+      }
+    },
+    {
+      "case_id": "unsloth_layernorm_x_stride",
+      "initial_assessment": {
+        "observed_behavior": null,
+        "reference_truth": null,
+        "guard_behavior": null,
+        "risk_levels": [],
+        "upstream_vulnerability_claim": null,
+        "evidence": [],
+        "notes": "",
+        "completed_at": null,
+        "frozen_before_reconciliation": false
+      },
+      "reconciliation": {
+        "project_label_revealed_after_initial": false,
+        "agrees_with_project": null,
+        "final_status": null,
+        "resolution_status": null,
+        "resolution_evidence": []
+      }
+    },
+    {
+      "case_id": "unsloth_layernorm_affine_stride",
+      "initial_assessment": {
+        "observed_behavior": null,
+        "reference_truth": null,
+        "guard_behavior": null,
+        "risk_levels": [],
+        "upstream_vulnerability_claim": null,
+        "evidence": [],
+        "notes": "",
+        "completed_at": null,
+        "frozen_before_reconciliation": false
+      },
+      "reconciliation": {
+        "project_label_revealed_after_initial": false,
+        "agrees_with_project": null,
+        "final_status": null,
+        "resolution_status": null,
+        "resolution_evidence": []
+      }
+    }
+  ],
+  "disagreements": [],
+  "disagreements_resolved": false
+}

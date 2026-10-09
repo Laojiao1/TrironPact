@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-10-08T14:35:31.512422+08:00",
+  "generated_at": "2026-10-09T09:18:13.400051+08:00",
   "status": "preparation_go_final_readiness_pending",
   "go_e5_preparation": true,
   "go_e5_ccfb_readiness": false,
   "go_e5": false,
-  "source_fingerprint": "c35135b9d053753192483410b7eb3883828630feb29cac8bf36e418d7e9dfe93",
+  "source_fingerprint": "820b6192db181ad023d0c19462742e6d9ed8b23a0afb1c6e465230c5f2bec5be",
   "git": {
-    "current_head": "481c1651fc081f05c6cddc1492e41f05fc6afd9d",
-    "origin_eval": "481c1651fc081f05c6cddc1492e41f05fc6afd9d",
+    "current_head": "bd5fa3e3376e2dacffc2671ee52f3cbea1589a10",
+    "origin_eval": "bd5fa3e3376e2dacffc2671ee52f3cbea1589a10",
     "branch": "eval",
-    "worktree_status": " M bench/catalog.json\n?? artifact/\n?? bench/e5/\n?? results/e5_ccfa_gap.json\n?? results/e5_ccfa_gap.md\n?? results/e5_ccfb_readiness.json\n?? results/e5_ccfb_readiness.md\n?? results/e5_development_record.json\n?? results/e5_development_record.md\n?? results/e5_evidence_manifest.json\n?? results/e5_evidence_manifest.md\n?? results/e5_holdout_evaluation.json\n?? results/e5_holdout_evaluation.md\n?? results/e5_regression.json\n?? results/e5_regression.md\n?? results/e5_regression_isolation.json\n?? results/e5_regression_isolation.md\n?? results/e5_traceability.json\n?? results/e5_traceability.md\n?? test/test_e5_correctness.py\n?? test/test_e5_holdout.py\n?? test/test_e5_readiness.py\n?? test/test_e5_traceability.py\n?? test/test_e5_validate.py",
+    "worktree_status": " M bench/catalog.json\n M bench/e5/readiness.py\n M bench/e5/specs.py\n M bench/e5/validate.py\n M results/e5_ccfa_gap.json\n M results/e5_ccfb_readiness.json\n M results/e5_evidence_manifest.json\n M results/e5_evidence_manifest.md\n M results/e5_holdout_evaluation.json\n M results/e5_regression_isolation.md\n M results/e5_traceability.json\n M results/e5_traceability.md\n M test/test_e5_readiness.py\n?? artifact/e5_review/\n?? bench/e5/review.py\n?? results/e5_second_review_package.json\n?? results/e5_second_review_package.md\n?? test/test_e5_review.py",
     "unexpected_paths": []
   },
   "environment": {
@@ -49,7 +49,7 @@
       "/mnt/f/Project/Paper/Code/TritonPact/results/e5_regression_isolation.md"
     ],
     "exit_code": 0,
-    "pytest_summary": "156 passed in 89.05s (0:01:29)",
+    "pytest_summary": "161 passed in 103.25s (0:01:43)",
     "legacy_isolation_passed": true,
     "legacy_checks": {
       "四个变体进入 Access IR": true,
@@ -64,7 +64,7 @@
       "经验观察与静态放行分开记录": true,
       "单谓词补集触发候选修订并放行": true
     },
-    "stdout_tail": "[1/2] 运行测试\n........................................................................ [ 46%]\n........................................................................ [ 92%]\n............                                                             [100%]\n156 passed in 89.05s (0:01:29)\n[2/2] 运行隔离案例\n通过：四个变体进入 Access IR\n通过：语义规格与逐谓词来源可追溯\n通过：A 两组转置尺寸均出现数值错误\n通过：A Guard 拦截并正确回退\n通过：A2 非连续输入正确直通且连续化会复制\n通过：B 非整除边界正确直通\n通过：未知类型安全回退\n通过：官方教程双输入契约阻止错读\n通过：关键输入重复稳定\n通过：经验观察与静态放行分开记录\n通过：单谓词补集触发候选修订并放行\n受限案例验收：通过\nA 模板内的动态候选修订：已验证\n结果文件：e5_regression_isolation.md\n",
+    "stdout_tail": "[1/2] 运行测试\n........................................................................ [ 44%]\n........................................................................ [ 89%]\n.................                                                        [100%]\n161 passed in 103.25s (0:01:43)\n[2/2] 运行隔离案例\n通过：四个变体进入 Access IR\n通过：语义规格与逐谓词来源可追溯\n通过：A 两组转置尺寸均出现数值错误\n通过：A Guard 拦截并正确回退\n通过：A2 非连续输入正确直通且连续化会复制\n通过：B 非整除边界正确直通\n通过：未知类型安全回退\n通过：官方教程双输入契约阻止错读\n通过：关键输入重复稳定\n通过：经验观察与静态放行分开记录\n通过：单谓词补集触发候选修订并放行\n受限案例验收：通过\nA 模板内的动态候选修订：已验证\n结果文件：e5_regression_isolation.md\n",
     "report": "results/e5_regression_isolation.md"
   },
   "pending": [

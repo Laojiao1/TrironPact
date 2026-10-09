@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-10-09T09:15:15.217425+08:00",
+  "status": "ready_for_independent_reviewer",
+  "review_complete": false,
+  "freeze_commit": "bd5fa3e3376e2dacffc2671ee52f3cbea1589a10",
+  "manifest_sha256": "3b30ac286c00b5c7badb14ed93eb476d02713511215713cc59f04c381652a928",
+  "template_sha256": "cbae7990813e12cdffb992d03495ff25130fa6c06dd19b82318e4cd341810cc7",
+  "counts": {
+    "formal_kernel_denominator": 28,
+    "selected_kernels": 7,
+    "risk_cases": 4
+  },
+  "checks": {
+    "manifest_matches_frozen_git_blobs": true,
+    "five_sources": true,
+    "four_families": true,
+    "development_and_holdout": true,
+    "all_risk_cases_registered": true,
+    "template_intentionally_incomplete": true
+  },
+  "validation_errors": [],
+  "scope": "只表示审阅包可交付；第二审阅人尚未填写，不能满足 readiness 条件 7。"
+}

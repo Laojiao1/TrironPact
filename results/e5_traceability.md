@@ -1,6 +1,6 @@
 # e5a 主张与证据追踪
 
-- 状态：`complete`；9/9 项引用完整。
+- 状态：`complete`；10/10 项引用完整。
 - 每项均显式列出证据级别与限制；路径存在只证明资产可定位，不替代其内部结论。
 
 | ID | 主张 | 证据级别 | 代码 | 测试 | 报告/原始数据 | 限制 |
@@ -14,6 +14,7 @@
 | `C7_workload_integration` | 两个真实工作负载轨迹执行 14 个不同冻结函数体，已知违约被阻止且系统基线同语义。 | `bounded_empirical` | integration/specs.py<br>integration/worker.py<br>bench/e4/correctness.py<br>bench/e4/baselines.py | test/test_e4_workloads.py<br>test/test_e4_correctness.py<br>test/test_e4_baselines.py | results/e4_workload_manifest.json<br>results/e4_workload_correctness.json<br>results/e4_dispatch_baselines.json<br>results/e4_wsl_diagnostics.json | 性能仅为 WSL2 单机诊断；两套原生 Linux GPU 尚未复核。 |
 | `C8_secondary_mechanisms` | 谓词引导、SMT 和成本模型按实证结果定位，零删除或不稳定结果不用于填补主贡献。 | `bounded_empirical_and_zero_result` | bench/e3/mutations.py<br>bench/e3/smt.py<br>bench/e4/diagnostics.py | test/test_e3_mutation.py<br>test/test_e3_smt.py<br>test/test_e4_diagnostics.py | results/e3_mutation_comparison.json<br>results/e3_smt_audit.json<br>results/e4_wsl_diagnostics.json<br>results/e3_mutation_comparison.json<br>results/e3_smt_audit.json<br>results/e4_wsl_diagnostics.json | 谓词引导未优于均匀随机；SMT 只发现 1 个同域等价重复；当前不声称普遍搜索优势、广泛精简或稳定加速。 |
 | `C9_fingerprint_fail_closed` | 语料、冻结规则或阶段源码指纹失配时，总核验器拒绝把历史报告视为当前证据。 | `machine_audit` | bench/e1/audit.py<br>bench/e2/freeze.py<br>bench/e3/validate.py<br>bench/e4/validate.py<br>bench/e5/validate.py | test/test_e5_validate.py | results/e4_regression.json<br>results/e5_evidence_manifest.json | 提交后的干净 checkout 仍需重新运行一次总核验，才能满足最终冻结条件。 |
+| `C10_independent_review_protocol` | 第二审阅使用预先固定的 7/28 分层 Kernel 和全部风险案例，初始判断先冻结，重复计数、清单篡改和未解决分歧 fail closed。 | `independent_human_audit_protocol` | bench/e5/review.py<br>artifact/e5_review/review_guide.md<br>artifact/e5_review/review_template.json | test/test_e5_review.py<br>test/test_e5_readiness.py | results/e5_second_review_package.json<br>results/e5_ccfb_readiness.json<br>artifact/e5_review/review_manifest.json | 当前只完成冻结包和校验器；第二审阅人尚未填写，readiness 条件 7 必须保持 false。 |
 
 ## 机器核验
 

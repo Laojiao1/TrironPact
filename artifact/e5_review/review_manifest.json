@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-10-09T09:15:13.959776+08:00",
+  "freeze_commit": "bd5fa3e3376e2dacffc2671ee52f3cbea1589a10",
+  "formal_kernel_denominator": 28,
+  "selection_policy": "预先固定 7/28；覆盖五个来源、四类结构、development/holdout，并包含全部风险所涉及的三个不同 Kernel。",
+  "blind_review_policy": "初始判断前不得查看 results/e1_semantic_audit、e2_*coverage、e3_real_risk_cases 或 e5 readiness 中的项目结论。",
+  "kernels": [
+    {
+      "kernel_id": "triton_add",
+      "source": "triton",
+      "family": "elementwise_mapping",
+      "split": "development",
+      "upstream_revision": "f394c9bb86b2eaca08b0e11c4cd397d19a56c693",
+      "source_file": "bench/e1/upstream/triton/python/tutorials/01-vector-add.py",
+      "source_file_sha256": "842430949e0ccde4fbce07606cce3ac4bac36bf21b2b12619a31b795ca4029b3",
+      "function": "add_kernel",
+      "reference_file": "bench/e1/upstream/triton/python/tutorials/01-vector-add.py",
+      "reference_file_sha256": "842430949e0ccde4fbce07606cce3ac4bac36bf21b2b12619a31b795ca4029b3",
+      "reference_anchor": "output_torch = x + y",
+      "catalog_entry_sha256": "515e560c4e5650207fe8299eba463d306ba0d7b9f2700a3d1983b4461b54ab80",
+      "catalog_path": "bench/e1/catalog.json"
+    },
+    {
+      "kernel_id": "pytorch_double_strided",
+      "source": "pytorch",
+      "family": "elementwise_mapping",
+      "split": "holdout",
+      "upstream_revision": "a6b28b689562679531a842f27d4e39ba50bb34f1",
+      "source_file": "bench/e1/upstream/pytorch/torch/testing/_internal/triton_utils.py",
+      "source_file_sha256": "4d8b4358a1ca57312f4bdf1bddc1ed99a960494cabf84ed69ab88fea8284a491",
+      "function": "double_strided_kernel",
+      "reference_file": "bench/e1/upstream/pytorch/test/inductor/test_triton_kernels.py",
+      "reference_file_sha256": "c5cd5e3d6be6abd386c560d32e68754151532c60cec3e7ee7570f009d3ebbac2",
+      "reference_anchor": "test_triton_kernel_strided_input",
+      "catalog_entry_sha256": "52095c207de1c5b6f74fbbc3682648351eebc8558c74a6584262642d9af0a317",
+      "catalog_path": "bench/e1/catalog.json"
+    },
+    {
+      "kernel_id": "liger_swiglu",
+      "source": "liger",
+      "family": "feature_broadcast",
+      "split": "holdout",
+      "upstream_revision": "40a9d8a61bdc546f4e70220619d4db9760fa80b1",
+      "source_file": "bench/e1/upstream/liger/src/liger_kernel/ops/swiglu.py",
+      "source_file_sha256": "7397029e8fefac0de42e5eeafcbbac147644a91c357bd30b9ba019fa5df3ce0a",
+      "function": "_swiglu_forward_kernel",
+      "reference_file": "bench/e1/upstream/liger/test/ops/test_swiglu.py",
+      "reference_file_sha256": "1f0219622d7e48fec5f9562ca275672ae6b629cf090a66b37fa93e967d145c11",
+      "reference_anchor": "_swiglu_ref",
+      "catalog_entry_sha256": "44f607462adec9b78e21877f92667e8513f83bf408071a7e124404d89371a8a6",
+      "catalog_path": "bench/e1/catalog.json"
+    },
+    {
+      "kernel_id": "flag_slice",
+      "source": "flag_gems",
+      "family": "layout_2d",
+      "split": "holdout",
+      "upstream_revision": "b2044acafb7f72a19312158edf0d2bf333e26891",
+      "source_file": "bench/e1/upstream/flag_gems/src/flag_gems/ops/slice.py",
+      "source_file_sha256": "49c5f71f9c074a50432f423b7f1d084abbd13cb6db1c7446dc48fe4dc7d3a501",
+      "function": "slice_kernel_2d",
+      "reference_file": "bench/e1/upstream/flag_gems/tests/test_slice.py",
+      "reference_file_sha256": "1afe1b73cc1e3c154bb3b506d4e7dcc725bf4ba7ee38a06e92cc7576b2c933ef",
+      "reference_anchor": "torch.ops.aten.slice.Tensor(ref_inp, dim, start, end, step)",
+      "catalog_entry_sha256": "726accbffac98129b6fb09906c3bf9e3ee9e6d1be7522a467dbfa0de80b3de67",
+      "catalog_path": "bench/e1/catalog.json"
+    },
+    {
+      "kernel_id": "liger_softmax",
+      "source": "liger",
+      "family": "row_reduction",
+      "split": "development",
+      "upstream_revision": "40a9d8a61bdc546f4e70220619d4db9760fa80b1",
+      "source_file": "bench/e1/upstream/liger/src/liger_kernel/ops/softmax.py",
+      "source_file_sha256": "b60391c7a30ad480c3b592aa19aae3d083c8563a802045175d83e28a785176d2",
+      "function": "_softmax_single_block_forward_kernel",
+      "reference_file": "bench/e1/upstream/liger/test/ops/test_softmax.py",
+      "reference_file_sha256": "396bde9b40a352bfc6e45cf74d71e0ecaf1deb5566304244ce6232b5d0d47a3c",
+      "reference_anchor": "_softmax_ref",
+      "catalog_entry_sha256": "884f35994d646585d4a56ca1786119df594a1090398447604ed7dc40d9b264a0",
+      "catalog_path": "bench/e1/catalog.json"
+    },
+    {
+      "kernel_id": "unsloth_layernorm",
+      "source": "unsloth",
+      "family": "row_reduction",
+      "split": "development",
+      "upstream_revision": "7ebf192674a217faa15891de3e95a517fb5d890e",
+      "source_file": "bench/e1/upstream/unsloth/unsloth/kernels/layernorm.py",
+      "source_file_sha256": "cd6870c021d8a92fd65c60f226ddabe3b552b6921343ffdf87933afc9579ed9d",
+      "function": "layernorm_forward",
+      "reference_file": "bench/e1/upstream/unsloth/tests/test_layernorm_gradient_layout.py",
+      "reference_file_sha256": "19f7811a259e67b9626e18bad70d4a497bc202a886f963e6af1f07f6ecf74d1e",
+      "reference_anchor": "expected = torch.nn.functional.layer_norm",
+      "catalog_entry_sha256": "aba87b6e48e16581bc9748b9b712ff89d5aa76d8e9445930a25f3f0f3aab0164",
+      "catalog_path": "bench/e1/catalog.json"
+    },
+    {
+      "kernel_id": "unsloth_rmsnorm",
+      "source": "unsloth",
+      "family": "row_reduction",
+      "split": "holdout",
+      "upstream_revision": "7ebf192674a217faa15891de3e95a517fb5d890e",
+      "source_file": "bench/e1/upstream/unsloth/unsloth/kernels/rms_layernorm.py",
+      "source_file_sha256": "6244c41d7058effa73a0f103f9b2a9c3c24902fa2becd3fda08f26c477ef75d1",
+      "function": "_rms_layernorm_forward",
+      "reference_file": "bench/e1/upstream/unsloth/tests/test_rmsnorm_gradient_layout.py",
+      "reference_file_sha256": "45ec5515719fabbf3d621523ae9100968947d0b33e8bb2a5a1b7b28296dd2eda",
+      "reference_anchor": "torch.nn.functional.rms_norm / Gemma weight offset",
+      "catalog_entry_sha256": "71b16ac2b2aa1df9cd31fd6e5f82c5871b6a9d0de1bed89955fb5e209daf0332",
+      "catalog_path": "bench/e1/catalog.json"
+    }
+  ],
+  "risk_cases": [
+    {
+      "case_id": "triton_add_x_stride",
+      "kernel_id": "triton_add",
+      "source": "triton",
+      "worker_command": [
+        "python",
+        "-m",
+        "bench.e3.worker",
+        "triton_add_x_stride"
+      ]
+    },
+    {
+      "case_id": "liger_softmax_x_stride",
+      "kernel_id": "liger_softmax",
+      "source": "liger",
+      "worker_command": [
+        "python",
+        "-m",
+        "bench.e3.worker",
+        "liger_softmax_x_stride"
+      ]
+    },
+    {
+      "case_id": "unsloth_layernorm_x_stride",
+      "kernel_id": "unsloth_layernorm",
+      "source": "unsloth",
+      "worker_command": [
+        "python",
+        "-m",
+        "bench.e3.worker",
+        "unsloth_layernorm_x_stride"
+      ]
+    },
+    {
+      "case_id": "unsloth_layernorm_affine_stride",
+      "kernel_id": "unsloth_layernorm",
+      "source": "unsloth",
+      "worker_command": [
+        "python",
+        "-m",
+        "bench.e3.worker",
+        "unsloth_layernorm_affine_stride"
+      ]
+    }
+  ],
+  "risk_source_sha256": "0999cbeae5c2ad60117732b0a2e7166921767940e2008873286a4df565f12091"
+}

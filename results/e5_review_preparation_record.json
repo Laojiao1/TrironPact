@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-10-09T09:18:41.2903573+08:00",
+  "status": "ready_for_independent_reviewer",
+  "review_complete": false,
+  "review_execution_status": "deferred_not_waived_until_final_text_and_evidence_audit",
+  "freeze_commit": "bd5fa3e3376e2dacffc2671ee52f3cbea1589a10",
+  "counts": {
+    "formal_kernel_denominator": 28,
+    "selected_kernels": 7,
+    "sources": 5,
+    "families": 4,
+    "risk_cases": 4
+  },
+  "validation": {
+    "targeted_tests": "10 passed in 10.91s",
+    "full_tests": "161 passed in 103.25s",
+    "legacy_isolation": "11/11",
+    "e5_source_fingerprint": "820b6192db181ad023d0c19462742e6d9ed8b23a0afb1c6e465230c5f2bec5be"
+  },
+  "go_e5_preparation": true,
+  "go_e5_ccfb_readiness": false,
+  "go_e5": false
+}

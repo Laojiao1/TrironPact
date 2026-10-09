@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-08T14:33:12.986199+08:00",
+  "generated_at": "2026-10-09T09:15:39.419302+08:00",
   "schema_version": 1,
   "rows": [
     {
@@ -243,11 +243,37 @@
       ],
       "missing": [],
       "complete": true
+    },
+    {
+      "id": "C10_independent_review_protocol",
+      "claim": "第二审阅使用预先固定的 7/28 分层 Kernel 和全部风险案例，初始判断先冻结，重复计数、清单篡改和未解决分歧 fail closed。",
+      "evidence_level": "independent_human_audit_protocol",
+      "code": [
+        "bench/e5/review.py",
+        "artifact/e5_review/review_guide.md",
+        "artifact/e5_review/review_template.json"
+      ],
+      "tests": [
+        "test/test_e5_review.py",
+        "test/test_e5_readiness.py"
+      ],
+      "reports": [
+        "results/e5_second_review_package.json",
+        "results/e5_ccfb_readiness.json"
+      ],
+      "raw_data": [
+        "artifact/e5_review/review_manifest.json"
+      ],
+      "limitations": [
+        "当前只完成冻结包和校验器；第二审阅人尚未填写，readiness 条件 7 必须保持 false。"
+      ],
+      "missing": [],
+      "complete": true
     }
   ],
   "counts": {
-    "claims": 9,
-    "complete": 9
+    "claims": 10,
+    "complete": 10
   },
   "checks": {
     "all_claims_have_code": true,

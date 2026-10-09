@@ -73,6 +73,7 @@ def source_fingerprint() -> str:
         *(PROJECT / "bench/e5").glob("*.py"),
         *(PROJECT / "test").glob("test_e5_*.py"),
         PROJECT / "artifact/e5_correctness.md",
+        *(PROJECT / "artifact/e5_review").glob("*"),
         CATALOG,
         E2_FREEZE,
         RESULTS / "e3_regression.json",

@@ -12,6 +12,7 @@ from bench.e1.audit import fingerprint as e1_fingerprint
 from bench.e2.freeze import current_fingerprint
 from bench.e3.validate import source_fingerprint as e3_source_fingerprint
 from bench.e4.validate import source_fingerprint as e4_source_fingerprint
+from bench.e5.review import validate_completed_review
 
 
 PROJECT = Path(__file__).resolve().parents[2]
@@ -27,26 +28,13 @@ def _git(*args: str) -> str:
 
 
 def _second_review_complete(risk: dict) -> bool:
-    """只有结构完整的独立审阅记录才满足最终条件；文件缺失即 False。"""
+    """严格 schema 与 e3 风险分母必须同时匹配；任一未知均为 False。"""
 
-    path = RESULTS / "e5_second_review.json"
-    if not path.is_file():
-        return False
-    try:
-        review = json.loads(path.read_text(encoding="utf-8"))
-    except (json.JSONDecodeError, UnicodeDecodeError):
-        return False
+    review = validate_completed_review()
     risk_ids = {
         row["case_id"] for row in risk.get("rows", ()) if row.get("status") == "complete"
     }
-    return (
-        review.get("reviewer_independent") is True
-        and review.get("reviewed_kernel_count", 0) >= 7
-        and review.get("formal_kernel_denominator") == 28
-        and set(review.get("reviewed_risk_case_ids", ())) == risk_ids
-        and review.get("disagreements_resolved") is True
-        and bool(review.get("review_records"))
-    )
+    return review.complete and set(review.risk_ids) == risk_ids
 
 
 def build_ccfb(*, verification_context: dict | None = None) -> dict:

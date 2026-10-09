@@ -113,5 +113,15 @@ CLAIMS = (
         ("results/e5_evidence_manifest.json",),
         ("提交后的干净 checkout 仍需重新运行一次总核验，才能满足最终冻结条件。",),
     ),
+    TraceClaim(
+        "C10_independent_review_protocol",
+        "第二审阅使用预先固定的 7/28 分层 Kernel 和全部风险案例，初始判断先冻结，重复计数、清单篡改和未解决分歧 fail closed。",
+        "independent_human_audit_protocol",
+        ("bench/e5/review.py", "artifact/e5_review/review_guide.md", "artifact/e5_review/review_template.json"),
+        ("test/test_e5_review.py", "test/test_e5_readiness.py"),
+        ("results/e5_second_review_package.json", "results/e5_ccfb_readiness.json"),
+        ("artifact/e5_review/review_manifest.json",),
+        ("当前只完成冻结包和校验器；第二审阅人尚未填写，readiness 条件 7 必须保持 false。",),
+    ),
 )
 
