@@ -1,0 +1,42 @@
+{
+  "generated_at": "2026-10-08T14:31:02.6686322+08:00",
+  "start_head": "481c1651fc081f05c6cddc1492e41f05fc6afd9d",
+  "scope": "e5a correctness argument, traceability, read-only holdout audit, readiness and one-click verifier",
+  "go_e5_preparation": true,
+  "go_e5_ccfb_readiness": false,
+  "go_e5": false,
+  "source_fingerprint": "c35135b9d053753192483410b7eb3883828630feb29cac8bf36e418d7e9dfe93",
+  "validation": [
+    {
+      "command": ["python", "-m", "bench.e5.validate"],
+      "attempt": 1,
+      "exit_code": 2,
+      "pytest": "153 passed, 2 failed",
+      "reason": "trace path and existing report schema/worktree-directory handling mismatches"
+    },
+    {
+      "command": ["python", "-m", "bench.e5.validate"],
+      "attempt": 2,
+      "exit_code": 0,
+      "pytest": "155 passed in 89.48s",
+      "legacy_isolation": "11/11"
+    },
+    {
+      "command": ["python", "-m", "bench.e5.validate"],
+      "attempt": 3,
+      "exit_code": 0,
+      "pytest": "156 passed in 89.05s",
+      "legacy_isolation": "11/11"
+    },
+    {
+      "command": ["git", "diff", "--check"],
+      "exit_code": 0
+    }
+  ],
+  "pending": [
+    "two native Linux GPU environments",
+    "independent second reviewer",
+    "post-commit evidence binding",
+    "clean-checkout final rerun"
+  ]
+}

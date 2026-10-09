@@ -1,0 +1,100 @@
+{
+  "generated_at": "2026-10-08T14:33:12.877242+08:00",
+  "mode": "read_only_audit_of_e2_frozen_holdout_v1",
+  "rerun_performed": false,
+  "rules_changed_since_evaluation": false,
+  "freeze": {
+    "frozen_at": "2026-10-01T12:12:48.712665+08:00",
+    "rule_fingerprint": "30267fb24738b6b050acbe9925654ce58a12fb0b40a14b639272d75cdc45b6ee",
+    "policy": "冻结后仅执行一次留出评估；不得按留出结果调规则。规则变化必须作废该留出结果并建立新版本。"
+  },
+  "rows": [
+    {
+      "id": "flag_slice",
+      "access_status": "Unknown",
+      "access_reason": "地址 tl.where 条件不是已绑定 constexpr",
+      "candidate_status": "Unknown",
+      "guard_status": "Unknown",
+      "fast_feasible": false,
+      "smoke_current": true
+    },
+    {
+      "id": "liger_layernorm",
+      "access_status": "Supported",
+      "access_reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "candidate_status": "complete",
+      "guard_status": "Supported",
+      "fast_feasible": true,
+      "smoke_current": true
+    },
+    {
+      "id": "liger_swiglu",
+      "access_status": "Supported",
+      "access_reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "candidate_status": "complete",
+      "guard_status": "Supported",
+      "fast_feasible": true,
+      "smoke_current": true
+    },
+    {
+      "id": "pytorch_double_strided",
+      "access_status": "Supported",
+      "access_reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "candidate_status": "complete",
+      "guard_status": "Supported",
+      "fast_feasible": true,
+      "smoke_current": true
+    },
+    {
+      "id": "triton_interleave",
+      "access_status": "Supported",
+      "access_reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "candidate_status": "complete",
+      "guard_status": "Supported",
+      "fast_feasible": true,
+      "smoke_current": true
+    },
+    {
+      "id": "triton_pair_flip",
+      "access_status": "Supported",
+      "access_reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "candidate_status": "complete",
+      "guard_status": "Supported",
+      "fast_feasible": true,
+      "smoke_current": true
+    },
+    {
+      "id": "unsloth_rmsnorm",
+      "access_status": "Supported",
+      "access_reason": "全部绑定后访存访问点已归一化；不证明 Kernel 数值语义",
+      "candidate_status": "complete",
+      "guard_status": "Supported",
+      "fast_feasible": true,
+      "smoke_current": true
+    }
+  ],
+  "counts": {
+    "holdout": 7,
+    "supported": 6,
+    "unknown": 1,
+    "fast_feasible": 6,
+    "known_false_allows": 0
+  },
+  "source_reports": {
+    "results/e2_access_ir_coverage.json": "2e16560d53a992e89d6c6e345574b5765ae7979759ead70e8e218feb690f246d",
+    "results/e2_candidate_extraction.json": "e52234a9da8d887ad97ce89105896a53f3d2c8351b580f97efb9a3576dcaf7d4",
+    "results/e2_guard_coverage.json": "3e24c9431f64547303dc2eac63481fc72c9ccc241ac82eccd5d6b315ffc3ed32"
+  },
+  "checks": {
+    "freeze_precedes_holdout_and_marks_evaluated": true,
+    "rule_fingerprint_still_current": true,
+    "same_seven_holdout_ids_in_all_reports": true,
+    "reports_use_frozen_holdout_mode": true,
+    "holdout_not_used_for_rule_development": true,
+    "six_supported_one_unknown_preserved": true,
+    "supported_holdout_smoke_current": true,
+    "unknown_not_fast": true
+  },
+  "go_holdout_audit": true,
+  "scope": "仅审计 e2 已归档的一次性留出结果；e5a 没有重新运行、调规则或把留出集改称开发集。"
+}

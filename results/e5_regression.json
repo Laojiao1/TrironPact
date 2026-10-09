@@ -1,0 +1,97 @@
+{
+  "generated_at": "2026-10-08T14:35:31.512422+08:00",
+  "status": "preparation_go_final_readiness_pending",
+  "go_e5_preparation": true,
+  "go_e5_ccfb_readiness": false,
+  "go_e5": false,
+  "source_fingerprint": "c35135b9d053753192483410b7eb3883828630feb29cac8bf36e418d7e9dfe93",
+  "git": {
+    "current_head": "481c1651fc081f05c6cddc1492e41f05fc6afd9d",
+    "origin_eval": "481c1651fc081f05c6cddc1492e41f05fc6afd9d",
+    "branch": "eval",
+    "worktree_status": " M bench/catalog.json\n?? artifact/\n?? bench/e5/\n?? results/e5_ccfa_gap.json\n?? results/e5_ccfa_gap.md\n?? results/e5_ccfb_readiness.json\n?? results/e5_ccfb_readiness.md\n?? results/e5_development_record.json\n?? results/e5_development_record.md\n?? results/e5_evidence_manifest.json\n?? results/e5_evidence_manifest.md\n?? results/e5_holdout_evaluation.json\n?? results/e5_holdout_evaluation.md\n?? results/e5_regression.json\n?? results/e5_regression.md\n?? results/e5_regression_isolation.json\n?? results/e5_regression_isolation.md\n?? results/e5_traceability.json\n?? results/e5_traceability.md\n?? test/test_e5_correctness.py\n?? test/test_e5_holdout.py\n?? test/test_e5_readiness.py\n?? test/test_e5_traceability.py\n?? test/test_e5_validate.py",
+    "unexpected_paths": []
+  },
+  "environment": {
+    "system": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31",
+    "python": "3.10.20",
+    "torch": "2.11.0+cu128",
+    "triton": "3.6.0",
+    "cuda": "12.8",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU"
+  },
+  "checks": {
+    "git_head_matches_origin_eval": true,
+    "e1_corpus_and_source_fingerprints_current": true,
+    "e2_rule_fingerprint_current": true,
+    "e3_source_fingerprint_current": true,
+    "e4a_source_fingerprint_current": true,
+    "formal_evidence_manifest_complete": true,
+    "environment_fingerprints_consistent": true,
+    "dataset_splits_disjoint": true,
+    "seven_layer_denominators_preserved": true,
+    "holdout_read_only_audit_complete": true,
+    "zero_known_false_allows": true,
+    "real_risk_layers_and_minimum_complete": true,
+    "fair_system_baselines_complete": true,
+    "secondary_results_and_diagnostics_disclosed": true,
+    "correctness_argument_and_traceability_complete": true,
+    "readiness_state_consistent": true,
+    "only_e5a_worktree_changes": true,
+    "full_tests_and_legacy_isolation": true
+  },
+  "regression": {
+    "command": [
+      "python",
+      "test/run_tests.py",
+      "--quick",
+      "--output",
+      "/mnt/f/Project/Paper/Code/TritonPact/results/e5_regression_isolation.md"
+    ],
+    "exit_code": 0,
+    "pytest_summary": "156 passed in 89.05s (0:01:29)",
+    "legacy_isolation_passed": true,
+    "legacy_checks": {
+      "四个变体进入 Access IR": true,
+      "语义规格与逐谓词来源可追溯": true,
+      "A 两组转置尺寸均出现数值错误": true,
+      "A Guard 拦截并正确回退": true,
+      "A2 非连续输入正确直通且连续化会复制": true,
+      "B 非整除边界正确直通": true,
+      "未知类型安全回退": true,
+      "官方教程双输入契约阻止错读": true,
+      "关键输入重复稳定": true,
+      "经验观察与静态放行分开记录": true,
+      "单谓词补集触发候选修订并放行": true
+    },
+    "stdout_tail": "[1/2] 运行测试\n........................................................................ [ 46%]\n........................................................................ [ 92%]\n............                                                             [100%]\n156 passed in 89.05s (0:01:29)\n[2/2] 运行隔离案例\n通过：四个变体进入 Access IR\n通过：语义规格与逐谓词来源可追溯\n通过：A 两组转置尺寸均出现数值错误\n通过：A Guard 拦截并正确回退\n通过：A2 非连续输入正确直通且连续化会复制\n通过：B 非整除边界正确直通\n通过：未知类型安全回退\n通过：官方教程双输入契约阻止错读\n通过：关键输入重复稳定\n通过：经验观察与静态放行分开记录\n通过：单谓词补集触发候选修订并放行\n受限案例验收：通过\nA 模板内的动态候选修订：已验证\n结果文件：e5_regression_isolation.md\n",
+    "report": "results/e5_regression_isolation.md"
+  },
+  "pending": [
+    {
+      "id": "4_two_workloads_and_two_hardware_environments",
+      "passed": false,
+      "reason": "e4b 尚无两套原生 Linux GPU、实际 smoke、正确性和开销复核。"
+    },
+    {
+      "id": "7_independent_second_review",
+      "passed": false,
+      "reason": "尚无第二审阅人对至少 25% 正式 Kernel 及全部风险案例的独立记录。"
+    },
+    {
+      "id": "9_current_commit_environment_and_data_bound",
+      "passed": false,
+      "reason": "e5a 尚在未提交开发工作树；提交后需在目标提交重新生成最终证据清单。"
+    },
+    {
+      "id": "10_clean_checkout_one_click_verification",
+      "passed": false,
+      "reason": "最终条件要求提交后的干净 checkout 重跑；e5a 开发验收不能提前满足。"
+    }
+  ],
+  "claims": {
+    "preparation": "e5a 的支持域、证明草图、追踪、只读留出审计和总核验代码已形成。",
+    "readiness": "原生 Linux 双硬件、第二审阅人、提交后干净 checkout 与最终提交绑定尚未完成。",
+    "holdout": "e5a 没有重跑留出 Kernel，也没有修改 e2 冻结规则。"
+  }
+}
