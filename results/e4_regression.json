@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-10-06T13:00:03.192413+08:00",
-  "status": "integration_go_cross_hardware_pending",
+  "generated_at": "2026-10-12T09:47:05.264066+08:00",
+  "status": "go",
   "go_e4_integration": true,
-  "go_e4_cross_hardware": false,
-  "go_e4": false,
-  "source_fingerprint": "1553de651bce580f2821e641fde905b9c2f58a9f26c46c123b4b7b994289e5e0",
+  "go_e4_cross_hardware": true,
+  "go_e4": true,
+  "source_fingerprint": "a74ab630744c42a1208d3df444fdc9d8f2f9f7381b20c026ae79e9621620da47",
   "git": {
     "start_head": "763926519269325c1af8c39a892b6823d28b3b9f",
-    "current_head": "763926519269325c1af8c39a892b6823d28b3b9f",
+    "current_head": "fcac52b0f48520e9a7c3e900cd2fa61d5d2c3e6c",
     "branch": "eval",
-    "worktree_status": " M README.md\n M bench/catalog.json\n?? bench/e4/\n?? integration/\n?? results/e4_cross_hardware_performance.json\n?? results/e4_cross_hardware_performance.md\n?? results/e4_development_record.json\n?? results/e4_development_record.md\n?? results/e4_dispatch_baselines.json\n?? results/e4_dispatch_baselines.md\n?? results/e4_regression.json\n?? results/e4_regression.md\n?? results/e4_regression_isolation.json\n?? results/e4_regression_isolation.md\n?? results/e4_workload_correctness.json\n?? results/e4_workload_correctness.md\n?? results/e4_workload_manifest.json\n?? results/e4_workload_manifest.md\n?? results/e4_wsl_diagnostics.json\n?? results/e4_wsl_diagnostics.md\n?? test/test_e4_baselines.py\n?? test/test_e4_correctness.py\n?? test/test_e4_diagnostics.py\n?? test/test_e4_manifest.py\n?? test/test_e4_validate.py\n?? test/test_e4_workloads.py",
+    "worktree_status": " M README.md\n M bench/catalog.json\n M bench/e1/source.py\n M bench/e4/diagnostics.py\n M bench/e4/validate.py\n M bench/e5/readiness.py\n M bench/e5/validate.py\n M results/e1_capability_gap.json\n M results/e1_corpus_inventory.json\n M results/e1_semantic_audit.json\n M results/e1_semantic_smoke.json\n M results/e4_cross_hardware_performance.json\n M results/e4_cross_hardware_performance.md\n M results/e4_regression.json\n M results/e4_regression.md\n M results/e4_regression_isolation.md\n M results/e5_ccfa_gap.json\n M results/e5_ccfa_gap.md\n M results/e5_ccfb_readiness.json\n M results/e5_ccfb_readiness.md\n M results/e5_evidence_manifest.json\n M results/e5_evidence_manifest.md\n M results/e5_holdout_evaluation.json\n M results/e5_internal_development_status.json\n M results/e5_internal_development_status.md\n M results/e5_regression.json\n M results/e5_regression.md\n M results/e5_regression_isolation.md\n M results/e5_traceability.json\n M scripts/e1/setup_native_linux.sh\n M test/test_e1_corpus.py\n M test/test_e4_diagnostics.py\n M test/test_e4_validate.py\n M test/test_e5_readiness.py\n M test/test_e5_validate.py\n?? bench/e4/cross_hardware.py\n?? results/e4b_environment_4090_raw.txt\n?? results/e4b_environment_5080_raw.txt\n?? results/e4b_environment_setup.json\n?? results/e4b_environment_setup.md\n?? results/e4b_machine_4090.json\n?? results/e4b_machine_5080.json\n?? results/e4b_offline_install_4090.log\n?? results/e4b_offline_install_5080.log",
     "unexpected_paths": []
   },
   "environment": {
@@ -39,7 +39,7 @@
     "safe_nonstandard_fast_paths": 1,
     "safe_outside_frozen_domain_rejections": 1,
     "baseline_policies": 7,
-    "native_linux_environments": 0
+    "native_linux_environments": 2
   },
   "checks": {
     "e1_fingerprint_current": true,
@@ -52,7 +52,7 @@
     "wsl_diagnostics_complete_and_scoped": true,
     "full_regression_and_legacy_isolation": true,
     "no_e2_e3_or_online_fast_changes": true,
-    "e4b_explicitly_pending": true
+    "e4b_status_consistent": true
   },
   "regression": {
     "command": [
@@ -63,7 +63,7 @@
       "/mnt/f/Project/Paper/Code/TritonPact/results/e4_regression_isolation.md"
     ],
     "exit_code": 0,
-    "pytest_summary": "144 passed in 107.90s (0:01:47)",
+    "pytest_summary": "163 passed in 95.79s (0:01:35)",
     "legacy_isolation_passed": true,
     "legacy_checks": {
       "四个变体进入 Access IR": true,
@@ -78,15 +78,15 @@
       "经验观察与静态放行分开记录": true,
       "单谓词补集触发候选修订并放行": true
     },
-    "stdout_tail": "[1/2] 运行测试\n........................................................................ [ 50%]\n........................................................................ [100%]\n144 passed in 107.90s (0:01:47)\n[2/2] 运行隔离案例\n通过：四个变体进入 Access IR\n通过：语义规格与逐谓词来源可追溯\n通过：A 两组转置尺寸均出现数值错误\n通过：A Guard 拦截并正确回退\n通过：A2 非连续输入正确直通且连续化会复制\n通过：B 非整除边界正确直通\n通过：未知类型安全回退\n通过：官方教程双输入契约阻止错读\n通过：关键输入重复稳定\n通过：经验观察与静态放行分开记录\n通过：单谓词补集触发候选修订并放行\n受限案例验收：通过\nA 模板内的动态候选修订：已验证\n结果文件：e4_regression_isolation.md\n",
+    "stdout_tail": "[1/2] 运行测试\n........................................................................ [ 44%]\n........................................................................ [ 88%]\n...................                                                      [100%]\n163 passed in 95.79s (0:01:35)\n[2/2] 运行隔离案例\n通过：四个变体进入 Access IR\n通过：语义规格与逐谓词来源可追溯\n通过：A 两组转置尺寸均出现数值错误\n通过：A Guard 拦截并正确回退\n通过：A2 非连续输入正确直通且连续化会复制\n通过：B 非整除边界正确直通\n通过：未知类型安全回退\n通过：官方教程双输入契约阻止错读\n通过：关键输入重复稳定\n通过：经验观察与静态放行分开记录\n通过：单谓词补集触发候选修订并放行\n受限案例验收：通过\nA 模板内的动态候选修订：已验证\n结果文件：e4_regression_isolation.md\n",
     "report": "results/e4_regression_isolation.md"
   },
   "claims": {
     "integration": "两个真实轨迹和 14 个不同冻结函数体完成可追溯接入。",
     "safety": "固定案例中已知误放行 0；2 个数值错读布局被阻止，Fallback 正确。",
     "nonstandard": "项目 A2 padded-row 安全直通；Liger row-padding 因 e2 exact-stride 域被保守拒绝并单列缺口。",
-    "performance": "WSL2 单机诊断；无论区间方向如何，均不形成稳定加速、原生 Linux 或跨硬件结论。",
-    "overall": "e4a 完成不等于 e4 完成；e4b 和 go_e4 仍为 false。"
+    "performance": "RTX 4090 与 RTX 5080 原生 Linux 正式报告均完整；所测极小图的完整分派区间稳定显示额外开销，不宣称加速或外推到大张量与完整模型。",
+    "overall": "e4a 与两套原生 Linux e4b 均通过，e4 总体 Go；性能结论保持逐环境、逐工作负载边界。"
   },
   "reports": [
     "results/e4_workload_manifest.md",

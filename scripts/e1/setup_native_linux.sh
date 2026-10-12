@@ -22,4 +22,5 @@ python3 -m venv "$environment_path"
 "$environment_path/bin/python" -m pip install --upgrade "pip==25.2"
 "$environment_path/bin/python" -m pip install --index-url https://download.pytorch.org/whl/cu128 "torch==2.11.0"
 "$environment_path/bin/python" -m pip install "triton==3.6.0" "pytest==8.4.2"
-"$environment_path/bin/python" scripts/e1/native_smoke.py
+# 文件路径启动会把 scripts/e1 放在首个模块搜索位置，导致仓库根目录下的 bench 无法导入。
+PYTHONPATH="$PWD${PYTHONPATH:+:$PYTHONPATH}" "$environment_path/bin/python" scripts/e1/native_smoke.py

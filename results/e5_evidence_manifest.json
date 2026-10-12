@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-09T09:15:38.984633+08:00",
-  "git_head": "bd5fa3e3376e2dacffc2671ee52f3cbea1589a10",
+  "generated_at": "2026-10-12T10:07:37.793776+08:00",
+  "git_head": "fcac52b0f48520e9a7c3e900cd2fa61d5d2c3e6c",
   "branch": "eval",
   "rows": [
     {
@@ -27,21 +27,21 @@
     {
       "path": "results/e1_corpus_inventory.json",
       "exists": true,
-      "sha256": "d2bd94ad56fb2258d19f518ba4a12cc4660ebcfa83aad4c18a348e0affd4b087",
+      "sha256": "0042c2c252a77dccce037d880de2d6a22947da40ee6ec3b2363ba5b546ccd6e8",
       "json_valid": true,
       "time_valid": true
     },
     {
       "path": "results/e1_semantic_audit.json",
       "exists": true,
-      "sha256": "658d6a67b03465ab9355542f3b713d954a82ba2b030f823390e0a9e4cf599998",
+      "sha256": "681a335f9ae7fa334e2c48f9f27064dfd813e2e98f3462484211aada3a711c95",
       "json_valid": true,
       "time_valid": true
     },
     {
       "path": "results/e1_semantic_smoke.json",
       "exists": true,
-      "sha256": "60ace3897c1e2005e12b48d1d12be0617cf4f36ba499f8aeb46c098ee877e78f",
+      "sha256": "2b93ac8487ba55a5a8b6a1824d6515bdd26c1e40503e048334fd9e559d9311b4",
       "json_valid": true,
       "time_valid": true
     },
@@ -137,16 +137,65 @@
       "time_valid": true
     },
     {
+      "path": "results/e4b_environment_4090_raw.txt",
+      "exists": true,
+      "sha256": "dd5be4dc938c8c77d34049a74f8f5afa3717f6383c1f66dc4fdaa44f46c07d11",
+      "json_valid": null,
+      "time_valid": null
+    },
+    {
+      "path": "results/e4b_environment_5080_raw.txt",
+      "exists": true,
+      "sha256": "6fec23516f460d7e9fce03aef5494bd400b7eb4af530ce3857bf5f8b107191ad",
+      "json_valid": null,
+      "time_valid": null
+    },
+    {
+      "path": "results/e4b_environment_setup.json",
+      "exists": true,
+      "sha256": "2e2c815c483eb8eccd9c216b316eeef63d8cfcb781ba04ea03fd0cf88f24b0b0",
+      "json_valid": true,
+      "time_valid": true
+    },
+    {
+      "path": "results/e4b_machine_4090.json",
+      "exists": true,
+      "sha256": "ae3d0d26cd0b87dc43a05dc120f0ab1d2d7d1cc5bf670039c6fbb68eea46dc36",
+      "json_valid": true,
+      "time_valid": true
+    },
+    {
+      "path": "results/e4b_machine_5080.json",
+      "exists": true,
+      "sha256": "1b9ce75542aaa9645f8e3297bee85db1dfe113bda87813727e828672b319b22a",
+      "json_valid": true,
+      "time_valid": true
+    },
+    {
+      "path": "results/e4b_offline_install_4090.log",
+      "exists": true,
+      "sha256": "3e0c41349a2e97b4220a20786cb2921b845cde5ea46d38ec03abc2656790f799",
+      "json_valid": null,
+      "time_valid": null
+    },
+    {
+      "path": "results/e4b_offline_install_5080.log",
+      "exists": true,
+      "sha256": "3e0c41349a2e97b4220a20786cb2921b845cde5ea46d38ec03abc2656790f799",
+      "json_valid": null,
+      "time_valid": null
+    },
+    {
       "path": "results/e4_cross_hardware_performance.json",
       "exists": true,
-      "sha256": "63a606897a4970edce13c47e0d05c81fc6ca43e8f145176a0cf125ce80d45512",
+      "sha256": "12095eb2db93f5fb1a3f3648258b1f9c669061840489f6b4dc26c2bb4e6ee0cd",
       "json_valid": true,
       "time_valid": true
     },
     {
       "path": "results/e4_regression.json",
       "exists": true,
-      "sha256": "db77d4fe9d1781f5aa6733a05028326cc41c2ca98196e0088806ef3fc16c2d2e",
+      "sha256": "f08dc0191a61b93c723b4f60f4f5d7b34afdd444367743e625c3cb7cc3553e5d",
       "json_valid": true,
       "time_valid": true
     }

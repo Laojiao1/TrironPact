@@ -71,7 +71,21 @@ def _run_regression() -> dict:
 
 
 def _unexpected_worktree(status: str) -> list[str]:
-    allowed = ("README.md", "integration/", "bench/e4/", "test/test_e4_", "results/e4_")
+    allowed = (
+        "README.md",
+        "integration/",
+        "bench/e4/",
+        "bench/e1/source.py",
+        "bench/e5/",
+        "scripts/e1/setup_native_linux.sh",
+        "test/test_e1_corpus.py",
+        "test/test_e5_",
+        "test/test_e4_",
+        "results/e1_",
+        "results/e4_",
+        "results/e4b_",
+        "results/e5_",
+    )
     result = []
     for line in status.splitlines():
         path = line[3:].replace("\\", "/")
@@ -91,6 +105,11 @@ def _unexpected_worktree(status: str) -> list[str]:
 
 
 def _write_cross_hardware_pending() -> dict:
+    existing = RESULTS / "e4_cross_hardware_performance.json"
+    if existing.is_file():
+        report = json.loads(existing.read_text(encoding="utf-8"))
+        if report.get("formal_experiment_run") is True:
+            return report
     report = {
         "generated_at": datetime.now().astimezone().isoformat(),
         "status": "pending_resource",
@@ -137,14 +156,18 @@ def main() -> int:
         "wsl_diagnostics_complete_and_scoped": diagnostics.get("go_diagnostics") is True and diagnostics["checks"]["diagnostic_scope_only"],
         "full_regression_and_legacy_isolation": regression["exit_code"] == 0 and regression["legacy_isolation_passed"],
         "no_e2_e3_or_online_fast_changes": not _unexpected_worktree(status),
-        "e4b_explicitly_pending": cross_hardware["go_e4_cross_hardware"] is False and not cross_hardware["formal_experiment_run"],
+        "e4b_status_consistent": (
+            cross_hardware["go_e4_cross_hardware"] is True
+            if cross_hardware.get("formal_experiment_run") is True
+            else cross_hardware["go_e4_cross_hardware"] is False
+        ),
     }
     go_e4_integration = all(checks.values())
     go_e4_cross_hardware = cross_hardware["go_e4_cross_hardware"]
     go_e4 = go_e4_integration and go_e4_cross_hardware
     report = {
         "generated_at": datetime.now().astimezone().isoformat(),
-        "status": "integration_go_cross_hardware_pending" if go_e4_integration else "no_go",
+        "status": "go" if go_e4 else "integration_go_cross_hardware_pending" if go_e4_integration else "no_go",
         "go_e4_integration": go_e4_integration,
         "go_e4_cross_hardware": go_e4_cross_hardware,
         "go_e4": go_e4,
@@ -176,8 +199,17 @@ def main() -> int:
             "integration": "两个真实轨迹和 14 个不同冻结函数体完成可追溯接入。",
             "safety": "固定案例中已知误放行 0；2 个数值错读布局被阻止，Fallback 正确。",
             "nonstandard": "项目 A2 padded-row 安全直通；Liger row-padding 因 e2 exact-stride 域被保守拒绝并单列缺口。",
-            "performance": diagnostics["conclusion"],
-            "overall": "e4a 完成不等于 e4 完成；e4b 和 go_e4 仍为 false。",
+            "performance": (
+                "RTX 4090 与 RTX 5080 原生 Linux 正式报告均完整；所测极小图的完整分派区间稳定显示额外开销，"
+                "不宣称加速或外推到大张量与完整模型。"
+                if go_e4_cross_hardware
+                else diagnostics["conclusion"]
+            ),
+            "overall": (
+                "e4a 与两套原生 Linux e4b 均通过，e4 总体 Go；性能结论保持逐环境、逐工作负载边界。"
+                if go_e4
+                else "e4a 完成不等于 e4 完成；e4b 和 go_e4 仍为 false。"
+            ),
         },
         "reports": [
             "results/e4_workload_manifest.md",
@@ -189,7 +221,7 @@ def main() -> int:
         ],
     }
     lines = [
-        "# e4a 阶段状态与验收记录",
+        "# e4 阶段状态与验收记录",
         "",
         f"生成时间：{report['generated_at']}",
         f"状态：`{report['status']}`；`go_e4_integration={go_e4_integration}`，`go_e4_cross_hardware={go_e4_cross_hardware}`，`go_e4={go_e4}`。",

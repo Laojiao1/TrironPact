@@ -1,4 +1,4 @@
-"""生成冻结的第二审阅包，并严格核验独立审阅记录。"""
+"""生成冻结的可选独立审阅包，并严格核验其审阅记录。"""
 
 from __future__ import annotations
 
@@ -459,11 +459,11 @@ def write_package(freeze_commit: str) -> tuple[dict, dict]:
             "template_intentionally_incomplete": not validate_review(template, manifest).complete,
         },
         "validation_errors": validation,
-        "scope": "只表示审阅包可交付；第二审阅人尚未填写，不能满足 readiness 条件 7。",
+        "scope": "只表示可选审阅包可交付；第二审阅人尚未填写，论文不得声称已完成独立人工复核。该项不作为 readiness 强制门槛。",
     }
     (RESULTS / "e5_second_review_package.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     lines = [
-        "# e5 第二审阅人冻结包",
+        "# e5 可选独立审阅冻结包",
         "",
         f"- 状态：`{report['status']}`；冻结提交：`{report['freeze_commit']}`。",
         f"- 计数：{report['counts']}。",

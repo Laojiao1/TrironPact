@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-09T09:15:15.217425+08:00",
+  "generated_at": "2026-10-12T09:57:56.222061+08:00",
   "status": "ready_for_independent_reviewer",
   "review_complete": false,
   "freeze_commit": "bd5fa3e3376e2dacffc2671ee52f3cbea1589a10",
-  "manifest_sha256": "3b30ac286c00b5c7badb14ed93eb476d02713511215713cc59f04c381652a928",
-  "template_sha256": "cbae7990813e12cdffb992d03495ff25130fa6c06dd19b82318e4cd341810cc7",
+  "manifest_sha256": "d3f8228ce991fa17f7cd07e239f6809003ce214a1fb4b846adce93e7cfeeeeee",
+  "template_sha256": "9f7a7ad371a2d771f75100c6675d30560b7096b786b73a4835faec922502b507",
   "counts": {
     "formal_kernel_denominator": 28,
     "selected_kernels": 7,
@@ -19,5 +19,5 @@
     "template_intentionally_incomplete": true
   },
   "validation_errors": [],
-  "scope": "只表示审阅包可交付；第二审阅人尚未填写，不能满足 readiness 条件 7。"
+  "scope": "只表示可选审阅包可交付；第二审阅人尚未填写，论文不得声称已完成独立人工复核。该项不作为 readiness 强制门槛。"
 }

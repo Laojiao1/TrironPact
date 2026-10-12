@@ -7,4 +7,4 @@
 - **confirmed_upstream_impact**（open）：尚无由本项目新发现并获维护者确认的未知缺陷或上游合入。
 - **compiler_graph_integration**（open）：已有真实 Inductor 图执行，但没有图级 Guard 或编译器级部署收益。
 - **guided_mutation_advantage**（open）：冻结实验不支持谓词引导普遍优于强随机基线。
-- **cross_generation_results**（open）：原生 Linux 双硬件尚未完成，更无多 GPU 代际一致结论。
+- **cross_generation_results**（open）：Ada 与 Blackwell 双硬件已完成；更广 GPU、软件版本和完整模型证据仍缺失。

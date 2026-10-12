@@ -88,7 +88,7 @@ def _environment() -> dict:
         "wsl_interop": "microsoft" in platform.release().lower() or bool(os.environ.get("WSL_DISTRO_NAME")),
         "nvcc": nvcc or "Unknown",
         "nvcc_version": nvcc_version,
-        "path_rule": "e4a 命令显式把 /usr/local/cuda/bin 放在 Windows PATH 之前",
+        "path_rule": "记录实际 PATH 中的 nvcc；PyTorch/Triton wheel 自带运行时不要求系统 nvcc",
     }
 
 
@@ -135,7 +135,17 @@ def _timed(callable_) -> float:
     return (time.perf_counter_ns() - started) / 1_000_000
 
 
-def build() -> dict:
+def build(*, environment_scope: str = "wsl") -> dict:
+    """执行冻结的 e4 计时协议。
+
+    ``wsl`` 只生成 e4a 开发诊断；``native_linux`` 用于 e4b 正式复核。
+    两种范围共享输入、warmup、交错、同步、GC 和区间算法，避免跨环境
+    改变计时口径。有限样本只支持报告所测工作负载，不能外推一般性能。
+    """
+
+    if environment_scope not in {"wsl", "native_linux"}:
+        raise ValueError(f"Unknown：不支持的计时环境范围 {environment_scope}")
+    environment = _environment()
     inputs = _inductor_inputs(17)
     plans, mappings = _guard_context(inputs)
     compiled = torch.compile(_inductor_graph, fullgraph=True, backend="inductor")
@@ -209,18 +219,32 @@ def build() -> dict:
         }
         for index, (name, values) in enumerate(samples.items())
     }
+    scope_check = (
+        environment["wsl_interop"] and str(environment["nvcc"]).startswith("/usr/local/cuda")
+        if environment_scope == "wsl"
+        else not environment["wsl_interop"] and torch.cuda.is_available()
+    )
     checks = {
-        "native_wsl_cuda_toolchain_selected": str(_environment()["nvcc"]).startswith("/usr/local/cuda"),
+        "requested_environment_matches": scope_check,
         "warmup_and_interleaving_recorded": len(orders) == ROUNDS and all(set(order) == set(POLICIES) for order in orders),
         "raw_samples_complete": all(len(values) == ROUNDS and all(value > 0 for value in values) for values in samples.values()),
         "guard_copy_kernel_fallback_components_present": bool(guard_samples and copy_samples and summaries["upstream"] and summaries["always_fallback"]),
         "first_run_separated": first_ms > 0,
         "no_online_cost_calibration": True,
-        "diagnostic_scope_only": True,
+        "scope_is_explicit": environment_scope in {"wsl", "native_linux"},
     }
+    if environment_scope == "wsl":
+        checks["diagnostic_scope_only"] = True
+    else:
+        checks["formal_native_scope"] = True
+    if environment_scope == "wsl":
+        checks["diagnostic_scope_only"] = True
+    else:
+        checks["formal_native_scope"] = True
     return {
         "generated_at": datetime.now().astimezone().isoformat(),
-        "environment": _environment(),
+        "environment_scope": environment_scope,
+        "environment": environment,
         "protocol": {
             "workload": "inductor_custom_kernel_graph",
             "warmup": WARMUP,
@@ -244,7 +268,11 @@ def build() -> dict:
         "gpu_state_after": state_after,
         "checks": checks,
         "go_diagnostics": all(checks.values()),
-        "conclusion": "WSL2 单机诊断；无论区间方向如何，均不形成稳定加速、原生 Linux 或跨硬件结论。",
+        "conclusion": (
+            "WSL2 单机诊断；无论区间方向如何，均不形成稳定加速、原生 Linux 或跨硬件结论。"
+            if environment_scope == "wsl"
+            else "原生 Linux 单机正式测量；结论仍须与第二硬件的同协议区间共同解释。"
+        ),
     }
 
 

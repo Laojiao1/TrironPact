@@ -1,34 +1,37 @@
 {
-  "generated_at": "2026-10-09T09:22:23.4849746+08:00",
-  "status": "internal_development_complete_external_evidence_deferred",
+  "generated_at": "2026-10-12T10:10:07.414538+08:00",
+  "status": "internal_development_complete_final_freeze_pending",
   "internal_development_complete": true,
   "go_e5_preparation": true,
   "go_e5_ccfb_readiness": false,
   "go_e5": false,
-  "source_fingerprint": "820b6192db181ad023d0c19462742e6d9ed8b23a0afb1c6e465230c5f2bec5be",
+  "source_fingerprint": "1000d02c7bceb036f96b954fcae431419873e7d68846a83e625bd10d876efe75",
   "validation": {
-    "pytest": "161 passed in 103.25s",
+    "pytest": "162 passed in 97.10s (0:01:37)",
     "legacy_isolation": "11/11"
   },
   "deferred": [
     {
-      "id": "independent_second_review",
-      "status": "deferred_not_waived",
-      "decided_at": "2026-10-09",
-      "reopen_trigger": "final text and evidence audit",
-      "prepared_package": "artifact/e5_review/review_manifest.json",
-      "readiness_condition": 7
-    },
+      "id": "final_clean_checkout_freeze",
+      "status": "pending_user_commit",
+      "readiness_conditions": [8, 9]
+    }
+  ],
+  "completed_external": [
     {
       "id": "e4b_cross_hardware",
-      "status": "deferred_pending_resource",
-      "reopen_trigger": "two native Linux GPU environments obtained",
-      "readiness_condition": 4
-    },
+      "status": "complete",
+      "completed_at": "2026-10-12",
+      "readiness_condition": 4,
+      "report": "results/e4_cross_hardware_performance.json"
+    }
+  ],
+  "optional_enhancements": [
     {
-      "id": "final_clean_checkout_freeze",
-      "status": "deferred_until_external_evidence_complete",
-      "readiness_conditions": [9, 10]
+      "id": "independent_second_review",
+      "status": "not_performed_not_required",
+      "prepared_package": "artifact/e5_review/review_manifest.json",
+      "policy": "保留工具但不阻塞 readiness；论文不得声称已完成独立人工复核。"
     }
   ]
 }

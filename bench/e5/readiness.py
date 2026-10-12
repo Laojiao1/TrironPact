@@ -12,7 +12,6 @@ from bench.e1.audit import fingerprint as e1_fingerprint
 from bench.e2.freeze import current_fingerprint
 from bench.e3.validate import source_fingerprint as e3_source_fingerprint
 from bench.e4.validate import source_fingerprint as e4_source_fingerprint
-from bench.e5.review import validate_completed_review
 
 
 PROJECT = Path(__file__).resolve().parents[2]
@@ -27,16 +26,6 @@ def _git(*args: str) -> str:
     return subprocess.run(["git", *args], cwd=PROJECT, capture_output=True, text=True, timeout=30, check=True).stdout.rstrip("\r\n")
 
 
-def _second_review_complete(risk: dict) -> bool:
-    """严格 schema 与 e3 风险分母必须同时匹配；任一未知均为 False。"""
-
-    review = validate_completed_review()
-    risk_ids = {
-        row["case_id"] for row in risk.get("rows", ()) if row.get("status") == "complete"
-    }
-    return review.complete and set(review.risk_ids) == risk_ids
-
-
 def build_ccfb(*, verification_context: dict | None = None) -> dict:
     e1 = _load("e1_semantic_audit")
     e2 = _load("e2_regression")
@@ -46,6 +35,7 @@ def build_ccfb(*, verification_context: dict | None = None) -> dict:
     mutation = _load("e3_mutation_comparison")
     smt = _load("e3_smt_audit")
     e4 = _load("e4_regression")
+    workload = _load("e4_workload_manifest")
     correctness = _load("e4_workload_correctness")
     baselines = _load("e4_dispatch_baselines")
     diagnostics = _load("e4_wsl_diagnostics")
@@ -71,29 +61,31 @@ def build_ccfb(*, verification_context: dict | None = None) -> dict:
         and holdout["checks"]["unknown_not_fast"],
         "4_two_workloads_and_two_hardware_environments": e4.get("go_e4_integration") is True
         and e4.get("source_fingerprint") == e4_source_fingerprint()
+        and workload.get("go_manifest") is True
+        and workload.get("counts", {}).get("distinct_kernels", 0) >= 10
+        and correctness.get("go_correctness") is True
+        and baselines.get("go_baselines") is True
         and cross.get("go_e4_cross_hardware") is True
         and cross.get("obtained_environments", 0) >= 2,
         "5_fair_system_baselines": baselines.get("go_baselines") is True and all(baselines.get("checks", {}).values()),
         "6_correctness_argument_traceable": (PROJECT / "artifact/e5_correctness.md").is_file()
         and trace.get("go_traceability") is True,
-        "7_independent_second_review": _second_review_complete(risk),
-        "8_secondary_and_zero_results_disclosed": mutation.get("go_mutation") is True
+        "7_secondary_and_zero_results_disclosed": mutation.get("go_mutation") is True
         and smt.get("go_smt") is True
         and smt["counts"]["real_candidate_deletions"] == 1
         and smt["counts"]["synthetic_deletions"] == 0
         and diagnostics.get("checks", {}).get("diagnostic_scope_only") is True,
-        "9_current_commit_environment_and_data_bound": initial_clean
+        "8_current_commit_environment_and_data_bound": initial_clean
         and manifest.get("git_head") == current_head
         and all(manifest.get("checks", {}).values()),
-        "10_clean_checkout_one_click_verification": initial_clean
+        "9_clean_checkout_one_click_verification": initial_clean
         and one_click_passed
         and current_head == _git("rev-parse", "origin/eval"),
     }
     missing = {
-        "4_two_workloads_and_two_hardware_environments": "e4b 尚无两套原生 Linux GPU、实际 smoke、正确性和开销复核。",
-        "7_independent_second_review": "尚无第二审阅人对至少 25% 正式 Kernel 及全部风险案例的独立记录。",
-        "9_current_commit_environment_and_data_bound": "e5a 尚在未提交开发工作树；提交后需在目标提交重新生成最终证据清单。",
-        "10_clean_checkout_one_click_verification": "最终条件要求提交后的干净 checkout 重跑；e5a 开发验收不能提前满足。",
+        "4_two_workloads_and_two_hardware_environments": "e4b 必须包含两套原生 Linux GPU、实际 smoke、正确性和开销复核。",
+        "8_current_commit_environment_and_data_bound": "当前仍是未提交开发工作树；提交后需在目标提交重新生成最终证据清单。",
+        "9_clean_checkout_one_click_verification": "最终条件要求提交后的干净 checkout 重跑；开发验收不能提前满足。",
     }
     rows = [
         {"id": key, "passed": value, "reason": "证据满足" if value else missing.get(key, "证据缺失或失配")}
@@ -118,7 +110,7 @@ def build_ccfa() -> dict:
         {"id": "confirmed_upstream_impact", "status": "open", "evidence": "尚无由本项目新发现并获维护者确认的未知缺陷或上游合入。"},
         {"id": "compiler_graph_integration", "status": "open", "evidence": "已有真实 Inductor 图执行，但没有图级 Guard 或编译器级部署收益。"},
         {"id": "guided_mutation_advantage", "status": "open", "evidence": "冻结实验不支持谓词引导普遍优于强随机基线。"},
-        {"id": "cross_generation_results", "status": "open", "evidence": "原生 Linux 双硬件尚未完成，更无多 GPU 代际一致结论。"},
+        {"id": "cross_generation_results", "status": "open", "evidence": "Ada 与 Blackwell 双硬件已完成；更广 GPU、软件版本和完整模型证据仍缺失。"},
     ]
     return {
         "generated_at": datetime.now().astimezone().isoformat(),

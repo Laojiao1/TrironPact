@@ -49,6 +49,13 @@ EVIDENCE_FILES = (
     "results/e4_workload_correctness.json",
     "results/e4_dispatch_baselines.json",
     "results/e4_wsl_diagnostics.json",
+    "results/e4b_environment_4090_raw.txt",
+    "results/e4b_environment_5080_raw.txt",
+    "results/e4b_environment_setup.json",
+    "results/e4b_machine_4090.json",
+    "results/e4b_machine_5080.json",
+    "results/e4b_offline_install_4090.log",
+    "results/e4b_offline_install_5080.log",
     "results/e4_cross_hardware_performance.json",
     "results/e4_regression.json",
 )
@@ -87,7 +94,21 @@ def source_fingerprint() -> str:
 
 
 def _unexpected_worktree(status: str) -> list[str]:
-    allowed = ("artifact/", "bench/e5/", "results/e5_", "test/test_e5_")
+    allowed = (
+        "README.md",
+        "artifact/",
+        "bench/e1/source.py",
+        "bench/e4/",
+        "bench/e5/",
+        "scripts/e1/setup_native_linux.sh",
+        "results/e1_",
+        "results/e4_",
+        "results/e4b_",
+        "results/e5_",
+        "test/test_e1_corpus.py",
+        "test/test_e4_",
+        "test/test_e5_",
+    )
     unexpected = []
     for line in status.splitlines():
         path = line[3:].replace("\\", "/")
@@ -238,7 +259,7 @@ def build(regression: dict, manifest: dict) -> dict:
         "readiness_state_consistent": ccfb.get("go_e5_ccfb_readiness") is all(ccfb.get("conditions", {}).values())
         and (cross.get("go_e4_cross_hardware") is True or ccfb.get("go_e5_ccfb_readiness") is False)
         and ccfa.get("go_e5_ccfa") is False,
-        "only_e5a_worktree_changes": not _unexpected_worktree(status),
+        "only_authorized_e4b_and_e5_worktree_changes": not _unexpected_worktree(status),
         "full_tests_and_legacy_isolation": regression["exit_code"] == 0 and regression["legacy_isolation_passed"],
     }
     return {
@@ -265,7 +286,7 @@ def build(regression: dict, manifest: dict) -> dict:
         "pending": [row for row in ccfb["rows"] if not row["passed"]],
         "claims": {
             "preparation": "e5a 的支持域、证明草图、追踪、只读留出审计和总核验代码已形成。",
-            "readiness": "原生 Linux 双硬件、第二审阅人、提交后干净 checkout 与最终提交绑定尚未完成。",
+            "readiness": "原生 Linux 双硬件已完成；提交后干净 checkout 与最终提交绑定尚未完成。独立人工复核是可选增强项，不作为 Go 门槛。",
             "holdout": "e5a 没有重跑留出 Kernel，也没有修改 e2 冻结规则。",
         },
     }

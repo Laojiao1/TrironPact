@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T09:15:40.491790+08:00",
+  "generated_at": "2026-10-12T10:07:39.075816+08:00",
   "status": "gap_recorded",
   "go_e5_ccfa": false,
   "gaps": [
@@ -26,7 +26,7 @@
     {
       "id": "cross_generation_results",
       "status": "open",
-      "evidence": "原生 Linux 双硬件尚未完成，更无多 GPU 代际一致结论。"
+      "evidence": "Ada 与 Blackwell 双硬件已完成；更广 GPU、软件版本和完整模型证据仍缺失。"
     }
   ],
   "policy": "CCF A 不设置数量型 Go；需在 CCF B 证据完整后依据同期工作重新制定目标。"

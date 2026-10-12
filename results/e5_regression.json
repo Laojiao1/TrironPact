@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-10-09T09:18:13.400051+08:00",
+  "generated_at": "2026-10-12T10:10:07.414538+08:00",
   "status": "preparation_go_final_readiness_pending",
   "go_e5_preparation": true,
   "go_e5_ccfb_readiness": false,
   "go_e5": false,
-  "source_fingerprint": "820b6192db181ad023d0c19462742e6d9ed8b23a0afb1c6e465230c5f2bec5be",
+  "source_fingerprint": "1000d02c7bceb036f96b954fcae431419873e7d68846a83e625bd10d876efe75",
   "git": {
-    "current_head": "bd5fa3e3376e2dacffc2671ee52f3cbea1589a10",
-    "origin_eval": "bd5fa3e3376e2dacffc2671ee52f3cbea1589a10",
+    "current_head": "fcac52b0f48520e9a7c3e900cd2fa61d5d2c3e6c",
+    "origin_eval": "fcac52b0f48520e9a7c3e900cd2fa61d5d2c3e6c",
     "branch": "eval",
-    "worktree_status": " M bench/catalog.json\n M bench/e5/readiness.py\n M bench/e5/specs.py\n M bench/e5/validate.py\n M results/e5_ccfa_gap.json\n M results/e5_ccfb_readiness.json\n M results/e5_evidence_manifest.json\n M results/e5_evidence_manifest.md\n M results/e5_holdout_evaluation.json\n M results/e5_regression_isolation.md\n M results/e5_traceability.json\n M results/e5_traceability.md\n M test/test_e5_readiness.py\n?? artifact/e5_review/\n?? bench/e5/review.py\n?? results/e5_second_review_package.json\n?? results/e5_second_review_package.md\n?? test/test_e5_review.py",
+    "worktree_status": " M README.md\n M artifact/e5_correctness.md\n M artifact/e5_review/review_guide.md\n M artifact/e5_review/review_manifest.json\n M artifact/e5_review/review_template.json\n M bench/catalog.json\n M bench/e1/source.py\n M bench/e4/diagnostics.py\n M bench/e4/validate.py\n M bench/e5/readiness.py\n M bench/e5/review.py\n M bench/e5/specs.py\n M bench/e5/validate.py\n M results/e1_capability_gap.json\n M results/e1_corpus_inventory.json\n M results/e1_semantic_audit.json\n M results/e1_semantic_smoke.json\n M results/e4_cross_hardware_performance.json\n M results/e4_cross_hardware_performance.md\n M results/e4_regression.json\n M results/e4_regression.md\n M results/e4_regression_isolation.md\n M results/e5_ccfa_gap.json\n M results/e5_ccfa_gap.md\n M results/e5_ccfb_readiness.json\n M results/e5_ccfb_readiness.md\n M results/e5_development_record.json\n M results/e5_development_record.md\n M results/e5_evidence_manifest.json\n M results/e5_evidence_manifest.md\n M results/e5_holdout_evaluation.json\n M results/e5_internal_development_status.json\n M results/e5_internal_development_status.md\n M results/e5_regression.json\n M results/e5_regression.md\n M results/e5_regression_isolation.md\n M results/e5_review_preparation_record.json\n M results/e5_review_preparation_record.md\n M results/e5_second_review_package.json\n M results/e5_second_review_package.md\n M results/e5_traceability.json\n M results/e5_traceability.md\n M scripts/e1/setup_native_linux.sh\n M test/test_e1_corpus.py\n M test/test_e4_diagnostics.py\n M test/test_e4_validate.py\n M test/test_e5_readiness.py\n M test/test_e5_validate.py\n?? bench/e4/cross_hardware.py\n?? results/e4b_environment_4090_raw.txt\n?? results/e4b_environment_5080_raw.txt\n?? results/e4b_environment_setup.json\n?? results/e4b_environment_setup.md\n?? results/e4b_machine_4090.json\n?? results/e4b_machine_5080.json\n?? results/e4b_offline_install_4090.log\n?? results/e4b_offline_install_5080.log",
     "unexpected_paths": []
   },
   "environment": {
@@ -37,7 +37,7 @@
     "secondary_results_and_diagnostics_disclosed": true,
     "correctness_argument_and_traceability_complete": true,
     "readiness_state_consistent": true,
-    "only_e5a_worktree_changes": true,
+    "only_authorized_e4b_and_e5_worktree_changes": true,
     "full_tests_and_legacy_isolation": true
   },
   "regression": {
@@ -49,7 +49,7 @@
       "/mnt/f/Project/Paper/Code/TritonPact/results/e5_regression_isolation.md"
     ],
     "exit_code": 0,
-    "pytest_summary": "161 passed in 103.25s (0:01:43)",
+    "pytest_summary": "162 passed in 97.10s (0:01:37)",
     "legacy_isolation_passed": true,
     "legacy_checks": {
       "四个变体进入 Access IR": true,
@@ -64,34 +64,24 @@
       "经验观察与静态放行分开记录": true,
       "单谓词补集触发候选修订并放行": true
     },
-    "stdout_tail": "[1/2] 运行测试\n........................................................................ [ 44%]\n........................................................................ [ 89%]\n.................                                                        [100%]\n161 passed in 103.25s (0:01:43)\n[2/2] 运行隔离案例\n通过：四个变体进入 Access IR\n通过：语义规格与逐谓词来源可追溯\n通过：A 两组转置尺寸均出现数值错误\n通过：A Guard 拦截并正确回退\n通过：A2 非连续输入正确直通且连续化会复制\n通过：B 非整除边界正确直通\n通过：未知类型安全回退\n通过：官方教程双输入契约阻止错读\n通过：关键输入重复稳定\n通过：经验观察与静态放行分开记录\n通过：单谓词补集触发候选修订并放行\n受限案例验收：通过\nA 模板内的动态候选修订：已验证\n结果文件：e5_regression_isolation.md\n",
+    "stdout_tail": "[1/2] 运行测试\n........................................................................ [ 44%]\n........................................................................ [ 88%]\n..................                                                       [100%]\n162 passed in 97.10s (0:01:37)\n[2/2] 运行隔离案例\n通过：四个变体进入 Access IR\n通过：语义规格与逐谓词来源可追溯\n通过：A 两组转置尺寸均出现数值错误\n通过：A Guard 拦截并正确回退\n通过：A2 非连续输入正确直通且连续化会复制\n通过：B 非整除边界正确直通\n通过：未知类型安全回退\n通过：官方教程双输入契约阻止错读\n通过：关键输入重复稳定\n通过：经验观察与静态放行分开记录\n通过：单谓词补集触发候选修订并放行\n受限案例验收：通过\nA 模板内的动态候选修订：已验证\n结果文件：e5_regression_isolation.md\n",
     "report": "results/e5_regression_isolation.md"
   },
   "pending": [
     {
-      "id": "4_two_workloads_and_two_hardware_environments",
+      "id": "8_current_commit_environment_and_data_bound",
       "passed": false,
-      "reason": "e4b 尚无两套原生 Linux GPU、实际 smoke、正确性和开销复核。"
+      "reason": "当前仍是未提交开发工作树；提交后需在目标提交重新生成最终证据清单。"
     },
     {
-      "id": "7_independent_second_review",
+      "id": "9_clean_checkout_one_click_verification",
       "passed": false,
-      "reason": "尚无第二审阅人对至少 25% 正式 Kernel 及全部风险案例的独立记录。"
-    },
-    {
-      "id": "9_current_commit_environment_and_data_bound",
-      "passed": false,
-      "reason": "e5a 尚在未提交开发工作树；提交后需在目标提交重新生成最终证据清单。"
-    },
-    {
-      "id": "10_clean_checkout_one_click_verification",
-      "passed": false,
-      "reason": "最终条件要求提交后的干净 checkout 重跑；e5a 开发验收不能提前满足。"
+      "reason": "最终条件要求提交后的干净 checkout 重跑；开发验收不能提前满足。"
     }
   ],
   "claims": {
     "preparation": "e5a 的支持域、证明草图、追踪、只读留出审计和总核验代码已形成。",
-    "readiness": "原生 Linux 双硬件、第二审阅人、提交后干净 checkout 与最终提交绑定尚未完成。",
+    "readiness": "原生 Linux 双硬件已完成；提交后干净 checkout 与最终提交绑定尚未完成。独立人工复核是可选增强项，不作为 Go 门槛。",
     "holdout": "e5a 没有重跑留出 Kernel，也没有修改 e2 冻结规则。"
   }
 }

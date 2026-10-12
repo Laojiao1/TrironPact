@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "created_at": "2026-10-09T09:15:13.959776+08:00",
+  "created_at": "2026-10-12T09:57:55.097460+08:00",
   "freeze_commit": "bd5fa3e3376e2dacffc2671ee52f3cbea1589a10",
   "formal_kernel_denominator": 28,
   "selection_policy": "预先固定 7/28；覆盖五个来源、四类结构、development/holdout，并包含全部风险所涉及的三个不同 Kernel。",

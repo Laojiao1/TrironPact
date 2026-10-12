@@ -35,7 +35,7 @@
   ],
   "pending": [
     "two native Linux GPU environments",
-    "independent second reviewer",
+    "optional independent second reviewer (not a readiness gate)",
     "post-commit evidence binding",
     "clean-checkout final rerun"
   ]

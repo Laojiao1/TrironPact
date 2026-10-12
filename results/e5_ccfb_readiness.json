@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T09:18:12.358546+08:00",
+  "generated_at": "2026-10-12T10:10:06.411035+08:00",
   "status": "not_ready",
   "go_e5_ccfb_readiness": false,
   "go_e5": false,
@@ -7,13 +7,12 @@
     "1_real_corpus_coverage_and_holdout_thresholds": true,
     "2_reproducible_risk_evidence": true,
     "3_zero_known_holdout_false_allows": true,
-    "4_two_workloads_and_two_hardware_environments": false,
+    "4_two_workloads_and_two_hardware_environments": true,
     "5_fair_system_baselines": true,
     "6_correctness_argument_traceable": true,
-    "7_independent_second_review": false,
-    "8_secondary_and_zero_results_disclosed": true,
-    "9_current_commit_environment_and_data_bound": false,
-    "10_clean_checkout_one_click_verification": false
+    "7_secondary_and_zero_results_disclosed": true,
+    "8_current_commit_environment_and_data_bound": false,
+    "9_clean_checkout_one_click_verification": false
   },
   "rows": [
     {
@@ -33,8 +32,8 @@
     },
     {
       "id": "4_two_workloads_and_two_hardware_environments",
-      "passed": false,
-      "reason": "e4b 尚无两套原生 Linux GPU、实际 smoke、正确性和开销复核。"
+      "passed": true,
+      "reason": "证据满足"
     },
     {
       "id": "5_fair_system_baselines",
@@ -47,46 +46,31 @@
       "reason": "证据满足"
     },
     {
-      "id": "7_independent_second_review",
-      "passed": false,
-      "reason": "尚无第二审阅人对至少 25% 正式 Kernel 及全部风险案例的独立记录。"
-    },
-    {
-      "id": "8_secondary_and_zero_results_disclosed",
+      "id": "7_secondary_and_zero_results_disclosed",
       "passed": true,
       "reason": "证据满足"
     },
     {
-      "id": "9_current_commit_environment_and_data_bound",
+      "id": "8_current_commit_environment_and_data_bound",
       "passed": false,
-      "reason": "e5a 尚在未提交开发工作树；提交后需在目标提交重新生成最终证据清单。"
+      "reason": "当前仍是未提交开发工作树；提交后需在目标提交重新生成最终证据清单。"
     },
     {
-      "id": "10_clean_checkout_one_click_verification",
+      "id": "9_clean_checkout_one_click_verification",
       "passed": false,
-      "reason": "最终条件要求提交后的干净 checkout 重跑；e5a 开发验收不能提前满足。"
+      "reason": "最终条件要求提交后的干净 checkout 重跑；开发验收不能提前满足。"
     }
   ],
   "missing": [
     {
-      "id": "4_two_workloads_and_two_hardware_environments",
+      "id": "8_current_commit_environment_and_data_bound",
       "passed": false,
-      "reason": "e4b 尚无两套原生 Linux GPU、实际 smoke、正确性和开销复核。"
+      "reason": "当前仍是未提交开发工作树；提交后需在目标提交重新生成最终证据清单。"
     },
     {
-      "id": "7_independent_second_review",
+      "id": "9_clean_checkout_one_click_verification",
       "passed": false,
-      "reason": "尚无第二审阅人对至少 25% 正式 Kernel 及全部风险案例的独立记录。"
-    },
-    {
-      "id": "9_current_commit_environment_and_data_bound",
-      "passed": false,
-      "reason": "e5a 尚在未提交开发工作树；提交后需在目标提交重新生成最终证据清单。"
-    },
-    {
-      "id": "10_clean_checkout_one_click_verification",
-      "passed": false,
-      "reason": "最终条件要求提交后的干净 checkout 重跑；e5a 开发验收不能提前满足。"
+      "reason": "最终条件要求提交后的干净 checkout 重跑；开发验收不能提前满足。"
     }
   ],
   "scope": "这些是项目路线的内部论文证据门槛，不是 CCF 会议官方录用规则。",

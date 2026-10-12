@@ -1,0 +1,2331 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-12T09:21:03.495434+08:00",
+  "machine_id": "lab-rtx4090",
+  "hostname": "d514-Z790-UD",
+  "git": {
+    "head": "fcac52b0f48520e9a7c3e900cd2fa61d5d2c3e6c",
+    "branch": "eval"
+  },
+  "source_fingerprint": "c3458cb660febd1d96451a74014f05801deb550e895369a3cd254bf8d8b19146",
+  "driver": {
+    "command": [
+      "nvidia-smi",
+      "--query-gpu=name,uuid,driver_version,memory.total,power.limit,pstate",
+      "--format=csv,noheader,nounits"
+    ],
+    "exit_code": 0,
+    "raw": "NVIDIA GeForce RTX 4090, GPU-a66a5b67-dc49-680e-ee4e-c96c98c54bb4, 595.99.02, 24564, 350.00, P2"
+  },
+  "correctness": {
+    "generated_at": "2026-10-12T09:20:59.997069+08:00",
+    "workloads": [
+      {
+        "status": "complete",
+        "command": [
+          "python",
+          "-m",
+          "integration.worker",
+          "inductor_custom_kernel_graph"
+        ],
+        "exit_code": 0,
+        "detail": {
+          "workload": "inductor_custom_kernel_graph",
+          "status": "passed",
+          "execution": "torch.compile(fullgraph=True, backend='inductor')",
+          "first_run_including_compile_ms": 636.4029950054828,
+          "guards": [
+            {
+              "kernel_id": "pytorch_sub",
+              "status": "True",
+              "allowed": true,
+              "reason": "冻结调用域的全部访存义务本次为真",
+              "trace": [
+                {
+                  "stage": "metadata",
+                  "value": true
+                },
+                {
+                  "stage": "alias",
+                  "value": true
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "in_ptr0",
+                  "line": 22
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "in_ptr0",
+                  "line": 22
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "in_ptr1",
+                  "line": 23
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "in_ptr1",
+                  "line": 23
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "out_ptr",
+                  "line": 25
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "out_ptr",
+                  "line": 25
+                }
+              ]
+            },
+            {
+              "kernel_id": "pytorch_double",
+              "status": "True",
+              "allowed": true,
+              "reason": "冻结调用域的全部访存义务本次为真",
+              "trace": [
+                {
+                  "stage": "metadata",
+                  "value": true
+                },
+                {
+                  "stage": "alias",
+                  "value": true
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "in_ptr0",
+                  "line": 21
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "in_ptr0",
+                  "line": 21
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "out_ptr",
+                  "line": 23
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "out_ptr",
+                  "line": 23
+                }
+              ]
+            },
+            {
+              "kernel_id": "pytorch_masked_add",
+              "status": "True",
+              "allowed": true,
+              "reason": "冻结调用域的全部访存义务本次为真",
+              "trace": [
+                {
+                  "stage": "metadata",
+                  "value": true
+                },
+                {
+                  "stage": "alias",
+                  "value": true
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "in_ptr0",
+                  "line": 24
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "in_ptr0",
+                  "line": 24
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "in_ptr1",
+                  "line": 25
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "in_ptr1",
+                  "line": 25
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "mask_ptr",
+                  "line": 26
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "mask_ptr",
+                  "line": 26
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "out_ptr",
+                  "line": 28
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "out_ptr",
+                  "line": 28
+                }
+              ]
+            },
+            {
+              "kernel_id": "triton_add",
+              "status": "True",
+              "allowed": true,
+              "reason": "冻结调用域的全部访存义务本次为真",
+              "trace": [
+                {
+                  "stage": "metadata",
+                  "value": true
+                },
+                {
+                  "stage": "alias",
+                  "value": true
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "x_ptr",
+                  "line": 31
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "x_ptr",
+                  "line": 31
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "y_ptr",
+                  "line": 32
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "y_ptr",
+                  "line": 32
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "output_ptr",
+                  "line": 35
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "output_ptr",
+                  "line": 35
+                }
+              ]
+            },
+            {
+              "kernel_id": "pytorch_double_strided",
+              "status": "True",
+              "allowed": true,
+              "reason": "冻结调用域的全部访存义务本次为真",
+              "trace": [
+                {
+                  "stage": "metadata",
+                  "value": true
+                },
+                {
+                  "stage": "alias",
+                  "value": true
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "in_ptr",
+                  "line": 27
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "in_ptr",
+                  "line": 27
+                },
+                {
+                  "stage": "span",
+                  "value": true,
+                  "rule": "bounded_enabled_access_span",
+                  "pointer": "out_ptr",
+                  "line": 28
+                },
+                {
+                  "stage": "metadata",
+                  "value": true,
+                  "rule": "frozen_physical_mapping",
+                  "pointer": "out_ptr",
+                  "line": 28
+                }
+              ]
+            }
+          ],
+          "checks": [
+            {
+              "output": "vector",
+              "correct": true,
+              "max_abs_error": 0.0
+            },
+            {
+              "output": "matrix",
+              "correct": true,
+              "max_abs_error": 0.0
+            }
+          ],
+          "kernel_ids": [
+            "pytorch_sub",
+            "pytorch_double",
+            "pytorch_masked_add",
+            "triton_add",
+            "pytorch_double_strided"
+          ],
+          "evidence": "真实 Inductor 自定义 Triton 图的冻结输入经验核对；不证明域外布局安全。"
+        }
+      },
+      {
+        "status": "complete",
+        "command": [
+          "python",
+          "-m",
+          "integration.worker",
+          "transformer_layer_trace"
+        ],
+        "exit_code": 0,
+        "detail": {
+          "workload": "transformer_layer_trace",
+          "status": "passed",
+          "execution": "固定模型层数据流加官方算子变体；随机参数，无预训练权重",
+          "steps": [
+            {
+              "kernel_id": "liger_rmsnorm",
+              "path": "Fast",
+              "guard": {
+                "status": "True",
+                "allowed": true,
+                "reason": "冻结调用域的全部访存义务本次为真",
+                "trace": [
+                  {
+                    "stage": "metadata",
+                    "value": true
+                  },
+                  {
+                    "stage": "alias",
+                    "value": true
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "X_ptr",
+                    "line": 44
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "X_ptr",
+                    "line": 44
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "W_ptr",
+                    "line": 47
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "W_ptr",
+                    "line": 47
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "RSTD_ptr",
+                    "line": 77
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "RSTD_ptr",
+                    "line": 77
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "Y_ptr",
+                    "line": 93
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "Y_ptr",
+                    "line": 93
+                  }
+                ]
+              },
+              "checks": [
+                {
+                  "output": "out",
+                  "correct": true,
+                  "mismatch_count": 0,
+                  "max_abs_error": 4.76837158203125e-07
+                },
+                {
+                  "output": "rstd",
+                  "correct": true,
+                  "mismatch_count": 0,
+                  "max_abs_error": 1.1920928955078125e-07
+                }
+              ],
+              "input_metadata": {
+                "x": {
+                  "shape": [
+                    8,
+                    80
+                  ],
+                  "stride_elements": [
+                    80,
+                    1
+                  ],
+                  "storage_offset_elements": 0
+                },
+                "w": {
+                  "shape": [
+                    80
+                  ],
+                  "stride_elements": [
+                    1
+                  ],
+                  "storage_offset_elements": 0
+                }
+              }
+            },
+            {
+              "kernel_id": "unsloth_rmsnorm",
+              "path": "Fast",
+              "guard": {
+                "status": "True",
+                "allowed": true,
+                "reason": "冻结调用域的全部访存义务本次为真",
+                "trace": [
+                  {
+                    "stage": "metadata",
+                    "value": true
+                  },
+                  {
+                    "stage": "alias",
+                    "value": true
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "X",
+                    "line": 37
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "X",
+                    "line": 37
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "W",
+                    "line": 38
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "W",
+                    "line": 38
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "r",
+                    "line": 44
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "r",
+                    "line": 44
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "Y",
+                    "line": 48
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "Y",
+                    "line": 48
+                  }
+                ]
+              },
+              "checks": [
+                {
+                  "output": "out",
+                  "correct": true,
+                  "mismatch_count": 0,
+                  "max_abs_error": 4.76837158203125e-07
+                },
+                {
+                  "output": "rstd",
+                  "correct": true,
+                  "mismatch_count": 0,
+                  "max_abs_error": 1.1920928955078125e-07
+                }
+              ],
+              "input_metadata": {
+                "x": {
+                  "shape": [
+                    8,
+                    80
+                  ],
+                  "stride_elements": [
+                    80,
+                    1
+                  ],
+                  "storage_offset_elements": 0
+                },
+                "w": {
+                  "shape": [
+                    80
+                  ],
+                  "stride_elements": [
+                    1
+                  ],
+                  "storage_offset_elements": 0
+                }
+              }
+            },
+            {
+              "kernel_id": "liger_layernorm",
+              "path": "Fast",
+              "guard": {
+                "status": "True",
+                "allowed": true,
+                "reason": "冻结调用域的全部访存义务本次为真",
+                "trace": [
+                  {
+                    "stage": "metadata",
+                    "value": true
+                  },
+                  {
+                    "stage": "alias",
+                    "value": true
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "W_ptr",
+                    "line": 38
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "W_ptr",
+                    "line": 38
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "B_ptr",
+                    "line": 39
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "B_ptr",
+                    "line": 39
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "X_ptr",
+                    "line": 50
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "X_ptr",
+                    "line": 50
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "Mean_ptr",
+                    "line": 62
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "Mean_ptr",
+                    "line": 62
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "RSTD_ptr",
+                    "line": 63
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "RSTD_ptr",
+                    "line": 63
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "Y_ptr",
+                    "line": 70
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "Y_ptr",
+                    "line": 70
+                  }
+                ]
+              },
+              "checks": [
+                {
+                  "output": "out",
+                  "correct": true,
+                  "mismatch_count": 0,
+                  "max_abs_error": 4.76837158203125e-07
+                },
+                {
+                  "output": "mean",
+                  "correct": true,
+                  "mismatch_count": 0,
+                  "max_abs_error": 1.4901161193847656e-08
+                },
+                {
+                  "output": "rstd",
+                  "correct": true,
+                  "mismatch_count": 0,
+                  "max_abs_error": 1.1920928955078125e-07
+                }
+              ],
+              "input_metadata": {
+                "x": {
+                  "shape": [
+                    8,
+                    80
+                  ],
+                  "stride_elements": [
+                    80,
+                    1
+                  ],
+                  "storage_offset_elements": 0
+                },
+                "w": {
+                  "shape": [
+                    80
+                  ],
+                  "stride_elements": [
+                    1
+                  ],
+                  "storage_offset_elements": 0
+                },
+                "b": {
+                  "shape": [
+                    80
+                  ],
+                  "stride_elements": [
+                    1
+                  ],
+                  "storage_offset_elements": 0
+                }
+              }
+            },
+            {
+              "kernel_id": "unsloth_layernorm",
+              "path": "Fast",
+              "guard": {
+                "status": "True",
+                "allowed": true,
+                "reason": "冻结调用域的全部访存义务本次为真",
+                "trace": [
+                  {
+                    "stage": "metadata",
+                    "value": true
+                  },
+                  {
+                    "stage": "alias",
+                    "value": true
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "X",
+                    "line": 34
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "X",
+                    "line": 34
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "W",
+                    "line": 35
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "W",
+                    "line": 35
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "b",
+                    "line": 36
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "b",
+                    "line": 36
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "r",
+                    "line": 45
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "r",
+                    "line": 45
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "mu",
+                    "line": 46
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "mu",
+                    "line": 46
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "Y",
+                    "line": 48
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "Y",
+                    "line": 48
+                  }
+                ]
+              },
+              "checks": [
+                {
+                  "output": "out",
+                  "correct": true,
+                  "mismatch_count": 0,
+                  "max_abs_error": 4.76837158203125e-07
+                },
+                {
+                  "output": "rstd",
+                  "correct": true,
+                  "mismatch_count": 0,
+                  "max_abs_error": 5.960464477539063e-08
+                },
+                {
+                  "output": "mean",
+                  "correct": true,
+                  "mismatch_count": 0,
+                  "max_abs_error": 2.9802322387695312e-08
+                }
+              ],
+              "input_metadata": {
+                "x": {
+                  "shape": [
+                    8,
+                    80
+                  ],
+                  "stride_elements": [
+                    80,
+                    1
+                  ],
+                  "storage_offset_elements": 0
+                },
+                "w": {
+                  "shape": [
+                    80
+                  ],
+                  "stride_elements": [
+                    1
+                  ],
+                  "storage_offset_elements": 0
+                },
+                "b": {
+                  "shape": [
+                    80
+                  ],
+                  "stride_elements": [
+                    1
+                  ],
+                  "storage_offset_elements": 0
+                }
+              }
+            },
+            {
+              "kernel_id": "liger_swiglu",
+              "path": "Fast",
+              "guard": {
+                "status": "True",
+                "allowed": true,
+                "reason": "冻结调用域的全部访存义务本次为真",
+                "trace": [
+                  {
+                    "stage": "metadata",
+                    "value": true
+                  },
+                  {
+                    "stage": "alias",
+                    "value": true
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "a_ptr",
+                    "line": 29
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "a_ptr",
+                    "line": 29
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "b_ptr",
+                    "line": 30
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "b_ptr",
+                    "line": 30
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "c_ptr",
+                    "line": 32
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "c_ptr",
+                    "line": 32
+                  }
+                ]
+              },
+              "checks": [
+                {
+                  "output": "out",
+                  "correct": true,
+                  "mismatch_count": 0,
+                  "max_abs_error": 4.76837158203125e-07
+                }
+              ],
+              "input_metadata": {
+                "x": {
+                  "shape": [
+                    32,
+                    256
+                  ],
+                  "stride_elements": [
+                    256,
+                    1
+                  ],
+                  "storage_offset_elements": 0
+                },
+                "y": {
+                  "shape": [
+                    32,
+                    256
+                  ],
+                  "stride_elements": [
+                    256,
+                    1
+                  ],
+                  "storage_offset_elements": 0
+                }
+              }
+            },
+            {
+              "kernel_id": "liger_softmax",
+              "path": "Fast",
+              "guard": {
+                "status": "True",
+                "allowed": true,
+                "reason": "冻结调用域的全部访存义务本次为真",
+                "trace": [
+                  {
+                    "stage": "metadata",
+                    "value": true
+                  },
+                  {
+                    "stage": "alias",
+                    "value": true
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "X_ptr",
+                    "line": 23
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "X_ptr",
+                    "line": 23
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "Y_ptr",
+                    "line": 28
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "Y_ptr",
+                    "line": 28
+                  }
+                ]
+              },
+              "checks": [
+                {
+                  "output": "out",
+                  "correct": true,
+                  "mismatch_count": 0,
+                  "max_abs_error": 1.1920928955078125e-07
+                }
+              ],
+              "input_metadata": {
+                "x": {
+                  "shape": [
+                    32,
+                    256
+                  ],
+                  "stride_elements": [
+                    256,
+                    1
+                  ],
+                  "storage_offset_elements": 0
+                }
+              }
+            },
+            {
+              "kernel_id": "liger_swiglu_tiled",
+              "path": "Fast",
+              "guard": {
+                "status": "True",
+                "allowed": true,
+                "reason": "冻结调用域的全部访存义务本次为真",
+                "trace": [
+                  {
+                    "stage": "metadata",
+                    "value": true
+                  },
+                  {
+                    "stage": "alias",
+                    "value": true
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "a_ptr",
+                    "line": 29
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "a_ptr",
+                    "line": 29
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "b_ptr",
+                    "line": 30
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "b_ptr",
+                    "line": 30
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "c_ptr",
+                    "line": 32
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "c_ptr",
+                    "line": 32
+                  }
+                ]
+              },
+              "checks": [
+                {
+                  "output": "out",
+                  "correct": true,
+                  "mismatch_count": 0,
+                  "max_abs_error": 9.5367431640625e-07
+                }
+              ],
+              "input_metadata": {
+                "x": {
+                  "shape": [
+                    32,
+                    256
+                  ],
+                  "stride_elements": [
+                    256,
+                    1
+                  ],
+                  "storage_offset_elements": 0
+                },
+                "y": {
+                  "shape": [
+                    32,
+                    256
+                  ],
+                  "stride_elements": [
+                    256,
+                    1
+                  ],
+                  "storage_offset_elements": 0
+                }
+              }
+            },
+            {
+              "kernel_id": "liger_geglu",
+              "path": "Fast",
+              "guard": {
+                "status": "True",
+                "allowed": true,
+                "reason": "冻结调用域的全部访存义务本次为真",
+                "trace": [
+                  {
+                    "stage": "metadata",
+                    "value": true
+                  },
+                  {
+                    "stage": "alias",
+                    "value": true
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "a",
+                    "line": 21
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "a",
+                    "line": 21
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "b",
+                    "line": 22
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "b",
+                    "line": 22
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "c",
+                    "line": 32
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "c",
+                    "line": 32
+                  }
+                ]
+              },
+              "checks": [
+                {
+                  "output": "out",
+                  "correct": true,
+                  "mismatch_count": 0,
+                  "max_abs_error": 0.0
+                }
+              ],
+              "input_metadata": {
+                "x": {
+                  "shape": [
+                    32,
+                    256
+                  ],
+                  "stride_elements": [
+                    256,
+                    1
+                  ],
+                  "storage_offset_elements": 0
+                },
+                "y": {
+                  "shape": [
+                    32,
+                    256
+                  ],
+                  "stride_elements": [
+                    256,
+                    1
+                  ],
+                  "storage_offset_elements": 0
+                }
+              }
+            },
+            {
+              "kernel_id": "liger_fused_swiglu",
+              "path": "Fast",
+              "guard": {
+                "status": "True",
+                "allowed": true,
+                "reason": "冻结调用域的全部访存义务本次为真",
+                "trace": [
+                  {
+                    "stage": "metadata",
+                    "value": true
+                  },
+                  {
+                    "stage": "alias",
+                    "value": true
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "y_ptr",
+                    "line": 27
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "y_ptr",
+                    "line": 27
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "y_ptr",
+                    "line": 28
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "y_ptr",
+                    "line": 28
+                  },
+                  {
+                    "stage": "span",
+                    "value": true,
+                    "rule": "bounded_enabled_access_span",
+                    "pointer": "c_ptr",
+                    "line": 29
+                  },
+                  {
+                    "stage": "metadata",
+                    "value": true,
+                    "rule": "frozen_physical_mapping",
+                    "pointer": "c_ptr",
+                    "line": 29
+                  }
+                ]
+              },
+              "checks": [
+                {
+                  "output": "out",
+                  "correct": true,
+                  "mismatch_count": 0,
+                  "max_abs_error": 9.5367431640625e-07
+                }
+              ],
+              "input_metadata": {
+                "x": {
+                  "shape": [
+                    32,
+                    512
+                  ],
+                  "stride_elements": [
+                    512,
+                    1
+                  ],
+                  "storage_offset_elements": 0
+                }
+              }
+            }
+          ],
+          "kernel_ids": [
+            "liger_rmsnorm",
+            "unsloth_rmsnorm",
+            "liger_layernorm",
+            "unsloth_layernorm",
+            "liger_swiglu",
+            "liger_softmax",
+            "liger_swiglu_tiled",
+            "liger_geglu",
+            "liger_fused_swiglu"
+          ],
+          "evidence": "真实 wrapper 语义与模型层形状的冻结轨迹回放；不代表完整模型训练吞吐。"
+        }
+      }
+    ],
+    "violations": [
+      {
+        "status": "complete",
+        "command": [
+          "python",
+          "-m",
+          "bench.e3.worker",
+          "triton_add_x_stride"
+        ],
+        "exit_code": 0,
+        "detail": {
+          "case": {
+            "id": "triton_add_x_stride",
+            "kernel_id": "triton_add",
+            "source": "triton",
+            "problem": "一维输入列步长未进入地址表达式",
+            "mutated_inputs": [
+              "x"
+            ],
+            "mutation": "column_stride_2",
+            "wrapper_defense": null,
+            "wrapper_source": null,
+            "l3_url": null,
+            "l3_status": null,
+            "l3_commit": null
+          },
+          "seed": 17,
+          "raw": {
+            "checks": [
+              {
+                "output": "out",
+                "correct": false,
+                "mismatch_count": 128,
+                "max_abs_error": 3.032834529876709
+              }
+            ],
+            "metadata": {
+              "x": {
+                "shape": [
+                  129
+                ],
+                "stride_elements": [
+                  2
+                ],
+                "storage_offset_elements": 0,
+                "data_ptr": 128351251467264,
+                "storage_nbytes": 1032
+              },
+              "y": {
+                "shape": [
+                  129
+                ],
+                "stride_elements": [
+                  1
+                ],
+                "storage_offset_elements": 0,
+                "data_ptr": 128351251465216,
+                "storage_nbytes": 516
+              },
+              "out": {
+                "shape": [
+                  129
+                ],
+                "stride_elements": [
+                  1
+                ],
+                "storage_offset_elements": 0,
+                "data_ptr": 128351251466240,
+                "storage_nbytes": 516
+              }
+            }
+          },
+          "guard": {
+            "status": "False",
+            "allowed": false,
+            "reason": "x shape/stride 与冻结规格不一致",
+            "trace": []
+          },
+          "upstream_check": {
+            "present": false,
+            "expression": null,
+            "source": null
+          },
+          "relayout": {
+            "guard_status": "True",
+            "checks": [
+              {
+                "output": "out",
+                "correct": true,
+                "mismatch_count": 0,
+                "max_abs_error": 0.0
+              }
+            ],
+            "copies": [
+              {
+                "tensor": "x",
+                "bytes": 516
+              }
+            ],
+            "copy_bytes": 516,
+            "timing": {
+              "repeats": 12,
+              "copy_median_ms": 0.009216000325977802,
+              "copy_plus_kernel_median_ms": 0.04468799941241741,
+              "scope": "WSL2 单机诊断；不属于 e4 稳定性能证据"
+            }
+          },
+          "fallback": {
+            "checks": [
+              {
+                "output": "out",
+                "correct": true,
+                "mismatch_count": 0
+              }
+            ],
+            "reference": "output_torch = x + y"
+          },
+          "classification": "numeric_mismatch",
+          "worker_elapsed_ms": 1295.8544449938927,
+          "evidence_boundary": "合法 PyTorch 视图上的底层 Kernel 前置条件敏感性；接口承诺需由 L2/L3 单独证明"
+        }
+      },
+      {
+        "status": "complete",
+        "command": [
+          "python",
+          "-m",
+          "bench.e3.worker",
+          "liger_softmax_x_stride"
+        ],
+        "exit_code": 0,
+        "detail": {
+          "case": {
+            "id": "liger_softmax_x_stride",
+            "kernel_id": "liger_softmax",
+            "source": "liger",
+            "problem": "二维输入只传行步长，Kernel 假设列步长为 1",
+            "mutated_inputs": [
+              "x"
+            ],
+            "mutation": "column_stride_2",
+            "wrapper_defense": "x.contiguous().view(-1, n_cols)",
+            "wrapper_source": "bench/e1/upstream/liger/src/liger_kernel/ops/softmax.py:118",
+            "l3_url": null,
+            "l3_status": null,
+            "l3_commit": null
+          },
+          "seed": 17,
+          "raw": {
+            "checks": [
+              {
+                "output": "out",
+                "correct": false,
+                "mismatch_count": 8174,
+                "max_abs_error": 0.09770797938108444
+              }
+            ],
+            "metadata": {
+              "x": {
+                "shape": [
+                  32,
+                  256
+                ],
+                "stride_elements": [
+                  512,
+                  2
+                ],
+                "storage_offset_elements": 0,
+                "data_ptr": 136116049084416,
+                "storage_nbytes": 65536
+              },
+              "out": {
+                "shape": [
+                  32,
+                  256
+                ],
+                "stride_elements": [
+                  256,
+                  1
+                ],
+                "storage_offset_elements": 0,
+                "data_ptr": 136116049051648,
+                "storage_nbytes": 32768
+              }
+            }
+          },
+          "guard": {
+            "status": "False",
+            "allowed": false,
+            "reason": "x shape/stride 与冻结规格不一致",
+            "trace": []
+          },
+          "upstream_check": {
+            "present": true,
+            "expression": "x.contiguous().view(-1, n_cols)",
+            "source": "bench/e1/upstream/liger/src/liger_kernel/ops/softmax.py:118"
+          },
+          "relayout": {
+            "guard_status": "True",
+            "checks": [
+              {
+                "output": "out",
+                "correct": true,
+                "mismatch_count": 0,
+                "max_abs_error": 7.450580596923828e-09
+              }
+            ],
+            "copies": [
+              {
+                "tensor": "x",
+                "bytes": 32768
+              }
+            ],
+            "copy_bytes": 32768,
+            "timing": {
+              "repeats": 12,
+              "copy_median_ms": 0.010175999719649553,
+              "copy_plus_kernel_median_ms": 0.05737600103020668,
+              "scope": "WSL2 单机诊断；不属于 e4 稳定性能证据"
+            }
+          },
+          "fallback": {
+            "checks": [
+              {
+                "output": "out",
+                "correct": true,
+                "mismatch_count": 0
+              }
+            ],
+            "reference": "_softmax_ref"
+          },
+          "classification": "numeric_mismatch",
+          "worker_elapsed_ms": 1338.9207879954483,
+          "evidence_boundary": "合法 PyTorch 视图上的底层 Kernel 前置条件敏感性；接口承诺需由 L2/L3 单独证明"
+        }
+      }
+    ],
+    "safe_nonstandard_project_path": {
+      "category": "correct",
+      "detail": {
+        "case": "A2",
+        "layout": "padded",
+        "mode": "dispatch",
+        "refined_contract": false,
+        "shape": [
+          7,
+          11
+        ],
+        "stride": [
+          14,
+          1
+        ],
+        "second_stride": null,
+        "storage_offset": 0,
+        "effective_ptr_mod_16": 0,
+        "input_ptr_unchanged": true,
+        "is_contiguous": false,
+        "contiguous_copied": true,
+        "path": "Fast",
+        "guard": {
+          "allowed": true,
+          "reason": "在声明语义和有限模板内满足静态条件",
+          "evidence": "Statically-Proven",
+          "proof_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+          "checks": [
+            "X.stride(1) == 1: True"
+          ]
+        },
+        "expected_shape": [
+          7,
+          11
+        ],
+        "actual_shape": [
+          7,
+          11
+        ],
+        "expected_dtype": "torch.float32",
+        "actual_dtype": "torch.float32",
+        "tolerance": {
+          "rtol": 0.0,
+          "atol": 0.0
+        },
+        "max_abs_error": 0.0,
+        "correct": true,
+        "kind": "correct"
+      },
+      "exit_code": 0,
+      "stderr": "/home/d514/work/venvs/tritonpact-e4b/lib/python3.12/site-packages/torch/_subclasses/functional_tensor.py:307: UserWarning: Failed to initialize NumPy: No module named 'numpy' (Triggered internally at /pytorch/torch/csrc/utils/tensor_numpy.cpp:84.)\n  cpu = _conversion_method_template(device=torch.device(\"cpu\"))\n",
+      "evidence": {
+        "guard_basis": "Statically-Proven",
+        "guard_scope": "仅声明语义与受支持模板内的访存布局兼容性",
+        "fast_eligible": true,
+        "observation_level": "Empirically-Validated",
+        "observation_claim": "此输入的输出与参考实现一致",
+        "observation_scope": "仅本次输入和运行环境；不证明其他输入安全"
+      }
+    },
+    "upstream_safe_layout_gap": {
+      "status": "complete",
+      "command": [
+        "python",
+        "-m",
+        "bench.e4.layout_worker"
+      ],
+      "exit_code": 0,
+      "detail": {
+        "case": "liger_softmax_row_padding",
+        "kernel_id": "liger_softmax",
+        "classification": "correct_outside_frozen_guard_domain",
+        "guard": {
+          "status": "False",
+          "allowed": false,
+          "reason": "x shape/stride 与冻结规格不一致",
+          "trace": []
+        },
+        "checks": [
+          {
+            "output": "out",
+            "correct": true,
+            "mismatch_count": 0,
+            "max_abs_error": 7.450580596923828e-09
+          }
+        ],
+        "layout": {
+          "shape": [
+            32,
+            256
+          ],
+          "stride_elements": [
+            269,
+            1
+          ],
+          "storage_offset_elements": 0,
+          "is_contiguous": false
+        },
+        "upstream_contiguous_copy_bytes": 32768,
+        "scope": "e2 Guard 的声明域冻结 exact shape/stride；本例是能力缺口，不是可在线放行路径。"
+      }
+    },
+    "counts": {
+      "workloads_complete": 2,
+      "distinct_kernels_executed": 14,
+      "fast_paths": 14,
+      "known_false_allows": 0,
+      "blocked_numeric_mismatches": 2,
+      "safe_nonstandard_fast_paths": 1,
+      "safe_outside_frozen_domain_rejections": 1
+    },
+    "checks": {
+      "two_workloads_complete": true,
+      "ten_distinct_kernels_executed": true,
+      "all_registered_fast_paths_correct": true,
+      "violations_blocked_and_fallback_correct": true,
+      "project_safe_nonstandard_fast_without_copy": true,
+      "upstream_row_padding_gap_disclosed": true,
+      "zero_known_false_allows": true
+    },
+    "go_correctness": true,
+    "scope": {
+      "workloads": "两个真实调用轨迹的冻结输入经验核对；14 个不同函数体实际执行。",
+      "safe_nonstandard": "安全直通来自历史项目 A2 padded-row 路径，不计入 14 个上游函数体。",
+      "gap": "Liger row-padding 数值正确但 e2 exact-stride Guard 保守拒绝；不授予 Fast，也不隐去复制机会缺口。"
+    }
+  },
+  "inductor_performance": {
+    "generated_at": "2026-10-12T09:21:02.247545+08:00",
+    "environment_scope": "native_linux",
+    "environment": {
+      "system": "Linux-7.0.0-38-generic-x86_64-with-glibc2.39",
+      "python": "3.12.3",
+      "torch": "2.11.0+cu128",
+      "triton": "3.6.0",
+      "cuda": "12.8",
+      "gpu": "NVIDIA GeForce RTX 4090",
+      "wsl_interop": false,
+      "nvcc": "Unknown",
+      "nvcc_version": "Unknown",
+      "path_rule": "记录实际 PATH 中的 nvcc；PyTorch/Triton wheel 自带运行时不要求系统 nvcc"
+    },
+    "protocol": {
+      "workload": "inductor_custom_kernel_graph",
+      "warmup": 3,
+      "rounds": 20,
+      "order": "fixed-seed randomized interleaving",
+      "synchronization": "torch.cuda.synchronize before and after every timed call",
+      "gc": "disabled during measured rounds",
+      "units": "milliseconds",
+      "timing": "host wall clock includes Guard/copy/dispatch preparation and synchronized GPU completion"
+    },
+    "first_run_including_compile_ms": 640.2297469903715,
+    "components": {
+      "guard_only": {
+        "p50_ms": 0.065659,
+        "p95_ms": 0.07538205000000005,
+        "samples_ms": [
+          0.143498,
+          0.071797,
+          0.068771,
+          0.067828,
+          0.064349,
+          0.066167,
+          0.066267,
+          0.064772,
+          0.065151,
+          0.066214,
+          0.064525,
+          0.068148,
+          0.064201,
+          0.064249,
+          0.063102,
+          0.062527,
+          0.06326,
+          0.064269,
+          0.066899,
+          0.066233
+        ]
+      },
+      "copy_only": {
+        "p50_ms": 0.015979,
+        "p95_ms": 0.020731500000000045,
+        "samples_ms": [
+          0.077684,
+          0.017734,
+          0.016424,
+          0.016037,
+          0.015886,
+          0.01606,
+          0.015924,
+          0.016028,
+          0.015852,
+          0.016033,
+          0.016003,
+          0.01591,
+          0.016155,
+          0.015904,
+          0.01589,
+          0.015945,
+          0.01589,
+          0.016093,
+          0.015776,
+          0.015955
+        ]
+      },
+      "kernel_graph": {
+        "p50_ms": 0.049189,
+        "p95_ms": 0.05681295,
+        "samples_ms": [
+          0.059586,
+          0.056667,
+          0.048973,
+          0.048583,
+          0.049655,
+          0.047516,
+          0.04855,
+          0.047869,
+          0.047905,
+          0.052811,
+          0.047986,
+          0.048558,
+          0.048403,
+          0.049581,
+          0.049405,
+          0.051076,
+          0.049855,
+          0.050418,
+          0.051013,
+          0.048011
+        ],
+        "paired_to_upstream": {
+          "median_ratio": 1.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "stable_direction": "uncertain"
+        }
+      },
+      "fallback": {
+        "p50_ms": 0.035572,
+        "p95_ms": 0.044587000000000016,
+        "samples_ms": [
+          0.068242,
+          0.034983,
+          0.039956,
+          0.034625,
+          0.034525,
+          0.034704,
+          0.037795,
+          0.03186,
+          0.034354,
+          0.037113,
+          0.034642,
+          0.035489,
+          0.043342,
+          0.035655,
+          0.036377,
+          0.035805,
+          0.036645,
+          0.034231,
+          0.035107,
+          0.036138
+        ],
+        "paired_to_upstream": {
+          "median_ratio": 0.7205225856109365,
+          "ci95": [
+            0.7018827478512704,
+            0.7356667926705085
+          ],
+          "stable_direction": "lower"
+        }
+      }
+    },
+    "policies": {
+      "upstream": {
+        "p50_ms": 0.049189,
+        "p95_ms": 0.05681295,
+        "samples_ms": [
+          0.059586,
+          0.056667,
+          0.048973,
+          0.048583,
+          0.049655,
+          0.047516,
+          0.04855,
+          0.047869,
+          0.047905,
+          0.052811,
+          0.047986,
+          0.048558,
+          0.048403,
+          0.049581,
+          0.049405,
+          0.051076,
+          0.049855,
+          0.050418,
+          0.051013,
+          0.048011
+        ],
+        "paired_to_upstream": {
+          "median_ratio": 1.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "stable_direction": "uncertain"
+        }
+      },
+      "handwritten_guard": {
+        "p50_ms": 0.051601499999999995,
+        "p95_ms": 0.0578199,
+        "samples_ms": [
+          0.057657,
+          0.051666,
+          0.056537,
+          0.050613,
+          0.050979,
+          0.050892,
+          0.060915,
+          0.050115,
+          0.049993,
+          0.05178,
+          0.049578,
+          0.050652,
+          0.05115,
+          0.053539,
+          0.051537,
+          0.053904,
+          0.052341,
+          0.052114,
+          0.050313,
+          0.053782
+        ],
+        "paired_to_upstream": {
+          "median_ratio": 1.0433698957263706,
+          "ci95": [
+            1.0334075614504679,
+            1.0560605755667485
+          ],
+          "stable_direction": "higher"
+        }
+      },
+      "always_copy": {
+        "p50_ms": 0.0685865,
+        "p95_ms": 0.07906335000000002,
+        "samples_ms": [
+          0.093605,
+          0.0688,
+          0.069988,
+          0.068718,
+          0.067088,
+          0.066831,
+          0.078298,
+          0.065905,
+          0.067628,
+          0.067321,
+          0.069448,
+          0.067944,
+          0.068455,
+          0.070434,
+          0.074435,
+          0.069189,
+          0.066666,
+          0.070635,
+          0.066023,
+          0.067629
+        ],
+        "paired_to_upstream": {
+          "median_ratio": 1.4075546734492503,
+          "ci95": [
+            1.3657033438252912,
+            1.4175149401117897
+          ],
+          "stable_direction": "higher"
+        }
+      },
+      "always_fallback": {
+        "p50_ms": 0.035572,
+        "p95_ms": 0.044587000000000016,
+        "samples_ms": [
+          0.068242,
+          0.034983,
+          0.039956,
+          0.034625,
+          0.034525,
+          0.034704,
+          0.037795,
+          0.03186,
+          0.034354,
+          0.037113,
+          0.034642,
+          0.035489,
+          0.043342,
+          0.035655,
+          0.036377,
+          0.035805,
+          0.036645,
+          0.034231,
+          0.035107,
+          0.036138
+        ],
+        "paired_to_upstream": {
+          "median_ratio": 0.7205225856109365,
+          "ci95": [
+            0.7018827478512704,
+            0.7356667926705085
+          ],
+          "stable_direction": "lower"
+        }
+      },
+      "static_no_refinement": {
+        "p50_ms": 0.0515915,
+        "p95_ms": 0.0574972,
+        "samples_ms": [
+          0.063353,
+          0.051638,
+          0.054275,
+          0.051545,
+          0.057189,
+          0.054044,
+          0.05408,
+          0.049414,
+          0.048559,
+          0.049291,
+          0.049989,
+          0.052613,
+          0.053872,
+          0.049874,
+          0.049847,
+          0.050826,
+          0.051407,
+          0.05527,
+          0.050741,
+          0.053425
+        ],
+        "paired_to_upstream": {
+          "median_ratio": 1.0513545847386023,
+          "ci95": [
+            1.0112992412653907,
+            1.1022496043099494
+          ],
+          "stable_direction": "higher"
+        }
+      },
+      "tritonpact": {
+        "p50_ms": 0.1299265,
+        "p95_ms": 0.14975835000000015,
+        "samples_ms": [
+          0.319397,
+          0.14083,
+          0.132572,
+          0.124567,
+          0.139359,
+          0.126787,
+          0.123792,
+          0.132395,
+          0.124118,
+          0.125502,
+          0.13334,
+          0.127442,
+          0.127467,
+          0.129564,
+          0.138135,
+          0.132253,
+          0.128161,
+          0.133681,
+          0.129164,
+          0.130289
+        ],
+        "paired_to_upstream": {
+          "median_ratio": 2.62899198003576,
+          "ci95": [
+            2.5800062076411288,
+            2.710387462922835
+          ],
+          "stable_direction": "higher"
+        }
+      },
+      "deterministic_no_cost": {
+        "p50_ms": 0.1286525,
+        "p95_ms": 0.13634544999999998,
+        "samples_ms": [
+          0.136152,
+          0.124536,
+          0.12614,
+          0.129938,
+          0.128625,
+          0.126918,
+          0.130584,
+          0.126778,
+          0.129798,
+          0.125886,
+          0.13013,
+          0.129381,
+          0.126798,
+          0.126691,
+          0.12868,
+          0.13162,
+          0.132821,
+          0.140021,
+          0.126577,
+          0.127478
+        ],
+        "paired_to_upstream": {
+          "median_ratio": 2.6340336860828524,
+          "ci95": [
+            2.57632457096837,
+            2.6677606430764707
+          ],
+          "stable_direction": "higher"
+        }
+      }
+    },
+    "interleaved_orders": [
+      [
+        "tritonpact",
+        "upstream",
+        "handwritten_guard",
+        "deterministic_no_cost",
+        "always_copy",
+        "always_fallback",
+        "static_no_refinement"
+      ],
+      [
+        "handwritten_guard",
+        "always_fallback",
+        "upstream",
+        "always_copy",
+        "static_no_refinement",
+        "tritonpact",
+        "deterministic_no_cost"
+      ],
+      [
+        "upstream",
+        "deterministic_no_cost",
+        "static_no_refinement",
+        "always_copy",
+        "tritonpact",
+        "always_fallback",
+        "handwritten_guard"
+      ],
+      [
+        "static_no_refinement",
+        "upstream",
+        "always_copy",
+        "handwritten_guard",
+        "always_fallback",
+        "deterministic_no_cost",
+        "tritonpact"
+      ],
+      [
+        "always_copy",
+        "upstream",
+        "always_fallback",
+        "static_no_refinement",
+        "tritonpact",
+        "deterministic_no_cost",
+        "handwritten_guard"
+      ],
+      [
+        "always_fallback",
+        "static_no_refinement",
+        "handwritten_guard",
+        "always_copy",
+        "upstream",
+        "deterministic_no_cost",
+        "tritonpact"
+      ],
+      [
+        "upstream",
+        "tritonpact",
+        "always_copy",
+        "handwritten_guard",
+        "deterministic_no_cost",
+        "always_fallback",
+        "static_no_refinement"
+      ],
+      [
+        "always_fallback",
+        "tritonpact",
+        "handwritten_guard",
+        "upstream",
+        "always_copy",
+        "static_no_refinement",
+        "deterministic_no_cost"
+      ],
+      [
+        "always_fallback",
+        "deterministic_no_cost",
+        "handwritten_guard",
+        "tritonpact",
+        "always_copy",
+        "upstream",
+        "static_no_refinement"
+      ],
+      [
+        "deterministic_no_cost",
+        "always_copy",
+        "tritonpact",
+        "handwritten_guard",
+        "always_fallback",
+        "upstream",
+        "static_no_refinement"
+      ],
+      [
+        "tritonpact",
+        "always_fallback",
+        "deterministic_no_cost",
+        "upstream",
+        "always_copy",
+        "static_no_refinement",
+        "handwritten_guard"
+      ],
+      [
+        "upstream",
+        "tritonpact",
+        "always_fallback",
+        "static_no_refinement",
+        "handwritten_guard",
+        "always_copy",
+        "deterministic_no_cost"
+      ],
+      [
+        "always_fallback",
+        "static_no_refinement",
+        "upstream",
+        "tritonpact",
+        "handwritten_guard",
+        "deterministic_no_cost",
+        "always_copy"
+      ],
+      [
+        "always_fallback",
+        "handwritten_guard",
+        "static_no_refinement",
+        "deterministic_no_cost",
+        "tritonpact",
+        "upstream",
+        "always_copy"
+      ],
+      [
+        "handwritten_guard",
+        "static_no_refinement",
+        "deterministic_no_cost",
+        "upstream",
+        "always_fallback",
+        "always_copy",
+        "tritonpact"
+      ],
+      [
+        "handwritten_guard",
+        "tritonpact",
+        "static_no_refinement",
+        "always_fallback",
+        "upstream",
+        "deterministic_no_cost",
+        "always_copy"
+      ],
+      [
+        "handwritten_guard",
+        "always_copy",
+        "upstream",
+        "tritonpact",
+        "static_no_refinement",
+        "deterministic_no_cost",
+        "always_fallback"
+      ],
+      [
+        "deterministic_no_cost",
+        "always_fallback",
+        "static_no_refinement",
+        "tritonpact",
+        "upstream",
+        "handwritten_guard",
+        "always_copy"
+      ],
+      [
+        "static_no_refinement",
+        "handwritten_guard",
+        "always_fallback",
+        "upstream",
+        "tritonpact",
+        "always_copy",
+        "deterministic_no_cost"
+      ],
+      [
+        "deterministic_no_cost",
+        "handwritten_guard",
+        "always_fallback",
+        "static_no_refinement",
+        "always_copy",
+        "tritonpact",
+        "upstream"
+      ]
+    ],
+    "gpu_state_before": {
+      "status": "available",
+      "command": [
+        "nvidia-smi",
+        "--query-gpu=timestamp,name,temperature.gpu,clocks.sm,power.draw",
+        "--format=csv,noheader,nounits"
+      ],
+      "exit_code": 0,
+      "raw": "2026/10/12 09:21:02.159, NVIDIA GeForce RTX 4090, 56, 2520, 64.50"
+    },
+    "gpu_state_after": {
+      "status": "available",
+      "command": [
+        "nvidia-smi",
+        "--query-gpu=timestamp,name,temperature.gpu,clocks.sm,power.draw",
+        "--format=csv,noheader,nounits"
+      ],
+      "exit_code": 0,
+      "raw": "2026/10/12 09:21:02.187, NVIDIA GeForce RTX 4090, 56, 2520, 64.50"
+    },
+    "checks": {
+      "requested_environment_matches": true,
+      "warmup_and_interleaving_recorded": true,
+      "raw_samples_complete": true,
+      "guard_copy_kernel_fallback_components_present": true,
+      "first_run_separated": true,
+      "no_online_cost_calibration": true,
+      "scope_is_explicit": true,
+      "formal_native_scope": true
+    },
+    "go_diagnostics": true,
+    "conclusion": "原生 Linux 单机正式测量；结论仍须与第二硬件的同协议区间共同解释。"
+  },
+  "transformer_guard": {
+    "workload": "transformer_layer_trace",
+    "guards_per_dispatch": 9,
+    "p50_ms": 0.14475,
+    "p95_ms": 0.1498591,
+    "samples_ms": [
+      0.152312,
+      0.145909,
+      0.146601,
+      0.145147,
+      0.146557,
+      0.145332,
+      0.145766,
+      0.14973,
+      0.14759,
+      0.143318,
+      0.143352,
+      0.143328,
+      0.144467,
+      0.143066,
+      0.145033,
+      0.143256,
+      0.143914,
+      0.143615,
+      0.143801,
+      0.143717
+    ],
+    "scope": "只计冻结轨迹的 9 个 Guard 求值与同步，不含 Kernel；同步成本因此保守计入。"
+  },
+  "checks": {
+    "native_linux_cuda": true,
+    "two_workloads_correct": true,
+    "zero_known_false_allows": true,
+    "inductor_protocol_complete": true,
+    "transformer_guard_samples_complete": true
+  },
+  "go_machine": true,
+  "evidence_boundary": "冻结输入上的经验正确性和性能；不证明域外布局安全，也不改变 Fast 资格。"
+}

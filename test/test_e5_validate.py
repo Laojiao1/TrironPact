@@ -3,8 +3,12 @@ from datetime import datetime
 from bench.e5.validate import _unexpected_worktree, _valid_report_time, build_evidence_manifest
 
 
-def test_e5_validator_allows_only_e5a_scope():
-    status = "?? artifact/\n?? bench/e5/\n?? results/e5_regression.json\n?? test/test_e5_validate.py"
+def test_e5_validator_allows_authorized_e4b_and_e5_scope():
+    status = (
+        " M README.md\n M bench/e1/source.py\n?? bench/e4/cross_hardware.py\n"
+        "?? results/e4b_machine_4090.json\n?? artifact/\n?? bench/e5/\n"
+        "?? results/e5_regression.json\n?? test/test_e5_validate.py"
+    )
     assert _unexpected_worktree(status) == []
     assert _unexpected_worktree(status + "\n M pact/e2_guard.py") == ["pact/e2_guard.py"]
 

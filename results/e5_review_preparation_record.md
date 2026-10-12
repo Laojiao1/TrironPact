@@ -1,4 +1,4 @@
-# e5 第二审阅准备记录
+# e5 可选独立审阅准备记录
 
 ## 冻结范围
 
@@ -27,7 +27,7 @@
 ## 状态边界
 
 - 审阅包：`ready_for_independent_reviewer`。
-- 第二审阅：尚未开始，`review_complete=false`；用户于 2026-10-09 决定延期到最终文字/证据审核阶段，延期不等于豁免或通过。
-- readiness 条件 7：仍为 false；空白模板、重复 Kernel、清单篡改、风险遗漏和未解决分歧均会 fail closed。
-- 当前 e5 源码指纹：`820b6192db181ad023d0c19462742e6d9ed8b23a0afb1c6e465230c5f2bec5be`。
+- 独立审阅：尚未开始，`review_complete=false`；用户于 2026-10-12 将其调整为可选增强项，不再作为 readiness 条件。
+- 若未来执行，可选协议仍对空白模板、重复 Kernel、清单篡改、风险遗漏和未解决分歧 fail closed；未执行时论文不得声称已完成独立人工复核。
+- 生成该审阅包时的 e5 源码指纹：`820b6192db181ad023d0c19462742e6d9ed8b23a0afb1c6e465230c5f2bec5be`；当前指纹以 `results/e5_regression.json` 为准。
 

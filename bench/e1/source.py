@@ -48,6 +48,9 @@ def body_fingerprint(source: str) -> str:
     """忽略函数名、局部变量名、注释和 decorator；保留运算、常量与访存。
 
     同名改写和仅 decorator 配置不同的副本不可重复计数。
+    Python 3.12 为函数 AST 增加了空 ``type_params`` 字段；冻结语料使用
+    Python 3.10 建立，因此这里只移除空的版本新增字段，避免同一源码因解释器
+    版本不同而漂移。非空类型参数仍参与指纹，不能借兼容处理绕过去重。
     本指纹不是程序语义等价判定，模板相似性仍须人工审计。
     """
     node = ast.parse(source).body[0]
@@ -69,6 +72,9 @@ def body_fingerprint(source: str) -> str:
     if node.body and isinstance(node.body[0], ast.Expr) and isinstance(node.body[0].value, ast.Constant) and isinstance(node.body[0].value.value, str):
         node.body.pop(0)
     Normalize().visit(node)
+    for item in ast.walk(node):
+        if hasattr(item, "type_params") and not item.type_params:
+            del item.type_params
     return hashlib.sha256(ast.dump(node, include_attributes=False).encode()).hexdigest()
 
 

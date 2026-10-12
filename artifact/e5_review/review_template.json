@@ -2,7 +2,7 @@
   "schema_version": 1,
   "status": "template_unfilled",
   "frozen_git_head": "bd5fa3e3376e2dacffc2671ee52f3cbea1589a10",
-  "review_manifest_sha256": "3b30ac286c00b5c7badb14ed93eb476d02713511215713cc59f04c381652a928",
+  "review_manifest_sha256": "d3f8228ce991fa17f7cd07e239f6809003ce214a1fb4b846adce93e7cfeeeeee",
   "reviewer": {
     "reviewer_id": "",
     "independent": null,

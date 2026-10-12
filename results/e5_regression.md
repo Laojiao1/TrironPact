@@ -2,7 +2,7 @@
 
 - 状态：`preparation_go_final_readiness_pending`。
 - `go_e5_preparation=true`；`go_e5_ccfb_readiness=false`；`go_e5=false`。
-- 源码指纹：`820b6192db181ad023d0c19462742e6d9ed8b23a0afb1c6e465230c5f2bec5be`。
+- 源码指纹：`1000d02c7bceb036f96b954fcae431419873e7d68846a83e625bd10d876efe75`。
 
 ## 准备项核验
 
@@ -24,22 +24,20 @@
 | secondary_results_and_diagnostics_disclosed | 通过 |
 | correctness_argument_and_traceability_complete | 通过 |
 | readiness_state_consistent | 通过 |
-| only_e5a_worktree_changes | 通过 |
+| only_authorized_e4b_and_e5_worktree_changes | 通过 |
 | full_tests_and_legacy_isolation | 通过 |
 
 ## 最终 readiness 未满足项
 
-- `4_two_workloads_and_two_hardware_environments`：e4b 尚无两套原生 Linux GPU、实际 smoke、正确性和开销复核。
-- `7_independent_second_review`：尚无第二审阅人对至少 25% 正式 Kernel 及全部风险案例的独立记录。
-- `9_current_commit_environment_and_data_bound`：e5a 尚在未提交开发工作树；提交后需在目标提交重新生成最终证据清单。
-- `10_clean_checkout_one_click_verification`：最终条件要求提交后的干净 checkout 重跑；e5a 开发验收不能提前满足。
+- `8_current_commit_environment_and_data_bound`：当前仍是未提交开发工作树；提交后需在目标提交重新生成最终证据清单。
+- `9_clean_checkout_one_click_verification`：最终条件要求提交后的干净 checkout 重跑；开发验收不能提前满足。
 
 ## 结论边界
 
 - **preparation**：e5a 的支持域、证明草图、追踪、只读留出审计和总核验代码已形成。
-- **readiness**：原生 Linux 双硬件、第二审阅人、提交后干净 checkout 与最终提交绑定尚未完成。
+- **readiness**：原生 Linux 双硬件已完成；提交后干净 checkout 与最终提交绑定尚未完成。独立人工复核是可选增强项，不作为 Go 门槛。
 - **holdout**：e5a 没有重跑留出 Kernel，也没有修改 e2 冻结规则。
 
 ## 回归
 
-- `python test/run_tests.py --quick --output /mnt/f/Project/Paper/Code/TritonPact/results/e5_regression_isolation.md`：退出码 0；161 passed in 103.25s (0:01:43)；旧隔离 11/11。
+- `python test/run_tests.py --quick --output /mnt/f/Project/Paper/Code/TritonPact/results/e5_regression_isolation.md`：退出码 0；162 passed in 97.10s (0:01:37)；旧隔离 11/11。

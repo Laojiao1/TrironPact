@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-30T13:20:09.161751+08:00",
+  "generated_at": "2026-10-12T09:25:14.616360+08:00",
   "fingerprints": {
     "corpus": "0b0cc402299f46dc3e248310a2450c35cbc726bbf324b980b691ad820a44a46d",
     "sources": "017fb0dc8f904fa18b42f06faee22d4b12a4e3d13d56a0582561c56e8827263c",
-    "implementation": "5aae76831e69013392ad632cdbbe1f499bfbfbca890038ef58755cb30805a5bd"
+    "implementation": "b42d028ffe9ebf566e984d335a1a53a50f8015c6e61ad5937f9bea5e1ecacd1d"
   },
   "environment": {
     "system": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.31",
@@ -126,7 +126,7 @@
         "bench.e1.worker",
         "triton_add"
       ],
-      "elapsed_seconds": 8.413113245000204
+      "elapsed_seconds": 7.862685440000007
     },
     {
       "id": "triton_where_zero",
@@ -224,7 +224,7 @@
         "bench.e1.worker",
         "triton_where_zero"
       ],
-      "elapsed_seconds": 6.786655429000348
+      "elapsed_seconds": 7.3676246450000065
     },
     {
       "id": "triton_interleave",
@@ -292,7 +292,7 @@
         "bench.e1.worker",
         "triton_interleave"
       ],
-      "elapsed_seconds": 7.269682588000251
+      "elapsed_seconds": 7.313244321999974
     },
     {
       "id": "triton_ravel",
@@ -358,7 +358,7 @@
         "bench.e1.worker",
         "triton_ravel"
       ],
-      "elapsed_seconds": 7.399588276000031
+      "elapsed_seconds": 7.1467690309999625
     },
     {
       "id": "pytorch_sub",
@@ -472,7 +472,7 @@
         "bench.e1.worker",
         "pytorch_sub"
       ],
-      "elapsed_seconds": 7.104959385999791
+      "elapsed_seconds": 7.263712580999993
     },
     {
       "id": "pytorch_double",
@@ -564,7 +564,7 @@
         "bench.e1.worker",
         "pytorch_double"
       ],
-      "elapsed_seconds": 6.965475386000435
+      "elapsed_seconds": 7.665891006999971
     },
     {
       "id": "pytorch_double_strided",
@@ -668,7 +668,7 @@
         "bench.e1.worker",
         "pytorch_double_strided"
       ],
-      "elapsed_seconds": 7.048463322000316
+      "elapsed_seconds": 7.0628862189999495
     },
     {
       "id": "triton_broadcast",
@@ -790,7 +790,7 @@
         "bench.e1.worker",
         "triton_broadcast"
       ],
-      "elapsed_seconds": 7.166733698000826
+      "elapsed_seconds": 6.873137507000024
     },
     {
       "id": "triton_where_broadcast",
@@ -910,7 +910,7 @@
         "bench.e1.worker",
         "triton_where_broadcast"
       ],
-      "elapsed_seconds": 7.013291485999616
+      "elapsed_seconds": 6.960387912000044
     },
     {
       "id": "pytorch_masked_add",
@@ -1046,7 +1046,7 @@
         "bench.e1.worker",
         "pytorch_masked_add"
       ],
-      "elapsed_seconds": 7.243417593999766
+      "elapsed_seconds": 6.964395225999965
     },
     {
       "id": "liger_swiglu",
@@ -1176,7 +1176,7 @@
         "bench.e1.worker",
         "liger_swiglu"
       ],
-      "elapsed_seconds": 6.9888812580002195
+      "elapsed_seconds": 6.990509061000012
     },
     {
       "id": "liger_swiglu_tiled",
@@ -1306,7 +1306,7 @@
         "bench.e1.worker",
         "liger_swiglu_tiled"
       ],
-      "elapsed_seconds": 7.218128943000011
+      "elapsed_seconds": 7.005547944
     },
     {
       "id": "liger_geglu",
@@ -1434,7 +1434,7 @@
         "bench.e1.worker",
         "liger_geglu"
       ],
-      "elapsed_seconds": 7.068178336000528
+      "elapsed_seconds": 7.041765354000006
     },
     {
       "id": "liger_fused_swiglu",
@@ -1538,7 +1538,7 @@
         "bench.e1.worker",
         "liger_fused_swiglu"
       ],
-      "elapsed_seconds": 7.263988920999509
+      "elapsed_seconds": 6.9843050509999784
     },
     {
       "id": "flag_slice",
@@ -1650,7 +1650,7 @@
         "bench.e1.worker",
         "flag_slice"
       ],
-      "elapsed_seconds": 7.296310624999933
+      "elapsed_seconds": 6.935081277999984
     },
     {
       "id": "triton_permute",
@@ -1758,7 +1758,7 @@
         "bench.e1.worker",
         "triton_permute"
       ],
-      "elapsed_seconds": 7.031202683000629
+      "elapsed_seconds": 6.6910153200000195
     },
     {
       "id": "triton_trans2d",
@@ -1866,7 +1866,7 @@
         "bench.e1.worker",
         "triton_trans2d"
       ],
-      "elapsed_seconds": 6.393150590000005
+      "elapsed_seconds": 6.824100455000007
     },
     {
       "id": "triton_flip",
@@ -1978,7 +1978,7 @@
         "bench.e1.worker",
         "triton_flip"
       ],
-      "elapsed_seconds": 6.876896931000374
+      "elapsed_seconds": 6.974238565000007
     },
     {
       "id": "triton_pair_flip",
@@ -2076,7 +2076,7 @@
         "bench.e1.worker",
         "triton_pair_flip"
       ],
-      "elapsed_seconds": 6.869025104000684
+      "elapsed_seconds": 6.905482214000017
     },
     {
       "id": "triton_split",
@@ -2202,7 +2202,7 @@
         "bench.e1.worker",
         "triton_split"
       ],
-      "elapsed_seconds": 7.081238409000434
+      "elapsed_seconds": 6.84432215999999
     },
     {
       "id": "triton_softmax",
@@ -2298,7 +2298,7 @@
         "bench.e1.worker",
         "triton_softmax"
       ],
-      "elapsed_seconds": 6.868363307000436
+      "elapsed_seconds": 6.945399813000051
     },
     {
       "id": "liger_softmax",
@@ -2402,7 +2402,7 @@
         "bench.e1.worker",
         "liger_softmax"
       ],
-      "elapsed_seconds": 6.878404508000131
+      "elapsed_seconds": 7.191215034999971
     },
     {
       "id": "liger_layernorm",
@@ -2624,7 +2624,7 @@
         "bench.e1.worker",
         "liger_layernorm"
       ],
-      "elapsed_seconds": 7.176912597999944
+      "elapsed_seconds": 6.940873238999984
     },
     {
       "id": "unsloth_layernorm",
@@ -2838,7 +2838,7 @@
         "bench.e1.worker",
         "unsloth_layernorm"
       ],
-      "elapsed_seconds": 7.216370539000309
+      "elapsed_seconds": 6.888899235999986
     },
     {
       "id": "liger_rmsnorm",
@@ -3008,7 +3008,7 @@
         "bench.e1.worker",
         "liger_rmsnorm"
       ],
-      "elapsed_seconds": 7.02702720400066
+      "elapsed_seconds": 6.846310661000018
     },
     {
       "id": "liger_block_rmsnorm",
@@ -3182,7 +3182,7 @@
         "bench.e1.worker",
         "liger_block_rmsnorm"
       ],
-      "elapsed_seconds": 7.201291410000522
+      "elapsed_seconds": 6.71503252399998
     },
     {
       "id": "unsloth_rmsnorm",
@@ -3346,7 +3346,7 @@
         "bench.e1.worker",
         "unsloth_rmsnorm"
       ],
-      "elapsed_seconds": 8.027935676999732
+      "elapsed_seconds": 6.986851360999992
     },
     {
       "id": "unsloth_gemma_rmsnorm",
@@ -3510,7 +3510,7 @@
         "bench.e1.worker",
         "unsloth_gemma_rmsnorm"
       ],
-      "elapsed_seconds": 9.481283844000245
+      "elapsed_seconds": 7.1231460899999774
     }
   ],
   "scope": "冻结输入参考 smoke；非 Guard/契约恢复评估，holdout 未用于规则调试"

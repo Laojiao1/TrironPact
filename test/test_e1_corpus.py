@@ -6,7 +6,7 @@ import pytest
 
 from bench.e1.catalog import CATALOG, load
 from bench.e1.related import validate_sources
-from bench.e1.source import body_fingerprint
+from bench.e1.source import body_fingerprint, extract
 from bench.e1.specs import value
 
 
@@ -15,6 +15,14 @@ def test_renaming_and_configuration_do_not_create_new_body():
     two = "@triton.jit(debug=False)\ndef renamed(a, b):\n i = tl.arange(0, 128)\n tl.store(b + i, tl.load(a + i))"
     assert body_fingerprint(one) == body_fingerprint(two)
     assert body_fingerprint(one) != body_fingerprint(two.replace("tl.load(a + i)", "-tl.load(a + i)"))
+
+
+def test_frozen_body_fingerprint_is_stable_across_supported_python_ast_versions():
+    data = json.loads(CATALOG.read_text(encoding="utf-8"))
+    row = next(item for item in data["entries"] if item["id"] == "triton_add")
+    source_path = CATALOG.parent / "upstream" / row["source"] / row["file"]
+    function = extract(source_path, row["function"])
+    assert body_fingerprint(function.source) == row["normalized_body_sha256"]
 
 
 def test_catalog_preserves_challenge_denominator_and_split():
