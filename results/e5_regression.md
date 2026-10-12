@@ -2,7 +2,7 @@
 
 - 状态：`preparation_go_final_readiness_pending`。
 - `go_e5_preparation=true`；`go_e5_ccfb_readiness=false`；`go_e5=false`。
-- 源码指纹：`1000d02c7bceb036f96b954fcae431419873e7d68846a83e625bd10d876efe75`。
+- 源码指纹：`cccb8d146ba276d7f3516ec84213ae1561d6d624569727117df7ce366e05c996`。
 
 ## 准备项核验
 
@@ -27,7 +27,7 @@
 | only_authorized_e4b_and_e5_worktree_changes | 通过 |
 | full_tests_and_legacy_isolation | 通过 |
 
-## 最终 readiness 未满足项
+## 最终 readiness
 
 - `8_current_commit_environment_and_data_bound`：当前仍是未提交开发工作树；提交后需在目标提交重新生成最终证据清单。
 - `9_clean_checkout_one_click_verification`：最终条件要求提交后的干净 checkout 重跑；开发验收不能提前满足。
@@ -40,4 +40,4 @@
 
 ## 回归
 
-- `python test/run_tests.py --quick --output /mnt/f/Project/Paper/Code/TritonPact/results/e5_regression_isolation.md`：退出码 0；162 passed in 97.10s (0:01:37)；旧隔离 11/11。
+- `python test/run_tests.py --quick --output /mnt/f/Project/Paper/Code/TritonPact/results/e5_regression_isolation.md`：退出码 0；163 passed in 98.38s (0:01:38)；旧隔离 11/11。

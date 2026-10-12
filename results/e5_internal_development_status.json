@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-12T10:10:07.414538+08:00",
+  "generated_at": "2026-10-12T14:17:47.47128+08:00",
   "status": "internal_development_complete_final_freeze_pending",
   "internal_development_complete": true,
   "go_e5_preparation": true,
   "go_e5_ccfb_readiness": false,
   "go_e5": false,
-  "source_fingerprint": "1000d02c7bceb036f96b954fcae431419873e7d68846a83e625bd10d876efe75",
+  "source_fingerprint": "cccb8d146ba276d7f3516ec84213ae1561d6d624569727117df7ce366e05c996",
   "validation": {
-    "pytest": "162 passed in 97.10s (0:01:37)",
+    "pytest": "163 passed in 98.38s (0:01:38)",
     "legacy_isolation": "11/11"
   },
   "deferred": [

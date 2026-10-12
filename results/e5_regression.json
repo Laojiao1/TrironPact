@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-10-12T10:10:07.414538+08:00",
+  "generated_at": "2026-10-12T14:17:47.471280+08:00",
   "status": "preparation_go_final_readiness_pending",
   "go_e5_preparation": true,
   "go_e5_ccfb_readiness": false,
   "go_e5": false,
-  "source_fingerprint": "1000d02c7bceb036f96b954fcae431419873e7d68846a83e625bd10d876efe75",
+  "source_fingerprint": "cccb8d146ba276d7f3516ec84213ae1561d6d624569727117df7ce366e05c996",
   "git": {
-    "current_head": "fcac52b0f48520e9a7c3e900cd2fa61d5d2c3e6c",
-    "origin_eval": "fcac52b0f48520e9a7c3e900cd2fa61d5d2c3e6c",
+    "current_head": "efaa0f0b1737a2f48964f83914baaa8817d12ede",
+    "origin_eval": "efaa0f0b1737a2f48964f83914baaa8817d12ede",
     "branch": "eval",
-    "worktree_status": " M README.md\n M artifact/e5_correctness.md\n M artifact/e5_review/review_guide.md\n M artifact/e5_review/review_manifest.json\n M artifact/e5_review/review_template.json\n M bench/catalog.json\n M bench/e1/source.py\n M bench/e4/diagnostics.py\n M bench/e4/validate.py\n M bench/e5/readiness.py\n M bench/e5/review.py\n M bench/e5/specs.py\n M bench/e5/validate.py\n M results/e1_capability_gap.json\n M results/e1_corpus_inventory.json\n M results/e1_semantic_audit.json\n M results/e1_semantic_smoke.json\n M results/e4_cross_hardware_performance.json\n M results/e4_cross_hardware_performance.md\n M results/e4_regression.json\n M results/e4_regression.md\n M results/e4_regression_isolation.md\n M results/e5_ccfa_gap.json\n M results/e5_ccfa_gap.md\n M results/e5_ccfb_readiness.json\n M results/e5_ccfb_readiness.md\n M results/e5_development_record.json\n M results/e5_development_record.md\n M results/e5_evidence_manifest.json\n M results/e5_evidence_manifest.md\n M results/e5_holdout_evaluation.json\n M results/e5_internal_development_status.json\n M results/e5_internal_development_status.md\n M results/e5_regression.json\n M results/e5_regression.md\n M results/e5_regression_isolation.md\n M results/e5_review_preparation_record.json\n M results/e5_review_preparation_record.md\n M results/e5_second_review_package.json\n M results/e5_second_review_package.md\n M results/e5_traceability.json\n M results/e5_traceability.md\n M scripts/e1/setup_native_linux.sh\n M test/test_e1_corpus.py\n M test/test_e4_diagnostics.py\n M test/test_e4_validate.py\n M test/test_e5_readiness.py\n M test/test_e5_validate.py\n?? bench/e4/cross_hardware.py\n?? results/e4b_environment_4090_raw.txt\n?? results/e4b_environment_5080_raw.txt\n?? results/e4b_environment_setup.json\n?? results/e4b_environment_setup.md\n?? results/e4b_machine_4090.json\n?? results/e4b_machine_5080.json\n?? results/e4b_offline_install_4090.log\n?? results/e4b_offline_install_5080.log",
+    "worktree_status": " M bench/catalog.json\n M bench/e5/validate.py\n M results/e5_ccfa_gap.json\n M results/e5_ccfb_readiness.json\n M results/e5_evidence_manifest.json\n M results/e5_evidence_manifest.md\n M results/e5_holdout_evaluation.json\n M results/e5_regression_isolation.md\n M results/e5_traceability.json\n M test/test_e5_validate.py",
     "unexpected_paths": []
   },
   "environment": {
@@ -49,7 +49,7 @@
       "/mnt/f/Project/Paper/Code/TritonPact/results/e5_regression_isolation.md"
     ],
     "exit_code": 0,
-    "pytest_summary": "162 passed in 97.10s (0:01:37)",
+    "pytest_summary": "163 passed in 98.38s (0:01:38)",
     "legacy_isolation_passed": true,
     "legacy_checks": {
       "四个变体进入 Access IR": true,
@@ -64,7 +64,7 @@
       "经验观察与静态放行分开记录": true,
       "单谓词补集触发候选修订并放行": true
     },
-    "stdout_tail": "[1/2] 运行测试\n........................................................................ [ 44%]\n........................................................................ [ 88%]\n..................                                                       [100%]\n162 passed in 97.10s (0:01:37)\n[2/2] 运行隔离案例\n通过：四个变体进入 Access IR\n通过：语义规格与逐谓词来源可追溯\n通过：A 两组转置尺寸均出现数值错误\n通过：A Guard 拦截并正确回退\n通过：A2 非连续输入正确直通且连续化会复制\n通过：B 非整除边界正确直通\n通过：未知类型安全回退\n通过：官方教程双输入契约阻止错读\n通过：关键输入重复稳定\n通过：经验观察与静态放行分开记录\n通过：单谓词补集触发候选修订并放行\n受限案例验收：通过\nA 模板内的动态候选修订：已验证\n结果文件：e5_regression_isolation.md\n",
+    "stdout_tail": "[1/2] 运行测试\n........................................................................ [ 44%]\n........................................................................ [ 88%]\n...................                                                      [100%]\n163 passed in 98.38s (0:01:38)\n[2/2] 运行隔离案例\n通过：四个变体进入 Access IR\n通过：语义规格与逐谓词来源可追溯\n通过：A 两组转置尺寸均出现数值错误\n通过：A Guard 拦截并正确回退\n通过：A2 非连续输入正确直通且连续化会复制\n通过：B 非整除边界正确直通\n通过：未知类型安全回退\n通过：官方教程双输入契约阻止错读\n通过：关键输入重复稳定\n通过：经验观察与静态放行分开记录\n通过：单谓词补集触发候选修订并放行\n受限案例验收：通过\nA 模板内的动态候选修订：已验证\n结果文件：e5_regression_isolation.md\n",
     "report": "results/e5_regression_isolation.md"
   },
   "pending": [

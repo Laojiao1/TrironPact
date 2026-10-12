@@ -262,12 +262,14 @@ def build(regression: dict, manifest: dict) -> dict:
         "only_authorized_e4b_and_e5_worktree_changes": not _unexpected_worktree(status),
         "full_tests_and_legacy_isolation": regression["exit_code"] == 0 and regression["legacy_isolation_passed"],
     }
+    preparation_ready = all(checks.values())
+    final_ready = ccfb["go_e5_ccfb_readiness"]
     return {
         "generated_at": datetime.now().astimezone().isoformat(),
-        "status": "preparation_go_final_readiness_pending" if all(checks.values()) else "no_go",
-        "go_e5_preparation": all(checks.values()),
-        "go_e5_ccfb_readiness": ccfb["go_e5_ccfb_readiness"],
-        "go_e5": ccfb["go_e5_ccfb_readiness"],
+        "status": "complete" if preparation_ready and final_ready else "preparation_go_final_readiness_pending" if preparation_ready else "no_go",
+        "go_e5_preparation": preparation_ready,
+        "go_e5_ccfb_readiness": final_ready,
+        "go_e5": final_ready,
         "source_fingerprint": source_fingerprint(),
         "git": {
             "current_head": _git("rev-parse", "HEAD"),
@@ -286,7 +288,11 @@ def build(regression: dict, manifest: dict) -> dict:
         "pending": [row for row in ccfb["rows"] if not row["passed"]],
         "claims": {
             "preparation": "e5a 的支持域、证明草图、追踪、只读留出审计和总核验代码已形成。",
-            "readiness": "原生 Linux 双硬件已完成；提交后干净 checkout 与最终提交绑定尚未完成。独立人工复核是可选增强项，不作为 Go 门槛。",
+            "readiness": (
+                "九项内部证据条件均已满足；独立人工复核是可选增强项，不作为 Go 门槛。"
+                if final_ready
+                else "原生 Linux 双硬件已完成；提交后干净 checkout 与最终提交绑定尚未完成。独立人工复核是可选增强项，不作为 Go 门槛。"
+            ),
             "holdout": "e5a 没有重跑留出 Kernel，也没有修改 e2 冻结规则。",
         },
     }
@@ -298,7 +304,7 @@ def write(report: dict) -> None:
         "# e5a 阶段状态与统一核验",
         "",
         f"- 状态：`{report['status']}`。",
-        f"- `go_e5_preparation={str(report['go_e5_preparation']).lower()}`；`go_e5_ccfb_readiness={str(report['go_e5_ccfb_readiness']).lower()}`；`go_e5=false`。",
+        f"- `go_e5_preparation={str(report['go_e5_preparation']).lower()}`；`go_e5_ccfb_readiness={str(report['go_e5_ccfb_readiness']).lower()}`；`go_e5={str(report['go_e5']).lower()}`。",
         f"- 源码指纹：`{report['source_fingerprint']}`。",
         "",
         "## 准备项核验",
@@ -307,9 +313,13 @@ def write(report: dict) -> None:
         "| --- | --- |",
         *[f"| {key} | {'通过' if value else '未满足'} |" for key, value in report["checks"].items()],
         "",
-        "## 最终 readiness 未满足项",
+        "## 最终 readiness",
         "",
-        *[f"- `{row['id']}`：{row['reason']}" for row in report["pending"]],
+        *(
+            [f"- `{row['id']}`：{row['reason']}" for row in report["pending"]]
+            if report["pending"]
+            else ["- 九项内部证据条件全部满足。"]
+        ),
         "",
         "## 结论边界",
         "",

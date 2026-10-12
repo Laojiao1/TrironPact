@@ -1,6 +1,6 @@
 # e5a 正式证据内容清单
 
-- Git：`fcac52b0f48520e9a7c3e900cd2fa61d5d2c3e6c`（`eval`）。
+- Git：`efaa0f0b1737a2f48964f83914baaa8817d12ede`（`eval`）。
 - SHA-256 绑定既有正式 JSON、冻结清单与原始数据；它不改变历史报告。
 
 | 路径 | SHA-256 | JSON | 时间 |
