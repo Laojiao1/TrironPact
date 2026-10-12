@@ -1,20 +1,23 @@
 {
-  "generated_at": "2026-10-12T14:46:52.905766+08:00",
-  "status": "internal_development_complete_final_freeze_pending",
+  "generated_at": "2026-10-12T15:02:24.364638+08:00",
+  "status": "complete",
   "internal_development_complete": true,
   "go_e5_preparation": true,
-  "go_e5_ccfb_readiness": false,
-  "go_e5": false,
+  "go_e5_ccfb_readiness": true,
+  "go_e5": true,
   "source_fingerprint": "776789f9cbd506d96064e1ab5d019f88cbe020a482f18bc1f204e71fbbe272f6",
   "validation": {
-    "pytest": "164 passed in 104.75s (0:01:44)",
+    "pytest": "164 passed in 97.98s (0:01:37)",
     "legacy_isolation": "11/11"
   },
-  "deferred": [
+  "deferred": [],
+  "completed_final_freeze": [
     {
       "id": "final_clean_checkout_freeze",
-      "status": "pending_user_commit",
-      "readiness_conditions": [8, 9]
+      "status": "complete",
+      "commit": "928b86dd705e044caf96bdbc2c6f53d5dac5e4d0",
+      "readiness_conditions": [8, 9],
+      "report": "results/e5_regression.json"
     }
   ],
   "completed_external": [

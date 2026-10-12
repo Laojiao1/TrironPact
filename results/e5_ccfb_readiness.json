@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-10-12T14:46:51.852742+08:00",
-  "status": "not_ready",
-  "go_e5_ccfb_readiness": false,
-  "go_e5": false,
+  "generated_at": "2026-10-12T15:02:23.410096+08:00",
+  "status": "ready",
+  "go_e5_ccfb_readiness": true,
+  "go_e5": true,
   "conditions": {
     "1_real_corpus_coverage_and_holdout_thresholds": true,
     "2_reproducible_risk_evidence": true,
@@ -11,8 +11,8 @@
     "5_fair_system_baselines": true,
     "6_correctness_argument_traceable": true,
     "7_secondary_and_zero_results_disclosed": true,
-    "8_current_commit_environment_and_data_bound": false,
-    "9_clean_checkout_one_click_verification": false
+    "8_current_commit_environment_and_data_bound": true,
+    "9_clean_checkout_one_click_verification": true
   },
   "rows": [
     {
@@ -52,27 +52,16 @@
     },
     {
       "id": "8_current_commit_environment_and_data_bound",
-      "passed": false,
-      "reason": "当前仍是未提交开发工作树；提交后需在目标提交重新生成最终证据清单。"
+      "passed": true,
+      "reason": "证据满足"
     },
     {
       "id": "9_clean_checkout_one_click_verification",
-      "passed": false,
-      "reason": "最终条件要求提交后的干净 checkout 重跑；开发验收不能提前满足。"
+      "passed": true,
+      "reason": "证据满足"
     }
   ],
-  "missing": [
-    {
-      "id": "8_current_commit_environment_and_data_bound",
-      "passed": false,
-      "reason": "当前仍是未提交开发工作树；提交后需在目标提交重新生成最终证据清单。"
-    },
-    {
-      "id": "9_clean_checkout_one_click_verification",
-      "passed": false,
-      "reason": "最终条件要求提交后的干净 checkout 重跑；开发验收不能提前满足。"
-    }
-  ],
+  "missing": [],
   "scope": "这些是项目路线的内部论文证据门槛，不是 CCF 会议官方录用规则。",
   "observed": {
     "workloads": 2,

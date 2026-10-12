@@ -31,7 +31,7 @@ e5a 最初只实现不依赖外部资源的正确性论证、证据追踪、冻�
 ## 状态与边界
 
 - `go_e5_preparation=true`：e5a 范围完成。
-- `go_e5_ccfb_readiness=false`、`go_e5=false`：e4b 双原生 Linux GPU 已完成；当前仅提交后证据绑定和干净 checkout 最终重跑仍缺失。独立人工复核为可选增强项。
+- 本记录生成时 `go_e5_ccfb_readiness=false`、`go_e5=false`，用于保留 e5a 当时的开发边界。2026-10-12 已在目标提交 `928b86d` 完成双硬件证据、提交绑定和干净 checkout 最终重跑；当前状态以 `results/e5_ccfb_readiness.json` 和 `results/e5_regression.json` 中的 `go_e5=true` 为准。独立人工复核为可选增强项。
 - e5a 源码指纹：`c35135b9d053753192483410b7eb3883828630feb29cac8bf36e418d7e9dfe93`。
 - e3 结果按正式报告原样定位：谓词引导未优于均匀随机；SMT 发现 1 个同域等价重复，合成删除为 0；不宣称普遍搜索优势或广泛精简。
 

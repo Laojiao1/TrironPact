@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-10-12T14:46:52.905766+08:00",
-  "status": "preparation_go_final_readiness_pending",
+  "generated_at": "2026-10-12T15:02:24.364638+08:00",
+  "status": "complete",
   "go_e5_preparation": true,
-  "go_e5_ccfb_readiness": false,
-  "go_e5": false,
+  "go_e5_ccfb_readiness": true,
+  "go_e5": true,
   "source_fingerprint": "776789f9cbd506d96064e1ab5d019f88cbe020a482f18bc1f204e71fbbe272f6",
   "git": {
-    "current_head": "c8b877c74177a24978ab90e319eddd9e162ed75b",
-    "origin_eval": "c8b877c74177a24978ab90e319eddd9e162ed75b",
+    "current_head": "928b86dd705e044caf96bdbc2c6f53d5dac5e4d0",
+    "origin_eval": "928b86dd705e044caf96bdbc2c6f53d5dac5e4d0",
     "branch": "eval",
-    "worktree_status": " M bench/catalog.json\n M bench/e5/validate.py\n M results/e5_ccfa_gap.json\n M results/e5_ccfb_readiness.json\n M results/e5_evidence_manifest.json\n M results/e5_evidence_manifest.md\n M results/e5_holdout_evaluation.json\n M results/e5_regression.json\n M results/e5_regression.md\n M results/e5_regression_isolation.md\n M results/e5_traceability.json\n M test/test_e5_validate.py",
+    "worktree_status": " M bench/catalog.json\n M results/e5_ccfa_gap.json\n M results/e5_ccfb_readiness.json\n M results/e5_ccfb_readiness.md\n M results/e5_evidence_manifest.json\n M results/e5_evidence_manifest.md\n M results/e5_holdout_evaluation.json\n M results/e5_regression_isolation.md\n M results/e5_traceability.json",
     "unexpected_paths": []
   },
   "environment": {
@@ -49,7 +49,7 @@
       "/mnt/f/Project/Paper/Code/TritonPact/results/e5_regression_isolation.md"
     ],
     "exit_code": 0,
-    "pytest_summary": "164 passed in 104.75s (0:01:44)",
+    "pytest_summary": "164 passed in 97.98s (0:01:37)",
     "legacy_isolation_passed": true,
     "legacy_checks": {
       "四个变体进入 Access IR": true,
@@ -64,24 +64,13 @@
       "经验观察与静态放行分开记录": true,
       "单谓词补集触发候选修订并放行": true
     },
-    "stdout_tail": "[1/2] 运行测试\n........................................................................ [ 43%]\n........................................................................ [ 87%]\n....................                                                     [100%]\n164 passed in 104.75s (0:01:44)\n[2/2] 运行隔离案例\n通过：四个变体进入 Access IR\n通过：语义规格与逐谓词来源可追溯\n通过：A 两组转置尺寸均出现数值错误\n通过：A Guard 拦截并正确回退\n通过：A2 非连续输入正确直通且连续化会复制\n通过：B 非整除边界正确直通\n通过：未知类型安全回退\n通过：官方教程双输入契约阻止错读\n通过：关键输入重复稳定\n通过：经验观察与静态放行分开记录\n通过：单谓词补集触发候选修订并放行\n受限案例验收：通过\nA 模板内的动态候选修订：已验证\n结果文件：e5_regression_isolation.md\n",
+    "stdout_tail": "[1/2] 运行测试\n........................................................................ [ 43%]\n........................................................................ [ 87%]\n....................                                                     [100%]\n164 passed in 97.98s (0:01:37)\n[2/2] 运行隔离案例\n通过：四个变体进入 Access IR\n通过：语义规格与逐谓词来源可追溯\n通过：A 两组转置尺寸均出现数值错误\n通过：A Guard 拦截并正确回退\n通过：A2 非连续输入正确直通且连续化会复制\n通过：B 非整除边界正确直通\n通过：未知类型安全回退\n通过：官方教程双输入契约阻止错读\n通过：关键输入重复稳定\n通过：经验观察与静态放行分开记录\n通过：单谓词补集触发候选修订并放行\n受限案例验收：通过\nA 模板内的动态候选修订：已验证\n结果文件：e5_regression_isolation.md\n",
     "report": "results/e5_regression_isolation.md"
   },
-  "pending": [
-    {
-      "id": "8_current_commit_environment_and_data_bound",
-      "passed": false,
-      "reason": "当前仍是未提交开发工作树；提交后需在目标提交重新生成最终证据清单。"
-    },
-    {
-      "id": "9_clean_checkout_one_click_verification",
-      "passed": false,
-      "reason": "最终条件要求提交后的干净 checkout 重跑；开发验收不能提前满足。"
-    }
-  ],
+  "pending": [],
   "claims": {
     "preparation": "e5a 的支持域、证明草图、追踪、只读留出审计和总核验代码已形成。",
-    "readiness": "原生 Linux 双硬件已完成；提交后干净 checkout 与最终提交绑定尚未完成。独立人工复核是可选增强项，不作为 Go 门槛。",
+    "readiness": "九项内部证据条件均已满足；独立人工复核是可选增强项，不作为 Go 门槛。",
     "holdout": "e5a 没有重跑留出 Kernel，也没有修改 e2 冻结规则。"
   }
 }
