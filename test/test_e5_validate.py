@@ -1,7 +1,7 @@
 from datetime import datetime
 
 import bench.e5.validate as validate
-from bench.e5.validate import _unexpected_worktree, _valid_report_time, build_evidence_manifest
+from bench.e5.validate import _unexpected_worktree, _valid_report_time, _verification_worktree_clean, build_evidence_manifest
 
 
 def test_e5_validator_allows_authorized_e4b_and_e5_scope():
@@ -19,6 +19,16 @@ def test_report_time_requires_timezone_and_valid_iso_string():
     assert _valid_report_time(now.isoformat(), now)
     assert not _valid_report_time("2026-10-08T10:00:00", now)
     assert not _valid_report_time("not-a-time", now)
+
+
+def test_final_clean_check_only_allows_proven_catalog_eol_diff(monkeypatch):
+    monkeypatch.setattr(validate, "_catalog_has_eol_only_diff", lambda: True)
+    assert _verification_worktree_clean("")
+    assert _verification_worktree_clean(" M bench/catalog.json")
+    assert not _verification_worktree_clean(" M bench/catalog.json\n M results/e5_regression.json")
+
+    monkeypatch.setattr(validate, "_catalog_has_eol_only_diff", lambda: False)
+    assert not _verification_worktree_clean(" M bench/catalog.json")
 
 
 def test_formal_evidence_manifest_is_complete_and_content_addressed():

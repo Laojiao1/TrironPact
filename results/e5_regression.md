@@ -2,7 +2,7 @@
 
 - 状态：`preparation_go_final_readiness_pending`。
 - `go_e5_preparation=true`；`go_e5_ccfb_readiness=false`；`go_e5=false`。
-- 源码指纹：`cccb8d146ba276d7f3516ec84213ae1561d6d624569727117df7ce366e05c996`。
+- 源码指纹：`776789f9cbd506d96064e1ab5d019f88cbe020a482f18bc1f204e71fbbe272f6`。
 
 ## 准备项核验
 
@@ -40,4 +40,4 @@
 
 ## 回归
 
-- `python test/run_tests.py --quick --output /mnt/f/Project/Paper/Code/TritonPact/results/e5_regression_isolation.md`：退出码 0；163 passed in 98.38s (0:01:38)；旧隔离 11/11。
+- `python test/run_tests.py --quick --output /mnt/f/Project/Paper/Code/TritonPact/results/e5_regression_isolation.md`：退出码 0；164 passed in 104.75s (0:01:44)；旧隔离 11/11。

@@ -111,22 +111,41 @@ def _unexpected_worktree(status: str) -> list[str]:
     )
     unexpected = []
     for line in status.splitlines():
-        path = line[3:].replace("\\", "/")
-        if " -> " in path:
-            path = path.split(" -> ", 1)[1]
+        path = _status_path(line)
         if path == "bench/catalog.json":
-            eol_only = subprocess.run(
-                ["git", "diff", "--ignore-space-at-eol", "--exit-code", "--", path],
-                cwd=PROJECT,
-                capture_output=True,
-                timeout=30,
-                check=False,
-            ).returncode == 0
-            if eol_only:
+            if _catalog_has_eol_only_diff():
                 continue
         if not path.startswith(allowed):
             unexpected.append(path)
     return unexpected
+
+
+def _status_path(line: str) -> str:
+    """从 porcelain v1 行中取得规范化路径，并处理 rename 记录。"""
+
+    path = line[3:].replace("\\", "/")
+    return path.split(" -> ", 1)[1] if " -> " in path else path
+
+
+def _catalog_has_eol_only_diff() -> bool:
+    """只豁免 Windows/WSL 对既有 catalog 行尾的不同解释，不忽略内容差异。"""
+
+    return subprocess.run(
+        ["git", "diff", "--ignore-space-at-eol", "--exit-code", "--", "bench/catalog.json"],
+        cwd=PROJECT,
+        capture_output=True,
+        timeout=30,
+        check=False,
+    ).returncode == 0
+
+
+def _verification_worktree_clean(status: str) -> bool:
+    """验证启动时必须无内容修改；仅接受已证明为纯行尾差异的 catalog。"""
+
+    lines = [line for line in status.splitlines() if line]
+    if not lines:
+        return True
+    return all(_status_path(line) == "bench/catalog.json" for line in lines) and _catalog_has_eol_only_diff()
 
 
 def _valid_report_time(value: object, now: datetime) -> bool:
@@ -335,7 +354,7 @@ def write(report: dict) -> None:
 
 def main() -> int:
     argparse.ArgumentParser().parse_args()
-    initial_worktree_clean = _git("status", "--short") == ""
+    initial_worktree_clean = _verification_worktree_clean(_git("status", "--short"))
     manifest = build_evidence_manifest()
     _write_manifest(manifest)
     holdout = build_holdout()

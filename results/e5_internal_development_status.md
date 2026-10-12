@@ -1,6 +1,6 @@
 # e5 内部开发收束状态
 
-生成时间：2026-10-12T14:17:47.47128+08:00。
+生成时间：2026-10-12T14:46:52.905766+08:00。
 
 ## 结论
 
@@ -18,9 +18,9 @@ e4b 原生 Linux 双硬件实验已于 2026-10-12 完成，条件 4 通过。
 
 ## 当前证据
 
-- 完整回归：163 passed。
+- 完整回归：164 passed。
 - 旧隔离回归：11/11。
-- e5 源码指纹：`cccb8d146ba276d7f3516ec84213ae1561d6d624569727117df7ce366e05c996`。
+- e5 源码指纹：`776789f9cbd506d96064e1ab5d019f88cbe020a482f18bc1f204e71fbbe272f6`。
 - e4b：RTX 4090 与 RTX 5080，smoke 2/2，两个工作负载正确性 2/2，`go_e4_cross_hardware=true`。
 - 可选审阅包：7/28 个正式 Kernel、5 个来源、4 类结构、4/4 风险案例，状态 `ready_for_independent_reviewer`、`review_complete=false`；不阻塞 readiness。
 
